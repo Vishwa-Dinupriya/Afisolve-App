@@ -22,4 +22,5 @@ describe('AuthenticationComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });
