@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, FormBuilder, Validators, FormArray} from '@angular/forms';
-import {forbiddenNameValidator1} from './shared/user-name.validator';
-import {forbiddenNameValidator2} from './shared/user-name.validator';
-import {PasswordValidator1} from './shared/password.validator';
-import {RegistrationService} from './registration.service';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, FormBuilder, Validators, FormArray, AbstractControl} from '@angular/forms';
+import {forbiddenNameValidator1} from '../shared/user-name.validator';
+import {forbiddenNameValidator2} from '../shared/user-name.validator';
+import {PasswordValidator1} from '../shared/password.validator';
+import {AuthenticationService} from '../authentication.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,11 +14,11 @@ export class SignupComponent implements OnInit {
 
   registrationForm: FormGroup;
 
-  get userName() {
+  get userName(): AbstractControl {
     return this.registrationForm.get('userName');
   }
 
-  get email() {
+  get email(): AbstractControl {
     return this.registrationForm.get('email');
   }
 
@@ -33,20 +33,20 @@ export class SignupComponent implements OnInit {
     }));
   }
 
-  constructor(private fb1: FormBuilder, private registrationService1: RegistrationService) {
+  constructor(private fb1: FormBuilder, private authenticationService: AuthenticationService) {
   }
 
   ngOnInit(): void {
     this.registrationForm = this.fb1.group({
       userName: ['Vishwa', [Validators.required, Validators.minLength(3), forbiddenNameValidator1, forbiddenNameValidator2(/password/)]],
-      email: [''],
+      email: ['a@b.com'],
       subscribe: [false],
-      password: [''],
-      confirmPassword: [''],
+      password: ['123', [Validators.required]],
+      confirmPassword: ['123'],
       address: this.fb1.group({
-        city: [''],
-        state: [''],
-        postalCode: [''],
+        city: ['asd'],
+        state: ['asd'],
+        postalCode: ['asd'],
       }),
       alternateEmails: this.fb1.array([])
     }, {validator: PasswordValidator1}); // 'form builder'(fb) is a simpler alternative to create form groups and form controls
@@ -113,12 +113,12 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(): void{
     console.log(this.registrationForm.value);
-    this.registrationService1.register(this.registrationForm.value)
+    this.authenticationService.register(this.registrationForm.value)
       .subscribe(
-        response => console.log('Success!', response),
-        error => console.error('Error!', error)
+        response => console.log('Success!(frontend)', response),
+        error => console.error('Error!(frontend)', error)
       );
   }
 

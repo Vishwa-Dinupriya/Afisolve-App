@@ -1,7 +1,8 @@
-<h1>signup componrnt</h1>
+<h2>signup component</h2>
 
 <div class="container-fluid">
-  <h2 align="center">Sign up</h2>
+  <button class="btn btn-secondary" type="button" [routerLink]="['/' + '../login']">Log In</button>
+  <h1 align="center">Sign Up</h1>
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
     {{registrationForm.value | json}}
 
@@ -96,7 +97,7 @@
       </div>
     </div>
 
-    <button class="btn btn-primary" type="submit" [disabled]="!registrationForm.valid">Register</button>
+    <button class="btn btn-primary" type="submit" [disabled]="!registrationForm.valid">Sign Up</button>
     <button class="btn btn-secondary" type="button" (click)="loadApiData()">Load API Data</button>
     {{registrationForm.valid}}
   </form>

@@ -5,10 +5,10 @@ import {Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class RegistrationService {
+export class AuthenticationService {
 
-  url1 = 'http://localhost:3000/enroll';
-  url2 = 'http://localhost:3000/enroll/login';
+  url1 = 'http://localhost:3000/api/register';
+  url2 = 'http://localhost:3000/api/login';
 
   constructor(private http1: HttpClient) {
   }
@@ -18,7 +18,7 @@ export class RegistrationService {
   }
 
   login(userData): Observable<any> {
-    return this.http1.post<any>(this.url1, userData);
+    return this.http1.post<any>(this.url2, userData);
   }
 
 }
