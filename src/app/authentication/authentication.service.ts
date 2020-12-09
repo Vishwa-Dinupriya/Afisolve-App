@@ -21,7 +21,7 @@ export class AuthenticationService {
     return this.http1.post<any>(this.loginUrl, userData);
   }
 
-  loggedIn(): boolean {
+  ifLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 

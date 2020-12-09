@@ -1,15 +1,13 @@
-
-
 <div class="container-fluid" style="padding-top: 30px">
   <button class="btn btn-secondary" type="button" [routerLink]="['/' + '../signup']">Signup</button>
   <div align="center">
-    <img src="assets/img/afisole.png" height="60px">
+    <img src="assets/img/afisolve logo.png" height="60px">
   </div>
   <h1 align="center" style="padding-top: 20px;font-size: 20px">Welcome to Afisolve! Lets Start</h1>
   <form [formGroup]="loginForm" (ngSubmit)="onLogin()" style="padding-left: 430px">
     {{loginForm.value | json}}
 
-    <div class="form-group" style="width: 500px;" >
+    <div class="form-group" style="width: 500px;">
       <label>Username</label>
       <input align="center" formControlName="userName"
              type="text"
@@ -18,7 +16,8 @@
       <div *ngIf="userName.invalid && userName.touched">
         <small *ngIf="userName.errors?.required" class="text-danger">Username is required</small>
         <small *ngIf="userName.errors?.minlength" class="text-danger">Username must be at least 3 characters</small>
-        <small *ngIf="userName.errors?.forbiddenName" class="text-danger">{{userName.errors?.forbiddenName.value}}Username not allowed</small>
+        <small *ngIf="userName.errors?.forbiddenName" class="text-danger">{{userName.errors?.forbiddenName.value}}
+          Username not allowed</small>
       </div>
     </div>
 
@@ -29,12 +28,14 @@
              class="form-control">
     </div>
     <div style="padding-left: 50px">
-      <button  style="width: 400px;" class="btn btn-danger" type="submit" [disabled]="!loginForm.valid">Sign In</button>
+      <button style="width: 400px;" class="btn btn-danger" type="submit" [disabled]="!loginForm.valid">Sign In</button>
       {{loginForm.valid}}
     </div>
   </form>
 </div>
 
-<div style="position: fixed;left: 0;bottom: 0;width: 100%;background-color: black;text-align: center;height: 50px;color:gray;">
-  <p style="padding-top: 10px">afisole &#169; 2020 &nbsp;&nbsp; | &nbsp;&nbsp; Community Guideline &nbsp;&nbsp; | &nbsp;&nbsp; User Agreement</p>
+<div
+  style="position: fixed;left: 0;bottom: 0;width: 100%;background-color: black;text-align: center;height: 50px;color:gray;">
+  <p style="padding-top: 10px">afisole &#169; 2020 &nbsp;&nbsp; | &nbsp;&nbsp; Community Guideline &nbsp;&nbsp; | &nbsp;&nbsp;
+    User Agreement</p>
 </div>
