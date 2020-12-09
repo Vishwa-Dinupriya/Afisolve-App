@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {FormControl, FormGroup, FormBuilder, Validators, FormArray, AbstractControl} from '@angular/forms';
 import {forbiddenNameValidator1} from '../shared/user-name.validator';
 import {forbiddenNameValidator2} from '../shared/user-name.validator';
@@ -22,7 +23,7 @@ export class SignupComponent implements OnInit {
     return this.registrationForm.get('email');
   }
 
-  get alternateEmails() {
+  get alternateEmails(): FormArray {
     return this.registrationForm.get('alternateEmails') as FormArray;
   }
 
@@ -33,7 +34,9 @@ export class SignupComponent implements OnInit {
     }));
   }
 
-  constructor(private fb1: FormBuilder, private authenticationService: AuthenticationService) {
+  constructor(private fb1: FormBuilder,
+              private authenticationService: AuthenticationService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -43,11 +46,7 @@ export class SignupComponent implements OnInit {
       subscribe: [false],
       password: ['123', [Validators.required]],
       confirmPassword: ['123'],
-      address: this.fb1.group({
-        city: ['asd'],
-        state: ['asd'],
-        postalCode: ['asd'],
-      }),
+      role: ['', [Validators.required]],
       alternateEmails: this.fb1.array([])
     }, {validator: PasswordValidator1}); // 'form builder'(fb) is a simpler alternative to create form groups and form controls
 
@@ -64,47 +63,7 @@ export class SignupComponent implements OnInit {
       });
   }
 
-
-  // F i r s t___M e t h o d
-  // "Form Model" is an instance of FormGroup
-  // registrationForm = new FormGroup({
-  //   userName: new FormControl('Vishwa'),
-  //   password: new FormControl(''),
-  //   confirmPassword: new FormControl(''),
-  //   address: new FormGroup({
-  //     city: new FormControl(''),
-  //     state: new FormControl(''),
-  //     postalCode: new FormControl(''),
-  //   })
-  // });
-
-  // S e c o n d__M e t h o d
-  // registrationForm = this.fb1.group({
-  //   userName: ['Vishwa', [Validators.required, Validators.minLength(3), forbiddenNameValidator1, forbiddenNameValidator2(/password/)]],
-  //   email: [''],
-  //   subscribe: [false],
-  //   password: [''],
-  //   confirmPassword: [''],
-  //   address: this.fb1.group({
-  //     city: [''],
-  //     state: [''],
-  //     postalCode: [''],
-  //   })
-  // }, {validator: PasswordValidator1}); // 'form builder'(fb) is a simpler alternative to create form groups and form controls
-
   loadApiData(): void {
-    //   this.registrationForm.setValue({
-    //     userName: 'Bruce',
-    //     password: 'test',
-    //     confirmPassword: 'test',
-    //     address: {
-    //       city: 'City',
-    //       state: 'State',
-    //       postalCode: '123456',
-    //     }
-    //   // when using 'setValue' then need to provide data for each & every form control
-    // });
-
     this.registrationForm.patchValue({
       userName: 'Bruce',
       password: 'test',
@@ -113,11 +72,15 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  onSubmit(): void{
+  onSubmit(): void {
     console.log(this.registrationForm.value);
     this.authenticationService.register(this.registrationForm.value)
       .subscribe(
-        response => console.log('Success!(frontend)', response),
+        response => {
+          console.log('Success!(frontend)', response);
+          localStorage.setItem('token', response.token);
+          this.router.navigate([`../${response.role}`]);
+        },
         error => console.error('Error!(frontend)', error)
       );
   }

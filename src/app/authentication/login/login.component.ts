@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, FormBuilder, Validators, FormArray, AbstractControl} from '@angular/forms';
+import {Router} from '@angular/router';
+import {FormControl, FormGroup, FormBuilder, Validators, AbstractControl} from '@angular/forms';
 import {forbiddenNameValidator1} from '../shared/user-name.validator';
 import {forbiddenNameValidator2} from '../shared/user-name.validator';
-import {PasswordValidator1} from '../shared/password.validator';
 import {AuthenticationService} from '../authentication.service';
 
 @Component({
@@ -22,12 +22,13 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
-  constructor(private fb1: FormBuilder, private authenticationService: AuthenticationService) {
-  }
+  constructor(private fb1: FormBuilder,
+              private authenticationService: AuthenticationService,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb1.group({
-      userName: ['Vishwa', [Validators.required, Validators.minLength(3), forbiddenNameValidator1, forbiddenNameValidator2(/password/)]],
+      userName: ['Admin', [Validators.required, Validators.minLength(3), forbiddenNameValidator1, forbiddenNameValidator2(/password/)]],
       password: ['123', [Validators.required]]
     });
   }
@@ -36,8 +37,15 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value);
     this.authenticationService.login(this.loginForm.value)
       .subscribe(
-        response => console.log('Success!(frontend)', response),
-        error => console.error('Error!(frontend)', error)
+        response => {
+          console.log('Success!(frontend)', response);
+          localStorage.setItem('token', response.token);
+          console.log(response.role);
+          this.router.navigate([`../${response.role}`]);
+        },
+        error => {
+          console.error('Error!(frontend)', error);
+        }
       );
   }
 

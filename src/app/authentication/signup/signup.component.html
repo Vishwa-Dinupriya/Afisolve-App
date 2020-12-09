@@ -5,7 +5,7 @@
   <h1 align="center">Sign Up</h1>
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
     {{registrationForm.value | json}}
-
+    <!-------------------------------------------------------------------------------->
     <div class="form-group">
       <label>Username</label>
       <input formControlName="userName"
@@ -13,13 +13,6 @@
              class="form-control"
              [class.is-invalid]="registrationForm.get('userName').invalid &&
                                    registrationForm.get('userName').touched">
-      <!--      <small class="text-danger"-->
-      <!--             [class.d-none]="registrationForm.get('userName').valid ||-->
-      <!--                             registrationForm.get('userName').untouched"  >-->
-      <!--      Username is required-->
-      <!--      </small>-->
-      <!--  Also i create a getter method in component.ts file. then we can use that
-            getter's name(userName) instead of this long one.(registrationForm.get('userName'))-->
 
       <div *ngIf="userName.invalid && userName.touched">
         <small *ngIf="userName.errors?.required" class="text-danger">Username is required</small>
@@ -28,7 +21,7 @@
           Username not allowed</small>
       </div>
     </div>
-
+    <!-------------------------------------------------------------------------------->
     <div>
       <div class="form-group">
         <label>Email</label>
@@ -38,9 +31,6 @@
                class="form-control"
                [class.is-invalid]="email.invalid && email.touched">
         <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
-        <!--        <div formArrayName="alternateEmails" *ngFor="let email of alternateEmails.controls; let i=index">-->
-        <!--          <input type="text" class="form-control my-1" [formControlName]="i">-->
-        <!--        </div>-->
         <div formArrayName="alternateEmails" *ngFor="let email of alternateEmails.controls; let i = index">
           <div [formGroupName]="i">
             <input type="text" class="form-control my-1 col-3" formControlName="alternateEmail">
@@ -50,21 +40,21 @@
 
       </div>
     </div>
-
+    <!--------------------------------------------------------------------------------->
     <div class="form-check mb-3">
       <input class="form-check-input"
              formControlName="subscribe"
              type="checkbox">
       <label class="form-check-label">Send me promotional offers</label>
     </div>
-
+    <!--------------------------------------------------------------------------------->
     <div class="form-group">
       <label>Password</label>
       <input formControlName="password"
              type="password"
              class="form-control">
     </div>
-
+    <!--------------------------------------------------------------------------------->
     <div class="form-group">
       <label>Confirm Password</label>
       <input formControlName="confirmPassword"
@@ -73,29 +63,20 @@
              [class.is-invalid]="registrationForm.errors?.misMatch">
       <small class="text-danger" *ngIf="registrationForm.errors?.misMatch">Password do not match</small>
     </div>
-
-    <div formGroupName="address" >
-      <div class="form-group">
-        <label>City</label>
-        <input formControlName="city"
-               type="text"
-               class="form-control">
-      </div>
-
-      <div class="form-group">
-        <label>State</label>
-        <input formControlName="state"
-               type="text"
-               class="form-control">
-      </div>
-
-      <div class="form-group">
-        <label>Postal Code</label>
-        <input formControlName="postalCode"
-               type="text"
-               class="form-control">
-      </div>
+    <!--------------------------------------------------------------------------------->
+    <div>
+      <label >Role</label>
+      <select formControlName="role"
+              class="form-control">
+        <option value="admin">Admin</option>
+        <option value="customer">customer</option>
+        <option value="accountCoordinator">accountCoordinator</option>
+        <option value="projectManager">projectManager</option>
+        <option value="developer">developer</option>
+        <option value="ceo">ceo</option>
+      </select>
     </div>
+    <!--------------------------------------------------------------------------------->
 
     <button class="btn btn-primary" type="submit" [disabled]="!registrationForm.valid">Sign Up</button>
     <button class="btn btn-secondary" type="button" (click)="loadApiData()">Load API Data</button>

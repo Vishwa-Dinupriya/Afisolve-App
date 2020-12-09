@@ -7,18 +7,30 @@ import {Observable} from 'rxjs';
 })
 export class AuthenticationService {
 
-  url1 = 'http://localhost:3000/api/register';
-  url2 = 'http://localhost:3000/api/login';
+  registerUrl = 'http://localhost:3000/authentication/register';
+  loginUrl = 'http://localhost:3000/authentication/login';
 
   constructor(private http1: HttpClient) {
   }
 
   register(userData): Observable<any> {
-    return this.http1.post<any>(this.url1, userData);
+    return this.http1.post<any>(this.registerUrl, userData);
   }
 
   login(userData): Observable<any> {
-    return this.http1.post<any>(this.url2, userData);
+    return this.http1.post<any>(this.loginUrl, userData);
+  }
+
+  loggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  get token(): string {
+    try {
+      return localStorage.getItem('token');
+    } catch (Exception) {
+      return null;
+    }
   }
 
 }
