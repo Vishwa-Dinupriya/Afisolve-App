@@ -6,7 +6,7 @@ import {userError} from '@angular/compiler-cli/src/transformers/util';
 @Injectable({
   providedIn: 'root'
 })
-export class TokenInterceptorService implements HttpInterceptor {
+export class TokenInterceptor implements HttpInterceptor {
 
   constructor(
     private injector: Injector

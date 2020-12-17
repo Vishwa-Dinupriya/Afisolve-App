@@ -27,6 +27,10 @@ const routes: Routes = [
           path: 'login',
           component: LoginComponent
         },
+        {
+          path: 'signup',
+          component: SignupComponent
+        },
       ]
     },
     {
@@ -43,12 +47,6 @@ const routes: Routes = [
       path: 'admin',
       component: AdminComponent,
       canActivate: [AuthenticationGuard],
-      children: [
-        {
-          path: 'signup',
-          component: SignupComponent
-        }
-      ]
     },
     {
       path: 'ceo',

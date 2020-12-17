@@ -13,12 +13,13 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AccountCoordinatorComponent} from './accountCoordinator/account-coordinator.component';
 import {AuthenticationService} from './authentication/authentication.service';
 import {AuthenticationGuard} from './authentication/authentication.guard';
-import {TokenInterceptorService} from './authentication/token-interceptor.service';
+import {TokenInterceptor} from './authentication/token.interceptor';
 import {AdminComponent} from './admin/admin.component';
 import {CustomerComponent} from './customer/customer.component';
 import {CeoComponent} from './ceo/ceo.component';
 import {DeveloperComponent} from './developer/developer.component';
 import {ProjectManagerComponent} from './projectManager/project-manager.component';
+import {ErrorInterceptor} from './authentication/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,11 @@ import {ProjectManagerComponent} from './projectManager/project-manager.componen
     AuthenticationGuard,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
+      useClass: TokenInterceptor,
+      multi: true
+    }, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true
     }],
   bootstrap: [AppComponent]
