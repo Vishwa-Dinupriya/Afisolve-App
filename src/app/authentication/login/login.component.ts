@@ -39,8 +39,8 @@ export class LoginComponent implements OnInit {
       .subscribe(
         response => {
           console.log('Success!(frontend)', response);
-          localStorage.setItem('token', response.token);
           console.log(response.role);
+          localStorage.setItem('token', response.token);
           this.router.navigate([`../${response.role}`]);
         },
         error => {

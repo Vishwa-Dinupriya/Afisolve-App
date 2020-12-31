@@ -14,8 +14,8 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next): any {
-    const authentication = this.injector.get(AuthenticationService);
-    const currentUser = authentication.token;
+    const authenticationService = this.injector.get(AuthenticationService);
+    const currentUser = authenticationService.token;
     if (currentUser) {
       req = req.clone({
         setHeaders: {

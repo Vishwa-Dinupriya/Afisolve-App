@@ -1,6 +1,71 @@
-<h1>admin works!</h1>
-<button class="btn btn-secondary" type="button" [routerLink]="['./' + '../signup']">Register new user</button>
-<button class="btn btn-secondary" type="button" *ngIf="authenticationService.isLoggedIn()" (click)="authenticationService.logout()">Logout</button>
+<!--<h1>admin works!</h1>-->
+<!--<button class="btn btn-secondary" type="button" [routerLink]="['./' + '../signup']">Register new user</button>-->
+<!--<button class="btn btn-secondary" type="button" *ngIf="authenticationService.isLoggedIn()" (click)="authenticationService.logout()">Logout</button>-->
 
-<h2> Name : {{ name }} </h2>
+<!--<h2> Name : {{ name }} </h2>-->
+
+
+<div>
+
+  <div class="pos-f-t">
+    <div class="collapse" id="navbarToggleExternalContent">
+      <div class="bg-dark p-4">
+        <h4 class="text-white">admin</h4>
+        <h2> Admin {{ name }} </h2>
+        <span class="text-muted">admin</span>
+      </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+
+      <div style="padding-left:1400px">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+<body class="home">
+
+<div class="container-fluid display-table">
+  <div class="row display-table-row">
+    <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" style="width: 15%" id="navigation">
+
+      <div class="navi">
+
+        <ul>
+          <li class="active"><a><i aria-hidden="true"></i><span class="hidden-xs hidden-sm">
+            <button class="btn btn-secondary" type="button" [routerLink]="['./' + '../signup']">Register new user</button>
+
+          </span></a>
+          </li>
+          <li><a href="#"><i aria-hidden="true"></i><span class="hidden-xs hidden-sm">Pending Complaint</span></a></li>
+
+          <li><a href="#"><i aria-hidden="true"></i><span class="hidden-xs hidden-sm">Ongoing Complaints</span></a></li>
+          <li><a href="#"><i aria-hidden="true"></i><span class="hidden-xs hidden-sm">Completed Complaint</span></a>
+          </li>
+          <li><a href="#"><i aria-hidden="true"></i><span class="hidden-xs hidden-sm">History</span></a></li>
+          <li><a href="#"><i aria-hidden="true"></i><span class="hidden-xs hidden-sm">Chat</span></a></li>
+          <li><a href="#"><i aria-hidden="true"></i><span class="hidden-xs hidden-sm">
+            <button class="btn btn-secondary" type="button" *ngIf="authenticationService.isLoggedIn()" (click)="authenticationService.logout()">Logout</button>
+
+          </span></a></li>
+
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-10 col-sm-11 display-table-cell v-align">
+
+      <div class="row">
+        <i class="fa fa-align-justify" style="font-size:48px;color:red"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+
 

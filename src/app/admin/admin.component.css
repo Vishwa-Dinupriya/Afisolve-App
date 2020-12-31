@@ -1,0 +1,138 @@
+
+
+li,ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+
+
+.home {
+  background: #f6f7fa;
+}
+
+#navigation {
+  background: #000000;
+}
+
+#navigation {
+  padding: 0;
+}
+
+.display-table {
+  display: table;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.display-table-row {
+  display: table-row;
+  height: 100%;
+}
+
+.display-table-cell {
+  display: table-cell;
+  float: none;
+  height: 100%;
+}
+
+.v-align {
+  vertical-align: top;
+}
+
+
+
+#navigation{
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+
+header {
+  background: #ffffff none repeat scroll 0 0;
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.04);
+  display: inline-block !important;
+  line-height: 23px;
+  padding: 15px;
+  transition: all 0.5s ease 0s;
+  width: 100%;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+
+.navi a {
+
+  color: #ffffff;
+  display: block;
+  font-size: 17px;
+  font-weight: 500;
+  padding: 28px 20px;
+  text-decoration: none;
+}
+
+
+.navi .active a {
+  background: #16171a;
+  border-left: 5px solid #5584ff;
+  padding-left: 15px;
+}
+
+.navi a:hover {
+  background: #4d4e4f none repeat scroll 0 0;
+  border-left: 5px solid #5584ff;
+  display: block;
+  padding-left: 15px;
+}
+
+
+
+
+.hidden-xs{
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#navigation .navi a {
+  font-size: 14px;
+  padding: 20px;
+  text-align: left;
+}
+#navigation .navi i {
+  margin-right: 0px;
+}
+#navigation .navi a:hover,
+#navigation .navi .active a {
+  background: #131315 none repeat scroll 0 0;
+  border-left: none;
+  display: block;
+  padding-left: 20px;
+}
+
+.v-align header {
+  padding: 12px 15px;
+}
+header .header-top li {
+  padding-left: 13px;
+  padding-right: 6px;
+}
+
+.navbar-header .navbar-toggle {
+  float: left;
+  margin: 0;
+  padding: 0;
+  top: 12px;
+}
+
+.customer-db-img{
+  width:30% ;
+}
