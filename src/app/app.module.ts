@@ -10,16 +10,19 @@ import {SignupComponent} from './authentication/signup/signup.component';
 import {MaterialModule} from './material/material.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import {AccountCoordinatorComponent} from './accountCoordinator/account-coordinator.component';
+import {AccountCoordinatorComponent} from './home/accountCoordinator/account-coordinator.component';
 import {AuthenticationService} from './authentication/authentication.service';
 import {AuthenticationGuard} from './authentication/authentication.guard';
 import {TokenInterceptor} from './authentication/token.interceptor';
-import {AdminComponent} from './admin/admin.component';
-import {CustomerComponent} from './customer/customer.component';
-import {CeoComponent} from './ceo/ceo.component';
-import {DeveloperComponent} from './developer/developer.component';
-import {ProjectManagerComponent} from './projectManager/project-manager.component';
+import {AdminComponent} from './home/admin/admin.component';
+import {CustomerComponent} from './home/customer/customer.component';
+import {CeoComponent} from './home/ceo/ceo.component';
+import {DeveloperComponent} from './home/developer/developer.component';
+import {ProjectManagerComponent} from './home/projectManager/project-manager.component';
 import {ErrorInterceptor} from './authentication/error.interceptor';
+import { ComplaintComponent } from './home/admin/complaint/complaint.component';
+import { UserComponent } from './home/admin/user/user.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import {ErrorInterceptor} from './authentication/error.interceptor';
     AccountCoordinatorComponent,
     DeveloperComponent,
     ProjectManagerComponent,
+    ComplaintComponent,
+    UserComponent,
+    HomeComponent,
 
   ],
   imports: [

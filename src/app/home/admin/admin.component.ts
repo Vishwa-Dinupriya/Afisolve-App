@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {AuthenticationService} from '../authentication/authentication.service';
+import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Component({
   selector: 'app-admin',
@@ -10,6 +10,7 @@ import {AuthenticationService} from '../authentication/authentication.service';
 export class AdminComponent implements OnInit {
 
   name: string;
+  activeRoute: string;
 
   constructor(private http: HttpClient, public authenticationService: AuthenticationService) {
   }
@@ -19,6 +20,11 @@ export class AdminComponent implements OnInit {
       response => this.name = response.email,
       error => console.log(error)
     );
+  }
+
+  getRoute(event): void {
+    this.activeRoute = event.constructor.name;
+    console.log(this.activeRoute);
   }
 
 }

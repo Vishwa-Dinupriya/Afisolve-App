@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
           console.log('Success!(frontend)', response);
           console.log(response.role);
           localStorage.setItem('token', response.token);
-          this.router.navigate([`../${response.role}`]);
+          this.router.navigate([`../home/${response.role}`]);
         },
         error => {
           console.error('Error!(frontend)', error);
