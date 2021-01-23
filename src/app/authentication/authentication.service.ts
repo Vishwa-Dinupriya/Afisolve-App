@@ -8,14 +8,14 @@ import {Router} from '@angular/router';
 })
 export class AuthenticationService {
 
-  registerUrl = 'http://localhost:3000/authentication/register';
+  signupUrl = 'http://localhost:3000/authentication/register';
   loginUrl = 'http://localhost:3000/authentication/login';
 
   constructor(private http1: HttpClient, private router: Router) {
   }
 
-  register(userData): Observable<any> {
-    return this.http1.post<any>(this.registerUrl, userData);
+  signup(userData): Observable<any> {
+    return this.http1.post<any>(this.signupUrl, userData);
   }
 
   login(userData): Observable<any> {

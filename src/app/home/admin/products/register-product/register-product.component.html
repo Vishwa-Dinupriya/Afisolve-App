@@ -1,0 +1,49 @@
+<div class="container-fluid">
+
+  <h1 align="center" style="">Register new Product</h1>
+
+  <form [formGroup]="productRegistrationForm" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Product Name</mat-label>
+        <input type="text" matInput formControlName="productName" placeholder="Product Name">
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Product Category</mat-label>
+        <input type="text" matInput formControlName="productCategory" placeholder="Product Category">
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Customer Email</mat-label>
+        <input type="text" matInput formControlName="customerEmail" placeholder="user@gmail.com">
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Project-Manager Email</mat-label>
+        <input type="text" matInput formControlName="projectManagerEmail" placeholder="user@gmail.com">
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Account-Coordinator Email</mat-label>
+        <input type="text" matInput formControlName="accountCoordinatorEmail" placeholder="user@gmail.com">
+      </mat-form-field>
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="!productRegistrationForm.valid">Enter</button>
+
+  </form>
+
+</div>
+
+

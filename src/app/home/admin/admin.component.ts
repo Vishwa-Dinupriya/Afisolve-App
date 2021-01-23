@@ -9,17 +9,15 @@ import {AuthenticationService} from '../../authentication/authentication.service
 })
 export class AdminComponent implements OnInit {
 
-  name: string;
   activeRoute: string;
 
-  constructor(private http: HttpClient, public authenticationService: AuthenticationService) {
+  constructor(
+    private http: HttpClient,
+    public authenticationService: AuthenticationService
+  ) {
   }
 
   ngOnInit(): void {
-    this.http.post<any>('http://localhost:3000/admin/user-details', {}).subscribe(
-      response => this.name = response.email,
-      error => console.log(error)
-    );
   }
 
   getRoute(event): void {

@@ -1,0 +1,51 @@
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label="Create new User">
+    <router-outlet ></router-outlet>
+  </mat-tab>
+
+  <mat-tab label="View Users">
+
+    <table mat-table [dataSource]="dataSource" class="w-100">
+
+      <!-- user email Column -->
+      <ng-container matColumnDef="userEmail">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
+      </ng-container>
+
+      <!-- user password Column -->
+      <ng-container matColumnDef="password">
+        <th mat-header-cell *matHeaderCellDef> Password </th>
+        <td mat-cell *matCellDef="let element"> {{element.password}} </td>
+      </ng-container>
+
+      <!-- first name Column -->
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef> First Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+      </ng-container>
+
+      <!-- last name Column-->
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef> Last Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+      </ng-container>
+
+      <!-- contact number Column-->
+      <ng-container matColumnDef="contactNumber">
+        <th mat-header-cell *matHeaderCellDef> Contact Number </th>
+        <td mat-cell *matCellDef="let element"> {{element.contactNumber}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+
+  </mat-tab>
+
+  <mat-tab label="Third"></mat-tab>
+</mat-tab-group>
+
+

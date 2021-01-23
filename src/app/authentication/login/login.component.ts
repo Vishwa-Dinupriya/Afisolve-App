@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb1.group({
-      userName: ['Admin', [Validators.required, Validators.minLength(3), forbiddenNameValidator1, forbiddenNameValidator2(/password/)]],
+      userName: ['a@b.com', [Validators.required, Validators.minLength(3), forbiddenNameValidator1, forbiddenNameValidator2(/password/)]],
       password: ['123', [Validators.required]]
     });
   }
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
           console.log('Success!(frontend)', response);
           console.log(response.role);
           localStorage.setItem('token', response.token);
-          this.router.navigate([`../home/${response.role}`]);
+          this.router.navigate([`../home/${response.role.toLowerCase()}`]);
         },
         error => {
           console.error('Error!(frontend)', error);

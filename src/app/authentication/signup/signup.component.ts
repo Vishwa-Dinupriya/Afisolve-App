@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {FormControl, FormGroup, FormBuilder, Validators, FormArray, AbstractControl} from '@angular/forms';
+import {FormGroup, FormBuilder, Validators, FormArray, AbstractControl} from '@angular/forms';
 import {forbiddenNameValidator1} from '../shared/user-name.validator';
 import {forbiddenNameValidator2} from '../shared/user-name.validator';
 import {PasswordValidator1} from '../shared/password.validator';
@@ -13,68 +13,51 @@ import {AuthenticationService} from '../authentication.service';
 })
 export class SignupComponent implements OnInit {
 
-  registrationForm: FormGroup;
+  userRegistrationForm: FormGroup;
 
-  get userName(): AbstractControl {
-    return this.registrationForm.get('userName');
-  }
+  roleList: string[] = ['Customer', 'Account Coordinator', 'Developer', 'Project Manager', 'CEO'];
 
-  get email(): AbstractControl {
-    return this.registrationForm.get('email');
-  }
-
-  get alternateEmails(): FormArray {
-    return this.registrationForm.get('alternateEmails') as FormArray;
-  }
-
-  addAlternateEmails(): void {
-    this.alternateEmails.push(this.fb1.group({
-      alternateEmail: ['', Validators.required],
-      phone: ['']
-    }));
-  }
-
-  constructor(private fb1: FormBuilder,
-              private authenticationService: AuthenticationService,
-              private router: Router) {
+  constructor(
+    private fb1: FormBuilder,
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
-    this.registrationForm = this.fb1.group({
-      userName: ['Vishwa', [Validators.required, Validators.minLength(3), forbiddenNameValidator1, forbiddenNameValidator2(/password/)]],
-      email: ['a@b.com'],
-      subscribe: [false],
+    this.userRegistrationForm = this.fb1.group({
+      firstName: ['', [Validators.required, Validators.minLength(6)]],
+      lastName: ['', [Validators.required, Validators.minLength(6)]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['123', [Validators.required]],
       confirmPassword: ['123'],
-      role: ['', [Validators.required]],
-      alternateEmails: this.fb1.array([])
-    }, {validator: PasswordValidator1}); // 'form builder'(fb) is a simpler alternative to create form groups and form controls
-
-
-    this.registrationForm.get('subscribe').valueChanges
-      .subscribe(checkedValue => {
-        const email = this.registrationForm.get('email');
-        if (checkedValue) {
-          email.setValidators(Validators.required);
-        } else {
-          email.clearValidators();
-        }
-        email.updateValueAndValidity();
-      });
+      role: ['', [Validators.required]]
+    }, {validators: PasswordValidator1});
   }
 
-  loadApiData(): void {
-    this.registrationForm.patchValue({
-      userName: 'Bruce',
-      password: 'test',
-      confirmPassword: 'test'
-      // when using 'patchValue' then not need to provide data for each & every form control
-    });
+  get firstName(): AbstractControl {
+    return this.userRegistrationForm.get('firstName');
+  }
+
+  get lastName(): AbstractControl {
+    return this.userRegistrationForm.get('lastName');
+  }
+
+  get email(): AbstractControl {
+    return this.userRegistrationForm.get('email');
+  }
+
+  get password(): AbstractControl {
+    return this.userRegistrationForm.get('password');
+  }
+
+  get confirmPassword(): AbstractControl {
+    return this.userRegistrationForm.get('confirmPassword');
   }
 
   onSubmit(): void {
-    console.log(this.registrationForm.value);
-    this.authenticationService.register(this.registrationForm.value)
+    console.log(this.userRegistrationForm.value);
+    this.authenticationService.signup(this.userRegistrationForm.value)
       .subscribe(
         response => {
           console.log('Success!(frontend)', response);

@@ -4,19 +4,24 @@ import {Routes, RouterModule} from '@angular/router';
 import {AuthenticationComponent} from './authentication/authentication.component';
 import {LoginComponent} from './authentication/login/login.component';
 import {SignupComponent} from './authentication/signup/signup.component';
+import {AuthenticationGuard} from './authentication/authentication.guard';
+
 
 import {HomeComponent} from './home/home.component';
 
 import {CustomerComponent} from './home/customer/customer.component';
-import {AdminComponent} from './home/admin/admin.component';
 import {CeoComponent} from './home/ceo/ceo.component';
 import {AccountCoordinatorComponent} from './home/accountCoordinator/account-coordinator.component';
 import {DeveloperComponent} from './home/developer/developer.component';
 import {ProjectManagerComponent} from './home/projectManager/project-manager.component';
 
-import {AuthenticationGuard} from './authentication/authentication.guard';
-import {ComplaintComponent} from './home/admin/complaint/complaint.component';
-import {UserComponent} from './home/admin/user/user.component';
+import {AdminComponent} from './home/admin/admin.component';
+import {DashboardComponent} from './home/admin/dashboard/dashboard.component';
+import {ComplaintsComponent} from './home/admin/complaints/complaints.component';
+import {UsersComponent} from './home/admin/users/users.component';
+import {FeedbacksComponent} from './home/admin/feedbacks/feedbacks.component';
+import {ProductsComponent} from './home/admin/products/products.component';
+import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
 
 const routes: Routes = [
     {
@@ -58,12 +63,36 @@ const routes: Routes = [
           canActivate: [AuthenticationGuard],
           children: [
             {
+              path: 'dashboard',
+              component: DashboardComponent
+            },
+            {
               path: 'complaints',
-              component: ComplaintComponent
+              component: ComplaintsComponent
             },
             {
               path: 'users',
-              component: UserComponent
+              component: UsersComponent,
+              children: [
+                {
+                  path: 'signup',
+                  component: SignupComponent
+                },
+              ]
+            },
+            {
+              path: 'products',
+              component: ProductsComponent,
+              children: [
+                {
+                  path: 'register-product',
+                  component: RegisterProductComponent
+                }
+              ]
+            },
+            {
+              path: 'feedbacks',
+              component: FeedbacksComponent
             }
           ]
         },

@@ -1,86 +1,69 @@
-<h2>signup component</h2>
-
 <div class="container-fluid">
-  <button class="btn btn-secondary" type="button" [routerLink]="['/' + '../login']">Log In</button>
-  <h1 align="center">Sign Up</h1>
-  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-    {{registrationForm.value | json}}
-    <!-------------------------------------------------------------------------------->
-    <div class="form-group">
-      <label>Username</label>
-      <input formControlName="userName"
-             type="text"
-             class="form-control"
-             [class.is-invalid]="registrationForm.get('userName').invalid &&
-                                   registrationForm.get('userName').touched">
 
-      <div *ngIf="userName.invalid && userName.touched">
-        <small *ngIf="userName.errors?.required" class="text-danger">Username is required</small>
-        <small *ngIf="userName.errors?.minlength" class="text-danger">Username must be at least 3 characters</small>
-        <small *ngIf="userName.errors?.forbiddenName" class="text-danger">{{userName.errors?.forbiddenName.value}}
-          Username not allowed</small>
-      </div>
-    </div>
-    <!-------------------------------------------------------------------------------->
-    <div>
-      <div class="form-group">
-        <label>Email</label>
-        <button type="button" class="btn btn-secondary btn-sm m-2" (click)="addAlternateEmails()">Add e-mail</button>
-        <input type="text"
-               formControlName="email"
-               class="form-control"
-               [class.is-invalid]="email.invalid && email.touched">
-        <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
-        <div formArrayName="alternateEmails" *ngFor="let email of alternateEmails.controls; let i = index">
-          <div [formGroupName]="i">
-            <input type="text" class="form-control my-1 col-3" formControlName="alternateEmail">
-            <input type="text" class="form-control my-1 col-3" formControlName="phone">
-          </div>
-        </div>
+  <!--  <button class="btn btn-secondary" type="button" [routerLink]="['/' + '../login']">Log In</button>-->
 
-      </div>
-    </div>
-    <!--------------------------------------------------------------------------------->
-    <div class="form-check mb-3">
-      <input class="form-check-input"
-             formControlName="subscribe"
-             type="checkbox">
-      <label class="form-check-label">Send me promotional offers</label>
-    </div>
-    <!--------------------------------------------------------------------------------->
-    <div class="form-group">
-      <label>Password</label>
-      <input formControlName="password"
-             type="password"
-             class="form-control">
-    </div>
-    <!--------------------------------------------------------------------------------->
-    <div class="form-group">
-      <label>Confirm Password</label>
-      <input formControlName="confirmPassword"
-             type="password"
-             class="form-control"
-             [class.is-invalid]="registrationForm.errors?.misMatch">
-      <small class="text-danger" *ngIf="registrationForm.errors?.misMatch">Password do not match</small>
-    </div>
-    <!--------------------------------------------------------------------------------->
-    <div>
-      <label >Role</label>
-      <select formControlName="role"
-              class="form-control">
-        <option value="admin">Admin</option>
-        <option value="customer">customer</option>
-        <option value="accountCoordinator">accountCoordinator</option>
-        <option value="projectManager">projectManager</option>
-        <option value="developer">developer</option>
-        <option value="ceo">ceo</option>
-      </select>
-    </div>
-    <!--------------------------------------------------------------------------------->
+  <h1 align="center" style="">Sign Up</h1>
 
-    <button class="btn btn-primary" type="submit" [disabled]="!registrationForm.valid">Sign Up</button>
-    <button class="btn btn-secondary" type="button" (click)="loadApiData()">Load API Data</button>
-    {{registrationForm.valid}}
+  <form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+
+      <mat-form-field class="col-6" appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input type="text" matInput formControlName="firstName" placeholder="Nimal">
+        <mat-error *ngIf="firstName.touched && firstName.errors?.required">This field is required</mat-error>
+        <mat-error *ngIf="firstName.touched && !firstName.errors?.required && firstName.invalid">Invalid Input
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-6" appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input type="text" matInput formControlName="lastName" placeholder="Nimal">
+        <mat-error *ngIf="lastName.touched && lastName.errors?.required">This field is required</mat-error>
+        <mat-error *ngIf="lastName.touched && !lastName.errors?.required && lastName.invalid">Invalid Input</mat-error>
+      </mat-form-field>
+
+    </div>
+
+
+    <div class="row">
+
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="text" matInput formControlName="email" placeholder="abc@d.com">
+        <mat-error *ngIf="email.touched && email.errors?.required">This field is required</mat-error>
+        <mat-error *ngIf="email.touched && !email.errors?.required && email.errors?.email">Invalid Email</mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <div class="row">
+
+      <mat-form-field class="col-6" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password">
+      </mat-form-field>
+
+      <mat-form-field class="col-6 mb-0" appearance="outline">
+        <mat-label>Confirm Password</mat-label>
+        <input type="password" matInput formControlName="confirmPassword">
+      </mat-form-field>
+
+      <span class="small text-danger" *ngIf="userRegistrationForm.errors?.misMatch">Passwords do not match</span>
+
+
+      <mat-form-field appearance="fill" class="col-12">
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="role" multiple >
+          <mat-option *ngFor="let role of roleList; let i = index" [value]="i">{{role}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="!userRegistrationForm.valid">Sign Up</button>
+
   </form>
+
 </div>
 

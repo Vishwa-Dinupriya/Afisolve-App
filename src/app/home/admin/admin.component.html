@@ -1,75 +1,43 @@
-<mat-toolbar color="primary">
-
-  <img src="../../../assets/img/afisolve_logo.png" alt="" width="60" height="24" class="d-inline-block align-top">
-
-  <span class="navbar-brand mb-0 h1">{{ name }}</span>
-
-  <span style="flex: 1 1 auto"></span>
-
-  <button mat-icon-button [matMenuTriggerFor]="dropDownNotifications">
-    <mat-icon>notifications</mat-icon>
-  </button>
-
-  <button mat-icon-button [matMenuTriggerFor]="dropDownUser">
-    <mat-icon>account_circle</mat-icon>
-  </button>
-
-</mat-toolbar>
-<!-- ------------------------------------------------------------ -------------------------------------->
-
-<mat-menu #dropDownNotifications="matMenu">
-  <button mat-menu-item style="width: 200px">
-    <mat-icon>person</mat-icon>
-    <span>Profile</span>
-  </button>
-  <button mat-menu-item>
-    <mat-icon>settings</mat-icon>
-    <span>Settings</span>
-  </button>
-</mat-menu>
-
-<mat-menu #dropDownUser="matMenu">
-  <button mat-menu-item style="width: 200px">
-    <mat-icon>person</mat-icon>
-    <span>Profile</span>
-  </button>
-  <button mat-menu-item>
-    <mat-icon>settings</mat-icon>
-    <span>Settings</span>
-  </button>
-  <button mat-menu-item class="btn btn-secondary" type="button" *ngIf="authenticationService.isLoggedIn()" (click)="authenticationService.logout()">
-    <mat-icon>login</mat-icon>
-    <span>Logout</span>
-  </button>
-</mat-menu>
-<!------------------------------------------------------------------------------------------------------>
-<mat-drawer-container class="example-container">
-
-  <mat-drawer mode="side" opened class="text-white bg-dark" style="width: 10%">
-
+<mat-drawer-container style="height:93%">
+  <mat-drawer mode="side" opened style="width: 200px">
     <mat-selection-list [multiple]="false">
 
-      <mat-list-option routerLink="./complaints" [selected]="activeRoute === 'ComplaintComponent'"
-                       [class.selected]="activeRoute === 'ComplaintComponent'">
-        <mat-icon mat-list-icon>notifications</mat-icon>
+      <mat-list-option routerLink="./dashboard" [selected]="activeRoute === 'DashboardComponent'"
+                       [class.selected]="activeRoute === 'DashboardComponent'">
+        <mat-icon mat-list-icon>dashboard</mat-icon>
+        <div mat-line>Dashboard</div>
+      </mat-list-option>
+
+      <mat-list-option routerLink="./complaints" [selected]="activeRoute === 'ComplaintsComponent'"
+                       [class.selected]="activeRoute === 'ComplaintsComponent'">
+        <mat-icon mat-list-icon>assignment</mat-icon>
         <div mat-line>Complaints</div>
       </mat-list-option>
 
-      <mat-list-option routerLink="./users" [selected]="activeRoute === 'UserComponent'"
-                       [class.selected]="activeRoute === 'UserComponent'">
-        <mat-icon mat-list-icon>notifications</mat-icon>
-        <div mat-line>Notifications</div>
+      <mat-list-option routerLink="./users" [selected]="activeRoute === 'UsersComponent'"
+                       [class.selected]="activeRoute === 'UsersComponent'">
+        <mat-icon mat-list-icon>group</mat-icon>
+        <div mat-line>Users</div>
+      </mat-list-option>
+
+      <mat-list-option routerLink="./products" [selected]="activeRoute === 'ProductsComponent'"
+                       [class.selected]="activeRoute === 'ProductsComponent'">
+        <mat-icon mat-list-icon>inventory_2</mat-icon>
+        <div mat-line>Products</div>
+      </mat-list-option>
+
+      <mat-list-option routerLink="./feedbacks" [selected]="activeRoute === 'FeedbacksComponent'"
+                       [class.selected]="activeRoute === 'FeedbacksComponent'">
+        <mat-icon mat-list-icon>rate_review</mat-icon>
+        <div mat-line>Feedbacks</div>
       </mat-list-option>
 
     </mat-selection-list>
-
   </mat-drawer>
 
-  <mat-drawer-content>
-    <router-outlet (activate)="getRoute($event)"></router-outlet>
+  <mat-drawer-content class="w-100 h-100 m-0">
+    <mat-drawer-content>
+      <router-outlet (activate)="getRoute($event)"></router-outlet>
+    </mat-drawer-content>
   </mat-drawer-content>
-
 </mat-drawer-container>
-
-
-

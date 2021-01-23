@@ -20,9 +20,14 @@ import {CeoComponent} from './home/ceo/ceo.component';
 import {DeveloperComponent} from './home/developer/developer.component';
 import {ProjectManagerComponent} from './home/projectManager/project-manager.component';
 import {ErrorInterceptor} from './authentication/error.interceptor';
-import { ComplaintComponent } from './home/admin/complaint/complaint.component';
-import { UserComponent } from './home/admin/user/user.component';
-import { HomeComponent } from './home/home.component';
+import {HomeComponent} from './home/home.component';
+import {DashboardComponent} from './home/admin/dashboard/dashboard.component';
+import {FeedbacksComponent} from './home/admin/feedbacks/feedbacks.component';
+import {UsersComponent} from './home/admin/users/users.component';
+import {ComplaintsComponent} from './home/admin/complaints/complaints.component';
+import {ProductsComponent} from './home/admin/products/products.component';
+import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
+import {ProductService} from './home/admin/products/product.service';
 
 @NgModule({
   declarations: [
@@ -36,9 +41,13 @@ import { HomeComponent } from './home/home.component';
     AccountCoordinatorComponent,
     DeveloperComponent,
     ProjectManagerComponent,
-    ComplaintComponent,
-    UserComponent,
     HomeComponent,
+    DashboardComponent,
+    FeedbacksComponent,
+    UsersComponent,
+    ComplaintsComponent,
+    ProductsComponent,
+    RegisterProductComponent,
 
   ],
   imports: [
@@ -49,17 +58,21 @@ import { HomeComponent } from './home/home.component';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [AuthenticationService,
+  providers: [
+    ProductService,
+    AuthenticationService,
     AuthenticationGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }, {
+    },
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true
-    }],
+    },
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
