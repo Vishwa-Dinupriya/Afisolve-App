@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, FormBuilder, Validators, AbstractControl} from '@angular/forms';
 import {forbiddenNameValidator1} from '../shared/user-name.validator';
@@ -10,9 +10,11 @@ import {AuthenticationService} from '../authentication.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  public firstName: string;
 
   get userName(): AbstractControl {
     return this.loginForm.get('userName');
@@ -24,11 +26,18 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb1: FormBuilder,
               private authenticationService: AuthenticationService,
-              private router: Router) {}
+              private router: Router) {
+  }
 
   ngOnInit(): void {
     this.loginForm = this.fb1.group({
-      userName: ['a@b.com', [Validators.required, Validators.minLength(3), forbiddenNameValidator1, forbiddenNameValidator2(/password/)]],
+      userName: ['a@b.com',
+        [Validators.required,
+          Validators.minLength(3),
+          forbiddenNameValidator1,
+          forbiddenNameValidator2(/password/)
+        ]
+      ],
       password: ['123', [Validators.required]]
     });
   }
@@ -48,7 +57,4 @@ export class LoginComponent implements OnInit {
         }
       );
   }
-
 }
-
-

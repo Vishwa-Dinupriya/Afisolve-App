@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormGroup, FormBuilder, Validators, FormArray, AbstractControl} from '@angular/forms';
-import {forbiddenNameValidator1} from '../shared/user-name.validator';
-import {forbiddenNameValidator2} from '../shared/user-name.validator';
 import {PasswordValidator1} from '../shared/password.validator';
 import {AuthenticationService} from '../authentication.service';
 
@@ -33,6 +31,7 @@ export class SignupComponent implements OnInit {
       confirmPassword: ['123'],
       role: ['', [Validators.required]]
     }, {validators: PasswordValidator1});
+
   }
 
   get firstName(): AbstractControl {

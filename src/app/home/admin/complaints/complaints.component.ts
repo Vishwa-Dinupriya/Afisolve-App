@@ -1,13 +1,5 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {merge, Observable, of as observableOf} from 'rxjs';
-import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-
-// export interface PeriodicElement {
-//   description: string;
-//   status: number;
-//   submittedDate: number;
-// }
 
 @Component({
   selector: 'app-complaint',

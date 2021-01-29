@@ -1,8 +1,14 @@
-<mat-toolbar color="primary" class="h-auto">
+<mat-toolbar color="warn" class="h-auto" >
 
-  <img src="../../../assets/img/afisolve_logo.png" alt="" width="60" height="24" class="d-inline-block align-top">
+  <img src="../../../assets/img/afisolve_logo.png" alt="" width="60" height="24" class="d-inline-block align-top border">
 
-  <span class="navbar-brand mb-0 h1">{{ name }}</span>
+  <span style="flex: 0.01 1 auto"></span>
+
+  <span class="navbar-brand mb-0 h1 " >{{ userDetails.name }}</span>
+
+<!--  <button mat-icon-button [matMenuTriggerFor]="dropDownRoles">-->
+<!--    <label>Roles</label>-->
+<!--  </button>-->
 
   <span style="flex: 1 1 auto"></span>
 
@@ -15,16 +21,28 @@
   </button>
 
 </mat-toolbar>
+
 <!-- ------------------------------------------------------------ -------------------------------------->
+<mat-menu #dropDownRoles="matMenu">
+  <button mat-menu-item style="width: 200px">
+    <span>Admin</span>
+  </button>
+  <button mat-menu-item>
+    <span>Developer</span>
+  </button>
+  <button mat-menu-item>
+    <span>Account Coordinator</span>
+  </button>
+</mat-menu>
 
 <mat-menu #dropDownNotifications="matMenu">
   <button mat-menu-item style="width: 200px">
-    <mat-icon>person</mat-icon>
-    <span>Profile</span>
+    <mat-icon>help_center</mat-icon>
+    <span>notification 01</span>
   </button>
   <button mat-menu-item>
-    <mat-icon>settings</mat-icon>
-    <span>Settings</span>
+    <mat-icon>help_center</mat-icon>
+    <span>notification 02</span>
   </button>
 </mat-menu>
 

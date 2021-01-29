@@ -27,7 +27,7 @@ import {UsersComponent} from './home/admin/users/users.component';
 import {ComplaintsComponent} from './home/admin/complaints/complaints.component';
 import {ProductsComponent} from './home/admin/products/products.component';
 import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
-import {ProductService} from './home/admin/products/product.service';
+import {ProductService} from './home/services/product.service';
 
 @NgModule({
   declarations: [
@@ -59,9 +59,9 @@ import {ProductService} from './home/admin/products/product.service';
     HttpClientModule,
   ],
   providers: [
-    ProductService,
     AuthenticationService,
     AuthenticationGuard,
+    ProductService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
@@ -72,7 +72,7 @@ import {ProductService} from './home/admin/products/product.service';
       useClass: ErrorInterceptor,
       multi: true
     },
-   ],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

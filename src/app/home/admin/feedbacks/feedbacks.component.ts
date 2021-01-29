@@ -9,7 +9,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class FeedbacksComponent implements OnInit {
 
-  displayedColumns: string[] = ['userEmail', 'password', 'firstName', 'lastName', 'contactNumber'];
+  displayedColumns: string[] = ['complaintId', 'satisfaction', 'feedbackDescription'];
   dataSource;
 
   constructor(private router: Router,
@@ -26,6 +26,5 @@ export class FeedbacksComponent implements OnInit {
         console.log(error);
       }
     );
-    this.router.navigate(['/home/admin/users/signup']);
   }
 }

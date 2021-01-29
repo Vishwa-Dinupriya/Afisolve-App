@@ -1,50 +1,78 @@
-<mat-tab-group animationDuration="1000ms">
-  <mat-tab label="Create new User">
-    <router-outlet ></router-outlet>
-  </mat-tab>
+<button mat-icon-button class="float-right ">
+  <mat-icon >person_add</mat-icon>
+</button>
 
-  <mat-tab label="View Users">
+<mat-card class="m-5 shadow">
 
-    <table mat-table [dataSource]="dataSource" class="w-100">
+  <mat-tab-group animationDuration="1000ms">
 
-      <!-- user email Column -->
-      <ng-container matColumnDef="userEmail">
-        <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
-      </ng-container>
+    <mat-tab label="Create new User">
+      <app-signup></app-signup>
+    </mat-tab>
 
-      <!-- user password Column -->
-      <ng-container matColumnDef="password">
-        <th mat-header-cell *matHeaderCellDef> Password </th>
-        <td mat-cell *matCellDef="let element"> {{element.password}} </td>
-      </ng-container>
+    <mat-tab label="View Users">
 
-      <!-- first name Column -->
-      <ng-container matColumnDef="firstName">
-        <th mat-header-cell *matHeaderCellDef> First Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
-      </ng-container>
+      <table mat-table [dataSource]="dataSource" class="w-100">
 
-      <!-- last name Column-->
-      <ng-container matColumnDef="lastName">
-        <th mat-header-cell *matHeaderCellDef> Last Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
-      </ng-container>
+        <!-- user email Column -->
+        <ng-container matColumnDef="userEmail">
+          <th mat-header-cell *matHeaderCellDef> Email</th>
+          <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
+        </ng-container>
 
-      <!-- contact number Column-->
-      <ng-container matColumnDef="contactNumber">
-        <th mat-header-cell *matHeaderCellDef> Contact Number </th>
-        <td mat-cell *matCellDef="let element"> {{element.contactNumber}} </td>
-      </ng-container>
+        <!-- user password Column -->
+        <ng-container matColumnDef="password">
+          <th mat-header-cell *matHeaderCellDef> Password</th>
+          <td mat-cell *matCellDef="let element"> {{element.password}} </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <!-- first name Column -->
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef> First Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+        </ng-container>
 
-    </table>
+        <!-- last name Column-->
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef> Last Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+        </ng-container>
+
+        <!-- contact number Column-->
+        <ng-container matColumnDef="contactNumber">
+          <th mat-header-cell *matHeaderCellDef> Contact Number</th>
+          <td mat-cell *matCellDef="let element"> {{element.contactNumber}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
 
 
-  </mat-tab>
+    </mat-tab>
 
-  <mat-tab label="Third"></mat-tab>
-</mat-tab-group>
+    <mat-tab label="Third">
 
+      <mat-card class="m-3">
+
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Users</mat-card-title>
+          <mat-card-subtitle>Recent</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-button>SHOW MORE</button>
+        </mat-card-actions>
+
+      </mat-card>
+
+    </mat-tab>
+  </mat-tab-group>
+
+</mat-card>

@@ -11,10 +11,7 @@ export class AdminComponent implements OnInit {
 
   activeRoute: string;
 
-  constructor(
-    private http: HttpClient,
-    public authenticationService: AuthenticationService
-  ) {
+  constructor() {
   }
 
   ngOnInit(): void {

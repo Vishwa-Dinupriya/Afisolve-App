@@ -1,32 +1,38 @@
 <mat-drawer-container style="height:93%">
   <mat-drawer mode="side" opened style="width: 200px">
-    <mat-selection-list [multiple]="false">
+    <mat-selection-list [multiple]="false" >
 
-      <mat-list-option routerLink="./dashboard" [selected]="activeRoute === 'DashboardComponent'"
-                       [class.selected]="activeRoute === 'DashboardComponent'">
+      <mat-list-option routerLink="./dashboard"
+                       [selected]="activeRoute === 'DashboardComponent'"
+                       [class.selected]="activeRoute === 'DashboardComponent'"
+                       >
         <mat-icon mat-list-icon>dashboard</mat-icon>
         <div mat-line>Dashboard</div>
       </mat-list-option>
 
-      <mat-list-option routerLink="./complaints" [selected]="activeRoute === 'ComplaintsComponent'"
+      <mat-list-option routerLink="./complaints"
+                       [selected]="activeRoute === 'ComplaintsComponent'"
                        [class.selected]="activeRoute === 'ComplaintsComponent'">
         <mat-icon mat-list-icon>assignment</mat-icon>
         <div mat-line>Complaints</div>
       </mat-list-option>
 
-      <mat-list-option routerLink="./users" [selected]="activeRoute === 'UsersComponent'"
+      <mat-list-option routerLink="./users"
+                       [selected]="activeRoute === 'UsersComponent'"
                        [class.selected]="activeRoute === 'UsersComponent'">
         <mat-icon mat-list-icon>group</mat-icon>
         <div mat-line>Users</div>
       </mat-list-option>
 
-      <mat-list-option routerLink="./products" [selected]="activeRoute === 'ProductsComponent'"
+      <mat-list-option routerLink="./products"
+                       [selected]="activeRoute === 'ProductsComponent'"
                        [class.selected]="activeRoute === 'ProductsComponent'">
         <mat-icon mat-list-icon>inventory_2</mat-icon>
         <div mat-line>Products</div>
       </mat-list-option>
 
-      <mat-list-option routerLink="./feedbacks" [selected]="activeRoute === 'FeedbacksComponent'"
+      <mat-list-option routerLink="./feedbacks"
+                       [selected]="activeRoute === 'FeedbacksComponent'"
                        [class.selected]="activeRoute === 'FeedbacksComponent'">
         <mat-icon mat-list-icon>rate_review</mat-icon>
         <div mat-line>Feedbacks</div>
@@ -36,8 +42,10 @@
   </mat-drawer>
 
   <mat-drawer-content class="w-100 h-100 m-0">
-    <mat-drawer-content>
-      <router-outlet (activate)="getRoute($event)"></router-outlet>
+    <mat-drawer-content >
+      <router-outlet (activate)="getRoute($event)" >
+           <!--dashboard,complaints,users,products,feedbacks-->
+      </router-outlet>
     </mat-drawer-content>
   </mat-drawer-content>
 </mat-drawer-container>

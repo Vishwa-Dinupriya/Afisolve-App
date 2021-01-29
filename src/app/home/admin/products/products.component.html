@@ -1,53 +1,60 @@
-<mat-tab-group animationDuration="1000ms">
-  <mat-tab label="Enter new Product">
-    <router-outlet ></router-outlet>
-  </mat-tab>
+<mat-card class="m-5 shadow h-100">
 
-  <mat-tab label="View Products">
-    <table mat-table [dataSource]="dataSource" class="w-100">
+  <mat-tab-group animationDuration="1000ms">
 
-      <!-- Description Column -->
-      <ng-container matColumnDef="productId">
-        <th mat-header-cell *matHeaderCellDef> Product Id </th>
-        <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
-      </ng-container>
+    <mat-tab label="Enter new Product">
+      <div class="" style="" >
+        <app-register-product ></app-register-product>
+      </div>
+    </mat-tab>
 
-      <!-- Status Column -->
-      <ng-container matColumnDef="productName">
-        <th mat-header-cell *matHeaderCellDef> Product Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
-      </ng-container>
+    <mat-tab label="View Products">
+      <table mat-table [dataSource]="dataSource" class="w-100">
 
-      <!-- SubmittedDate Column -->
-      <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef> Category </th>
-        <td mat-cell *matCellDef="let element"> {{element.category}} </td>
-      </ng-container>
+        <!-- Description Column -->
+        <ng-container matColumnDef="productId">
+          <th mat-header-cell *matHeaderCellDef> Product Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+        </ng-container>
 
-       <!-- customer email Column-->
-      <ng-container matColumnDef="customerEmail">
-        <th mat-header-cell *matHeaderCellDef> Customer </th>
-        <td mat-cell *matCellDef="let element"> {{element.customerEmail}} </td>
-      </ng-container>
+        <!-- Status Column -->
+        <ng-container matColumnDef="productName">
+          <th mat-header-cell *matHeaderCellDef> Product Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+        </ng-container>
 
-      <!-- project manager email Column-->
-      <ng-container matColumnDef="projectManagerEmail">
-        <th mat-header-cell *matHeaderCellDef> Project Manager </th>
-        <td mat-cell *matCellDef="let element"> {{element.projectManagerEmail}} </td>
-      </ng-container>
+        <!-- SubmittedDate Column -->
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef> Category</th>
+          <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+        </ng-container>
 
-      <!-- account coordinator email Column-->
-      <ng-container matColumnDef="accountCoordinatorEmail">
-        <th mat-header-cell *matHeaderCellDef> Account Coordinator </th>
-        <td mat-cell *matCellDef="let element"> {{element.accountCoordinatorEmail}} </td>
-      </ng-container>
+        <!-- customer email Column-->
+        <ng-container matColumnDef="customerEmail">
+          <th mat-header-cell *matHeaderCellDef> Customer</th>
+          <td mat-cell *matCellDef="let element"> {{element.customerEmail}} </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <!-- project manager email Column-->
+        <ng-container matColumnDef="projectManagerEmail">
+          <th mat-header-cell *matHeaderCellDef> Project Manager</th>
+          <td mat-cell *matCellDef="let element"> {{element.projectManagerEmail}} </td>
+        </ng-container>
 
-    </table>
+        <!-- account coordinator email Column-->
+        <ng-container matColumnDef="accountCoordinatorEmail">
+          <th mat-header-cell *matHeaderCellDef> Account Coordinator</th>
+          <td mat-cell *matCellDef="let element"> {{element.accountCoordinatorEmail}} </td>
+        </ng-container>
 
-  </mat-tab>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-  <mat-tab label="Third"></mat-tab>
-</mat-tab-group>
+      </table>
+
+    </mat-tab>
+
+    <mat-tab label="Third"></mat-tab>
+  </mat-tab-group>
+
+</mat-card>

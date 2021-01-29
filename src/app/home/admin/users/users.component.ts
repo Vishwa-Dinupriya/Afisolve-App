@@ -7,8 +7,8 @@ import {HttpClient} from '@angular/common/http';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent implements OnInit {
 
+export class UsersComponent implements OnInit {
 
   displayedColumns: string[] = ['userEmail', 'password', 'firstName', 'lastName', 'contactNumber'];
   dataSource;
@@ -17,10 +17,6 @@ export class UsersComponent implements OnInit {
               private http1: HttpClient) {
 
   }
-
-  // links = ['First', 'Second', 'Third'];
-  // activeLink = this.links[0];
-  // background: ThemePalette = undefined;
 
   ngOnInit(): void {
     this.http1.post<any>(`http://localhost:3000/admin/get-users-details`, {}).subscribe(
@@ -31,7 +27,6 @@ export class UsersComponent implements OnInit {
         console.log(error);
       }
     );
-    this.router.navigate(['/home/admin/users/signup']);
   }
 
 }

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthenticationService} from '../authentication/authentication.service';
+import {UserDataService} from './services/user-data.service';
 
 @Component({
   selector: 'app-home',
@@ -9,18 +9,21 @@ import {AuthenticationService} from '../authentication/authentication.service';
 })
 export class HomeComponent implements OnInit {
 
-  name: string;
-
   constructor(
-    private http: HttpClient,
-    public authenticationService: AuthenticationService
+    public authenticationService: AuthenticationService,
+    public userDetails: UserDataService
   ) {
   }
 
   ngOnInit(): void {
-    this.http.post<any>('http://localhost:3000/home/user-details', {}).subscribe(
-      response => this.name = response.firstName,
-      error => console.log(error)
+    this.userDetails.getUserDetails().subscribe(
+      response => {
+        this.userDetails.changeName(response.firstname);
+        console.log(this.userDetails.name);
+      },
+      error => {
+        console.log(error);
+      }
     );
   }
 

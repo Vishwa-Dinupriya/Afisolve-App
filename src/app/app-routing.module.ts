@@ -63,6 +63,10 @@ const routes: Routes = [
           canActivate: [AuthenticationGuard],
           children: [
             {
+              path: '',
+              component: DashboardComponent
+            },
+            {
               path: 'dashboard',
               component: DashboardComponent
             },
@@ -73,12 +77,6 @@ const routes: Routes = [
             {
               path: 'users',
               component: UsersComponent,
-              children: [
-                {
-                  path: 'signup',
-                  component: SignupComponent
-                },
-              ]
             },
             {
               path: 'products',
