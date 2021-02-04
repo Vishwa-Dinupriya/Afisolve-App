@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   public firstName: string;
 
-  get userName(): AbstractControl {
-    return this.loginForm.get('userName');
+  get email(): AbstractControl {
+    return this.loginForm.get('email');
   }
 
   get password(): AbstractControl {
@@ -31,10 +31,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb1.group({
-      userName: ['a@b.com',
+      email: ['admin@gmail.com',
         [Validators.required,
           Validators.minLength(3),
-          forbiddenNameValidator1,
+          // forbiddenNameValidator1,
           forbiddenNameValidator2(/password/)
         ]
       ],

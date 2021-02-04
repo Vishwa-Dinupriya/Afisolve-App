@@ -9,49 +9,88 @@
     </mat-tab>
 
     <mat-tab label="View Products">
-      <table mat-table [dataSource]="dataSource" class="w-100">
+      <mat-form-field class="w-75 m-3">
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
+      </mat-form-field>
+
+      <div>
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
 
         <!-- Description Column -->
-        <ng-container matColumnDef="productId">
-          <th mat-header-cell *matHeaderCellDef> Product Id</th>
+        <ng-container matColumnDef="productID">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Id</th>
           <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
         </ng-container>
 
         <!-- Status Column -->
         <ng-container matColumnDef="productName">
-          <th mat-header-cell *matHeaderCellDef> Product Name</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name</th>
           <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
         </ng-container>
 
         <!-- SubmittedDate Column -->
         <ng-container matColumnDef="category">
-          <th mat-header-cell *matHeaderCellDef> Category</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Category</th>
           <td mat-cell *matCellDef="let element"> {{element.category}} </td>
         </ng-container>
 
         <!-- customer email Column-->
         <ng-container matColumnDef="customerEmail">
-          <th mat-header-cell *matHeaderCellDef> Customer</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer</th>
           <td mat-cell *matCellDef="let element"> {{element.customerEmail}} </td>
         </ng-container>
 
         <!-- project manager email Column-->
         <ng-container matColumnDef="projectManagerEmail">
-          <th mat-header-cell *matHeaderCellDef> Project Manager</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Manager</th>
           <td mat-cell *matCellDef="let element"> {{element.projectManagerEmail}} </td>
         </ng-container>
 
         <!-- account coordinator email Column-->
         <ng-container matColumnDef="accountCoordinatorEmail">
-          <th mat-header-cell *matHeaderCellDef> Account Coordinator</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Coordinator</th>
           <td mat-cell *matCellDef="let element"> {{element.accountCoordinatorEmail}} </td>
         </ng-container>
+
+        <!-- Details Column -->
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef> Details </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="redirectToDetails(element.productID)">
+              <mat-icon class="mat-18">reorder</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <!-- Update Column -->
+        <ng-container matColumnDef="update">
+          <th mat-header-cell *matHeaderCellDef> Update </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="accent" (click)="redirectToUpdate(element.productID)">
+              <mat-icon class="mat-18">system_update</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <!-- Delete Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> Delete </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="warn" (click)="redirectToDelete(element.productID)">
+              <mat-icon class="mat-18">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <!-------------------------------------------------------------------------------------------->
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
       </table>
-
+        <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+      </div>
     </mat-tab>
 
     <mat-tab label="Third"></mat-tab>

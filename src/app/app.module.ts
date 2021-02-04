@@ -28,6 +28,11 @@ import {ComplaintsComponent} from './home/admin/complaints/complaints.component'
 import {ProductsComponent} from './home/admin/products/products.component';
 import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
 import {ProductService} from './home/services/product.service';
+import {ProfilePictureComponent} from './home/shared/profile/profile-picture/profile-picture.component';
+import {ImageCropperModule} from 'ngx-image-cropper';
+import {TestComponent} from './home/admin/test/test.component';
+import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
+
 
 @NgModule({
   declarations: [
@@ -48,15 +53,19 @@ import {ProductService} from './home/services/product.service';
     ComplaintsComponent,
     ProductsComponent,
     RegisterProductComponent,
+    ProfilePictureComponent,
+    TestComponent,
+    TestSortingComponent
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MaterialModule,
+    ImageCropperModule,
   ],
   providers: [
     AuthenticationService,
