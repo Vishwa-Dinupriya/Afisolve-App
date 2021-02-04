@@ -22,6 +22,10 @@ import {UsersComponent} from './home/admin/users/users.component';
 import {FeedbacksComponent} from './home/admin/feedbacks/feedbacks.component';
 import {ProductsComponent} from './home/admin/products/products.component';
 import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
+import {LateComplaintInformationComponent} from './home/projectManager/late-complaint-information/late-complaint-information.component';
+import {ViewReportsComponent} from './home/projectManager/view-reports/view-reports.component';
+import {ProfileComponent} from './home/projectManager/profile/profile.component';
+import {ActionComponent} from './home/projectManager/late-complaint-information/action/action.component';
 
 const routes: Routes = [
     {
@@ -105,9 +109,29 @@ const routes: Routes = [
           canActivate: [AuthenticationGuard]
         },
         {
-          path: 'projectManager',
+          path: 'project-manager',
           component: ProjectManagerComponent,
-          canActivate: [AuthenticationGuard]
+          canActivate: [AuthenticationGuard],
+          children:[
+            {
+              path: 'late-complaint-information',
+              component: LateComplaintInformationComponent,
+              children: [
+                {
+                  path: 'action',
+                  component: ActionComponent
+                },
+              ]
+            },
+            {
+              path: 'view-reports',
+              component: ViewReportsComponent
+            },
+            {
+              path: 'profile',
+              component: ProfileComponent
+            },
+          ]
         },
       ]
     },
