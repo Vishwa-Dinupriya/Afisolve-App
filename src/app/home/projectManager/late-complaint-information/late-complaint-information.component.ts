@@ -13,22 +13,26 @@ export class LateComplaintInformationComponent implements OnInit {
 
   displayedColumns: string[] = ['complainID', 'description', 'submittedDate', 'lastDateOfPending' , 'Action'];
   dataSource;
-  routerLink: any;
+
 
   constructor(private router: Router, private route: ActivatedRoute, private http1: HttpClient) { }
 
   ngOnInit(): void {
-    this.http1.post<any>(`http://localhost:3000/projectManager/get-complaint-details`, {}).subscribe(
-      response => {
-        this.dataSource = response.data;
-        console.log(this.dataSource);
-      }, error => {
-        console.log(error);
-      }
-    );
+    this.getData();
   }
 
-  getAction() {
+   getData(): void {
+     this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-details`, {}).subscribe(
+       response => {
+         this.dataSource = response.data;
+         console.log(this.dataSource);
+       }, error => {
+         console.log(error);
+       }
+     );
+   }
+
+  getAction(): void {
     this.router.navigate(['/home/project-manager/late-complaint-information/action']);
   }
 }

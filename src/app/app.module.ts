@@ -8,7 +8,7 @@ import {AuthenticationComponent} from './authentication/authentication.component
 import {LoginComponent} from './authentication/login/login.component';
 import {SignupComponent} from './authentication/signup/signup.component';
 import {MaterialModule} from './material/material.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AccountCoordinatorComponent} from './home/accountCoordinator/account-coordinator.component';
 import {AuthenticationService} from './authentication/authentication.service';
@@ -32,6 +32,7 @@ import { LateComplaintInformationComponent } from './home/projectManager/late-co
 import { ViewReportsComponent } from './home/projectManager/view-reports/view-reports.component';
 import { ProfileComponent } from './home/projectManager/profile/profile.component';
 import { ActionComponent } from './home/projectManager/late-complaint-information/action/action.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -58,14 +59,16 @@ import { ActionComponent } from './home/projectManager/late-complaint-informatio
     ActionComponent,
 
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        FormsModule,
+        MatCheckboxModule,
+    ],
   providers: [
     AuthenticationService,
     AuthenticationGuard,
