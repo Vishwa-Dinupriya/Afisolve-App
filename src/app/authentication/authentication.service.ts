@@ -10,6 +10,7 @@ export class AuthenticationService {
 
   signupUrl = 'http://localhost:3000/authentication/register';
   loginUrl = 'http://localhost:3000/authentication/login';
+  roleChangeUrl = 'http://localhost:3000/authentication/role-change';
 
   constructor(private http1: HttpClient, private router: Router) {
   }
@@ -24,6 +25,10 @@ export class AuthenticationService {
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
+  }
+
+  roleChange(userData): Observable<any> {
+    return this.http1.post<any>(this.roleChangeUrl, userData);
   }
 
   logout(): void {

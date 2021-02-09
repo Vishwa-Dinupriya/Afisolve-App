@@ -19,7 +19,7 @@
 
     <button mat-button [matMenuTriggerFor]="dropDownRoles" matTooltip="Select role">
       <span class="mat-button-wrapper ">
-        {{this.roles[selectedValue]}}
+        {{this.roles[selectedValue].roleName}}
         <mat-icon >arrow_drop_down</mat-icon>
       </span>
     </button>
@@ -39,7 +39,7 @@
   <button mat-menu-item type="button"
           *ngFor="let role_ of roles; let i = index"
           (click)="test_function(i)">
-    <span>{{ role_ }}</span>
+    <span>{{ role_.roleName }}</span>
   </button>
 </mat-menu>
 
@@ -47,15 +47,6 @@
   <button mat-menu-item style="width: 200px">
     <mat-icon>help_center</mat-icon>
     <span>notification 01</span>
-  </button>
-  <button mat-menu-item=""
-          class="mat-focus-indicator mat-menu-item ng-tns-c37-0 ng-star-inserted"
-          role="menuitem"
-          tabindex="0"
-          aria-disabled="false"
-          style="">
-                      5.2.5
-    <div matripple="" class="mat-ripple mat-menu-ripple"></div>
   </button>
   <button mat-menu-item>
     <mat-icon>help_center</mat-icon>

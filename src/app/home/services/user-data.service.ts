@@ -9,17 +9,22 @@ import {Injectable} from '@angular/core';
 export class UserDataService {
 
   name: string;
-  private nameChange: Subject<string> = new Subject<string>();
+  roles: string;
+  private nameChange: Subject<string> = new Subject<string>(); // observable
+  private rolesChange: Subject<string> = new Subject<string>();
 
-  // name: string;
-  // private nameChange: Subject<string> = new Subject<string>();
 
   constructor(private http: HttpClient) {
     this.nameChange.subscribe(value => this.name = value); // subscribe to observable
+    this.rolesChange.subscribe(value => this.roles = value); // subscribe to observable
   }
 
   changeName(name: string): void {
-    this.nameChange.next(name);
+    this.nameChange.next(name); // next eka => backend eken response ekak enawa wage thamai
+  }
+
+  changeRoles(roles: string): void {
+    this.rolesChange.next(roles);
   }
 
   // changePicture(name: string): void {
