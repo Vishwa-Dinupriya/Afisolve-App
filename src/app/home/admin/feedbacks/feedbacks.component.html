@@ -1,5 +1,14 @@
 <mat-card class="m-5 shadow" style="height: 80%">
 
+          <!-- Update Column -->
+          <ng-container matColumnDef="update">
+            <th mat-header-cell *matHeaderCellDef> Update </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="accent" (click)="redirectToUpdate(element.complaintID)">
+                <mat-icon class="mat-18">system_update</mat-icon>
+              </button>
+            </td>
+          </ng-container>
 
   <mat-tab-group animationDuration="0ms">
 
