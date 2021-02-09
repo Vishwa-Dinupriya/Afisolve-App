@@ -16,10 +16,10 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
       if (err.status === 0) {
-        return throwError('Network connection failure');
+        return throwError('Network connection failure (from error interceptor)');
       } else if (err.status === 401) {
         this.router.navigate(['/']);
-        return throwError('Invalid token');
+        return throwError('Invalid token (from error interceptor)');
       }
       const error = err.error.message || err.statusText;
       return throwError(error);

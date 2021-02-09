@@ -8,7 +8,7 @@ import {AuthenticationComponent} from './authentication/authentication.component
 import {LoginComponent} from './authentication/login/login.component';
 import {SignupComponent} from './authentication/signup/signup.component';
 import {MaterialModule} from './material/material.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AccountCoordinatorComponent} from './home/accountCoordinator/account-coordinator.component';
 import {AuthenticationService} from './authentication/authentication.service';
@@ -28,11 +28,18 @@ import {ComplaintsComponent} from './home/admin/complaints/complaints.component'
 import {ProductsComponent} from './home/admin/products/products.component';
 import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
 import {ProductService} from './home/services/product.service';
+
 import { LateComplaintInformationComponent } from './home/projectManager/late-complaint-information/late-complaint-information.component';
 import { ViewReportsComponent } from './home/projectManager/view-reports/view-reports.component';
 import { ProfileComponent } from './home/projectManager/profile/profile.component';
 import { ActionComponent } from './home/projectManager/late-complaint-information/action/action.component';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+
+import {ProfilePictureComponent} from './home/shared/profile/profile-picture/profile-picture.component';
+import {ImageCropperModule} from 'ngx-image-cropper';
+import {TestComponent} from './home/admin/test/test.component';
+import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
+
+
 
 @NgModule({
   declarations: [
@@ -53,22 +60,27 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     ComplaintsComponent,
     ProductsComponent,
     RegisterProductComponent,
+
     LateComplaintInformationComponent,
     ViewReportsComponent,
     ProfileComponent,
     ActionComponent,
 
+    ProfilePictureComponent,
+    TestComponent,
+    TestSortingComponent
+
+
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MaterialModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        FormsModule,
-        MatCheckboxModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MaterialModule,
+    ImageCropperModule,
+  ],
   providers: [
     AuthenticationService,
     AuthenticationGuard,

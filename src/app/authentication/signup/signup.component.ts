@@ -11,6 +11,8 @@ import {AuthenticationService} from '../authentication.service';
 })
 export class SignupComponent implements OnInit {
 
+  edit = true;
+
   userRegistrationForm: FormGroup;
 
   roleList: string[] = ['Customer', 'Account Coordinator', 'Developer', 'Project Manager', 'CEO'];
@@ -28,8 +30,9 @@ export class SignupComponent implements OnInit {
       lastName: ['', [Validators.required, Validators.minLength(6)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['123', [Validators.required]],
-      confirmPassword: ['123'],
-      role: ['', [Validators.required]]
+      confirmPassword: ['123', [Validators.required]],
+      role: ['', [Validators.required]],
+      contactNumber: ['', ]
     }, {validators: PasswordValidator1});
 
   }
@@ -60,8 +63,6 @@ export class SignupComponent implements OnInit {
       .subscribe(
         response => {
           console.log('Success!(frontend)', response);
-          localStorage.setItem('token', response.token);
-          this.router.navigate([`../${response.role}`]);
         },
         error => console.error('Error!(frontend)', error)
       );
