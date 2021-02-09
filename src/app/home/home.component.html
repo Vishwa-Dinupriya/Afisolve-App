@@ -1,37 +1,45 @@
-<mat-toolbar color="warn" class="h-auto" >
+<!--<div [class.myDarkTheme]="isDarkTheme"  class="h-100">-->
+  <div   class="h-100">
+<script src="../app-routing.module.ts"></script>
+<mat-toolbar color="primary" class="" style=" min-height:40px; height: 50px;">
+  <mat-toolbar-row>
 
-  <img src="../../../assets/img/afisolve_logo.png" alt="" width="60" height="24" class="d-inline-block align-top border">
+    <img src="../../../assets/img/afisolve_logo.png" alt="" width="60" height="24"
+         class="d-inline-block align-top border">
 
-  <span style="flex: 0.01 1 auto"></span>
+    <span style="flex: 0.01 1 auto"></span>
 
-  <span class="navbar-brand mb-0 h1 " >{{ userDetails.name }}</span>
+    <span class="navbar-brand mb-0 h1 ">{{ userDetails.name }}</span>
 
-<!--  <button mat-icon-button [matMenuTriggerFor]="dropDownRoles">-->
-<!--    <label>Roles</label>-->
-<!--  </button>-->
+    <span style="flex: 1 1 auto"></span>
 
-  <span style="flex: 1 1 auto"></span>
+    <button mat-icon-button (click)="changeTheme()" matTooltip="Change theme to {{nextTheme()}}">
+      <mat-icon>format_color_fill</mat-icon>
+    </button>
 
-  <button mat-icon-button [matMenuTriggerFor]="dropDownNotifications">
-    <mat-icon>notifications</mat-icon>
-  </button>
+    <button mat-button [matMenuTriggerFor]="dropDownRoles" matTooltip="Select role">
+      <span class="mat-button-wrapper ">
+        {{this.roles[selectedValue]}}
+        <mat-icon >arrow_drop_down</mat-icon>
+      </span>
+    </button>
 
-  <button mat-icon-button [matMenuTriggerFor]="dropDownUser">
-    <mat-icon>account_circle</mat-icon>
-  </button>
+    <button mat-icon-button [matMenuTriggerFor]="dropDownNotifications">
+      <mat-icon>notifications</mat-icon>
+    </button>
 
+    <button mat-icon-button [matMenuTriggerFor]="dropDownUser">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </mat-toolbar-row>
 </mat-toolbar>
 
-<!-- ------------------------------------------------------------ -------------------------------------->
-<mat-menu #dropDownRoles="matMenu">
-  <button mat-menu-item style="width: 200px">
-    <span>Admin</span>
-  </button>
-  <button mat-menu-item>
-    <span>Developer</span>
-  </button>
-  <button mat-menu-item>
-    <span>Account Coordinator</span>
+<!------------------------------------------------------------------------------------------------------>
+<mat-menu #dropDownRoles="matMenu" >
+  <button mat-menu-item type="button"
+          *ngFor="let role_ of roles; let i = index"
+          (click)="test_function(i)">
+    <span>{{ role_ }}</span>
   </button>
 </mat-menu>
 
@@ -39,6 +47,15 @@
   <button mat-menu-item style="width: 200px">
     <mat-icon>help_center</mat-icon>
     <span>notification 01</span>
+  </button>
+  <button mat-menu-item=""
+          class="mat-focus-indicator mat-menu-item ng-tns-c37-0 ng-star-inserted"
+          role="menuitem"
+          tabindex="0"
+          aria-disabled="false"
+          style="">
+                      5.2.5
+    <div matripple="" class="mat-ripple mat-menu-ripple"></div>
   </button>
   <button mat-menu-item>
     <mat-icon>help_center</mat-icon>
@@ -55,17 +72,20 @@
     <mat-icon>settings</mat-icon>
     <span>Settings</span>
   </button>
-  <button mat-menu-item class="btn btn-secondary" type="button" *ngIf="authenticationService.isLoggedIn()" (click)="authenticationService.logout()">
+  <button mat-menu-item class="btn btn-secondary" type="button" *ngIf="authenticationService.isLoggedIn()"
+          (click)="authenticationService.logout()">
     <mat-icon>login</mat-icon>
     <span>Logout</span>
   </button>
 </mat-menu>
+
 <!------------------------------------------------------------------------------------------------------>
 
-<router-outlet>
-<!--  customer
-      project manager
-      ceo
-      developer
-      admin-->
+<router-outlet >
+  <!--  customer
+        project manager
+        ceo
+        developer
+        admin-->
 </router-outlet>
+</div>

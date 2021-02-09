@@ -28,10 +28,18 @@ import {ComplaintsComponent} from './home/admin/complaints/complaints.component'
 import {ProductsComponent} from './home/admin/products/products.component';
 import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
 import {ProductService} from './home/services/product.service';
+
 import { LateComplaintInformationComponent } from './home/projectManager/late-complaint-information/late-complaint-information.component';
 import { ViewReportsComponent } from './home/projectManager/view-reports/view-reports.component';
 import { ProfileComponent } from './home/projectManager/profile/profile.component';
 import { ActionComponent } from './home/projectManager/late-complaint-information/action/action.component';
+
+import {ProfilePictureComponent} from './home/shared/profile/profile-picture/profile-picture.component';
+import {ImageCropperModule} from 'ngx-image-cropper';
+import {TestComponent} from './home/admin/test/test.component';
+import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
+
+
 
 @NgModule({
   declarations: [
@@ -52,19 +60,26 @@ import { ActionComponent } from './home/projectManager/late-complaint-informatio
     ComplaintsComponent,
     ProductsComponent,
     RegisterProductComponent,
+
     LateComplaintInformationComponent,
     ViewReportsComponent,
     ProfileComponent,
     ActionComponent,
+
+    ProfilePictureComponent,
+    TestComponent,
+    TestSortingComponent
+
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MaterialModule,
+    ImageCropperModule,
   ],
   providers: [
     AuthenticationService,

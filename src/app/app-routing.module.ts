@@ -22,10 +22,14 @@ import {UsersComponent} from './home/admin/users/users.component';
 import {FeedbacksComponent} from './home/admin/feedbacks/feedbacks.component';
 import {ProductsComponent} from './home/admin/products/products.component';
 import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
+
 import {LateComplaintInformationComponent} from './home/projectManager/late-complaint-information/late-complaint-information.component';
 import {ViewReportsComponent} from './home/projectManager/view-reports/view-reports.component';
 import {ProfileComponent} from './home/projectManager/profile/profile.component';
 import {ActionComponent} from './home/projectManager/late-complaint-information/action/action.component';
+
+import {TestComponent} from './home/admin/test/test.component';
+import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
 
 const routes: Routes = [
     {
@@ -57,7 +61,7 @@ const routes: Routes = [
           canActivate: [AuthenticationGuard]
         },
         {
-          path: 'accountCoordinator',
+          path: 'account-coordinator',
           component: AccountCoordinatorComponent,
           canActivate: [AuthenticationGuard]
         },
@@ -95,6 +99,14 @@ const routes: Routes = [
             {
               path: 'feedbacks',
               component: FeedbacksComponent
+            },
+            {
+              path: 'test',
+              component: TestComponent
+            },
+            {
+              path: 'test-sorting',
+              component: TestSortingComponent
             }
           ]
         },

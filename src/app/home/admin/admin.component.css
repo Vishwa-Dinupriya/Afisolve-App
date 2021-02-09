@@ -22,9 +22,9 @@ li,ul{
 }
 
 .selected {
-  background-color: rgb(220, 220, 240);
-  font-weight: bold;
-  color: rgb(100, 60, 180);
+  /*background-color: rgb(220, 220, 240);*/
+  /*font-weight: bold;*/
+  /*color: rgb(100, 60, 180);*/
 }
 
 .not-selected {
