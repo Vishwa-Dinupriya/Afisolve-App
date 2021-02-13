@@ -124,7 +124,7 @@ const routes: Routes = [
           path: 'project-manager',
           component: ProjectManagerComponent,
           canActivate: [AuthenticationGuard],
-          children:[
+          children: [
             {
               path: 'late-complaint-information',
               component: LateComplaintInformationComponent,

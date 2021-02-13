@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ThemePalette} from '@angular/material/core';
-import {valueReferenceToExpression} from '@angular/compiler-cli/src/ngtsc/annotations/src/util';
-
-
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-view-reports',

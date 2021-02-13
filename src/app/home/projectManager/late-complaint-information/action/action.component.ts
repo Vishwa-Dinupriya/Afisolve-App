@@ -12,4 +12,9 @@ export class ActionComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // tslint:disable-next-line:typedef
+  sendAlert(){
+    console.log('fvfgfb');
+  }
+
 }
