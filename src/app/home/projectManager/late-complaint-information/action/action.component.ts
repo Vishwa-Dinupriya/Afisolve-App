@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-action',
@@ -6,15 +8,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./action.component.css']
 })
 export class ActionComponent implements OnInit {
+  accdata;
+  selectedValue: string ;
 
-  constructor() { }
+  constructor(private http1: HttpClient) {
+  }
 
   ngOnInit(): void {
+    this.getData1();
   }
 
-  // tslint:disable-next-line:typedef
-  sendAlert(){
-    console.log('fvfgfb');
+  // account coordinatorlage names
+  getData1(): void {
+    this.http1.get<any>(`http://localhost:3000/projectManager/get-account-coordinaters-details`, {}).subscribe(
+      response => {
+        this.accdata = response.data;
+        console.log(this.accdata);
+      }, error => {
+        console.log(error);
+      }
+    );
   }
 
+  confirm(){
+    console.log('bgnhnhn');
+  }
 }
+

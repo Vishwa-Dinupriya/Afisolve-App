@@ -8,7 +8,7 @@ import {AuthenticationComponent} from './authentication/authentication.component
 import {LoginComponent} from './authentication/login/login.component';
 import {SignupComponent} from './authentication/signup/signup.component';
 import {MaterialModule} from './material/material.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AccountCoordinatorComponent} from './home/accountCoordinator/account-coordinator.component';
 import {AuthenticationService} from './authentication/authentication.service';
@@ -38,6 +38,11 @@ import {ProfilePictureComponent} from './home/shared/profile/profile-picture/pro
 import {ImageCropperModule} from 'ngx-image-cropper';
 import {TestComponent} from './home/admin/test/test.component';
 import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+
+
 
 
 
@@ -81,6 +86,10 @@ import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.compo
     HttpClientModule,
     MaterialModule,
     ImageCropperModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
   ],
   providers: [
     AuthenticationService,

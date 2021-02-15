@@ -1,14 +1,18 @@
-<mat-card>
-  <mat-card-title>
-  scvgfhfnhtgnhnmxcmxmcx
-</mat-card-title>
-  <mat-card-content>
-<h1>What is your decision?</h1>
+<form>
+  <h4>mat-select</h4>
+  <mat-form-field appearance="fill">
+    <mat-label>Favorite food</mat-label>
+    <mat-select [(ngModel)]="selectedValue" name="food" >
+      <mat-option *ngFor="let food of accdata" [value]="food.accountCoordinatorName" (click)="confirm()">
+        {{food.accountCoordinatorName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p> Selected food: {{selectedValue}} </p>
+</form>
 
-<div class="myLightTheme">
-   <div button (click)="sendAlert()">Send Reminder to Account Coordinator</div>
-</div>
-  </mat-card-content>
-
-
-</mat-card>
+<section>
+  <div class="example-button-row">
+    <button mat-button color="primary">Primary</button>
+  </div>
+</section>
