@@ -57,36 +57,17 @@ export class LateComplaintInformationComponent implements OnInit {
   // wenas karna seen eka
   // tslint:disable-next-line:typedef
   newAllert(){
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
-      },
-      buttonsStyling: false
-    })
-
-    swalWithBootstrapButtons.fire({
+    Swal.fire({
       title: 'Are you sure?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, Account Coordinator Should be change!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Chnge!'
     }).then((result) => {
       if (result.isConfirmed) {
-        swalWithBootstrapButtons.fire(
-          '<a href="http://localhost:4200/home/project-manager/late-complaint-information/action">links</a> ',
-          // @ts-ignore
-        'success'
-        )
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
+        Swal.fire(
+          '\'<a href="http://localhost:4200/home/project-manager/late-complaint-information/action"><button>Go to change</button></a> \''
         )
       }
     })

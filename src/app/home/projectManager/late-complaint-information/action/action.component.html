@@ -3,16 +3,16 @@
   <mat-form-field appearance="fill">
     <mat-label>Favorite food</mat-label>
     <mat-select [(ngModel)]="selectedValue" name="food" >
-      <mat-option *ngFor="let food of accdata" [value]="food.accountCoordinatorName" (click)="confirm()">
+      <mat-option *ngFor="let food of accdata" [value]="food.accountCoordinatorName"  >
         {{food.accountCoordinatorName}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <p> Selected food: {{selectedValue}} </p>
+  <p> Selected Account Coordinator: {{selectedValue}} </p>
 </form>
 
 <section>
   <div class="example-button-row">
-    <button mat-button color="primary">Primary</button>
+    <button mat-raised-button color="primary" (click)="giveAlert()">Save</button>
   </div>
 </section>
