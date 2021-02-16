@@ -1,25 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {FormGroup, FormBuilder, Validators, FormArray, AbstractControl} from '@angular/forms';
-import {PasswordValidator1} from '../shared/password.validator';
-import {AuthenticationService} from '../authentication.service';
+import {PasswordValidator1} from 'src/app/authentication/shared/password.validator';
+import {AuthenticationService} from 'src/app/authentication/authentication.service';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.css']
 })
-export class SignupComponent implements OnInit {
+export class UserProfileComponent implements OnInit {
+  edit = false;
 
   userRegistrationForm: FormGroup;
 
   roleList: string[] = ['Customer', 'Account Coordinator', 'Developer', 'Project Manager', 'CEO'];
 
-  constructor(
-    private fb1: FormBuilder,
-    private authenticationService: AuthenticationService,
-    private router: Router) {
-  }
+  constructor(private fb1: FormBuilder,
+              private authenticationService: AuthenticationService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.userRegistrationForm = this.fb1.group({
@@ -31,7 +30,6 @@ export class SignupComponent implements OnInit {
       role: ['', [Validators.required]],
       contactNumber: ['', ]
     }, {validators: PasswordValidator1});
-
   }
 
   get firstName(): AbstractControl {
@@ -64,5 +62,6 @@ export class SignupComponent implements OnInit {
         error => console.error('Error!(frontend)', error)
       );
   }
+
 
 }

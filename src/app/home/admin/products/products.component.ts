@@ -26,6 +26,8 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<IProduct>;
   PRODUCTS_DATA: IProduct[];
 
+  createProduct = false;
+
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 

@@ -1,7 +1,11 @@
-<mat-card >
+<br>
+<br>
+<div class="new" align="center">
   <router-outlet></router-outlet>
-</mat-card>
-<mat-card class="m-5 shadow" style="height: 80%" >
+  <hr>
+</div>
+
+  <mat-card class="m-5 shadow" style="height: 50%">
   <table mat-table [dataSource]="dataSource1" class="w-100">
 
     <!-- Complain ID column -->
@@ -43,7 +47,9 @@
 
 
   </table>
-</mat-card>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </mat-card>
+
 
 
 

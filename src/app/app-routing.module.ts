@@ -30,6 +30,7 @@ import {ActionComponent} from './home/projectManager/late-complaint-information/
 
 import {TestComponent} from './home/admin/test/test.component';
 import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
+import {UserProfileComponent} from './home/shared/user-profile/user-profile.component';
 
 const routes: Routes = [
     {
@@ -85,6 +86,12 @@ const routes: Routes = [
             {
               path: 'users',
               component: UsersComponent,
+              children: [
+                {
+                  path: 'user-profile',
+                  component: UserProfileComponent
+                }
+              ]
             },
             {
               path: 'products',

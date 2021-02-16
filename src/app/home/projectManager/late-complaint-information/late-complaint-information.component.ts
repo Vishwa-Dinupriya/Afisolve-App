@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import Swal from 'sweetalert2';
+import {MatPaginator} from '@angular/material/paginator';
 
 
 @Component({
@@ -13,6 +14,13 @@ export class LateComplaintInformationComponent implements OnInit {
 
   displayedColumns: string[] = ['complainID', 'description', 'submittedDate', 'lastDateOfPending' , 'Action'];
   dataSource1;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  // tslint:disable-next-line:typedef use-lifecycle-interface
+  ngAfterViewInit() {
+    this.dataSource1.paginator = this.paginator;
+  }
   constructor(private router: Router, private route: ActivatedRoute, private http1: HttpClient) { }
 
   ngOnInit(): void {
