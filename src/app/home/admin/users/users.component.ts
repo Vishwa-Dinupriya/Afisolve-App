@@ -26,9 +26,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<IUser>;
   USERS_DATA: IUser[];
 
+  createUser = false;
+  profileMode = false;
+
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
 
   constructor(private router: Router,
               private http1: HttpClient) {
@@ -54,6 +56,10 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   public redirectToDetails(id: string): void {
     console.log(id);
+    this.profileMode = true;
+  }
+  public redirectToUsers(): void {
+    this.profileMode = false;
   }
 
   public redirectToUpdate(id: string): void {

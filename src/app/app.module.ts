@@ -28,17 +28,21 @@ import {ComplaintsComponent} from './home/admin/complaints/complaints.component'
 import {ProductsComponent} from './home/admin/products/products.component';
 import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
 import {ProductService} from './home/services/product.service';
+import {MatGridListModule} from '@angular/material/grid-list';
 
-import { LateComplaintInformationComponent } from './home/projectManager/late-complaint-information/late-complaint-information.component';
-import { ViewReportsComponent } from './home/projectManager/view-reports/view-reports.component';
-import { ProfileComponent } from './home/projectManager/profile/profile.component';
-import { ActionComponent } from './home/projectManager/late-complaint-information/action/action.component';
+import {LateComplaintInformationComponent} from './home/projectManager/late-complaint-information/late-complaint-information.component';
+import {ViewReportsComponent} from './home/projectManager/view-reports/view-reports.component';
+import {ProfileComponent} from './home/projectManager/profile/profile.component';
+import {ActionComponent} from './home/projectManager/late-complaint-information/action/action.component';
 
 import {ProfilePictureComponent} from './home/shared/profile/profile-picture/profile-picture.component';
 import {ImageCropperModule} from 'ngx-image-cropper';
 import {TestComponent} from './home/admin/test/test.component';
 import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
-
+import {UserProfileComponent} from './home/shared/user-profile/user-profile.component';
+import {ComplaintProfileComponent} from './home/shared/complaint-profile/complaint-profile.component';
+import {ProductProfileComponent} from './home/shared/product-profile/product-profile.component';
+import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-profile.component';
 
 
 @NgModule({
@@ -68,7 +72,11 @@ import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.compo
 
     ProfilePictureComponent,
     TestComponent,
-    TestSortingComponent
+    TestSortingComponent,
+    UserProfileComponent,
+    ComplaintProfileComponent,
+    ProductProfileComponent,
+    FeedbackProfileComponent
 
 
   ],
@@ -80,6 +88,7 @@ import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.compo
     HttpClientModule,
     MaterialModule,
     ImageCropperModule,
+    MatGridListModule,
   ],
   providers: [
     AuthenticationService,

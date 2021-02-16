@@ -1,6 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {AuthenticationService} from '../../authentication/authentication.service';
+import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-admin',

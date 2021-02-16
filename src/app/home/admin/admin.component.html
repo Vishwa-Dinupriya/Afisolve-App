@@ -1,5 +1,5 @@
 <mat-drawer-container style="min-height:93%" >
-  <mat-drawer mode="side" opened style="width: 200px">
+  <mat-drawer #drawer mode="side" opened style="width: 200px">
     <mat-selection-list [multiple]="false" >
 
       <mat-list-option routerLink="./dashboard"
@@ -55,8 +55,16 @@
   </mat-drawer>
 
   <mat-drawer-content class="">
+
+    <div class="example-sidenav-content">
+      <button type="button" mat-button (click)="drawer.toggle()">
+        <mat-icon mat-list-icon>reorder</mat-icon>
+      </button>
+    </div>
+
       <router-outlet (activate)="getRoute($event)" >
            <!--dashboard,complaints,users,products,feedbacks,test,test-sorting-->
       </router-outlet>
+
   </mat-drawer-content>
 </mat-drawer-container>
