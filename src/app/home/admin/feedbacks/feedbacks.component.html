@@ -1,88 +1,69 @@
 <mat-card class="m-5 shadow" style="height: 80%">
+<div>
 
-          <!-- Update Column -->
-          <ng-container matColumnDef="update">
-            <th mat-header-cell *matHeaderCellDef> Update </th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="accent" (click)="redirectToUpdate(element.complaintID)">
-                <mat-icon class="mat-18">system_update</mat-icon>
-              </button>
-            </td>
-          </ng-container>
+  <mat-form-field class="w-75 m-3">
+    <mat-label>Filter</mat-label>
+    <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
+  </mat-form-field>
+  <div>
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
 
-  <mat-tab-group animationDuration="0ms">
+      <!-- complaint ID Column -->
+      <ng-container matColumnDef="complaintID">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Complaint-ID</th>
+        <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
+      </ng-container>
 
-    <mat-tab label="Feedbacks">
+      <!-- satisfaction level Column -->
+      <ng-container matColumnDef="satisfaction">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Satisfied-level</th>
+        <td mat-cell *matCellDef="let element"> {{element.satisfaction}} </td>
+      </ng-container>
 
-      <mat-form-field class="w-75 m-3">
-        <mat-label>Filter</mat-label>
-        <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
-      </mat-form-field>
+      <!-- feedback description Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Feedback</th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
 
-      <div>
-        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
+      <!-- Details Column -->
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef> Details </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="redirectToDetails(element.complaintID)">
+            <mat-icon class="mat-18">reorder</mat-icon>
+          </button>
+        </td>
+      </ng-container>
 
-          <!-- complaint ID Column -->
-          <ng-container matColumnDef="complaintID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Complaint-ID</th>
-            <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
-          </ng-container>
+      <!-- Update Column -->
+      <ng-container matColumnDef="update">
+        <th mat-header-cell *matHeaderCellDef> Update </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="accent" (click)="redirectToUpdate(element.complaintID)">
+            <mat-icon class="mat-18">system_update</mat-icon>
+          </button>
+        </td>
+      </ng-container>
 
-          <!-- satisfaction level Column -->
-          <ng-container matColumnDef="satisfaction">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Satisfied-level</th>
-            <td mat-cell *matCellDef="let element"> {{element.satisfaction}} </td>
-          </ng-container>
+      <!-- Delete Column -->
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Delete </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="warn" (click)="redirectToDelete(element.complaintID)">
+            <mat-icon class="mat-18">delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <!-------------------------------------------------------------------------------------------->
 
-          <!-- feedback description Column -->
-          <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Feedback</th>
-            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-          </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-          <!-- Details Column -->
-          <ng-container matColumnDef="details">
-            <th mat-header-cell *matHeaderCellDef> Details </th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="primary" (click)="redirectToDetails(element.complaintID)">
-                <mat-icon class="mat-18">reorder</mat-icon>
-              </button>
-            </td>
-          </ng-container>
+    </table>
+    <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </div>
 
-          <!-- Update Column -->
-          <ng-container matColumnDef="update">
-            <th mat-header-cell *matHeaderCellDef> Update </th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="accent" (click)="redirectToUpdate(element.complaintID)">
-                <mat-icon class="mat-18">system_update</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-
-          <!-- Delete Column -->
-          <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef> Delete </th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="warn" (click)="redirectToDelete(element.complaintID)">
-                <mat-icon class="mat-18">delete</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-          <!-------------------------------------------------------------------------------------------->
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-        </table>
-      </div>
-    </mat-tab>
-
-    <mat-tab label="Second">
-
-    </mat-tab>
-
-    <mat-tab label="Third"></mat-tab>
-  </mat-tab-group>
-
+</div>
 </mat-card>

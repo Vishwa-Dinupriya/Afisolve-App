@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document, private renderer: Renderer2, // this line for theme
     public authenticationService: AuthenticationService,
     public userDetails: UserDataService,
-    private router: Router
+    private router: Router,
   ) {
   }
 
