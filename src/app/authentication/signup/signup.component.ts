@@ -27,6 +27,7 @@ export class SignupComponent implements OnInit {
 
   roleList: string[] = ['Customer', 'Account Coordinator', 'Developer', 'Project Manager', 'CEO'];
   selectedRoles: number [] = [];
+
   matcher = new MyErrorStateMatcher();
 
   constructor(

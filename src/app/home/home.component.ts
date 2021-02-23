@@ -73,13 +73,6 @@ export class HomeComponent implements OnInit {
     this.renderer.setAttribute(this.document.body, 'class', hostClass);
   }
 
-  nextTheme(): string { // mat tool-tip
-    if (this.isDarkTheme) {
-      return 'light';
-    }
-    return 'dark';
-  }
-
   roleChangeFunction(i): void {
     this.selectedValue = i;
     console.log(this.roles[i].roleName);

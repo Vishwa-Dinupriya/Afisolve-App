@@ -23,7 +23,6 @@
 
     </div>
     <!-------------------------------------------------------------------------------------------------------------->
-
     <div class="row">
       <mat-form-field  class="col-12" appearance="outline">
         <mat-label>Email</mat-label>
@@ -34,7 +33,6 @@
     </div>
     <!-------------------------------------------------------------------------------------------------------------->
     <div class="row" formGroupName="passwordGroup">
-
       <mat-form-field class="col-6" appearance="outline">
         <mat-label>Password</mat-label>
         <input matInput placeholder="New password" formControlName="password" required [type]="hidePassword ? 'password' : 'text'">
@@ -75,7 +73,6 @@
       </mat-form-field>
     </div>
     <!-------------------------------------------------------------------------------------------------------------->
-
     <div class="row">
       <mat-form-field  class="col-12" appearance="outline">
         <mat-label>Contact Number</mat-label>
@@ -83,6 +80,7 @@
       </mat-form-field>
     </div>
     <!-------------------------------------------------------------------------------------------------------------->
+
     <button class="btn btn-primary" type="submit" [disabled]="!userRegistrationForm.valid">Sign Up</button>
 
   </form>

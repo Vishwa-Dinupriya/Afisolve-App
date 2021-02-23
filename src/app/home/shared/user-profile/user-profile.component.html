@@ -1,5 +1,9 @@
-<mat-tab-group animationDuration="1000ms">
-  <mat-tab label="Personal" >
+<mat-tab-group animationDuration="1000ms" [selectedIndex]="tabIndex">
+  <mat-tab label="General" >
+
+  </mat-tab>
+
+  <mat-tab label="Personal">
     <mat-grid-list cols="2" rowHeight="2:2">
 
       <mat-grid-tile>
@@ -65,23 +69,31 @@
             <div class="row">
               <mat-form-field appearance="outline" class="col-12" >
                 <mat-label>Role</mat-label>
-                <mat-select [disabled]="!edit" formControlName="roles" multiple="true"  >
-                  <mat-option *ngFor="let role of roleList; let i = index" [value]="role.toLowerCase()" >{{role}}</mat-option>
+                <mat-select [disabled]="!edit" formControlName="roles" multiple="true" (valueChange)="toSelectedRoles($event)" >
+                  <mat-option *ngFor="let role of roleList; let i = index" [value]="i" >{{role}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             <!-------------------------------------------------------------------------------------------------------------->
             <div class="row">
-
+              <mat-form-field appearance="outline" class="col-12">
+                <mat-label>Default Role</mat-label>
+                <mat-select [disabled]="!edit" formControlName="defaultRole" multiple="false" >
+                  <mat-option *ngFor="let roleId of selectedRoles; let i = index" [value]="roleId">{{roleList[roleId]}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!-------------------------------------------------------------------------------------------------------------->
+            <div class="row">
               <mat-form-field  class="col-12" appearance="outline">
                 <mat-label>Contact Number</mat-label>
                 <input [readonly]="!edit" type="text" matInput formControlName="contactNumber" placeholder="07*-*******">
               </mat-form-field>
-
             </div>
             <!-------------------------------------------------------------------------------------------------------------->
+
             <button class="btn btn-primary" type="button" [hidden]="edit" (click)="edit = !edit">Edit Profile</button>
-            <button class="btn btn-primary" type="button" [hidden]="!edit" (click)="edit = !edit">Cancel</button>
+            <button class="btn btn-primary" type="button" [hidden]="!edit" (click)="whenCancelEdit()">Cancel</button>
             <span></span>
             <button class="btn btn-primary" style="float: right" type="submit" [hidden]="!userRegistrationForm.valid || !haveChanges">Save</button>
 
@@ -90,10 +102,6 @@
       </mat-grid-tile>
 
     </mat-grid-list>
-
-  </mat-tab>
-
-  <mat-tab label="General">
   </mat-tab>
 
 </mat-tab-group>

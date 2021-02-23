@@ -21,7 +21,7 @@
 
     <span style="flex: 1 1 auto"></span>
 
-    <button mat-icon-button (click)="changeTheme()" matTooltip="Change theme to {{nextTheme()}}">
+    <button mat-icon-button (click)="changeTheme()" matTooltip="Change theme to {{isDarkTheme? 'light' : 'dark'}}">
       <mat-icon>format_color_fill</mat-icon>
     </button>
 
