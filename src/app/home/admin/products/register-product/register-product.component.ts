@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ProductService} from '../../../services/product.service';
+import {ProductService} from '../product.service';
 
 @Component({
   selector: 'app-register-product',

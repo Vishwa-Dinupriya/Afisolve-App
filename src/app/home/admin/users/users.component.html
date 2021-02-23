@@ -1,10 +1,11 @@
-
-<button mat-raised-button color="primary" class="float-right m-1" (click)="createUser = !createUser" [hidden]="createUser">
+<button mat-raised-button color="primary" class="float-right m-1" (click)="createUser = !createUser"
+        [hidden]="createUser">
   <mat-icon>person_add</mat-icon>
   new user
 </button>
 
-<button mat-raised-button color="primary" class="float-right m-1" (click)="createUser = !createUser" [hidden]="!createUser">
+<button mat-raised-button color="primary" class="float-right m-1" (click)="createUser = !createUser"
+        [hidden]="!createUser">
   <mat-icon>view_list</mat-icon>
   view users
 </button>
@@ -27,7 +28,7 @@
         <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
       </mat-form-field>
 
-      <div>
+      <div [hidden]="!dataSource">
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
 
           <!-- Position Column -->
@@ -97,14 +98,21 @@
         <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
         </mat-paginator>
       </div>
+
+
+      <div *ngIf="!dataSource" class="d-flex justify-content-center w-100">
+        <mat-spinner></mat-spinner>
+      </div>
+
     </div>
 
     <div [hidden]="!profileMode">
-      <app-user-profile></app-user-profile>
+      <app-user-profile [userEmailChild]="userEmailParent"></app-user-profile>
     </div>
+
     <button class="btn btn-primary" (click)="redirectToUsers()" [hidden]="!profileMode">
       <mat-icon>arrow_back_ios</mat-icon>
-      back
+      users
     </button>
   </div>
 

@@ -6,17 +6,18 @@ import {Injectable} from '@angular/core';
   providedIn: 'root'
 })
 
-export class UserDataService {
+export class HomeService {
 
   name: string;
-  roles: string;
-  private nameChange: Subject<string> = new Subject<string>(); // observable
+  roles: string; // child eken access karanne
+
+  private nameChange: Subject<string> = new Subject<string>(); // instance deka separate nowee thiyganne meken
   private rolesChange: Subject<string> = new Subject<string>();
 
 
   constructor(private http: HttpClient) {
     this.nameChange.subscribe(value => this.name = value); // subscribe to observable
-    this.rolesChange.subscribe(value => this.roles = value); // subscribe to observable
+    this.rolesChange.subscribe(value => this.roles = value); // next eken enne methnata
   }
 
   changeName(name: string): void {
@@ -31,9 +32,6 @@ export class UserDataService {
   //   this.nameChange.next(name);
   // }
 
-  getUserDetails(): Observable<any> {
-    return this.http.post<any>(`http://localhost:3000/common/get-user-login-details`, {});
-  }
 
   // getUserDetaissls(): Observable<any> {
   //   this.http.post('http://localhost:3000/users/get-profile-picture', {}).subscribe(

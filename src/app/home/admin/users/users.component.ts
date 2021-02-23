@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {MatTableDataSource} from '@angular/material/table';
@@ -32,6 +32,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
+  userEmailParent: string;
+
   constructor(private router: Router,
               private http1: HttpClient) {
 
@@ -55,9 +57,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   public redirectToDetails(id: string): void {
-    console.log(id);
+    this.userEmailParent = id;
+    console.log(this.userEmailParent);
     this.profileMode = true;
   }
+
   public redirectToUsers(): void {
     this.profileMode = false;
   }

@@ -1,12 +1,12 @@
 <button mat-button class="float-right" (click)="createProduct = !createProduct" [hidden]="createProduct">
-  <span class="mat-button-wrapper" >
+  <span class="mat-button-wrapper">
    <mat-icon>add_business</mat-icon>
     New product
   </span>
 </button>
 
 <button mat-button class="float-right" (click)="createProduct = !createProduct" [hidden]="!createProduct">
-  <span class="mat-button-wrapper"  >
+  <span class="mat-button-wrapper">
     <mat-icon>view_list</mat-icon>
     View products
   </span>
@@ -99,7 +99,7 @@
   </div>
 
   <mat-card-title [hidden]="!createProduct">Register new Product</mat-card-title>
-   <hr>
+  <hr>
   <div [hidden]="!createProduct" class="" style="">
     <app-register-product></app-register-product>
   </div>

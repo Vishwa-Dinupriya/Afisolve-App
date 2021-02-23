@@ -27,7 +27,7 @@ import {UsersComponent} from './home/admin/users/users.component';
 import {ComplaintsComponent} from './home/admin/complaints/complaints.component';
 import {ProductsComponent} from './home/admin/products/products.component';
 import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
-import {ProductService} from './home/services/product.service';
+import {ProductService} from './home/admin/products/product.service';
 import {MatGridListModule} from '@angular/material/grid-list';
 
 import {LateComplaintInformationComponent} from './home/projectManager/late-complaint-information/late-complaint-information.component';
