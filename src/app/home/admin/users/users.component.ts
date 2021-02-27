@@ -4,6 +4,8 @@ import {HttpClient} from '@angular/common/http';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
 
 export interface IUser {
   userEmail: string;
@@ -26,7 +28,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<IUser>;
   USERS_DATA: IUser[];
 
-  createUser = false;
+  createUserMode = false;
   profileMode = false;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -35,13 +37,10 @@ export class UsersComponent implements OnInit, AfterViewInit {
   userEmailParent: string;
 
   constructor(private router: Router,
-              private http1: HttpClient) {
+              private http1: HttpClient,
+              public dialog: MatDialog) { }
 
-  }
-
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   ngAfterViewInit(): void {
     this.http1.post<any>(`http://localhost:3000/admin/get-users-details`, {}).subscribe(
@@ -72,6 +71,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   public redirectToDelete(id: string): void {
     console.log(id);
+    const dialogRef = this.dialog.open(DialogBoxComponent, {data: {message: 'Are you want to delete ', name: id}});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        console.log(`Dialog result: ${result}`);
+      } else {
+        console.log(`Dialog result: ${result}`);
+      }
+    });
   }
 
   applyFilter(event): void {

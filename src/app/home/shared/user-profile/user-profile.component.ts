@@ -6,6 +6,8 @@ import {AuthenticationService} from 'src/app/authentication/authentication.servi
 import {ErrorStateMatcher} from '@angular/material/core';
 import {HttpClient} from '@angular/common/http';
 import {DOCUMENT} from '@angular/common';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -30,6 +32,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
   haveChanges = false;
   userRegistrationForm: FormGroup;
   tabIndex;
+  oldEmail;
 
   registrationFormInitCopy;
 
@@ -43,9 +46,9 @@ export class UserProfileComponent implements OnInit, OnChanges {
     private fb1: FormBuilder,
     private authenticationService: AuthenticationService,
     private router: Router,
-    private http1: HttpClient
+    private http1: HttpClient,
+    public dialog: MatDialog
   ) {
-
   }
 
   ngOnInit(): void {
@@ -98,6 +101,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
 
   getCopyOfInitForm(): void {
     this.registrationFormInitCopy = Object.assign({}, this.userRegistrationForm.value);
+    this.oldEmail = this.registrationFormInitCopy.email;
     console.log('init form copy ');
     console.log(this.registrationFormInitCopy);
   }
@@ -113,7 +117,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
         this.registrationFormInitCopy.defaultRole !== value.defaultRole ||
         this.registrationFormInitCopy.contactNumber !== value.contactNumber) {
         this.haveChanges = true;
-        console.log('no have changes');
+        console.log('have changes');
       } else {
         this.haveChanges = false;
         console.log('no have changes');
@@ -154,8 +158,8 @@ export class UserProfileComponent implements OnInit, OnChanges {
   }
 
   toSelectedRoles(value): void {
-    console.log(value);
     this.selectedRoles = value;
+    this.defaultRole.reset();
   }
 
   whenCancelEdit(): void {
@@ -164,14 +168,41 @@ export class UserProfileComponent implements OnInit, OnChanges {
     this.userRegistrationForm.setValue(this.registrationFormInitCopy);
   }
 
-  onSubmit(): void {
-    this.authenticationService.signup(this.userRegistrationForm.value)
+  public saveChangesDialog(): void {
+
+    const dialogRef = this.dialog.open(DialogBoxComponent, {data: {message: 'Save changes? ', name: '', button: 'Save'}});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        console.log(`Dialog result: ${result}`);
+        this.onUpdate();
+      } else {
+        console.log(`Dialog result: ${result}`);
+      }
+    });
+  }
+
+  onUpdate(): void {
+    const registrationForm = this.userRegistrationForm.value;
+    registrationForm.firstName = this.capitalize(this.firstName.value);
+    registrationForm.lastName = this.capitalize(this.lastName.value);
+    this.authenticationService.updateProfile(this.userRegistrationForm.value, this.oldEmail)
       .subscribe(
         response => {
-          console.log('Success!(frontend)', response);
+          console.log('Update Success!(frontend)', response);
+          this.ngOnChanges();
+          this.edit = false;
+          this.haveChanges = false;
+          console.log(this.haveChanges + '195');
         },
-        error => console.error('Error!(frontend)', error)
+        error => {
+          console.error('Update Error!(frontend)', error);
+        }
       );
+  }
+
+  capitalize(value: string): string {
+    return value.charAt(0).toUpperCase() + value.slice(1);
   }
 
 
