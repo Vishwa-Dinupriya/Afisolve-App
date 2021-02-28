@@ -1,18 +1,19 @@
-<form>
-  <h4><b>Select the new Account Coordinator</b></h4>
-  <mat-form-field appearance="fill">
+<h4><b>Select the new Account Coordinator</b></h4>
+
+<mat-form-field>
     <mat-label>New Account Coordinator</mat-label>
-    <mat-select [(ngModel)]="selectedValue" name="food" >
-      <mat-option *ngFor="let food of accdata" [value]="food.accountCoordinatorName"  >
+    <mat-select [(ngModel)]="selectedValue">
+      <mat-option *ngFor="let food of accdata" [value]="food" >
         {{food.accountCoordinatorName}}
       </mat-option>
     </mat-select>
   </mat-form-field>
   <p> Selected Account Coordinator: {{selectedValue}} </p>
-</form>
+
 
 <section>
   <div class="example-button-row">
     <button mat-raised-button color="primary" (click)="giveAlert()">Save</button>
   </div>
 </section>
+{{this.message}}

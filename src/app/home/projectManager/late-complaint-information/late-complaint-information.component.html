@@ -1,11 +1,22 @@
+<br xmlns="http://www.w3.org/1999/html">
+<div align="right">
+  <!-- #docregion mat-badge-position -->
+  <button mat-raised-button color="warn"
+          matBadge="8" matBadgePosition="before" matBadgeColor="accent">
+    Reminders
+  </button>
+  <!-- #enddocregion mat-badge-position -->
+</div>
+
 <br>
 <br>
 <div class="new" align="center">
   <router-outlet></router-outlet>
   <hr>
 </div>
-
+<div>
   <mat-card class="m-5 shadow" style="height: 50%">
+    <div>
   <table mat-table [dataSource]="dataSource1" class="w-100">
 
     <!-- Complain ID column -->
@@ -28,32 +39,38 @@
       <td mat-cell *matCellDef="let element"> {{element.submittedDate}} </td>
     </ng-container>
 
-    <!--  test Column-->
     <ng-container matColumnDef="lastDateOfPending">
       <th mat-header-cell *matHeaderCellDef> Deadline Date </th>
       <td mat-cell *matCellDef="let element">{{element.lastDateOfPending}}</td>
     </ng-container>
 
+    <!--  test Column-->
+    <ng-container matColumnDef="accountCoordinatorName">
+      <th mat-header-cell *matHeaderCellDef> Account Coordinator Name </th>
+      <td mat-cell *matCellDef="let element">{{element.accountCoordinatorName}}</td>
+    </ng-container>
+
     <!--  Action Column-->
     <ng-container matColumnDef="Action">
       <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element"><button (click)="getAlert()">get Action</button>  </td>
+      <td mat-cell *matCellDef="let element" (click)="getName(element.accountCoordinatorName)" ><button (click)="getAlert()">get Action</button>  </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></tr>
+
 
 
 
 
   </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </div>
   </mat-card>
 
 
-
-
-
+</div>
 
 
 

@@ -1,0 +1,22 @@
+.new-class1{
+  border-style: solid;
+  border-color: #000000;
+  margin-left: 10px;
+  margin-right: 120px;
+}
+
+.new-class2{
+  border-style: solid;
+  border-color:#000000;
+  margin-left: 10px;
+  margin-right: 50px;
+}
+
+.new-class3{
+  margin-left: 1000px;
+  margin-top: 20px;
+  margin-right: 5px;
+  height: 280px;
+  width: 300px;
+  background-color: #555555;
+}

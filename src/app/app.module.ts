@@ -42,6 +42,7 @@ import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.compo
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 
@@ -100,6 +101,7 @@ import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-
     MatInputModule,
     FormsModule,
     MatGridListModule,
+    MatBadgeModule,
   ],
   providers: [
     AuthenticationService,

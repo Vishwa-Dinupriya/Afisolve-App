@@ -1,17 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import Swal from 'sweetalert2';
+import {PastnameService} from '../../../services/pastname.service';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-action',
   templateUrl: './action.component.html',
   styleUrls: ['./action.component.css']
 })
+// tslint:disable-next-line:class-name
+
 export class ActionComponent implements OnInit {
   accdata;
-  selectedValue: string ;
-
-  constructor(private http1: HttpClient) {
+  selectedValue: any;
+  message: any;
+  model = {
+  accountCoordinatorEmail: '',
+  accountCoordinatorName: ''
+}
+  constructor(private http1: HttpClient, private pastname: PastnameService, private fb1: FormBuilder,) {
   }
 
   ngOnInit(): void {
@@ -31,9 +39,9 @@ export class ActionComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
-  confirm(){
-    console.log('bgnhnhn');
-  }
+
+
+
   // tslint:disable-next-line:typedef
   giveAlert() {
     Swal.fire({
@@ -46,13 +54,26 @@ export class ActionComponent implements OnInit {
       confirmButtonText: 'Yes, Change it!'
     }).then((result) => {
       if (result.isConfirmed) {
+        this.givenewName();
         Swal.fire(
           'change saved!',
           '',
           'success'
-        )
+        );
       }
-    })
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  givenewName() {
+    console.log(this.selectedValue);
+    this.pastname.newacname(this.selectedValue)
+      .subscribe(
+        response => {
+          console.log('Success!(frontend)', response);
+        },
+        error => console.error('Error!(frontend)', error)
+      );
   }
 
 }

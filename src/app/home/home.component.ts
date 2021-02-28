@@ -1,9 +1,7 @@
-import {AfterViewInit, Component, HostBinding, Inject, OnInit, Renderer2} from '@angular/core';
+import { Component, HostBinding, Inject, OnInit, Renderer2} from '@angular/core';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {UserDataService} from './services/user-data.service';
 import {DOCUMENT} from '@angular/common';
-import {HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -20,24 +18,22 @@ export class HomeComponent implements OnInit {
   }
 
   selectedValue = 0;
-  // roles: string[] = ['Admin', 'Developer', 'Project Manager', 'test'];
-  roles;
+  roles: string[] = ['Admin', 'Developer', 'Project Manager', 'test'];
+
 
   constructor(
     @Inject(DOCUMENT) private document: Document, private renderer: Renderer2, // this line for theme
     public authenticationService: AuthenticationService,
     public userDetails: UserDataService,
-    private router: Router,
+
   ) {
   }
 
   ngOnInit(): void {
-    // this.http1.post<any>(`http://localhost:3000/common/get-user-login-details`, {}).subscribe(
     this.userDetails.getUserDetails().subscribe(
       response => {
         this.userDetails.changeName(response.firstname);
-        this.userDetails.changeRoles(response.roles);
-        this.roles = this.userDetails.roles;
+        console.log(this.userDetails.name);
       },
       error => {
         console.log(error);
@@ -59,20 +55,8 @@ export class HomeComponent implements OnInit {
   }
 
   test_function(i): void {
+    console.log(i);
     this.selectedValue = i;
-    console.log(this.roles[i].roleName);
-    this.authenticationService.roleChange(this.roles[i])
-      .subscribe(
-        response => {
-          console.log('Role change Success!(frontend)', response);
-          console.log(response.role);
-          localStorage.setItem('token', response.token);
-          this.router.navigate([`../home/${response.role.toLowerCase()}`]);
-        },
-        error => {
-          console.error('Role change Error!(frontend)', error);
-        }
-      );
   }
 
 

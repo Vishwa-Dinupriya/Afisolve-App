@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-view-reports',
@@ -10,23 +11,42 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 export class ViewReportsComponent implements OnInit {
 
-  displayedColumns: string[] = ['complainID', 'description', 'submittedDate', 'lastDateOfPending' ];
-  dataSourcer;
-  bc;
-
-
 
 
 
   constructor( private http1: HttpClient) {}
+
+  displayedColumns: string[] = ['complainID', 'subComplaintID', 'description', 'status', 'submittedDate', 'lastDateOfPending', 'wipStartDate', 'finishedDate' ];
+  dataSourcer;
+  bc;
+
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  checks: boolean;
   ngOnInit(): void {
     this.getData();
+    this.ngAfterViewInit();
   }
 
+  // tslint:disable-next-line:typedef
+  bulk(e){
+    // tslint:disable-next-line:triple-equals
+    if (e.target.checked === true){
+      this.checks = true;
+    }
+    else {
+      this.checks = false;
+    }
+  }
+
+  // tslint:disable-next-line:typedef use-lifecycle-interface
+  ngAfterViewInit() {
+    this.dataSourcer.paginator = this.paginator;
+  }
   // get all data
   // tslint:disable-next-line:typedef
   getData(){
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-details`, {}).subscribe(
+    this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-details1`, {}).subscribe(
       response => {
         this.dataSourcer = response.data;
         console.log(this.dataSourcer);
@@ -62,6 +82,42 @@ export class ViewReportsComponent implements OnInit {
   // tslint:disable-next-line:typedef
   pending(){
     this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-detai`, {}).subscribe(
+      response => {
+        this.dataSourcer = response.data;
+        console.log(this.dataSourcer);
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  // tslint:disable-next-line:typedef
+  year(){
+    this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-year`, {}).subscribe(
+      response => {
+        this.dataSourcer = response.data;
+        console.log(this.dataSourcer);
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  // tslint:disable-next-line:typedef
+  month(){
+    this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-month`, {}).subscribe(
+      response => {
+        this.dataSourcer = response.data;
+        console.log(this.dataSourcer);
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  // tslint:disable-next-line:typedef
+  today(){
+    this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-today`, {}).subscribe(
       response => {
         this.dataSourcer = response.data;
         console.log(this.dataSourcer);

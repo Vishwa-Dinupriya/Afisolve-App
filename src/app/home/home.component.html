@@ -27,7 +27,7 @@
 
     <button mat-button [matMenuTriggerFor]="dropDownRoles" matTooltip="Select role">
       <span class="mat-button-wrapper ">
-        {{this.roles[selectedValue].roleName}}
+        {{this.roles[selectedValue]}}
         <mat-icon >arrow_drop_down</mat-icon>
       </span>
     </button>
@@ -47,7 +47,7 @@
   <button mat-menu-item type="button"
           *ngFor="let role_ of roles; let i = index"
           (click)="test_function(i)">
-    <span>{{ role_.roleName }}</span>
+    <span>{{ role_ }}</span>
   </button>
 </mat-menu>
 

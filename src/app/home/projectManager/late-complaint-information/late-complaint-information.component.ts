@@ -1,8 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {MatPaginator} from '@angular/material/paginator';
+import {PastnameService} from '../../services/pastname.service';
 
 
 @Component({
@@ -10,21 +11,31 @@ import {MatPaginator} from '@angular/material/paginator';
   templateUrl: './late-complaint-information.component.html',
   styleUrls: ['./late-complaint-information.component.css']
 })
-export class LateComplaintInformationComponent implements OnInit {
+export class LateComplaintInformationComponent implements AfterViewInit, OnInit {
 
-  displayedColumns: string[] = ['complainID', 'description', 'submittedDate', 'lastDateOfPending' , 'Action'];
+  constructor(private router: Router, private route: ActivatedRoute, private http1: HttpClient, private pastname: PastnameService){ }
+   selectedRow;
+   raw: string;
+  displayedColumns: string[] = ['complainID', 'description', 'submittedDate', 'lastDateOfPending', 'accountCoordinatorName' , 'Action'];
   dataSource1;
+  // @ts-ignore
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+  // tslint:disable-next-line:typedef
+   raew: string;
+  // tslint:disable-next-line:typedef
+   m: string;
+
+
+  ngOnInit(): void {
+    this.getData();
+  }
 
   // tslint:disable-next-line:typedef use-lifecycle-interface
   ngAfterViewInit() {
     this.dataSource1.paginator = this.paginator;
-  }
-  constructor(private router: Router, private route: ActivatedRoute, private http1: HttpClient) { }
-
-  ngOnInit(): void {
-    this.getData();
   }
 
    getData(): void {
@@ -37,6 +48,22 @@ export class LateComplaintInformationComponent implements OnInit {
        }
      );
    }
+  // tslint:disable-next-line:typedef
+  onRowClicked(row) {
+    console.log('Row clicked: ', row);
+    this.pastname.passn(row)
+      .subscribe(
+        response => {
+          console.log('Success!(frontend)' + row , response);
+        },
+        error => console.error('Error!(frontend)', error)
+      );
+  }
+
+  // tslint:disable-next-line:typedef
+  getName(raw){
+    console.log(raw);
+  }
    // getAction(): void {
    // this.router.navigate(['/home/project-manager/late-complaint-information/action']);
   // }
@@ -76,9 +103,9 @@ export class LateComplaintInformationComponent implements OnInit {
       if (result.isConfirmed) {
         Swal.fire(
           '\'<a href="http://localhost:4200/home/project-manager/late-complaint-information/action"><button>Go to change</button></a> \''
-        )
+        );
       }
-    })
+    });
   }
 
   ///////////////////////////////////////////
@@ -113,6 +140,7 @@ export class LateComplaintInformationComponent implements OnInit {
           `Account coordinator get another ${ipAddress} hours to finished.`,
           'success');
       }
+      return ipAddress;
 
     })();
   }
