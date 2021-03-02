@@ -59,10 +59,12 @@ export class UserProfileComponent implements OnInit, OnChanges {
     if (this.userRegistrationForm) {
       this.tabIndex = '1';
       this.formBuildFunction();
+      this.registrationFormInitCopy = null;
 
       this.http1.post<any>(`http://localhost:3000/admin//get-selected-user-profile-details`, {selectedUserEmail: this.userEmailChild})
         .subscribe(
           response => {
+            console.log('response ');
             console.log(response);
             this.firstName.setValue(response.firstname);
             this.lastName.setValue(response.lastname);
@@ -97,6 +99,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
       defaultRole: ['', [Validators.required]],
       contactNumber: ['']
     });
+    console.log('im built');
   }
 
   getCopyOfInitForm(): void {
@@ -104,25 +107,30 @@ export class UserProfileComponent implements OnInit, OnChanges {
     this.oldEmail = this.registrationFormInitCopy.email;
     console.log('init form copy ');
     console.log(this.registrationFormInitCopy);
+    console.log('have changes ? ' + this.haveChanges);
+
   }
 
   subscribeToFormValChange(): void {
-    this.userRegistrationForm.valueChanges.subscribe(value => {
-
-      if (this.registrationFormInitCopy.firstName !== value.firstName ||
-        this.registrationFormInitCopy.lastName !== value.lastName ||
-        this.registrationFormInitCopy.email !== value.email ||
-        this.registrationFormInitCopy.password !== value.password ||
-        JSON.stringify(this.registrationFormInitCopy.roles) !== JSON.stringify(value.roles) ||
-        this.registrationFormInitCopy.defaultRole !== value.defaultRole ||
-        this.registrationFormInitCopy.contactNumber !== value.contactNumber) {
-        this.haveChanges = true;
-        console.log('have changes');
-      } else {
-        this.haveChanges = false;
-        console.log('no have changes');
-      }
-    });
+    if(this.registrationFormInitCopy){
+      this.userRegistrationForm.valueChanges.subscribe(value => {
+        if (this.registrationFormInitCopy.firstName !== value.firstName ||
+          this.registrationFormInitCopy.lastName !== value.lastName ||
+          this.registrationFormInitCopy.email !== value.email ||
+          this.registrationFormInitCopy.password !== value.password ||
+          JSON.stringify(this.registrationFormInitCopy.roles) !== JSON.stringify(value.roles) ||
+          this.registrationFormInitCopy.defaultRole !== value.defaultRole ||
+          this.registrationFormInitCopy.contactNumber !== value.contactNumber) {
+          this.haveChanges = true;
+          console.log('have changes');
+          console.log('Init ' + JSON.stringify(this.registrationFormInitCopy.contactNumber));
+          console.log('regForm ' + JSON.stringify(value.contactNumber));
+        } else {
+          this.haveChanges = false;
+          console.log('no have changes');
+        }
+      });
+    }
   }
 
   get firstName(): AbstractControl {
@@ -191,9 +199,8 @@ export class UserProfileComponent implements OnInit, OnChanges {
         response => {
           console.log('Update Success!(frontend)', response);
           this.ngOnChanges();
+          console.log('have changes ? ' + this.haveChanges);
           this.edit = false;
-          this.haveChanges = false;
-          console.log(this.haveChanges + '195');
         },
         error => {
           console.error('Update Error!(frontend)', error);
