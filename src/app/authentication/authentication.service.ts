@@ -11,6 +11,7 @@ export class AuthenticationService {
   signupUrl = 'http://localhost:3000/authentication/register';
   loginUrl = 'http://localhost:3000/authentication/login';
   roleChangeUrl = 'http://localhost:3000/authentication/role-change';
+  updateProfileUrl = 'http://localhost:3000/admin/update-selected-user-profile-details';
 
   constructor(private http1: HttpClient, private router: Router) {
   }
@@ -29,6 +30,10 @@ export class AuthenticationService {
 
   roleChange(userData): Observable<any> {
     return this.http1.post<any>(this.roleChangeUrl, userData);
+  }
+
+  updateProfile(userData, oldEmail): Observable<any> {
+    return this.http1.post<any>(this.updateProfileUrl, {userNewData: userData, emailOld: oldEmail});
   }
 
   logout(): void {

@@ -27,8 +27,9 @@ import {UsersComponent} from './home/admin/users/users.component';
 import {ComplaintsComponent} from './home/admin/complaints/complaints.component';
 import {ProductsComponent} from './home/admin/products/products.component';
 import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
-import {ProductService} from './home/services/product.service';
+import {ProductService} from './home/admin/products/product.service';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import {LateComplaintInformationComponent} from './home/projectManager/late-complaint-information/late-complaint-information.component';
 import {ViewReportsComponent} from './home/projectManager/view-reports/view-reports.component';
@@ -43,6 +44,7 @@ import {UserProfileComponent} from './home/shared/user-profile/user-profile.comp
 import {ComplaintProfileComponent} from './home/shared/complaint-profile/complaint-profile.component';
 import {ProductProfileComponent} from './home/shared/product-profile/product-profile.component';
 import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-profile.component';
+import { DialogBoxComponent } from './home/shared/dialog-box/dialog-box.component';
 
 
 @NgModule({
@@ -76,10 +78,11 @@ import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-
     UserProfileComponent,
     ComplaintProfileComponent,
     ProductProfileComponent,
-    FeedbackProfileComponent
-
+    FeedbackProfileComponent,
+    DialogBoxComponent,
 
   ],
+  entryComponents: [DialogBoxComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -89,6 +92,7 @@ import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-
     MaterialModule,
     ImageCropperModule,
     MatGridListModule,
+    MatDialogModule
   ],
   providers: [
     AuthenticationService,

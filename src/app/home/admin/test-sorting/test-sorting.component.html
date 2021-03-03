@@ -1,53 +1,28 @@
-<mat-form-field class="w-100">
-  <mat-label>Filter</mat-label>
-  <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
-</mat-form-field>
+<form [formGroup]="myForm">
+  <div class="row">
+    <mat-form-field  class="col-12" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input type="text" matInput formControlName="email" placeholder="abc@d.com">
+      <mat-error *ngIf="email.touched && email.errors?.required">This field is required</mat-error>
+      <mat-error *ngIf="email.touched && !email.errors?.required && email.errors?.email">Invalid Email</mat-error>
+    </mat-form-field>
+  </div>
 
-<div>
-<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <div formGroupName="nested">
+    <mat-form-field>
+      <input matInput placeholder="New password" formControlName="password" required>
+      <mat-error *ngIf="myForm.hasError('required', 'nested')">
+        Please enter your newpassword
+      </mat-error>
+    </mat-form-field>
 
-  <!-- Position Column -->
-  <ng-container matColumnDef="userEmail">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> email </th>
-    <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
-  </ng-container>
+    <mat-form-field>
+      <input matInput placeholder="Confirm password" formControlName="confirmPassword" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="myForm.hasError('notSame','nested')">
+        Passwords do not match
+      </mat-error>
+    </mat-form-field>
+  </div>
+</form>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="password">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Password </th>
-    <td mat-cell *matCellDef="let element"> {{element.password}} </td>
-  </ng-container>
-
-  <!-- Weight Column -->
-  <ng-container matColumnDef="firstName">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Firstname </th>
-    <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
-  </ng-container>
-
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="lastName">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Lastname </th>
-    <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
-  </ng-container>
-
-
-  <ng-container matColumnDef="contactNumber">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact-Number </th>
-    <td mat-cell *matCellDef="let element"> {{element.contactNumber}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="details">
-    <th mat-header-cell *matHeaderCellDef> Details </th>
-    <td mat-cell *matCellDef="let element">
-      <button mat-icon-button color="primary" (click)="redirectToDetails(element.userEmail)">
-        <mat-icon class="mat-18">reorder</mat-icon>
-      </button>
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-<mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
-</mat-paginator>
-</div>
+<button mat-raised-button (click)="openDialog()">Delete me</button>

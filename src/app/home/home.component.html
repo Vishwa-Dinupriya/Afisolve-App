@@ -5,11 +5,11 @@
   <mat-toolbar-row>
 
     <!---------------------------->
-<!--    <div class="example-sidenav-content">-->
-<!--      <button type="button" mat-button (click)="admin.drawer.toggle()">-->
-<!--        <mat-icon mat-list-icon>reorder</mat-icon>-->
-<!--      </button>-->
-<!--    </div>-->
+    <div class="example-sidenav-content">
+      <button type="button" [hidden]="isBigScreen"  mat-button (click)="toggleDrawer()">
+        <mat-icon mat-list-icon>reorder</mat-icon>
+      </button>
+    </div>
     <!----------------------- -->
 
     <img src="../../../assets/img/afisolve_logo.png" alt="" width="60" height="24"
@@ -17,17 +17,17 @@
 
     <span style="flex: 0.01 1 auto"></span>
 
-    <span class="navbar-brand mb-0 h1 ">{{ userDetails.name }}</span>
+    <span class="navbar-brand mb-0 h1 ">{{ homeService.name }}</span>
 
     <span style="flex: 1 1 auto"></span>
 
-    <button mat-icon-button (click)="changeTheme()" matTooltip="Change theme to {{nextTheme()}}">
+    <button mat-icon-button (click)="changeTheme()" matTooltip="Change theme to {{isDarkTheme? 'light' : 'dark'}}">
       <mat-icon>format_color_fill</mat-icon>
     </button>
 
     <button mat-button [matMenuTriggerFor]="dropDownRoles" matTooltip="Select role">
       <span class="mat-button-wrapper ">
-        {{this.roles[selectedValue].roleName}}
+        {{ this.roles ? this.roles[selectedValue].roleName : ''}}
         <mat-icon >arrow_drop_down</mat-icon>
       </span>
     </button>
@@ -46,7 +46,7 @@
 <mat-menu #dropDownRoles="matMenu" >
   <button mat-menu-item type="button"
           *ngFor="let role_ of roles; let i = index"
-          (click)="test_function(i)">
+          (click)="roleChangeFunction(i)">
     <span>{{ role_.roleName }}</span>
   </button>
 </mat-menu>
@@ -80,7 +80,7 @@
 
 <!------------------------------------------------------------------------------------------------------>
 
-<router-outlet >
+<router-outlet>
   <!--  customer
         project manager
         ceo
