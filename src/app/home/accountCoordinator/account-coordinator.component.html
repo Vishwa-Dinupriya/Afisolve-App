@@ -1,1 +1,50 @@
-<h1>account-coordinator works!</h1>
+<mat-drawer-container style="height:93%">
+  <mat-drawer mode="side" opened style="width: 230px">
+    <mat-selection-list [multiple]="false" >
+
+      <mat-list-option routerLink="accoorcomplaints"
+                       [selected]="activeRoute === 'AccoorcomplaintsComponent'"
+                       [class.selected]="activeRoute === 'AccoorcomplaintsComponent'">
+        <mat-icon mat-list-icon>assignment</mat-icon>
+        <div mat-line>Complaints</div>
+      </mat-list-option>
+      <mat-list-option routerLink="tasks"
+                       [selected]="activeRoute === 'TasksComponent'"
+                       [class.selected]="activeRoute === 'TasksComponent'">
+        <mat-icon mat-list-icon>build</mat-icon>
+        <div mat-line>Tasks</div>
+      </mat-list-option>
+
+      <mat-list-option routerLink="allocation"
+                       [selected]="activeRoute === 'AllocationComponent'"
+                       [class.selected]="activeRoute === 'AllocationComponent'">
+        <mat-icon mat-list-icon>folder_open</mat-icon>
+        <div mat-line>Product-Allocation</div>
+      </mat-list-option>
+
+      <mat-list-option routerLink="mail"
+                       [selected]="activeRoute === 'MailComponent'"
+                       [class.selected]="activeRoute === 'MailComponent'">
+        <mat-icon mat-list-icon>mail</mat-icon>
+        <div mat-line>Mail</div>
+      </mat-list-option>
+
+
+
+
+
+
+
+
+    </mat-selection-list>
+  </mat-drawer>
+
+  <mat-drawer-content class="w-100 h-100 m-0">
+    <mat-drawer-content >
+      <router-outlet (activate)="getRoute($event)" >
+        <!--complaints,-->
+      </router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-content>
+</mat-drawer-container>
+

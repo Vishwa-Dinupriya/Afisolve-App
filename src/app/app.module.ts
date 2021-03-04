@@ -28,6 +28,12 @@ import {ComplaintsComponent} from './home/admin/complaints/complaints.component'
 import {ProductsComponent} from './home/admin/products/products.component';
 import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
 import {ProductService} from './home/services/product.service';
+import { TasksComponent } from './home/accountCoordinator/tasks/tasks.component';
+import { AccoorcomplaintsComponent } from './home/accountCoordinator/accoorcomplaints/accoorcomplaints.component';
+import { AddComplaintComponent } from './home/accountCoordinator/accoorcomplaints/add-complaint/add-complaint.component';
+import { CreateTaskComponent } from './home/accountCoordinator/tasks/create-task/create-task.component';
+import { AllocationComponent } from './home/accountCoordinator/allocation/allocation.component';
+import { MailComponent } from './home/accountCoordinator/mail/mail.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +54,12 @@ import {ProductService} from './home/services/product.service';
     ComplaintsComponent,
     ProductsComponent,
     RegisterProductComponent,
+    TasksComponent,
+    AccoorcomplaintsComponent,
+    AddComplaintComponent,
+    CreateTaskComponent,
+    AllocationComponent,
+    MailComponent,
 
   ],
   imports: [

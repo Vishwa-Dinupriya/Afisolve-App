@@ -11,7 +11,6 @@ import {HomeComponent} from './home/home.component';
 
 import {CustomerComponent} from './home/customer/customer.component';
 import {CeoComponent} from './home/ceo/ceo.component';
-import {AccountCoordinatorComponent} from './home/accountCoordinator/account-coordinator.component';
 import {DeveloperComponent} from './home/developer/developer.component';
 import {ProjectManagerComponent} from './home/projectManager/project-manager.component';
 
@@ -22,6 +21,20 @@ import {UsersComponent} from './home/admin/users/users.component';
 import {FeedbacksComponent} from './home/admin/feedbacks/feedbacks.component';
 import {ProductsComponent} from './home/admin/products/products.component';
 import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
+
+
+import {AccountCoordinatorComponent} from './home/accountCoordinator/account-coordinator.component';
+import {AccoorcomplaintsComponent} from './home/accountCoordinator/accoorcomplaints/accoorcomplaints.component';
+import {TasksComponent} from './home/accountCoordinator/tasks/tasks.component';
+import {AddComplaintComponent} from './home/accountCoordinator/accoorcomplaints/add-complaint/add-complaint.component';
+import {CreateTaskComponent} from './home/accountCoordinator/tasks/create-task/create-task.component';
+import {AllocationComponent} from './home/accountCoordinator/allocation/allocation.component';
+import {MailComponent} from './home/accountCoordinator/mail/mail.component';
+
+
+
+
+
 
 const routes: Routes = [
     {
@@ -55,7 +68,41 @@ const routes: Routes = [
         {
           path: 'accountCoordinator',
           component: AccountCoordinatorComponent,
-          canActivate: [AuthenticationGuard]
+          canActivate: [AuthenticationGuard],
+          children: [
+            {
+              path: '',
+              component: AccoorcomplaintsComponent,
+              children: [
+                {
+                  path: 'add-complaint',
+                  component: AddComplaintComponent
+                }
+              ]
+            },
+            {
+              path: 'accoorcomplaints',
+              component: AccoorcomplaintsComponent
+            },
+            {
+              path: 'tasks',
+              component: TasksComponent,
+              children: [
+                {
+                  path: 'create-task',
+                  component: CreateTaskComponent
+                }
+              ]
+            },
+            {
+              path: 'allocation',
+              component: AllocationComponent
+            },
+            {
+              path: 'mail',
+              component: MailComponent
+            }
+            ]
         },
         {
           path: 'admin',
