@@ -15,10 +15,6 @@ export class ActionComponent implements OnInit {
   accdata;
   selectedValue: any;
   message: any;
-  model = {
-  accountCoordinatorEmail: '',
-  accountCoordinatorName: ''
-}
   constructor(private http1: HttpClient, private pastname: PastnameService, private fb1: FormBuilder,) {
   }
 

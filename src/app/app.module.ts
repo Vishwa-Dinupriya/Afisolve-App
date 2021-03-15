@@ -29,6 +29,7 @@ import {ProductsComponent} from './home/admin/products/products.component';
 import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
 import {ProductService} from './home/services/product.service';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { LateComplaintInformationComponent } from './home/projectManager/late-complaint-information/late-complaint-information.component';
 import { ViewReportsComponent } from './home/projectManager/view-reports/view-reports.component';
@@ -51,6 +52,9 @@ import {UserProfileComponent} from './home/shared/user-profile/user-profile.comp
 import {ComplaintProfileComponent} from './home/shared/complaint-profile/complaint-profile.component';
 import {ProductProfileComponent} from './home/shared/product-profile/product-profile.component';
 import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-profile.component';
+import { CdashboardComponent } from './home/ceo/cdashboard/cdashboard.component';
+import { ClateComponent } from './home/ceo/clate/clate.component';
+import { CviewreportsComponent } from './home/ceo/cviewreports/cviewreports.component';
 
 
 @NgModule({
@@ -84,7 +88,10 @@ import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-
     UserProfileComponent,
     ComplaintProfileComponent,
     ProductProfileComponent,
-    FeedbackProfileComponent
+    FeedbackProfileComponent,
+    CdashboardComponent,
+    ClateComponent,
+    CviewreportsComponent
 
 
   ],
@@ -102,6 +109,7 @@ import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-
     FormsModule,
     MatGridListModule,
     MatBadgeModule,
+    MatCheckboxModule,
   ],
   providers: [
     AuthenticationService,

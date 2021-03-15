@@ -1,7 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { FormGroup, FormControl } from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+
+
+class Owner {
+
+}
 
 @Component({
   selector: 'app-view-reports',
@@ -17,9 +22,9 @@ export class ViewReportsComponent implements OnInit {
   constructor( private http1: HttpClient) {}
 
   displayedColumns: string[] = ['complainID', 'subComplaintID', 'description', 'status', 'submittedDate', 'lastDateOfPending', 'wipStartDate', 'finishedDate' ];
-  dataSourcer;
+  // @ts-ignore
+  dataSourcer = new MatTableDataSource();
   bc;
-
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   checks: boolean;
@@ -49,6 +54,7 @@ export class ViewReportsComponent implements OnInit {
     this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-details1`, {}).subscribe(
       response => {
         this.dataSourcer = response.data;
+        this.dataSourcer.data = response as Owner[];
         console.log(this.dataSourcer);
       }, error => {
         console.log(error);
@@ -125,6 +131,13 @@ export class ViewReportsComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  // tslint:disable-next-line:typedef
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSourcer.filter = filterValue;
   }
 }
 

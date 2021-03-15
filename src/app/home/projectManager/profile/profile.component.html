@@ -1,1 +1,12 @@
-<p>prifile</p>
+<mat-form-field>
+  <mat-select multiple placeholder="Favorite food" [(ngModel)]="selectedValue">
+    <mat-option (onSelectionChange)="change($event)" *ngFor="let food of foods" [value]="food.value">
+      {{ food.viewValue }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<br>
+<br>
+
+<label><input type="button" (click)="getAl()">check</label>

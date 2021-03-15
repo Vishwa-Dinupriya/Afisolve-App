@@ -38,7 +38,7 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
     this.dataSource1.paginator = this.paginator;
   }
 
-   getData(): void {
+  getData(): void {
      this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-details`, {}).subscribe(
        response => {
          this.dataSource1 = response.data;
@@ -59,15 +59,6 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
         error => console.error('Error!(frontend)', error)
       );
   }
-
-  // tslint:disable-next-line:typedef
-  getName(raw){
-    console.log(raw);
-  }
-   // getAction(): void {
-   // this.router.navigate(['/home/project-manager/late-complaint-information/action']);
-  // }
-
   // main eka
   // tslint:disable-next-line:typedef
   getAlert(){

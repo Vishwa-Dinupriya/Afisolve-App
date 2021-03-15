@@ -31,6 +31,9 @@ import {ActionComponent} from './home/projectManager/late-complaint-information/
 import {TestComponent} from './home/admin/test/test.component';
 import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
 import {UserProfileComponent} from './home/shared/user-profile/user-profile.component';
+import {CdashboardComponent} from './home/ceo/cdashboard/cdashboard.component';
+import {ClateComponent} from './home/ceo/clate/clate.component';
+import {CviewreportsComponent} from './home/ceo/cviewreports/cviewreports.component';
 
 const routes: Routes = [
     {
@@ -120,7 +123,21 @@ const routes: Routes = [
         {
           path: 'ceo',
           component: CeoComponent,
-          canActivate: [AuthenticationGuard]
+          canActivate: [AuthenticationGuard],
+          children: [
+            {
+              path: 'cdashboard',
+              component: CdashboardComponent
+            },
+            {
+              path: 'clate',
+              component: ClateComponent
+            },
+            {
+              path: 'cviewreports',
+              component: CviewreportsComponent
+            },
+          ]
         },
         {
           path: 'developer',
