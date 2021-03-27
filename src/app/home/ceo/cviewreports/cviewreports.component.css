@@ -1,0 +1,16 @@
+.example-card {
+
+}
+.harahta{
+  background-color: #111a34;
+  text-align: start;
+  -webkit-text-fill-color: #f6f7fa;
+}
+
+.example-list-section{
+  padding-bottom: 500px;
+}
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+  border-color: white;
+}
