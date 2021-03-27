@@ -31,6 +31,14 @@ import {ActionComponent} from './home/projectManager/late-complaint-information/
 import {TestComponent} from './home/admin/test/test.component';
 import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
 import {UserProfileComponent} from './home/shared/user-profile/user-profile.component';
+import {DashboardCustomerComponent} from './home/customer/dashboard-customer/dashboard-customer.component';
+import {ComplaintsCustomerComponent} from './home/customer/complaints-customer/complaints-customer.component';
+import {ProductsCustomerComponent} from './home/customer/products-customer/products-customer.component';
+import {AddNewComplaintComponent} from './home/customer/add-new-complaint/add-new-complaint.component';
+import {PendingComplaintsComponent} from './home/customer/pending-complaints/pending-complaints.component';
+import {InProgressComplaintsComponent} from './home/customer/in-progress-complaints/in-progress-complaints.component';
+import {CompletedComplaintsComponent} from './home/customer/completed-complaints/completed-complaints.component';
+import {ClosedComplaintsComponent} from './home/customer/closed-complaints/closed-complaints.component';
 
 const routes: Routes = [
     {
@@ -59,7 +67,41 @@ const routes: Routes = [
         {
           path: 'customer',
           component: CustomerComponent,
-          canActivate: [AuthenticationGuard]
+          canActivate: [AuthenticationGuard],
+          children : [
+            {
+              path: '',
+              component: DashboardCustomerComponent,
+            },
+            {
+              path: 'complaints',
+              component: ComplaintsCustomerComponent,
+            },
+            {
+              path: 'lodge-new-complaint',
+              component: AddNewComplaintComponent,
+            },
+            {
+              path: 'pending-complaints',
+              component: PendingComplaintsComponent,
+            },
+            {
+              path: 'in-progress-complaints',
+              component: InProgressComplaintsComponent,
+            },
+            {
+              path: 'completed-complaints',
+              component: CompletedComplaintsComponent,
+            },
+            {
+              path: 'past-complaints',
+              component: ClosedComplaintsComponent,
+            },
+            {
+              path: 'purchases',
+              component: ProductsCustomerComponent,
+            }
+          ]
         },
         {
           path: 'account-coordinator',

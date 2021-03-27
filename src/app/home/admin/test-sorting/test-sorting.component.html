@@ -1,28 +1,8 @@
-<form [formGroup]="myForm">
-  <div class="row">
-    <mat-form-field  class="col-12" appearance="outline">
-      <mat-label>Email</mat-label>
-      <input type="text" matInput formControlName="email" placeholder="abc@d.com">
-      <mat-error *ngIf="email.touched && email.errors?.required">This field is required</mat-error>
-      <mat-error *ngIf="email.touched && !email.errors?.required && email.errors?.email">Invalid Email</mat-error>
-    </mat-form-field>
-  </div>
-
-  <div formGroupName="nested">
-    <mat-form-field>
-      <input matInput placeholder="New password" formControlName="password" required>
-      <mat-error *ngIf="myForm.hasError('required', 'nested')">
-        Please enter your newpassword
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="Confirm password" formControlName="confirmPassword" [errorStateMatcher]="matcher">
-      <mat-error *ngIf="myForm.hasError('notSame','nested')">
-        Passwords do not match
-      </mat-error>
-    </mat-form-field>
-  </div>
-</form>
-
-<button mat-raised-button (click)="openDialog()">Delete me</button>
+<ejs-treegrid [dataSource]='data' [treeColumnIndex]='1' childMapping='subtasks'>
+<e-columns>
+  <e-column field='taskID' headerText='Task ID' textAlign='Right' width=70></e-column>
+  <e-column field='taskName' headerText='Task Name' textAlign='Left' width=200></e-column>
+  <e-column field='startDate' headerText='Start Date' textAlign='Right' format='yMd' width=90></e-column>
+  <e-column field='duration' headerText='Duration' textAlign='Right' width=80></e-column>
+</e-columns>
+</ejs-treegrid>

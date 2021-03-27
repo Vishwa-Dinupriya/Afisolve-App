@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../product.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-register-product',
@@ -13,16 +14,17 @@ export class RegisterProductComponent implements OnInit {
   productRegistrationForm: FormGroup;
 
   constructor(private fb1: FormBuilder,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private http1: HttpClient) {
   }
 
   ngOnInit(): void {
     this.productRegistrationForm = this.fb1.group({
       productName: ['', [Validators.required]],
       productCategory: ['', [Validators.required]],
-      customerEmail: ['customer@gmail.com', [Validators.required]],
-      projectManagerEmail: ['projectManger@gmail.com', [Validators.required]],
-      accountCoordinatorEmail: ['account_c@gmail.com', [Validators.required]],
+      customerEmail: ['testCustomer1@gmail.com', [Validators.required]],
+      projectManagerEmail: ['test1@gmail.com', [Validators.required]],
+      accountCoordinatorEmail: ['test1@gmail.com', [Validators.required]],
     });
   }
 

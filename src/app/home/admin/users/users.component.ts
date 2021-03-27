@@ -6,6 +6,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
+import {UsersService} from './users.service';
 
 export interface IUser {
   userEmail: string;
@@ -29,18 +30,18 @@ export class UsersComponent implements OnInit, AfterViewInit {
   USERS_DATA: IUser[];
 
   createUserMode = false;
-  profileMode = false;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  userEmailParent: string;
-
   constructor(private router: Router,
               private http1: HttpClient,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              public usersService: UsersService) {
+  }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   ngAfterViewInit(): void {
     this.http1.post<any>(`http://localhost:3000/admin/get-users-details`, {}).subscribe(
@@ -55,14 +56,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
     );
   }
 
-  public redirectToDetails(id: string): void {
-    this.userEmailParent = id;
-    console.log(this.userEmailParent);
-    this.profileMode = true;
+  applyFilter(event): void {
+    // console.log('event: ' + event);
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  public redirectToUsers(): void {
-    this.profileMode = false;
+  public redirectToDetails(id: string): void {
+    this.usersService.changeUserEmailParentSubjectStringValue(id);
+    this.usersService.changeIsProfileModeSubjectBooleanValue(true);
   }
 
   public redirectToUpdate(id: string): void {
@@ -71,21 +73,35 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   public redirectToDelete(id: string): void {
     console.log(id);
-    const dialogRef = this.dialog.open(DialogBoxComponent, {data: {message: 'Are you want to delete ', name: id}});
+    const dialogRef = this.dialog.open(DialogBoxComponent, {
+      data: {
+        title: 'Are you sure?',
+        message: 'Are you want to delete ',
+        name: id,
+        button1: 'Cancel',
+        button2: 'delete'
+      }
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         console.log(`Dialog result: ${result}`);
+        this.http1.post<any>(`http://localhost:3000/admin/delete-selected-user`, {selectedUserEmail: id})
+          .subscribe(
+            response => {
+              console.log(response);
+              console.log('delete successfully!' + id);
+              this.ngAfterViewInit();
+            },
+            error => {
+              console.log(error);
+              console.log('error! delete not success! ' + id);
+              this.ngAfterViewInit();
+            });
       } else {
         console.log(`Dialog result: ${result}`);
       }
     });
-  }
-
-  applyFilter(event): void {
-    // console.log('event: ' + event);
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

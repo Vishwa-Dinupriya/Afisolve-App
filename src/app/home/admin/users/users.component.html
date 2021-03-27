@@ -1,7 +1,7 @@
-<button mat-raised-button color="primary" class="float-right m-1" (click)="createUserMode = !createUserMode"
+<button mat-raised-button color="primary" class="float-right m-1"  (click)="createUserMode = !createUserMode"
         [hidden]="createUserMode">
   <mat-icon>person_add</mat-icon>
-  new user
+   new user
 </button>
 
 <button mat-raised-button color="primary" class="float-right m-1" (click)="createUserMode = !createUserMode"
@@ -23,7 +23,7 @@
 
   <div [hidden]="createUserMode">
    <!--all users table-->
-    <div [hidden]="profileMode">
+    <div [hidden]="usersService.isUserProfileMode">
       <mat-form-field class="w-75 m-3">
         <mat-label>Filter</mat-label>
         <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
@@ -62,22 +62,22 @@
             <td mat-cell *matCellDef="let element"> {{element.contactNumber}} </td>
           </ng-container>
 
-          <!-- Details button Column -->
-          <ng-container matColumnDef="details">
-            <th mat-header-cell *matHeaderCellDef> Details</th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="primary" (click)="redirectToDetails(element.userEmail)">
-                <mat-icon class="mat-18">reorder</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-
           <!-- Update button Column -->
           <ng-container matColumnDef="update">
             <th mat-header-cell *matHeaderCellDef> Update</th>
             <td mat-cell *matCellDef="let element">
               <button mat-icon-button color="accent" (click)="redirectToUpdate(element.userEmail)">
                 <mat-icon class="mat-18">system_update</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <!-- Details button Column -->
+          <ng-container matColumnDef="details">
+            <th mat-header-cell *matHeaderCellDef> Details</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="primary" (click)="redirectToDetails(element.userEmail)">
+                <mat-icon class="mat-18">reorder</mat-icon>
               </button>
             </td>
           </ng-container>
@@ -100,7 +100,6 @@
         </mat-paginator>
       </div>
 
-
       <div *ngIf="!dataSource" class="d-flex justify-content-center w-100">
         <mat-spinner></mat-spinner>
       </div>
@@ -108,14 +107,10 @@
     </div>
 
    <!--user profile-->
-    <div [hidden]="!profileMode" >
-      <app-user-profile [userEmailChild]="userEmailParent"></app-user-profile>
+    <div [hidden]="!usersService.isUserProfileMode" >
+      <app-user-profile [userEmailChild]="usersService.userEmailParent"></app-user-profile>
     </div>
 
-    <button class="btn btn-primary" (click)="redirectToUsers()" [hidden]="!profileMode">
-      <mat-icon>arrow_back_ios</mat-icon>
-      users
-    </button>
   </div>
 
 </mat-card>

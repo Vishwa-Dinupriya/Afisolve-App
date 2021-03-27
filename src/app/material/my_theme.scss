@@ -1,12 +1,16 @@
 @import "node_modules/@angular/material/theming";
 @include mat-core();
 
+
+//Light colors
 $my-light-primary:mat-palette($mat-indigo, 500);//light
 $my-light-accent:mat-palette($mat-purple, 500);//light
 //$my-warn:mat-palette($mat-light-blue, 800);
 
 $my-light-theme: mat-light-theme($my-light-primary,$my-light-accent); //light theme
 
+
+// Dark colors
 $my-dark-primary:mat-palette($mat-purple, 500);//dark
 $my-dark-accent:mat-palette($mat-pink, 500);//dark
 //$my-warn:mat-palette($mat-blue-gray, 800);
@@ -14,9 +18,10 @@ $my-dark-accent:mat-palette($mat-pink, 500);//dark
 $my-dark-theme: mat-dark-theme($my-dark-primary,$my-dark-accent); //dark theme
 
 
-//@include angular-material-theme($my-light-theme);
-
 //---------------------------------------------------------
+
+@include angular-material-theme($my-light-theme);
+
 .myLightTheme{
   @include angular-material-theme($my-light-theme);
 }
