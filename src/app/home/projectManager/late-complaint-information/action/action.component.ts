@@ -15,7 +15,7 @@ export class ActionComponent implements OnInit {
   accdata;
   selectedValue: any;
   message: any;
-  constructor(private http1: HttpClient, private pastname: PastnameService, private fb1: FormBuilder,) {
+  constructor(private http1: HttpClient, private pastname: PastnameService, private fb1: FormBuilder, ) {
   }
 
   ngOnInit(): void {
@@ -70,7 +70,15 @@ export class ActionComponent implements OnInit {
         },
         error => console.error('Error!(frontend)', error)
       );
+    this.pastname.updatehistory(this.selectedValue)
+      .subscribe(
+        response => {
+          console.log('Success!(frontend)', response);
+        },
+        error => console.error('Error!(frontend)', error)
+      );
   }
+
 
 }
 

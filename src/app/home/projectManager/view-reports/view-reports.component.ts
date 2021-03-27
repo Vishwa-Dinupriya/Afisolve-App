@@ -1,11 +1,21 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {MatPaginator} from '@angular/material/paginator';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
+import {Router} from '@angular/router';
 
 
-class Owner {
-
+export interface IComplaint {
+  complainID: string;
+  description: string;
+  finishedDate: string;
+  lastDateOfPending: string;
+  productID: string;
+  status: string;
+  subComplaintID: string;
+  submittedDate: string;
+  wipStartDate: string;
 }
 
 @Component({
@@ -14,48 +24,196 @@ class Owner {
   styleUrls: ['./view-reports.component.css']
 })
 
-export class ViewReportsComponent implements OnInit {
+export class ViewReportsComponent implements OnInit , AfterViewInit {
+  selectedAll: any;
 
 
 
+  constructor(private router: Router,
+              private http1: HttpClient) { }
 
-  constructor( private http1: HttpClient) {}
+  displayedColumns: string[] = ['description', 'status', 'submittedDate', 'productID', 'print'];
 
-  displayedColumns: string[] = ['complainID', 'subComplaintID', 'description', 'status', 'submittedDate', 'lastDateOfPending', 'wipStartDate', 'finishedDate' ];
-  // @ts-ignore
-  dataSourcer = new MatTableDataSource();
-  bc;
+  dataSource: MatTableDataSource<IComplaint>;
+  COMPLAINS_DATA: IComplaint[];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  checks: boolean;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+  title = 'angular-checkbox-list-demo';
+  selectedItemsList = [];
+  checkedIDs = [];
+
+  checkboxesDataList = [
+    {
+      id: 'C001',
+      label: 'Finish',
+      isChecked: false
+    },
+    {
+      id: 'C002',
+      label: 'Working Progress',
+      isChecked: false
+    },
+    {
+      id: 'C003',
+      label: 'Pending',
+      isChecked: false
+    }
+  ]
+
   ngOnInit(): void {
-    this.getData();
-    this.ngAfterViewInit();
+    this.fetchSelectedItems();
+  }
+
+
+  ngAfterViewInit(): void {
+    this.http1.post<any>(`http://localhost:3000/ceo/get-complaints-details`, {}).subscribe(
+      response => {
+        this.COMPLAINS_DATA = response.data;
+        this.dataSource = new MatTableDataSource<IComplaint>(this.COMPLAINS_DATA);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  applyFilter(event): void {
+    console.log('event: ' + event);
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    // const filterValue2 = 'finish' ;
+    // this.dataSource.filter = filterValue2.trim().toLowerCase();
+  }
+
+  public redirectToDetails(id: string): void {
+    console.log(id);
+  }
+  // ...............................................
+
+  // tslint:disable-next-line:typedef
+  getAl(){
+    this.getAl4();
+    this.getAl5();
+    this.getAl6();
+    this.getAl1();
+    this.getAl2();
+    this.getAl3();
+
+  }
+  // tslint:disable-next-line:typedef
+  changeSelection() {
+    this.fetchSelectedItems();
   }
 
   // tslint:disable-next-line:typedef
-  bulk(e){
+  fetchSelectedItems(){
+    this.selectedItemsList = this.checkboxesDataList.filter((value, index) => {
+      return value.isChecked;
+    });
+  }
+
+
+  // tslint:disable-next-line:typedef
+  getAl1(){
     // tslint:disable-next-line:triple-equals
-    if (e.target.checked === true){
-      this.checks = true;
+    if ( (this.selectedItemsList[0].label == 'Finish') && (this.selectedItemsList[1].label == 'Working Progress')  ){
+      this.http1.get<any>(`http://localhost:3000/ceo/get-complaint-fw`, {}).subscribe(
+        response => {
+          this.dataSource = response.data;
+          console.log(this.dataSource);
+        }, error => {
+          console.log(error);
+        }
+      );
     }
-    else {
-      this.checks = false;
+  }
+
+  // tslint:disable-next-line:typedef
+  getAl2(){
+    // tslint:disable-next-line:triple-equals
+    if ( (this.selectedItemsList[0].label == 'Finish') && (this.selectedItemsList[1].label == 'Pending')  ){
+      this.http1.get<any>(`http://localhost:3000/ceo/get-complaint-pf`, {}).subscribe(
+        response => {
+          this.dataSource = response.data;
+          console.log(this.dataSource);
+        }, error => {
+          console.log(error);
+        }
+      );
     }
   }
 
-  // tslint:disable-next-line:typedef use-lifecycle-interface
-  ngAfterViewInit() {
-    this.dataSourcer.paginator = this.paginator;
-  }
-  // get all data
   // tslint:disable-next-line:typedef
-  getData(){
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-details1`, {}).subscribe(
+  getAl3(){
+    // tslint:disable-next-line:triple-equals
+    if ( (this.selectedItemsList[0].label == 'Working Progress') && (this.selectedItemsList[1].label == 'Pending')  ){
+      this.http1.get<any>(`http://localhost:3000/ceo/get-complaint-wp`, {}).subscribe(
+        response => {
+          this.dataSource = response.data;
+          console.log(this.dataSource);
+        }, error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  // tslint:disable-next-line:typedef
+  getAl4(){
+    // tslint:disable-next-line:triple-equals
+    if ( (this.selectedItemsList[0].label == 'Finish') ){
+      this.http1.get<any>(`http://localhost:3000/ceo/get-complaint-de`, {}).subscribe(
+        response => {
+          this.dataSource = response.data;
+          console.log(this.dataSource);
+        }, error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  // tslint:disable-next-line:typedef
+  getAl5(){
+    // tslint:disable-next-line:triple-equals
+    if ( (this.selectedItemsList[0].label == 'Working Progress') ){
+      this.http1.get<any>(`http://localhost:3000/ceo/get-complaint-det`, {}).subscribe(
+        response => {
+          this.dataSource = response.data;
+          console.log(this.dataSource);
+        }, error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  // tslint:disable-next-line:typedef
+  getAl6(){
+    // tslint:disable-next-line:triple-equals
+    if ( (this.selectedItemsList[0].label == 'Pending') ){
+      this.http1.get<any>(`http://localhost:3000/ceo/get-complaint-detai`, {}).subscribe(
+        response => {
+          this.dataSource = response.data;
+          console.log(this.dataSource);
+        }, error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  // tslint:disable-next-line:typedef
+  giveall() {
+    this.http1.post<any>(`http://localhost:3000/ceo/get-complaints-details`, {}).subscribe(
       response => {
-        this.dataSourcer = response.data;
-        this.dataSourcer.data = response as Owner[];
-        console.log(this.dataSourcer);
+        this.COMPLAINS_DATA = response.data;
+        this.dataSource = new MatTableDataSource<IComplaint>(this.COMPLAINS_DATA);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }, error => {
         console.log(error);
       }
@@ -63,82 +221,14 @@ export class ViewReportsComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
-  workingP(){
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-det`, {}).subscribe(
-      response => {
-        this.dataSourcer = response.data;
-        console.log(this.dataSourcer);
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
-  // tslint:disable-next-line:typedef
-  finish(){
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-de`, {}).subscribe(
-      response => {
-        this.dataSourcer = response.data;
-        this.bc = 1;
-        console.log(this.dataSourcer);
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
-  // tslint:disable-next-line:typedef
-  pending(){
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-detai`, {}).subscribe(
-      response => {
-        this.dataSourcer = response.data;
-        console.log(this.dataSourcer);
-      }, error => {
-        console.log(error);
-      }
-    );
+  selectAll() {
+    // tslint:disable-next-line:prefer-for-of
+    for (var i = 0; i < this.checkboxesDataList.length; i++) {
+      this.checkboxesDataList[i].isChecked = this.selectedAll;
+    }
   }
 
-  // tslint:disable-next-line:typedef
-  year(){
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-year`, {}).subscribe(
-      response => {
-        this.dataSourcer = response.data;
-        console.log(this.dataSourcer);
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
 
-  // tslint:disable-next-line:typedef
-  month(){
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-month`, {}).subscribe(
-      response => {
-        this.dataSourcer = response.data;
-        console.log(this.dataSourcer);
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
 
-  // tslint:disable-next-line:typedef
-  today(){
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-today`, {}).subscribe(
-      response => {
-        this.dataSourcer = response.data;
-        console.log(this.dataSourcer);
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
 
-  // tslint:disable-next-line:typedef
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.dataSourcer.filter = filterValue;
-  }
 }
-
-

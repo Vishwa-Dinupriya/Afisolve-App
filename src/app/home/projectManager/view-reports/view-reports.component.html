@@ -1,88 +1,78 @@
-<mat-card class="new-class3">
-  <div style="text-align: center">
-    <div> <input type="checkbox" (change)="bulk($event)" (click)="getData()"><label>All</label></div>
+<mat-grid-list cols="7" rowHeight="700px">
+  <mat-grid-tile [colspan]=6 [rowspan]=1>
+    <mat-card class="m-5 shadow"  style="width: 1000px; height: 600px" >
+      <mat-form-field class="w-75 m-3">
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
+      </mat-form-field>
+
+
+
+      <div>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
+
+          <!-- Description Column -->
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
+            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+          </ng-container>
+
+          <!-- SubmittedDate Column -->
+          <ng-container matColumnDef="submittedDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Submitted Date</th>
+            <td mat-cell *matCellDef="let element"> {{element.submittedDate | date}} </td>
+          </ng-container>
+
+          <!--  productID Column-->
+          <ng-container matColumnDef="productID">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Product ID</th>
+            <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+          </ng-container>
+
+          <!-- Details Column -->
+          <ng-container matColumnDef="print">
+            <th mat-header-cell *matHeaderCellDef> Print</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="primary" (click)="redirectToDetails(element.description)">
+                <mat-icon class="mat-18">printer</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <!-------------------------------------------------------------------------------------------->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+      </div>
+    </mat-card>
+  </mat-grid-tile>
+
+
+  <mat-grid-tile class="harahta" [colspan]=1 [rowspan]=1>
+  <span class="example-list-section">
+    <mat-checkbox [(ngModel)]="selectedAll" (change)="selectAll();" (click)="giveall()">All</mat-checkbox>
+
+
+<ul>
+  <li *ngFor="let item of checkboxesDataList">
+  <mat-checkbox [(ngModel)]="item.isChecked" (change)="changeSelection()">
+      {{ item.label }}
+    </mat-checkbox>
+  </li>
+  <div class="example-button-container">
+    <br>
+    <button mat-raised-button color="warn" (click)="getAl()">Check Result</button>
   </div>
-
-
-
-  <div class="new-class1">
-    <div><input type="checkbox" [checked]="checks" (click)="workingP()" ><label>Working Progress</label></div>
-    <div><input type="checkbox" [checked]="checks" (click)="finish()"><label>Finished</label></div>
-   <div><input type="checkbox" [checked]="checks" (click)="pending()"><label>Pending</label></div>
-</div>
-
-  <p> Time wise</p>
-  <div class="new-class2">
-    <div> <input type="checkbox" (click)="year()"><label>Year<small>(you can get past year details) </small></label></div>
-    <div> <input type="checkbox" (click)="month()"><label>Month</label></div>
-    <div> <input type="checkbox" (click)="today()"><label>today</label></div>
-  </div>
-</mat-card>
-
-<mat-card class="m-5 shadow" style="height: 47%">
-  <table mat-table [dataSource]="dataSourcer" class="w-100">
-
-
-
-    <!-- Complain ID column -->
-    <ng-container matColumnDef="complainID">
-      <th mat-header-cell *matHeaderCellDef> Complain ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.complainID}} </td>
-    </ng-container>
-
-
-    <!-- Complain ID column -->
-    <ng-container matColumnDef="subComplaintID">
-      <th mat-header-cell *matHeaderCellDef> Sub Complain ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
-    </ng-container>
-
-
-    <!-- Description Column -->
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef> Description </th>
-      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-    </ng-container>
-
-
-    <!-- Complain ID column -->
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef> Status </th>
-      <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-    </ng-container>
-
-
-    <!-- SubmittedDate Column -->
-    <ng-container matColumnDef="submittedDate">
-      <th mat-header-cell *matHeaderCellDef> Submitted Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.submittedDate}} </td>
-    </ng-container>
-
-    <!--  test Column-->
-    <ng-container matColumnDef="lastDateOfPending">
-      <th mat-header-cell *matHeaderCellDef> Deadline Date </th>
-      <td mat-cell *matCellDef="let element">{{element.lastDateOfPending}}</td>
-    </ng-container>
-
-
-    <!--  test Column-->
-    <ng-container matColumnDef="wipStartDate">
-      <th mat-header-cell *matHeaderCellDef> working progress start Date </th>
-      <td mat-cell *matCellDef="let element">{{element.wipStartDate}}</td>
-    </ng-container>
-
-    <!--  test Column-->
-    <ng-container matColumnDef="finishedDate">
-      <th mat-header-cell *matHeaderCellDef> Finished Date </th>
-      <td mat-cell *matCellDef="let element">{{element.finishedDate}}</td>
-    </ng-container>
-
-
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-
-  </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-</mat-card>
+</ul>
+</span>
+  </mat-grid-tile>
+</mat-grid-list>

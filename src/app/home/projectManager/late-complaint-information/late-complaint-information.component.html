@@ -1,28 +1,24 @@
-<br xmlns="http://www.w3.org/1999/html">
-<div align="right">
-  <!-- #docregion mat-badge-position -->
-  <button mat-raised-button color="warn"
-          matBadge="8" matBadgePosition="before" matBadgeColor="accent">
-    Reminders
-  </button>
-  <!-- #enddocregion mat-badge-position -->
-</div>
 
-<br>
-<br>
 <div class="new" align="center">
   <router-outlet></router-outlet>
   <hr>
 </div>
-<div>
-  <mat-card class="m-5 shadow" style="height: 50%">
+<mat-tab-group animationDuration="2000ms">
+  <mat-tab label="Late complaint">
+  <mat-card class="m-5 shadow" style="height: 80%">
     <div>
-  <table mat-table [dataSource]="dataSource1" class="w-100">
+  <table mat-table [dataSource]="dataSource1" matSort class="mat-elevation-z8 w-100">
 
     <!-- Complain ID column -->
     <ng-container matColumnDef="complainID">
       <th mat-header-cell *matHeaderCellDef> Complain ID </th>
       <td mat-cell *matCellDef="let element"> {{element.complainID}} </td>
+    </ng-container>
+
+    <!-- Product ID column -->
+    <ng-container matColumnDef="productID">
+      <th mat-header-cell *matHeaderCellDef> Product ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
     </ng-container>
 
     <!-- Description Column -->
@@ -36,12 +32,12 @@
     <!-- SubmittedDate Column -->
     <ng-container matColumnDef="submittedDate">
       <th mat-header-cell *matHeaderCellDef> Submitted Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.submittedDate}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.submittedDate | date}} </td>
     </ng-container>
 
     <ng-container matColumnDef="lastDateOfPending">
       <th mat-header-cell *matHeaderCellDef> Deadline Date </th>
-      <td mat-cell *matCellDef="let element">{{element.lastDateOfPending}}</td>
+      <td mat-cell *matCellDef="let element">{{element.lastDateOfPending | date}}</td>
     </ng-container>
 
     <!--  test Column-->
@@ -52,25 +48,94 @@
 
     <!--  Action Column-->
     <ng-container matColumnDef="Action">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element"><button (click)="getAlert()">get Action</button>  </td>
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let element"> <button mat-raised-button color="accent" (click)="getAlert()">get Action</button>  </td>
+    </ng-container>
+
+    <!--  History Column-->
+    <ng-container matColumnDef="history">
+      <th mat-header-cell *matHeaderCellDef>History</th>
+      <td mat-cell *matCellDef="let element"><button mat-raised-button color="warn" (click)="getproductID(element.productID)" (dblclick)="changetab(1)">History</button>  </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></tr>
 
+      </table>
+      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+    </div>
+  </mat-card>
+  </mat-tab>
+
+  //.....................................................................
+
+  <mat-tab label="History">
+    <mat-card class="m-5 shadow" style="height: 80%">
 
 
 
 
-  </table>
-    <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
-    </mat-paginator>
-  </div>
+    <div>
+      <table mat-table [dataSource]="dataSourcehistory" matSort class="mat-elevation-z8 w-100">
+
+        <!-- Description Column -->
+        <ng-container matColumnDef="productID">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Product ID</th>
+          <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="submittedTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Submitted Time</th>
+          <td mat-cell *matCellDef="let element">{{element.submittedTime}} </td>
+        </ng-container>
+
+        <!-- SubmittedDate Column -->
+        <ng-container matColumnDef="preAcName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Previous AccountCoordinator</th>
+          <td mat-cell *matCellDef="let element"> {{element.preAcName}} </td>
+        </ng-container>
+
+        <!--  productID Column-->
+        <ng-container matColumnDef="newAcName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>New AccountCoordinator </th>
+          <td mat-cell *matCellDef="let element"> {{element.newAcName}} </td>
+        </ng-container>
+
+        <!--  productID Column-->
+        <ng-container matColumnDef="exAcName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Ex. AccountCoordinator </th>
+          <td mat-cell *matCellDef="let element"> {{element.exAcName}} </td>
+        </ng-container>
+
+        <!--  productID Column-->
+        <ng-container matColumnDef="charac">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Person </th>
+          <td mat-cell *matCellDef="let element"> {{element.charac}} </td>
+        </ng-container>
+
+        <!--  productID Column-->
+        <ng-container matColumnDef="wAction">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+          <td mat-cell *matCellDef="let element"> {{element.wAction}} </td>
+        </ng-container>
+
+        <!-------------------------------------------------------------------------------------------->
+        <tr mat-header-row *matHeaderRowDef="displayedColumnshistory"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnshistory;"></tr>
+
+      </table>
+      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+    </div>
+      <button mat-raised-button color="primary" (click)="changetab(0)">back</button>
   </mat-card>
 
 
-</div>
+  </mat-tab>
+</mat-tab-group>
+
 
 
 

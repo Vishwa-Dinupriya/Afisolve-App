@@ -1,22 +1,16 @@
-.new-class1{
-  border-style: solid;
-  border-color: #000000;
-  margin-left: 10px;
-  margin-right: 120px;
+.example-card {
+
+}
+.harahta{
+  background-color: #111a34;
+  text-align: start;
+  -webkit-text-fill-color: #f6f7fa;
 }
 
-.new-class2{
-  border-style: solid;
-  border-color:#000000;
-  margin-left: 10px;
-  margin-right: 50px;
+.example-list-section{
+  padding-bottom: 490px;
 }
 
-.new-class3{
-  margin-left: 1000px;
-  margin-top: 20px;
-  margin-right: 5px;
-  height: 280px;
-  width: 300px;
-  background-color: #555555;
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+  border-color: white;
 }

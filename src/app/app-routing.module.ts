@@ -34,6 +34,7 @@ import {UserProfileComponent} from './home/shared/user-profile/user-profile.comp
 import {CdashboardComponent} from './home/ceo/cdashboard/cdashboard.component';
 import {ClateComponent} from './home/ceo/clate/clate.component';
 import {CviewreportsComponent} from './home/ceo/cviewreports/cviewreports.component';
+import {PdashboardComponent} from './home/projectManager/pdashboard/pdashboard.component';
 
 const routes: Routes = [
     {
@@ -149,6 +150,10 @@ const routes: Routes = [
           component: ProjectManagerComponent,
           canActivate: [AuthenticationGuard],
           children: [
+            {
+              path: 'pdashboard',
+              component: PdashboardComponent
+            },
             {
               path: 'late-complaint-information',
               component: LateComplaintInformationComponent,

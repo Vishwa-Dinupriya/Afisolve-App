@@ -55,6 +55,7 @@ import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-
 import { CdashboardComponent } from './home/ceo/cdashboard/cdashboard.component';
 import { ClateComponent } from './home/ceo/clate/clate.component';
 import { CviewreportsComponent } from './home/ceo/cviewreports/cviewreports.component';
+import { PdashboardComponent } from './home/projectManager/pdashboard/pdashboard.component';
 
 
 @NgModule({
@@ -91,7 +92,8 @@ import { CviewreportsComponent } from './home/ceo/cviewreports/cviewreports.comp
     FeedbackProfileComponent,
     CdashboardComponent,
     ClateComponent,
-    CviewreportsComponent
+    CviewreportsComponent,
+    PdashboardComponent
 
 
   ],
