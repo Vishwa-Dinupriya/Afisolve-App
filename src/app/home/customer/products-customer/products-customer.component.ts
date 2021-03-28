@@ -63,7 +63,4 @@ export class ProductsCustomerComponent implements OnInit, AfterViewInit {
   public redirectToDelete(id: number): void {
     console.log(id);
   }
-  onCancelEdit(): void {
-    this.addNewComplaintService.changeIsLodgeComplaintModeSubjectBooleanValue(false);
-  }
 }

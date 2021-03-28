@@ -55,10 +55,12 @@ import {DashboardCustomerComponent} from './home/customer/dashboard-customer/das
 import { ProductsCustomerComponent } from './home/customer/products-customer/products-customer.component';
 import { TestCustomerComponent } from './home/customer/test-customer/test-customer.component';
 import { AddNewComplaintComponent } from './home/customer/add-new-complaint/add-new-complaint.component';
-import { PendingComplaintsComponent } from './home/customer/pending-complaints/pending-complaints.component';
-import { InProgressComplaintsComponent } from './home/customer/in-progress-complaints/in-progress-complaints.component';
-import { CompletedComplaintsComponent } from './home/customer/completed-complaints/completed-complaints.component';
-import { ClosedComplaintsComponent } from './home/customer/closed-complaints/closed-complaints.component';
+import { PendingComplaintsComponent } from './home/customer/complaints-customer/pending-complaints/pending-complaints.component';
+import { InProgressComplaintsComponent } from './home/customer/complaints-customer/in-progress-complaints/in-progress-complaints.component';
+import { CompletedComplaintsComponent } from './home/customer/complaints-customer/completed-complaints/completed-complaints.component';
+import { ClosedComplaintsComponent } from './home/customer/complaints-customer/closed-complaints/closed-complaints.component';
+import { ReviewDialogBoxComponent } from './home/customer/complaints-customer/completed-complaints/review-dialog-box/review-dialog-box.component';
+import { LodgeSubComplaintComponent } from './home/customer/complaints-customer/completed-complaints/lodge-sub-complaint/lodge-sub-complaint.component';
 
 
 @NgModule({
@@ -105,6 +107,8 @@ import { ClosedComplaintsComponent } from './home/customer/closed-complaints/clo
     InProgressComplaintsComponent,
     CompletedComplaintsComponent,
     ClosedComplaintsComponent,
+    ReviewDialogBoxComponent,
+    LodgeSubComplaintComponent,
 
   ],
   entryComponents: [DialogBoxComponent],
