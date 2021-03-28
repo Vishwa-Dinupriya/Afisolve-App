@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
 })
 export class ProductService {
 
-  registerUrl = 'http://localhost:3000/admin/product-register';
+  registerUrl = 'http://localhost:3000/admin/register-product';
 
   constructor(private http1: HttpClient, private router: Router) {
   }

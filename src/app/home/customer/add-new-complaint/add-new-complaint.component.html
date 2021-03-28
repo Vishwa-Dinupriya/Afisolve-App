@@ -1,0 +1,43 @@
+<mat-card class="m-5 shadow" style="height: 80%">
+  <mat-card-title >Lodge Complaint</mat-card-title>
+  <hr>
+<div class="h-auto">
+  <form [formGroup]="addComplaintForm" (ngSubmit)="saveChangesDialog()" class="mat-typography">
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Select Product</mat-label>
+        <mat-select [disabled]="false" formControlName="productName" multiple="false">
+          <mat-option *ngFor="let productName of productNameList; let i = index"
+                      [value]="productIDList[i]">{{productNameList[i]}}</mat-option>
+        </mat-select>
+        <mat-error>Please select a product</mat-error>
+      </mat-form-field>
+    </div>
+    <!-------------------------------------------------------------------------------------------------------------->
+    <div class="row">
+      <mat-form-field class="col-xl-12 h-auto " appearance="outline">
+        <mat-label>Issue/Description</mat-label>
+        <textarea  type="text" matInput formControlName="description" [required]="true"></textarea>
+      </mat-form-field>
+
+    </div>
+    <!-------------------------------------------------------------------------------------------------------------->
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Category</mat-label>
+        <mat-select  formControlName="complaintCategory" multiple="true">
+          <mat-option *ngFor="let category of complaintCategoryList; let i = index" [value]="category">{{category}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <!-------------------------------------------------------------------------------------------------------------->
+
+    <button class="btn btn-primary" type="button" [hidden]="!reqProductID" (click)="onCancelEdit()">Cancel</button>
+    <span></span>
+    <button class="btn btn-primary" style="float: right" type="submit"
+            [hidden]="!addComplaintForm.valid">Save
+    </button>
+  </form>
+</div>
+</mat-card>

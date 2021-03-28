@@ -8,6 +8,7 @@ import {AuthenticationComponent} from './authentication/authentication.component
 import {LoginComponent} from './authentication/login/login.component';
 import {SignupComponent} from './authentication/signup/signup.component';
 import {MaterialModule} from './material/material.module';
+import {EjsModule} from './ejs/ejs.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AccountCoordinatorComponent} from './home/accountCoordinator/account-coordinator.component';
@@ -44,7 +45,20 @@ import {UserProfileComponent} from './home/shared/user-profile/user-profile.comp
 import {ComplaintProfileComponent} from './home/shared/complaint-profile/complaint-profile.component';
 import {ProductProfileComponent} from './home/shared/product-profile/product-profile.component';
 import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-profile.component';
-import { DialogBoxComponent } from './home/shared/dialog-box/dialog-box.component';
+import {DialogBoxComponent} from './home/shared/dialog-box/dialog-box.component';
+import {SubComplaintProfileComponent} from './home/shared/sub-complaint-profile/sub-complaint-profile.component';
+
+import {PageService, SortService, FilterService} from '@syncfusion/ej2-angular-treegrid';
+
+import {ComplaintsCustomerComponent} from './home/customer/complaints-customer/complaints-customer.component';
+import {DashboardCustomerComponent} from './home/customer/dashboard-customer/dashboard-customer.component';
+import { ProductsCustomerComponent } from './home/customer/products-customer/products-customer.component';
+import { TestCustomerComponent } from './home/customer/test-customer/test-customer.component';
+import { AddNewComplaintComponent } from './home/customer/add-new-complaint/add-new-complaint.component';
+import { PendingComplaintsComponent } from './home/customer/pending-complaints/pending-complaints.component';
+import { InProgressComplaintsComponent } from './home/customer/in-progress-complaints/in-progress-complaints.component';
+import { CompletedComplaintsComponent } from './home/customer/completed-complaints/completed-complaints.component';
+import { ClosedComplaintsComponent } from './home/customer/closed-complaints/closed-complaints.component';
 
 
 @NgModule({
@@ -80,6 +94,17 @@ import { DialogBoxComponent } from './home/shared/dialog-box/dialog-box.componen
     ProductProfileComponent,
     FeedbackProfileComponent,
     DialogBoxComponent,
+    SubComplaintProfileComponent,
+
+    ComplaintsCustomerComponent,
+    DashboardCustomerComponent,
+    ProductsCustomerComponent,
+    TestCustomerComponent,
+    AddNewComplaintComponent,
+    PendingComplaintsComponent,
+    InProgressComplaintsComponent,
+    CompletedComplaintsComponent,
+    ClosedComplaintsComponent,
 
   ],
   entryComponents: [DialogBoxComponent],
@@ -90,11 +115,15 @@ import { DialogBoxComponent } from './home/shared/dialog-box/dialog-box.componen
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
+    EjsModule,
     ImageCropperModule,
     MatGridListModule,
     MatDialogModule
   ],
   providers: [
+    PageService,
+    SortService,
+    FilterService,
     AuthenticationService,
     AuthenticationGuard,
     ProductService,

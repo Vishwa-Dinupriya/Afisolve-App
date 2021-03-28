@@ -1,9 +1,76 @@
+
 <mat-tab-group animationDuration="1000ms" [selectedIndex]="tabIndex">
-  <mat-tab label="General" >
+  <mat-tab label="General">
+
+    <div>
+
+      <ul *ngIf="!!USER_GENERAL_DATA" class="list-group list-group-flush">
+
+        <li class="list-group-item list-group-item-action d-flex">
+          <div class="text-secondary w-25">Last Login</div>
+          <div class="w-75">
+            <span *ngIf="!USER_GENERAL_DATA.lastLogin; else lastLoginBlock"><i> Not Available</i></span>
+            <ng-template #lastLoginBlock>
+              <span> {{ USER_GENERAL_DATA.lastLogin }} <br/></span>
+            </ng-template>
+          </div>
+        </li>
+
+        <li class="list-group-item list-group-item-action d-flex">
+          <div class="text-secondary w-25">Created By</div>
+          <div class="w-75">
+            <span *ngIf="!USER_GENERAL_DATA.createdBy; else createdByBlock"><i> Not Available</i></span>
+            <ng-template #createdByBlock>
+              <span> {{ USER_GENERAL_DATA.createdBy }} <br/></span>
+            </ng-template>
+          </div>
+        </li>
+
+      </ul>
+
+      <!--      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">-->
+
+      <!--        &lt;!&ndash; lastLogin Column &ndash;&gt;-->
+      <!--        <ng-container matColumnDef="lastLogin">-->
+      <!--          <th mat-header-cell *matHeaderCellDef mat-sort-header> lastLogin</th>-->
+      <!--          <td mat-cell *matCellDef="let element"> {{element.lastLogin}} </td>-->
+      <!--        </ng-container>-->
+
+      <!--        &lt;!&ndash; createdBy Column &ndash;&gt;-->
+      <!--        <ng-container matColumnDef="createdBy">-->
+      <!--          <th mat-header-cell *matHeaderCellDef mat-sort-header> createdBy</th>-->
+      <!--          <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>-->
+      <!--        </ng-container>-->
+
+      <!--        &lt;!&ndash; createdAt Column &ndash;&gt;-->
+      <!--        <ng-container matColumnDef="createdAt">-->
+      <!--          <th mat-header-cell *matHeaderCellDef mat-sort-header> createdAt</th>-->
+      <!--          <td mat-cell *matCellDef="let element"> {{element.createdAt}} </td>-->
+      <!--        </ng-container>-->
+
+      <!--        &lt;!&ndash; modifiedBy Column &ndash;&gt;-->
+      <!--        <ng-container matColumnDef="modifiedBy">-->
+      <!--          <th mat-header-cell *matHeaderCellDef mat-sort-header> modifiedBy</th>-->
+      <!--          <td mat-cell *matCellDef="let element"> {{element.modifiedBy}} </td>-->
+      <!--        </ng-container>-->
+
+      <!--        &lt;!&ndash; modifiedAt Column &ndash;&gt;-->
+      <!--        <ng-container matColumnDef="modifiedAt">-->
+      <!--          <th mat-header-cell *matHeaderCellDef mat-sort-header> modifiedAt</th>-->
+      <!--          <td mat-cell *matCellDef="let element"> {{element.modifiedAt}} </td>-->
+      <!--        </ng-container>-->
+
+      <!--        &lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+
+      <!--        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+      <!--        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+      <!--      </table>-->
+
+    </div>
 
   </mat-tab>
 
-  <mat-tab label="Personal">
+  <mat-tab label="Personal" >
     <mat-grid-list cols="2" rowHeight="2:2">
 
       <mat-grid-tile>
@@ -14,90 +81,115 @@
 
       <mat-grid-tile>
         <div>
-          <form [formGroup]="userRegistrationForm" (ngSubmit)="saveChangesDialog()">
+            <form [formGroup]="userRegistrationForm" (ngSubmit)="saveChangesDialog()" class="mat-typography">
 
-            <div class="row">
-              <!--------------------------------------------------------------------------------------------------------->
-              <mat-form-field class="col-6" appearance="outline">
-                <mat-label>First Name</mat-label>
-                <input [readonly]="!edit" type="text" matInput formControlName="firstName" [required]="edit">
-                <mat-error [hidden]="!edit" *ngIf="firstName.touched && firstName.errors?.required">You must enter a value</mat-error>
-                <mat-error  [hidden]="!edit"*ngIf="firstName.touched && !firstName.errors?.required && !firstName.errors?.minLength">Enter at least 3 letters</mat-error>
-              </mat-form-field>
-              <!-------------------------------------------------------------------------->
-              <mat-form-field  class="col-6" appearance="outline">
-                <mat-label>Last Name</mat-label>
-                <input [readonly]="!edit" type="text" matInput formControlName="lastName" [required]="edit">
-                <mat-error [hidden]="!edit" *ngIf="lastName.touched && lastName.errors?.required">You must enter a value</mat-error>
-                <mat-error  [hidden]="!edit"*ngIf="lastName.touched && !lastName.errors?.required && !lastName.errors?.minLength">Enter at least 3 letters</mat-error>
-              </mat-form-field>
+              <div class="row">
+                <!--------------------------------------------------------------------------------------------------------->
+                <mat-form-field class="col-6" appearance="outline">
+                  <mat-label>First Name</mat-label>
+                  <input [readonly]="!edit" type="text" matInput formControlName="firstName" [required]="edit">
+                  <mat-error [hidden]="!edit" *ngIf="firstName.touched && firstName.errors?.required">You must enter a
+                    value
+                  </mat-error>
+                  <mat-error [hidden]="!edit"
+                             *ngIf="firstName.touched && !firstName.errors?.required && !firstName.errors?.minLength">
+                    Enter at least 3 letters
+                  </mat-error>
+                </mat-form-field>
+                <!-------------------------------------------------------------------------->
+                <mat-form-field class="col-6" appearance="outline">
+                  <mat-label>Last Name</mat-label>
+                  <input [readonly]="!edit" type="text" matInput formControlName="lastName" [required]="edit">
+                  <mat-error [hidden]="!edit" *ngIf="lastName.touched && lastName.errors?.required">You must enter a
+                    value
+                  </mat-error>
+                  <mat-error [hidden]="!edit"
+                             *ngIf="lastName.touched && !lastName.errors?.required && !lastName.errors?.minLength">Enter
+                    at least 3 letters
+                  </mat-error>
+                </mat-form-field>
 
-            </div>
-            <!-------------------------------------------------------------------------------------------------------------->
-            <div class="row">
-              <mat-form-field class="col-12" appearance="outline">
-                <mat-label>Email</mat-label>
-                <input [readonly]="!edit" matInput placeholder="pat@example.com" [formControl]="email" [required]="edit">
-                <mat-error *ngIf="email.touched && email.errors?.required">You must enter a value</mat-error>
-                <mat-error *ngIf="email.touched && !email.errors?.required && email.errors?.email">Not a valid email</mat-error>
-              </mat-form-field>
-            </div>
-            <!-------------------------------------------------------------------------------------------------------------->
-            <div class="row" formGroupName="passwordGroup">
-              <mat-form-field class="col-6" appearance="outline">
-                <mat-label>Password</mat-label>
-                <input [readonly]="!edit" matInput placeholder="New password" formControlName="password" [type]="hidePassword ? 'password' : 'text'" [required]="edit">
-                <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-                  <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-                <mat-error *ngIf="userRegistrationForm.hasError('required', 'passwordGroup')">Please enter your newpassword</mat-error>
-              </mat-form-field>
+              </div>
+              <!-------------------------------------------------------------------------------------------------------------->
+              <div class="row">
+                <mat-form-field class="col-12" appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input [readonly]="!edit" matInput placeholder="pat@example.com" [formControl]="email"
+                         [required]="edit">
+                  <mat-error *ngIf="email.touched && email.errors?.required">You must enter a value</mat-error>
+                  <mat-error *ngIf="email.touched && !email.errors?.required && email.errors?.email">Not a valid email
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <!-------------------------------------------------------------------------------------------------------------->
+              <div class="row" formGroupName="passwordGroup">
+                <mat-form-field class="col-6" appearance="outline">
+                  <mat-label>Password</mat-label>
+                  <input [readonly]="!edit" matInput placeholder="New password" formControlName="password"
+                         [type]="hidePassword ? 'password' : 'text'" [required]="edit">
+                  <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                    <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                  <mat-error *ngIf="userRegistrationForm.hasError('required', 'passwordGroup')">Please enter your new
+                    password
+                  </mat-error>
+                </mat-form-field>
 
-              <mat-form-field class="col-6" appearance="outline">
-                <mat-label>Confirm Password</mat-label>
-                <input  [readonly]="!edit " matInput placeholder="Confirm password" formControlName="confirmPassword" [errorStateMatcher]="matcher" [type]="hideConfirmPassword ? 'password' : 'text'" [required]="edit">
-                <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
-                  <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-                <mat-error *ngIf="userRegistrationForm.hasError('notSame','passwordGroup')">
-                  Passwords do not match
-                </mat-error>
-              </mat-form-field>
+                <mat-form-field class="col-6" appearance="outline">
+                  <mat-label>Confirm Password</mat-label>
+                  <input [readonly]="!edit " matInput placeholder="Confirm password" formControlName="confirmPassword"
+                         [errorStateMatcher]="matcher" [type]="hideConfirmPassword ? 'password' : 'text'"
+                         [required]="edit">
+                  <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+                          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+                    <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                  <mat-error *ngIf="userRegistrationForm.hasError('notSame','passwordGroup')">
+                    Passwords do not match
+                  </mat-error>
+                </mat-form-field>
 
-            </div>
-            <!-------------------------------------------------------------------------------------------------------------->
-            <div class="row">
-              <mat-form-field appearance="outline" class="col-12" >
-                <mat-label>Role</mat-label>
-                <mat-select [disabled]="!edit" formControlName="roles" multiple="true" (valueChange)="toSelectedRoles($event)" >
-                  <mat-option *ngFor="let role of roleList; let i = index" [value]="i" >{{role}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <!-------------------------------------------------------------------------------------------------------------->
-            <div class="row">
-              <mat-form-field appearance="outline" class="col-12">
-                <mat-label>Default Role</mat-label>
-                <mat-select [disabled]="!edit" formControlName="defaultRole" multiple="false" >
-                  <mat-option *ngFor="let roleId of selectedRoles; let i = index" [value]="roleId">{{roleList[roleId]}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <!-------------------------------------------------------------------------------------------------------------->
-            <div class="row">
-              <mat-form-field  class="col-12" appearance="outline">
-                <mat-label>Contact Number</mat-label>
-                <input [readonly]="!edit" type="text" matInput formControlName="contactNumber" placeholder="07*-*******">
-              </mat-form-field>
-            </div>
-            <!-------------------------------------------------------------------------------------------------------------->
+              </div>
+              <!-------------------------------------------------------------------------------------------------------------->
+              <div class="row">
+                <mat-form-field appearance="outline" class="col-12">
+                  <mat-label>Role</mat-label>
+                  <mat-select [disabled]="!edit" formControlName="roles" multiple="true"
+                              (valueChange)="toSelectedRoles($event)">
+                    <mat-option *ngFor="let role of roleList; let i = index" [value]="i">{{role}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <!-------------------------------------------------------------------------------------------------------------->
+              <div class="row">
+                <mat-form-field appearance="outline" class="col-12">
+                  <mat-label>Default Role</mat-label>
+                  <mat-select [disabled]="!edit" formControlName="defaultRole" multiple="false">
+                    <mat-option *ngFor="let roleId of selectedRoles; let i = index"
+                                [value]="roleId">{{roleList[roleId]}}</mat-option>
+                  </mat-select>
+                  <mat-error>Please select default role</mat-error>
+                </mat-form-field>
+              </div>
+              <!-------------------------------------------------------------------------------------------------------------->
+              <div class="row">
+                <mat-form-field class="col-12" appearance="outline">
+                  <mat-label>Contact Number</mat-label>
+                  <input [readonly]="!edit" type="text" matInput formControlName="contactNumber"
+                         placeholder="07*-*******">
+                </mat-form-field>
+              </div>
+              <!-------------------------------------------------------------------------------------------------------------->
 
-            <button class="btn btn-primary" type="button" [hidden]="edit" (click)="edit = !edit">Edit Profile</button>
-            <button class="btn btn-primary" type="button" [hidden]="!edit" (click)="whenCancelEdit()">Cancel</button>
-            <span></span>
-            <button class="btn btn-primary" style="float: right" type="submit" [hidden]="!userRegistrationForm.valid || !haveChanges">Save</button>
+              <button class="btn btn-primary" type="button" [hidden]="edit" (click)="edit = !edit">Edit Profile</button>
+              <button class="btn btn-primary" type="button" [hidden]="!edit" (click)="onCancelEdit()">Cancel</button>
+              <span></span>
+              <button class="btn btn-primary" style="float: right" type="submit"
+                      [hidden]="!userRegistrationForm.valid || !haveChanges">Save
+              </button>
 
-          </form>
+            </form>
         </div>
       </mat-grid-tile>
 
@@ -105,4 +197,9 @@
   </mat-tab>
 
 </mat-tab-group>
+
+<button class="btn btn-primary" (click)="backToAllUsers()" [hidden]="!usersService1.isUserProfileMode">
+  <mat-icon>arrow_back_ios</mat-icon>
+  users
+</button>
 

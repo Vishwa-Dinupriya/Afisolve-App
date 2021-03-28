@@ -18,22 +18,17 @@ export class ProfilePictureComponent implements OnInit {
 
   savingData = false;
 
-  public constructor(
-    private http: HttpClient
-  ) {
-  }
+  public constructor(private http: HttpClient) { }
 
-  public ngOnInit(): void {
-
-  }
+  public ngOnInit(): void { }
 
   onFileSelected(): void {
     this.savingData = true;
     const formData = new FormData();
-    this.http.post('http://localhost:3000/users/upload-profile-picture', {profilePicture: this.croppedImageBase64}).subscribe(
+    this.http.post('http://localhost:3000/home/upload-profile-picture', {profilePicture: this.croppedImageBase64}).subscribe(
       response => {
         console.log(response);
-      }, error => console.error(error)
+      }, error => console.log(error)
     ).add(() => {
       this.savingData = false;
     });

@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import {Component, Inject, OnChanges, OnInit, Renderer2} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormGroup, FormBuilder, Validators, AbstractControl, FormControl, FormGroupDirective, NgForm} from '@angular/forms';
 import {checkPasswords} from '../shared/password.validator';
@@ -25,7 +25,7 @@ export class SignupComponent implements OnInit {
   hidePassword = true;
   hideConfirmPassword = true;
 
-  roleList: string[] = ['Customer', 'Account Coordinator', 'Developer', 'Project Manager', 'CEO'];
+  roleList: string[] = ['Customer', 'Account Coordinator', 'Developer', 'Project Manager', 'CEO', 'Admin'];
   selectedRoles: number [] = [];
 
   matcher = new MyErrorStateMatcher();
@@ -96,5 +96,6 @@ export class SignupComponent implements OnInit {
   capitalize(value: string): string {
     return value.charAt(0).toUpperCase() + value.slice(1);
   }
+
 }
 
