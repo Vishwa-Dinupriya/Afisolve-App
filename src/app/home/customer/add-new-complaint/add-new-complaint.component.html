@@ -2,7 +2,7 @@
   <mat-card-title >Lodge Complaint</mat-card-title>
   <hr>
 <div class="h-auto">
-  <form [formGroup]="addComplaintForm" (ngSubmit)="saveChangesDialog()" class="mat-typography">
+  <form [formGroup]="addComplaintForm" (ngSubmit)="saveChangesDialog()" class="mat-typography" #myForm="ngForm">
 
     <div class="row">
       <mat-form-field appearance="outline" class="col-auto">

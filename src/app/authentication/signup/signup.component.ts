@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormGroup, FormBuilder, Validators, AbstractControl, FormControl, FormGroupDirective, NgForm} from '@angular/forms';
 import {checkPasswords} from '../shared/password.validator';
 import {AuthenticationService} from '../authentication.service';
@@ -22,6 +22,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  @ViewChild('myForm') myForm;
 
   userRegistrationForm: FormGroup;
   hidePassword = true;
@@ -84,35 +85,53 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const registrationForm = this.userRegistrationForm.value;
-    registrationForm.firstName = this.capitalize(this.firstName.value);
-    registrationForm.lastName = this.capitalize(this.lastName.value);
-    this.authenticationService.signup(this.userRegistrationForm.value)
-      .subscribe(
-        response => {
-          console.log('Success!(frontend)', response);
-          const dialogRef = this.dialog.open(DialogBoxComponent, {
-            data: {
-              title: 'Success!',
-              message: 'Register new user successfully ',
-              name: ' ',
-              button1: 'Back to All users',
-              button2: 'Ok'
-            }
-          });
+    const dialogRef1 = this.dialog.open(DialogBoxComponent, {
+      data: {
+        title: 'Confirm!',
+        message: 'Are you sure to add this new user? ',
+        name: ' ',
+        button1: 'Cancel',
+        button2: 'Done'
+      }
+    });
 
-          dialogRef.afterClosed().subscribe(result => {
-            console.log(`Dialog result: ${result}`);
-            if (result === true) {
-              this.ngOnInit();
-            } else {
-              this.ngOnInit();
-              this.userService.ChangeCreateUserModeBooleanSubjectValue(false);
-            }
-          });
-        },
-        error => console.error('Error!(frontend)', error)
-      );
+    dialogRef1.afterClosed().subscribe(result1 => {
+      console.log(`Dialog result: ${result1}`);
+      if (result1 === true) {
+        const registrationForm = this.userRegistrationForm.value;
+        registrationForm.firstName = this.capitalize(this.firstName.value);
+        registrationForm.lastName = this.capitalize(this.lastName.value);
+        this.authenticationService.signup(this.userRegistrationForm.value)
+          .subscribe(
+            response => {
+              console.log('Success!(frontend)', response);
+              const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  title: 'Success!',
+                  message: 'Register new user successfully ',
+                  name: ' ',
+                  button1: 'Back to All users',
+                  button2: 'Ok'
+                }
+              });
+
+              dialogRef2.afterClosed().subscribe(result2 => {
+                console.log(`Dialog result: ${result2}`);
+                this.myForm.resetForm();
+                if (result2 === true) {
+
+                } else {
+                  this.userService.ChangeCreateUserModeBooleanSubjectValue(false);
+                }
+              });
+            },
+            error => console.error('Error!(frontend)', error)
+          );
+      } else {
+        console.log(`Dialog result: ${result1}`);
+
+      }
+    });
   }
 
   capitalize(value: string): string {

@@ -59,6 +59,7 @@ import { CompletedComplaintsComponent } from './home/customer/complaints-custome
 import { ClosedComplaintsComponent } from './home/customer/complaints-customer/closed-complaints/closed-complaints.component';
 import { ReviewDialogBoxComponent } from './home/customer/complaints-customer/completed-complaints/review-dialog-box/review-dialog-box.component';
 import { LodgeSubComplaintComponent } from './home/customer/complaints-customer/completed-complaints/lodge-sub-complaint/lodge-sub-complaint.component';
+import { UserProfileForAdminPurposeComponent } from './home/admin/users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
 
 
 @NgModule({
@@ -106,6 +107,7 @@ import { LodgeSubComplaintComponent } from './home/customer/complaints-customer/
     ClosedComplaintsComponent,
     ReviewDialogBoxComponent,
     LodgeSubComplaintComponent,
+    UserProfileForAdminPurposeComponent,
 
   ],
   entryComponents: [DialogBoxComponent],

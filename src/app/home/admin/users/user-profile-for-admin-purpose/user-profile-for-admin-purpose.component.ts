@@ -6,17 +6,9 @@ import {AuthenticationService} from 'src/app/authentication/authentication.servi
 import {ErrorStateMatcher} from '@angular/material/core';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogBoxComponent} from '../dialog-box/dialog-box.component';
-import {UsersService} from '../../admin/users/users.service';
-import {HomeService} from '../../home.service';
-
-export interface IUserGeneral {
-  lastLogin: string;
-  createdBy: string;
-  createdAt: string;
-  modifiedBy: string;
-  modifiedAt: string;
-}
+import {UsersService} from '../users.service';
+import {IUserGeneral} from '../../../shared/user-profile/user-profile.component';
+import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -28,12 +20,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  selector: 'app-user-profile-for-admin-purpose',
+  templateUrl: './user-profile-for-admin-purpose.component.html',
+  styleUrls: ['./user-profile-for-admin-purpose.component.css']
 })
+export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
 
-export class UserProfileComponent implements OnInit, OnChanges {
   @Input() userEmailChild: string;
 
   USER_GENERAL_DATA: IUserGeneral;
@@ -59,21 +51,16 @@ export class UserProfileComponent implements OnInit, OnChanges {
     private router: Router,
     private http1: HttpClient,
     public dialog: MatDialog,
-    public usersService1: UsersService,
-    public homeService: HomeService
+    public usersService1: UsersService
   ) {
   }
 
   ngOnInit(): void {
-    console.log('ngOn init');
     this.formBuildFunction();
   }
 
   ngOnChanges(): void {
-    console.log(this.userEmailChild);
-    // this.formBuildFunction();
     if (this.userRegistrationForm) {
-      console.log('form is build');
       this.tabIndex = '1';
       this.formBuildFunction();
       this.getAndSetValues();
@@ -81,7 +68,6 @@ export class UserProfileComponent implements OnInit, OnChanges {
   }
 
   formBuildFunction(): void {
-    console.log('form build func');
     this.userRegistrationForm = this.fb1.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
@@ -252,8 +238,8 @@ export class UserProfileComponent implements OnInit, OnChanges {
   }
 
   public backToAllUsers(): void {
-    this.homeService.changeUserProfileModeBooleanSubject(false);
-    this.homeService.changeUserEmailStringSubjectValue(null);
+    this.usersService1.changeIsProfileModeSubjectBooleanValue(false);
+    this.usersService1.changeUserEmailParentSubjectStringValue(null);
   }
 
 }

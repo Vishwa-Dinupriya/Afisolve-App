@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../product.service';
 import {HttpClient} from '@angular/common/http';
@@ -11,6 +11,7 @@ import {MatDialog} from '@angular/material/dialog';
   styleUrls: ['./register-product.component.css']
 })
 export class RegisterProductComponent implements OnInit {
+  @ViewChild('myForm') myForm;
 
   productRegistrationForm: FormGroup;
 
@@ -32,31 +33,47 @@ export class RegisterProductComponent implements OnInit {
 
 
   onSubmit(): void {
-    console.log(this.productRegistrationForm.value);
-    this.productService.registerProduct(this.productRegistrationForm.value)
-      .subscribe(
-        response => {
-          const dialogRef = this.dialog.open(DialogBoxComponent, {
-            data: {
-              title: 'Success!',
-              message: 'Product successfully entered ',
-              name: ' ',
-              button1: 'Back to All products',
-              button2: 'Ok'
-            }
-          });
+    const dialogRef1 = this.dialog.open(DialogBoxComponent, {
+      data: {
+        title: 'Confirm!!',
+        message: 'Do you want to register this as new product? ',
+        name: ' ',
+        button1: 'Cancel',
+        button2: 'Done'
+      }
+    });
 
-          dialogRef.afterClosed().subscribe(result => {
-            console.log(`Dialog result: ${result}`);
-            if (result === true) {
-              this.ngOnInit();
-            } else {
-              this.ngOnInit();
-              this.productService.ChangeCreateProductModeBooleanSubjectValue(false);
-            }
-          });
-        },
-        error => console.error('Error!(frontend)', error)
-      );
+    dialogRef1.afterClosed().subscribe(result => {
+      if (result === true) {
+        console.log(this.productRegistrationForm.value);
+        this.productService.registerProduct(this.productRegistrationForm.value)
+          .subscribe(
+            response => {
+              const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  title: 'Success!',
+                  message: 'Product successfully entered ',
+                  name: ' ',
+                  button1: 'Back to All products',
+                  button2: 'Ok'
+                }
+              });
+
+              dialogRef2.afterClosed().subscribe(result2 => {
+                console.log(`Dialog result: ${result}`);
+                this.myForm.resetForm();
+                if (result2 === true) {
+
+                } else {
+                  this.productService.ChangeCreateProductModeBooleanSubjectValue(false);
+                }
+              });
+            },
+            error => console.error('Error!(frontend)', error)
+          );
+      } else {
+        this.productService.ChangeCreateProductModeBooleanSubjectValue(false);
+      }
+    });
   }
 }

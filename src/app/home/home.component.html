@@ -16,7 +16,6 @@
 
       <span style="flex: 0.01 1 auto"></span>
 
-<!--      <span class="navbar-brand mb-0 h1 ">{{ homeService.firstName }}</span>-->
       <span class="navbar-brand mb-0 h1 ">{{ firstname }}</span>
 
       <span style="flex: 1 1 auto"></span>
@@ -63,14 +62,11 @@
   </mat-menu>
 
   <mat-menu #dropDownUser="matMenu">
-    <button mat-menu-item style="width: 200px">
+    <button mat-menu-item style="width: 200px"  (click)="goToUserProfile()">
       <mat-icon>person</mat-icon>
       <span>Profile</span>
     </button>
-    <button mat-menu-item>
-      <mat-icon>settings</mat-icon>
-      <span>Settings</span>
-    </button>
+
     <button mat-menu-item class="btn btn-secondary" type="button" *ngIf="authenticationService.isLoggedIn()"
             (click)="authenticationService.logout()">
       <mat-icon>login</mat-icon>
@@ -79,12 +75,17 @@
   </mat-menu>
 
   <!------------------------------------------------------------------------------------------------------>
-
-  <router-outlet>
+<div [hidden]="homeService.userProfileMode">
+  <router-outlet >
     <!--  customer
           project manager
           ceo
           developer
           admin-->
   </router-outlet>
+</div>
+
+  <div [hidden]="!homeService.userProfileMode">
+    <app-user-profile [userEmailChild]="homeService.userEmail"></app-user-profile>
+  </div>
 </div>

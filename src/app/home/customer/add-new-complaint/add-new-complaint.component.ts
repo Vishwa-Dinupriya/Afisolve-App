@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
 import {AuthenticationService} from '../../../authentication/authentication.service';
@@ -15,6 +15,7 @@ import {AddNewComplaintService} from './add-new-complaint.service';
 })
 export class AddNewComplaintComponent implements OnInit, OnChanges {
   @Input() reqProductID: number;
+  @ViewChild('myForm') myForm;
   addComplaintForm: FormGroup;
   productIDList;
   productNameList;
@@ -89,6 +90,24 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
         this.http1.post<any>(`http://localhost:3000/customer/lodge-complaint`, this.addComplaintForm.value).subscribe(
           response => {
             console.log(response);
+            const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+              data: {
+                title: 'Success!',
+                message: 'Complaint successfully lodged! ',
+                name: ' ',
+                button1: '',
+                button2: 'Ok'
+              }
+            });
+            dialogRef2.afterClosed().subscribe(result2 => {
+              console.log(`Dialog result: ${result}`);
+              this.myForm.resetForm();
+              if (result2 === true) {
+
+              } else {
+
+              }
+            });
           }, error => {
             console.log(error);
           }

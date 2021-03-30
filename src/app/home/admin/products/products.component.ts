@@ -30,6 +30,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   PRODUCTS_DATA: IProduct[];
 
   createProduct = false;
+  selectedProductID;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -43,6 +44,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.productService.ChangeCreateProductModeBooleanSubjectValue(false);
+    this.productService.ChangeProductProfileModeBooleanSubjectValue(false);
   }
 
   ngAfterViewInit(): void {
@@ -66,19 +68,21 @@ export class ProductsComponent implements OnInit, AfterViewInit {
 
   public redirectToDetails(id: number): void {
     console.log(id);
+    this.selectedProductID = id;
+    this.productService.ChangeProductProfileModeBooleanSubjectValue(true);
   }
 
   public redirectToUpdate(id: number): void {
     console.log(id);
   }
 
-  public redirectToDelete(id: number): void {
+  public redirectToDelete(id: number, complaintName: string): void {
     console.log(id);
     const dialogRef = this.dialog.open(DialogBoxComponent, {
       data: {
         title: 'Are you sure?',
         message: 'Are you want to delete this product: ',
-        name: id,
+        name: complaintName,
         button1: 'Cancel',
         button2: 'delete'
       }
@@ -108,7 +112,6 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   changeMode(value: boolean): void {
     this.productService.ChangeCreateProductModeBooleanSubjectValue(!value);
     this.createProduct = value;
-    this.ngAfterViewInit();
   }
 
 }

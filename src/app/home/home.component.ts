@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   isBigScreen: boolean;
 
   firstname;
+  userEmail;
   roles;
   currentRole;
 
@@ -42,7 +43,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.homeService.changeUserProfileModeBooleanSubject(false);
+    this.homeService.changeUserEmailStringSubjectValue(null);
     this.isBigScreen = (window.innerWidth) > 700; // using this line for toggle-button-> hide or not
     this.homeService.ToggleDrawer(this.isBigScreen);
     this.toggleDrawerBtnValue = this.homeService.drawer;
@@ -86,5 +88,9 @@ export class HomeComponent implements OnInit {
       );
   }
 
+  goToUserProfile(): void {
+    this.homeService.changeUserProfileModeBooleanSubject(true);
+    this.homeService.changeUserEmailStringSubjectValue(localStorage.getItem('userEmail'));
+  }
 
 }

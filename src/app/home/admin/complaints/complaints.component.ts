@@ -70,9 +70,7 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
 
   public redirectToDetails(complaintID: number, subComplaintID: number): void {
     this.complaintService.changeComplaintIdParentNumberSubjectValue(complaintID);
-    console.log('complaintID: ' + this.complaintService.complaintIdParentValue);
     this.complaintService.changeSubComplaintIdParentNumberSubjectValue(subComplaintID);
-    console.log('subComplaintID: ' + this.complaintService.subComplaintIdParentValue);
     this.complaintService.changeProfileModeBooleanSubjectValue(true);
   }
 
