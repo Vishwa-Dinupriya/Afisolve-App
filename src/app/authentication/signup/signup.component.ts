@@ -1,9 +1,11 @@
-import {Component, Inject, OnChanges, OnInit, Renderer2} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators, AbstractControl, FormControl, FormGroupDirective, NgForm} from '@angular/forms';
 import {checkPasswords} from '../shared/password.validator';
 import {AuthenticationService} from '../authentication.service';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {DialogBoxComponent} from '../../home/shared/dialog-box/dialog-box.component';
+import {MatDialog} from '@angular/material/dialog';
+import {UsersService} from '../../home/admin/users/users.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -33,7 +35,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb1: FormBuilder,
     private authenticationService: AuthenticationService,
-    private router: Router) {
+    private dialog: MatDialog,
+    public userService: UsersService) {
   }
 
   ngOnInit(): void {
@@ -88,6 +91,25 @@ export class SignupComponent implements OnInit {
       .subscribe(
         response => {
           console.log('Success!(frontend)', response);
+          const dialogRef = this.dialog.open(DialogBoxComponent, {
+            data: {
+              title: 'Success!',
+              message: 'Register new user successfully ',
+              name: ' ',
+              button1: 'Back to All users',
+              button2: 'Ok'
+            }
+          });
+
+          dialogRef.afterClosed().subscribe(result => {
+            console.log(`Dialog result: ${result}`);
+            if (result === true) {
+              this.ngOnInit();
+            } else {
+              this.ngOnInit();
+              this.userService.ChangeCreateUserModeBooleanSubjectValue(false);
+            }
+          });
         },
         error => console.error('Error!(frontend)', error)
       );

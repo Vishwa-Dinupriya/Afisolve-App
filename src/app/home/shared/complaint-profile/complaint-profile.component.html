@@ -1,80 +1,131 @@
-<div [hidden]="test">
+<div [hidden]="false">
   <mat-tab-group animationDuration="1000ms" [selectedIndex]="tabIndex">
     <mat-tab label="General Details">
-      <div></div>
-    </mat-tab>
-
-    <mat-tab label="Sub Complaints ">
-      <mat-form-field class="w-75 m-3">
-        <mat-label>Filter</mat-label>
-        <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
-      </mat-form-field>
-
       <div>
-        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100" >
 
-          <!-- Description Column -->
-          <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
-            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-          </ng-container>
+        <mat-list *ngIf="!!COMPLAINT_DETAILS_DATA">
 
-          <!-- Status Column -->
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
-            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-          </ng-container>
+          <mat-list-item>
+            <div class=" w-25">complaintID: </div>
+            <div class="text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.complaintID; else complaintIDBlock"><i> Not Available</i></span>
+              <ng-template #complaintIDBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.complaintID+' - '+COMPLAINT_DETAILS_DATA.subComplaintID }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
 
-          <!-- SubmittedDate Column -->
-          <ng-container matColumnDef="submittedDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Submitted Date</th>
-            <td mat-cell *matCellDef="let element"> {{element.submittedDate}} </td>
-          </ng-container>
+          <mat-list-item>
+            <div class=" w-25">Sub ComplaintID: </div>
+            <div class="text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.subComplaintID==null; else subComplaintIDBlock"><i> Not Available</i></span>
+              <ng-template #subComplaintIDBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.subComplaintID }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
 
-          <!--  productID Column-->
-          <ng-container matColumnDef="productID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Product ID</th>
-            <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
-          </ng-container>
+          <mat-list-item>
+            <div class=" w-25">Complaint Status: </div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.statusName; else statusNameBlock"><i> Not Available</i></span>
+              <ng-template #statusNameBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.statusName }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
 
-          <!-- Details Column -->
-          <ng-container matColumnDef="details">
-            <th mat-header-cell *matHeaderCellDef> Details</th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="primary" (click)="redirectToDetails(element.complainID)">
-                <mat-icon class="mat-18">reorder</mat-icon>
-              </button>
-            </td>
-          </ng-container>
+          <mat-list-item>
+            <div class=" w-25">product ID: </div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.productID; else productIDBlock"><i> Not Available</i></span>
+              <ng-template #productIDBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.productID }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
 
-          <!-- Update Column -->
-          <ng-container matColumnDef="update">
-            <th mat-header-cell *matHeaderCellDef> Update</th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="accent" (click)="redirectToUpdate(element.complainID)">
-                <mat-icon class="mat-18">system_update</mat-icon>
-              </button>
-            </td>
-          </ng-container>
+          <mat-list-item>
+            <div class=" w-25">Product Name:</div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.productName; else productNameBlock"><i> Not Available</i></span>
+              <ng-template #productNameBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.productName }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
 
-          <!-- Delete Column -->
-          <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef> Delete</th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="warn" (click)="redirectToDelete(element.complainID)">
-                <mat-icon class="mat-18">delete</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-          <!-------------------------------------------------------------------------------------------->
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <mat-list-item>
+            <div class=" w-25">Account Coordinator Email:</div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.accountCoordinatorEmail; else accountCoordinatorEmaileBlock"><i> Not Available</i></span>
+              <ng-template #accountCoordinatorEmaileBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.accountCoordinatorEmail }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
 
-        </table>
-        <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
-        </mat-paginator>
+          <mat-list-item>
+            <div class=" w-25">Account Coordinator Name:</div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.accountCoordinatorFirstName; else accountCoordinatorNameBlock"><i> Not Available</i></span>
+              <ng-template #accountCoordinatorNameBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.accountCoordinatorFirstName+' '+ COMPLAINT_DETAILS_DATA.accountCoordinatorLastName }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
+
+          <mat-list-item>
+            <div class=" w-25">Project Manager Email:</div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.projectManagerEmail; else projectManagerEmailBlock"><i> Not Available</i></span>
+              <ng-template #projectManagerEmailBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.projectManagerEmail }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
+
+          <mat-list-item>
+            <div class=" w-25">Project Manager Name:</div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.projectManagerFirstName; else projectManagerNameBlock"><i> Not Available</i></span>
+              <ng-template #projectManagerNameBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.projectManagerFirstName + ' ' + COMPLAINT_DETAILS_DATA.accountCoordinatorLastName  }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
+
+          <mat-list-item>
+            <div class=" w-25">Submit At: </div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.submittedDate; else submittedDateBlock"><i> Not Available</i></span>
+              <ng-template #submittedDateBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.submittedDate }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
+
+          <mat-list-item>
+            <div class=" w-25">Starting Progress At: </div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.wipStartDate; else wipStartDateBlock"><i> Not Available</i></span>
+              <ng-template #wipStartDateBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.wipStartDate }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
+
+        </mat-list>
+
       </div>
 
+      <div [hidden]="ComplaintIdAvailable">
+        <i> Requested Complaint Id is null</i>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Comments">
+      Comment Section
     </mat-tab>
 
   </mat-tab-group>

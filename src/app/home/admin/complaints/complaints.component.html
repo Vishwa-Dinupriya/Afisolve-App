@@ -1,4 +1,3 @@
-
 <mat-card class="m-5 shadow" style="height: 80%">
   <div>
     <!--all complaints table-->
@@ -9,73 +8,138 @@
       </mat-form-field>
 
       <div>
-        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
+        <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
 
-          <!--      &lt;!&ndash; complaint ID Column &ndash;&gt;-->
-          <!--      <ng-container matColumnDef="complainID">-->
-          <!--        <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>-->
-          <!--        <td mat-cell *matCellDef="let element"> {{element.complainID}} </td>-->
-          <!--      </ng-container>-->
+          <!--  The Header is iterate by ngfor loop -->
+          <!--        <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay1"> // 4 times-->
+          <!--          <th mat-header-cell *matHeaderCellDef> {{column}} </th>-->
+          <!--          <td mat-cell *matCellDef="let element"> {{element[column]}} </td>-->
+          <!--        </ng-container>-->
 
-          <!-- Description Column -->
+          <!-- complaintID Column -->
+          <ng-container matColumnDef="complaintID">
+            <th mat-header-cell *matHeaderCellDef> complaintID</th>
+            <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
+          </ng-container>
+
+          <!-- subComplaintID Column -->
+          <ng-container matColumnDef="subComplaintID">
+            <th mat-header-cell *matHeaderCellDef> subComplaintID</th>
+            <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
+          </ng-container>
+
+          <!-- description Column -->
           <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+            <th mat-header-cell *matHeaderCellDef> description</th>
             <td mat-cell *matCellDef="let element"> {{element.description}} </td>
           </ng-container>
 
-          <!-- Status Column -->
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
-            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-          </ng-container>
-
-          <!-- SubmittedDate Column -->
+          <!-- submittedDate Column -->
           <ng-container matColumnDef="submittedDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Submitted Date</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> submittedDate</th>
             <td mat-cell *matCellDef="let element"> {{element.submittedDate}} </td>
           </ng-container>
 
-          <!--  productID Column-->
+          <!-- productID Column -->
           <ng-container matColumnDef="productID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Product ID</th>
+            <th mat-header-cell *matHeaderCellDef> productID</th>
             <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
           </ng-container>
 
-          <!-- Details Column -->
+          <!-- Details button Column -->
           <ng-container matColumnDef="details">
             <th mat-header-cell *matHeaderCellDef> Details</th>
             <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="primary" (click)="redirectToDetails(element.complainID)">
+              <button mat-icon-button color="primary"
+                      (click)="redirectToDetails(element.complaintID,element.subComplaintID)">
                 <mat-icon class="mat-18">reorder</mat-icon>
               </button>
             </td>
           </ng-container>
 
-          <!-- Update Column -->
-          <ng-container matColumnDef="update">
-            <th mat-header-cell *matHeaderCellDef> Update</th>
+          <!-- expand/collapse button Column -->
+          <ng-container matColumnDef="subComplaints">
+            <th mat-header-cell *matHeaderCellDef> subComplaints</th>
             <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="accent" (click)="redirectToUpdate(element.complainID)">
-                <mat-icon class="mat-18">system_update</mat-icon>
+              <button [hidden]="(element.subComplaints.length==0)" mat-icon-button color="primary"
+                      (click)="expandedElement = expandedElement === element ? null : element">
+                <mat-icon [hidden]="expandedElement===element" class="mat-18">keyboard_arrow_down</mat-icon>
+                <mat-icon [hidden]="expandedElement!==element" class="mat-18">keyboard_arrow_up</mat-icon>
               </button>
+              <span [hidden]="!(element.subComplaints.length==0)"><i>No any sub complaint</i></span>
             </td>
           </ng-container>
 
-          <!-- Delete Column -->
-          <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef> Delete</th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="warn" (click)="redirectToDelete(element.complainID)">
-                <mat-icon class="mat-18">delete</mat-icon>
-              </button>
+          <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayOuterTable.length">
+              <div class="example-element-detail"
+                   [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <table mat-table [dataSource]="element.subComplaints" class="mat-elevation-z8">
+
+                  <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
+
+                  <!-- complaintID Column -->
+                  <ng-container matColumnDef="complaintID">
+                    <th mat-header-cell *matHeaderCellDef> complaintID</th>
+                    <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
+                  </ng-container>
+
+                  <!-- subComplaintID Column -->
+                  <ng-container matColumnDef="subComplaintID">
+                    <th mat-header-cell *matHeaderCellDef> subComplaintID</th>
+                    <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
+                  </ng-container>
+
+                  <!-- description Column -->
+                  <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef> description</th>
+                    <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                  </ng-container>
+
+                  <!-- submittedDate Column -->
+                  <ng-container matColumnDef="submittedDate">
+                    <th mat-header-cell *matHeaderCellDef> submittedDate</th>
+                    <td mat-cell *matCellDef="let element"> {{element.submittedDate}} </td>
+                  </ng-container>
+
+                  <!-- productID Column -->
+                  <ng-container matColumnDef="productID">
+                    <th mat-header-cell *matHeaderCellDef> productID</th>
+                    <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+                  </ng-container>
+
+                  <!-- Details button Column -->
+                  <ng-container matColumnDef="details">
+                    <th mat-header-cell *matHeaderCellDef> Details</th>
+                    <td mat-cell *matCellDef="let element">
+                      <button mat-icon-button color="primary"
+                              (click)="redirectToDetails(element.complaintID,element.subComplaintID)">
+                        <mat-icon class="mat-18">reorder</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+
+                  <!--<tr mat-header-row *matHeaderRowDef="columnsToDisplayInnerTable"></tr>-->
+                  <tr mat-row *matRowDef="let row; columns: columnsToDisplayInnerTable;"></tr>
+                </table>
+              </div>
             </td>
           </ng-container>
-          <!-------------------------------------------------------------------------------------------->
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
+          <!-- 1 row ,5 cells/columns  Header Row(not iterate this<tr> )-->
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplayOuterTable"></tr>
+
+          <!--mainComplaint row-->
+          <tr mat-row *matRowDef="let element; columns: columnsToDisplayOuterTable;"
+              class="example-element-row"
+              [class.example-expanded-row]="expandedElement === element"></tr>
+
+          <!--sub complaint table row-->
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
         </table>
-        <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+        <mat-paginator [length]="5" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
         </mat-paginator>
       </div>
 
@@ -87,7 +151,8 @@
 
     <!--complaint profile-->
     <div [hidden]="!complaintService.profileModeValue">
-      <app-complaint-profile [complaintIdChild]="complaintService.complaintIdParentValue"></app-complaint-profile>
+      <app-complaint-profile [complaintIdChild]="complaintService.complaintIdParentValue"
+                             [subComplaintIdChild]="complaintService.subComplaintIdParentValue"></app-complaint-profile>
     </div>
 
 

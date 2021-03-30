@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatTableDataSource} from '@angular/material/table';
-import {ComplaintWithSubsElement} from '../complaints-customer.component';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {HttpClient} from '@angular/common/http';
@@ -10,6 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {ReviewDialogBoxComponent} from './review-dialog-box/review-dialog-box.component';
 import {CompletedComplaintService} from './completed-complaint.service';
 import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
+import {IComplaintWithSubsElement} from '../../../shared/complaintElementWithSubsInterface/interface-complaint-with-subs.service';
 
 @Component({
   selector: 'app-completed-complaints',
@@ -27,13 +27,13 @@ export class CompletedComplaintsComponent implements OnInit, AfterViewInit {
   createComplaintMode: boolean;
 
   complaintStatusID: number | null;
-  COMPLAINS_DATA: ComplaintWithSubsElement[];
-  dataSource: MatTableDataSource<ComplaintWithSubsElement>;
+  COMPLAINS_DATA: IComplaintWithSubsElement[];
+  dataSource: MatTableDataSource<IComplaintWithSubsElement>;
 
-  columnsToDisplayOuterTable = ['complaintID', 'description', 'submittedDate', 'productID', 'details', 'review'];
+  columnsToDisplayOuterTable = ['complaintID', 'description', 'submittedDate', 'productID', 'details', 'review', 'subComplaints'];
   columnsToDisplayInnerTable = ['subComplaintID', 'description', 'submittedDate', 'details'];
 
-  expandedElement: ComplaintWithSubsElement | null;
+  expandedElement: IComplaintWithSubsElement | null;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -53,7 +53,7 @@ export class CompletedComplaintsComponent implements OnInit, AfterViewInit {
       response => {
         this.COMPLAINS_DATA = response.data;
         // this.dataSource = this.COMPLAINS_DATA;
-        this.dataSource = new MatTableDataSource<ComplaintWithSubsElement>(this.COMPLAINS_DATA);
+        this.dataSource = new MatTableDataSource<IComplaintWithSubsElement>(this.COMPLAINS_DATA);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }, error => {

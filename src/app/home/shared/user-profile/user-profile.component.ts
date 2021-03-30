@@ -7,7 +7,6 @@ import {ErrorStateMatcher} from '@angular/material/core';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
-import {MatTableDataSource} from '@angular/material/table';
 import {UsersService} from '../../admin/users/users.service';
 
 export interface IUserGeneral {
@@ -36,8 +35,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class UserProfileComponent implements OnInit, OnChanges {
   @Input() userEmailChild: string;
 
-  displayedColumns: string[] = ['lastLogin', 'createdBy', 'createdAt', 'modifiedBy', 'modifiedAt'];
-  dataSource: MatTableDataSource<IUserGeneral>;
   USER_GENERAL_DATA: IUserGeneral;
 
   hidePassword = true;

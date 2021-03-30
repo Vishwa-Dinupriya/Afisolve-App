@@ -77,6 +77,19 @@
           </td>
         </ng-container>
 
+        <!-- expand/collapse button Column -->
+        <ng-container matColumnDef="subComplaints">
+          <th mat-header-cell *matHeaderCellDef> subComplaints</th>
+          <td mat-cell *matCellDef="let element">
+            <button [hidden]="(element.subComplaints.length==0)" mat-icon-button color="primary"
+                    (click)="expandedElement = expandedElement === element ? null : element">
+              <mat-icon [hidden]="expandedElement===element" class="mat-18">keyboard_arrow_down</mat-icon>
+              <mat-icon [hidden]="expandedElement!==element" class="mat-18">keyboard_arrow_up</mat-icon>
+            </button>
+            <span [hidden]="!(element.subComplaints.length==0)"><i>No any sub complaint</i></span>
+          </td>
+        </ng-container>
+
         <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
         <ng-container matColumnDef="expandedDetail">
           <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayOuterTable.length">
@@ -126,19 +139,23 @@
                   </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="columnsToDisplayInnerTable"></tr>
+<!--                <tr mat-header-row *matHeaderRowDef="columnsToDisplayInnerTable"></tr>-->
                 <tr mat-row *matRowDef="let row; columns: columnsToDisplayInnerTable;"></tr>
               </table>
             </div>
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="columnsToDisplayOuterTable"></tr> // 1 row ,5 cells/columns
+        <!-- 1 row ,5 cells/columns  Header Row(not iterate this<tr> )-->
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplayOuterTable"></tr>
+
+        <!--mainComplaint row-->
         <tr mat-row *matRowDef="let element; columns: columnsToDisplayOuterTable;"
             class="example-element-row"
-            [class.example-expanded-row]="expandedElement === element"
-            (click)="expandedElement = expandedElement === element ? null : element"> </tr> // 2 times
-        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> // 2 times
+            [class.example-expanded-row]="expandedElement === element"></tr>
+
+        <!--sub complaint table row-->
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
       </table>
 
     </div>

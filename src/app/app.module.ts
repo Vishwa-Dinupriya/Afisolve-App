@@ -8,7 +8,6 @@ import {AuthenticationComponent} from './authentication/authentication.component
 import {LoginComponent} from './authentication/login/login.component';
 import {SignupComponent} from './authentication/signup/signup.component';
 import {MaterialModule} from './material/material.module';
-import {EjsModule} from './ejs/ejs.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AccountCoordinatorComponent} from './home/accountCoordinator/account-coordinator.component';
@@ -46,7 +45,6 @@ import {ComplaintProfileComponent} from './home/shared/complaint-profile/complai
 import {ProductProfileComponent} from './home/shared/product-profile/product-profile.component';
 import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-profile.component';
 import {DialogBoxComponent} from './home/shared/dialog-box/dialog-box.component';
-import {SubComplaintProfileComponent} from './home/shared/sub-complaint-profile/sub-complaint-profile.component';
 
 import {PageService, SortService, FilterService} from '@syncfusion/ej2-angular-treegrid';
 
@@ -96,7 +94,6 @@ import { LodgeSubComplaintComponent } from './home/customer/complaints-customer/
     ProductProfileComponent,
     FeedbackProfileComponent,
     DialogBoxComponent,
-    SubComplaintProfileComponent,
 
     ComplaintsCustomerComponent,
     DashboardCustomerComponent,
@@ -119,7 +116,6 @@ import { LodgeSubComplaintComponent } from './home/customer/complaints-customer/
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
-    EjsModule,
     ImageCropperModule,
     MatGridListModule,
     MatDialogModule

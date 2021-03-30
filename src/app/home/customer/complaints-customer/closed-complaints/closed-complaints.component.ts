@@ -3,9 +3,9 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatDialog} from '@angular/material/dialog';
 import {HttpClient} from '@angular/common/http';
 import {ComplaintsCustomerService} from '../complaints-customer.service';
+import {IComplaintWithSubsElement} from '../../../shared/complaintElementWithSubsInterface/interface-complaint-with-subs.service';
 
 @Component({
   selector: 'app-closed-complaints',
@@ -24,13 +24,13 @@ export class ClosedComplaintsComponent implements OnInit, AfterViewInit {
 
   complaintStatusID: number | null;
 
-  COMPLAINS_DATA: ComplaintWithSubsElement[];
-  dataSource: MatTableDataSource<ComplaintWithSubsElement>;
+  COMPLAINS_DATA: IComplaintWithSubsElement[];
+  dataSource: MatTableDataSource<IComplaintWithSubsElement>;
 
-  columnsToDisplayOuterTable = ['complaintID', 'description', 'submittedDate', 'productID', 'details'];
+  columnsToDisplayOuterTable = ['complaintID', 'description', 'submittedDate', 'productID', 'details', 'subComplaints'];
   columnsToDisplayInnerTable = ['subComplaintID', 'description', 'submittedDate', 'details'];
 
-  expandedElement: ComplaintWithSubsElement | null;
+  expandedElement: IComplaintWithSubsElement | null;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -48,8 +48,7 @@ export class ClosedComplaintsComponent implements OnInit, AfterViewInit {
     this.http1.post<any>(`http://localhost:3000/customer/get-complaints-by-statusID`, {statusID: this.complaintStatusID = 3}).subscribe(
       response => {
         this.COMPLAINS_DATA = response.data;
-        // this.dataSource = this.COMPLAINS_DATA;
-        this.dataSource = new MatTableDataSource<ComplaintWithSubsElement>(this.COMPLAINS_DATA);
+        this.dataSource = new MatTableDataSource<IComplaintWithSubsElement>(this.COMPLAINS_DATA);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }, error => {
@@ -69,15 +68,3 @@ export class ClosedComplaintsComponent implements OnInit, AfterViewInit {
   }
 }
 
-export interface ComplaintWithSubsElement {
-  complaintID: string;
-  description: string;
-  finishedDate: string;
-  lastDateOfPending: string;
-  productID: string;
-  status: string;
-  subComplaintID: string;
-  submittedDate: string;
-  wipStartDate: string;
-  subComplaints: ComplaintWithSubsElement[] | null;
-}

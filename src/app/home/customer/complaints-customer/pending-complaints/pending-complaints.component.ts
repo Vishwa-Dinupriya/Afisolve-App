@@ -3,10 +3,9 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatDialog} from '@angular/material/dialog';
 import {HttpClient} from '@angular/common/http';
 import {ComplaintsCustomerService} from '../complaints-customer.service';
-import {ComplaintWithSubsElement} from '../complaints-customer.component';
+import {IComplaintWithSubsElement} from '../../../shared/complaintElementWithSubsInterface/interface-complaint-with-subs.service';
 
 @Component({
   selector: 'app-pending-complaints',
@@ -25,13 +24,13 @@ export class PendingComplaintsComponent implements OnInit, AfterViewInit {
 
   complaintStatusID: number | null;
 
-  COMPLAINS_DATA: ComplaintWithSubsElement[];
-  dataSource: MatTableDataSource<ComplaintWithSubsElement>;
+  COMPLAINS_DATA: IComplaintWithSubsElement[];
+  dataSource: MatTableDataSource<IComplaintWithSubsElement>;
 
-  columnsToDisplayOuterTable = ['complaintID', 'description', 'submittedDate', 'productID', 'details'];
+  columnsToDisplayOuterTable = ['complaintID', 'description', 'submittedDate', 'productID', 'details', 'subComplaints'];
   columnsToDisplayInnerTable = ['subComplaintID', 'description', 'submittedDate', 'details'];
 
-  expandedElement: ComplaintWithSubsElement | null;
+  expandedElement: IComplaintWithSubsElement | null;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -50,9 +49,10 @@ export class PendingComplaintsComponent implements OnInit, AfterViewInit {
       response => {
         this.COMPLAINS_DATA = response.data;
         // this.dataSource = this.COMPLAINS_DATA;
-        this.dataSource = new MatTableDataSource<ComplaintWithSubsElement>(this.COMPLAINS_DATA);
+        this.dataSource = new MatTableDataSource<IComplaintWithSubsElement>(this.COMPLAINS_DATA);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        console.log(this.dataSource);
       }, error => {
         console.log(error);
       }

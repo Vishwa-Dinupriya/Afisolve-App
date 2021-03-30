@@ -1,19 +1,21 @@
-<button mat-button class="float-right" (click)="createProduct = !createProduct" [hidden]="createProduct">
+<button mat-button class="float-right" (click)="changeMode(productService.createProductMode)" [hidden]="productService.createProductMode">
+<!--  <button mat-button class="float-right" (click)="createProduct=!createProduct" [hidden]="createProduct">-->
   <span class="mat-button-wrapper">
    <mat-icon>add_business</mat-icon>
     New product
   </span>
 </button>
 
-<button mat-button class="float-right" (click)="createProduct = !createProduct" [hidden]="!createProduct">
-  <span class="mat-button-wrapper">
+<button mat-button class="float-right" (click)="changeMode(productService.createProductMode)" [hidden]="!productService.createProductMode">
+<!--<button mat-button class="float-right" (click)="createProduct=!createProduct" [hidden]="!createProduct">-->
+<span class="mat-button-wrapper">
     <mat-icon>view_list</mat-icon>
     View products
   </span>
 </button>
 
 <mat-card class="m-5 shadow h-100">
-  <div [hidden]="createProduct">
+  <div [hidden]="productService.createProductMode">
     <mat-form-field class="w-75 m-3">
       <mat-label>Filter</mat-label>
       <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
@@ -93,14 +95,14 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
       </table>
-      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+      <mat-paginator [length]="5" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
       </mat-paginator>
     </div>
   </div>
 
-  <mat-card-title [hidden]="!createProduct">Register new Product</mat-card-title>
+  <mat-card-title [hidden]="!productService.createProductMode">Register new Product</mat-card-title>
   <hr>
-  <div [hidden]="!createProduct" class="" style="">
+  <div [hidden]="!productService.createProductMode" class="" style="">
     <app-register-product></app-register-product>
   </div>
 </mat-card>
