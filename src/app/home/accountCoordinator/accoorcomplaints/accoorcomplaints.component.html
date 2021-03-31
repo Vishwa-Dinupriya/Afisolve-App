@@ -1,23 +1,45 @@
-<mat-card class="m-5 shadow">
+<!------------>
+<button mat-raised-button color="primary" class="float-right m-1" (click)="addComplaintMode = !addComplaintMode"
+        [hidden]="addComplaintMode">
+  <mat-icon>input</mat-icon>
+  Add New Complaint
+</button>
 
+<button mat-raised-button color="primary" class="float-right m-1" (click)="addComplaintMode = !addComplaintMode"
+        [hidden]="!addComplaintMode">
+  <mat-icon>view_list</mat-icon>
+  View Complaints
+</button>
+
+<!------------>
+
+<mat-card class="mr-5 ml-5 mt-5 mb-4 shadow">
+
+  <mat-card-title [hidden]="!addComplaintMode"></mat-card-title>
+  <mat-card-title [hidden]="addComplaintMode"></mat-card-title>
+
+  <div [hidden]="!addComplaintMode">
+    <app-add-complaint></app-add-complaint>
+  </div>
+
+  <div [hidden]="addComplaintMode">
+    <div [hidden]="complaintprofileMode">
   <mat-tab-group animationDuration="1000ms">
-
-    <!-- Add new complaint -->
-    <mat-tab label="Add">
-      <div class="" style="" >
-       <app-add-complaint></app-add-complaint>
-      </div>
-    </mat-tab>
 
     <!-- Displaying All complaints-->
     <mat-tab label="All">
+      <!--Filter-->
+      <mat-form-field class="w-75 m-3">
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Ex.Comp ID" (keyup)="applyFilterAll($event)">
+      </mat-form-field>
 
-      <table mat-table [dataSource]="dataSource1" class="w-100" >
+      <table mat-table [dataSource]="dataSource1" matSort class="mat-elevation-z8 w-100" >
 
         <!-- Id Column -->
-        <ng-container matColumnDef="complainID">
+        <ng-container matColumnDef="complaintID">
           <th mat-header-cell *matHeaderCellDef> Id</th>
-          <td mat-cell *matCellDef="let element"> {{element.complainID}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
         </ng-container>
 
         <!-- SubId Column -->
@@ -33,15 +55,15 @@
         </ng-container>
 
         <!-- Description Column -->
-        <ng-container matColumnDef="complaint_description">
+        <ng-container matColumnDef="description">
           <th mat-header-cell *matHeaderCellDef> Description</th>
-          <td mat-cell *matCellDef="let element"> {{element.complaint_description}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
         </ng-container>
 
         <!-- Status Column-->
-        <ng-container matColumnDef="complaint_status">
+        <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef> Status</th>
-          <td mat-cell *matCellDef="let element"> {{element.complaint_status}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
         </ng-container>
 
         <!-- SubmittedDate Column-->
@@ -68,22 +90,253 @@
           <td mat-cell *matCellDef="let element"> {{element.finishedDate}} </td>
         </ng-container>
 
+        <!-- Details button Column -->
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef> Go To</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="redirectToDetails(element.complaintID)">
+              <mat-icon class="mat-18">description</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
-
       </table>
+      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+
 
 
     </mat-tab>
-<!-- Displaying New complaints-->
+<!-- Displaying New complaints-
     <mat-tab label="New">
+
+      --Filter-
+      <mat-form-field class="w-75 m-3">
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Ex.Comp ID" (keyup)="applyFilterNew($event)">
+      </mat-form-field>
 
       <table mat-table [dataSource]="dataSource2" class="w-100">
 
-        <!-- Id Column -->
+         Id Column -
         <ng-container matColumnDef="complainID">
           <th mat-header-cell *matHeaderCellDef> Id</th>
           <td mat-cell *matCellDef="let element"> {{element.complainID}} </td>
+        </ng-container>
+
+         SubId Column -
+        <ng-container matColumnDef="subComplaintID">
+          <th mat-header-cell *matHeaderCellDef> Sub_Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
+        </ng-container>
+
+        - ProductID Column-
+        <ng-container matColumnDef="productID">
+          <th mat-header-cell *matHeaderCellDef> Product_Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+        </ng-container>
+
+         Description Column -
+        <ng-container matColumnDef="complaint_description">
+          <th mat-header-cell *matHeaderCellDef> Description</th>
+          <td mat-cell *matCellDef="let element"> {{element.complaint_description}} </td>
+        </ng-container>
+
+        - SubmittedDate Column-
+        <ng-container matColumnDef="submittedDate">
+          <th mat-header-cell *matHeaderCellDef> Submitted Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.submittedDate}} </td>
+        </ng-container>
+
+         LastPending Column-
+        <ng-container matColumnDef="lastDateOfPending">
+          <th mat-header-cell *matHeaderCellDef> DDL for 'Pending'</th>
+          <td mat-cell *matCellDef="let element"> {{element.lastDateOfPending}} </td>
+        </ng-container>
+
+        - Details button Column -
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef> Go To</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="redirectToDetails(element.complainID)">
+              <mat-icon class="mat-18">description</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+
+      </table>
+      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+
+    </mat-tab>
+    -->
+
+    <mat-tab label="Pending">
+
+      <!--Filter-->
+      <mat-form-field class="w-75 m-3">
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Ex.Comp ID" (keyup)="applyFilterPending($event)">
+      </mat-form-field>
+
+      <table mat-table [dataSource]="dataSource3" class="w-100">
+      <!-- Id Column -->
+      <ng-container matColumnDef="complaintID">
+        <th mat-header-cell *matHeaderCellDef> Id</th>
+        <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
+      </ng-container>
+
+      <!-- SubId Column -->
+      <ng-container matColumnDef="subComplaintID">
+        <th mat-header-cell *matHeaderCellDef> Sub_Id</th>
+        <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
+      </ng-container>
+
+      <!-- ProductID Column-->
+      <ng-container matColumnDef="productID">
+        <th mat-header-cell *matHeaderCellDef> Product_Id</th>
+        <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description</th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+
+      <!-- Status Column-->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status</th>
+        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+      </ng-container>
+
+      <!-- SubmittedDate Column-->
+      <ng-container matColumnDef="submittedDate">
+        <th mat-header-cell *matHeaderCellDef> Submitted Date</th>
+        <td mat-cell *matCellDef="let element"> {{element.submittedDate}} </td>
+      </ng-container>
+
+      <!-- LastPending Column-->
+      <ng-container matColumnDef="lastDateOfPending">
+        <th mat-header-cell *matHeaderCellDef> DDL for 'Pending'</th>
+        <td mat-cell *matCellDef="let element"> {{element.lastDateOfPending}} </td>
+      </ng-container>
+
+      <!-- StartedWIP Column-->
+      <ng-container matColumnDef="wipStartDate">
+        <th mat-header-cell *matHeaderCellDef> WIP Started Date</th>
+        <td mat-cell *matCellDef="let element"> {{element.wipStartDate}} </td>
+      </ng-container>
+
+      <!-- Finished Column-->
+      <ng-container matColumnDef="finishedDate">
+        <th mat-header-cell *matHeaderCellDef> Finished Date</th>
+        <td mat-cell *matCellDef="let element"> {{element.finishedDate}} </td>
+      </ng-container>
+
+        <!-- Details button Column -->
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef> Go To</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="redirectToDetails(element.complaintID)">
+              <mat-icon class="mat-18">description</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
+      </table>
+      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+
+    </mat-tab>
+
+    <mat-tab label="In Progress">
+
+      <!--Filter-->
+      <mat-form-field class="w-75 m-3">
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Ex.Comp ID" (keyup)="applyFilterInProgress($event)">
+      </mat-form-field>
+
+
+        <table mat-table [dataSource]="dataSource4" class="w-100">
+          <!-- Id Column -->
+          <ng-container matColumnDef="complaintID">
+            <th mat-header-cell *matHeaderCellDef> Id</th>
+            <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
+          </ng-container>
+
+          <!-- SubId Column -->
+          <ng-container matColumnDef="subComplaintID">
+            <th mat-header-cell *matHeaderCellDef> Sub_Id</th>
+            <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
+          </ng-container>
+
+          <!-- ProductID Column-->
+          <ng-container matColumnDef="productID">
+            <th mat-header-cell *matHeaderCellDef> Product_Id</th>
+            <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+          </ng-container>
+
+          <!-- Description Column -->
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description</th>
+            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+          </ng-container>
+
+          <!-- SubmittedDate Column-->
+          <ng-container matColumnDef="submittedDate">
+            <th mat-header-cell *matHeaderCellDef> Submitted Date</th>
+            <td mat-cell *matCellDef="let element"> {{element.submittedDate}} </td>
+          </ng-container>
+
+          <!-- StartedWIP Column-->
+          <ng-container matColumnDef="wipStartDate">
+            <th mat-header-cell *matHeaderCellDef> WIP Started Date</th>
+            <td mat-cell *matCellDef="let element"> {{element.wipStartDate}} </td>
+          </ng-container>
+
+          <!-- Details button Column -->
+          <ng-container matColumnDef="details">
+            <th mat-header-cell *matHeaderCellDef> Go To</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="primary" (click)="redirectToDetails(element.complainID)">
+                <mat-icon class="mat-18">description</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns4;"></tr>
+        </table>
+      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+
+    </mat-tab>
+
+    <mat-tab label="Solved">
+
+      <!--Filter-->
+      <mat-form-field class="w-75 m-3">
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Ex.Comp ID" (keyup)="applyFilterSolved($event)">
+      </mat-form-field>
+
+      <table mat-table [dataSource]="dataSource5" class="w-100">
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="complaintID">
+          <th mat-header-cell *matHeaderCellDef> Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
         </ng-container>
 
         <!-- SubId Column -->
@@ -99,9 +352,9 @@
         </ng-container>
 
         <!-- Description Column -->
-        <ng-container matColumnDef="complaint_description">
+        <ng-container matColumnDef="description">
           <th mat-header-cell *matHeaderCellDef> Description</th>
-          <td mat-cell *matCellDef="let element"> {{element.complaint_description}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
         </ng-container>
 
         <!-- SubmittedDate Column-->
@@ -110,34 +363,113 @@
           <td mat-cell *matCellDef="let element"> {{element.submittedDate}} </td>
         </ng-container>
 
-        <!-- LastPending Column-->
-        <ng-container matColumnDef="lastDateOfPending">
-          <th mat-header-cell *matHeaderCellDef> DDL for 'Pending'</th>
-          <td mat-cell *matCellDef="let element"> {{element.lastDateOfPending}} </td>
+        <!-- Finished Column-->
+        <ng-container matColumnDef="finishedDate">
+          <th mat-header-cell *matHeaderCellDef> Finished Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.finishedDate}} </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+        <!-- Details button Column -->
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef> Go To</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="redirectToDetails(element.complaintID)">
+              <mat-icon class="mat-18">description</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns5"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns5;"></tr>
 
       </table>
-    </mat-tab>
+      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
 
-    <mat-tab label="Pending">
-    </mat-tab>
-
-    <mat-tab label="In Progress">
-    </mat-tab>
-
-    <mat-tab label="Solved">
     </mat-tab>
 
     <mat-tab label="Closed">
+
+      <!--Filter-->
+      <mat-form-field class="w-75 m-3">
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Ex.Comp ID" (keyup)="applyFilterClosed($event)">
+      </mat-form-field>
+
+      <table mat-table [dataSource]="dataSource6" matSort class="mat-elevation-z8 w-100" >
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="complaintID">
+          <th mat-header-cell *matHeaderCellDef> Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
+        </ng-container>
+
+        <!-- SubId Column -->
+        <ng-container matColumnDef="subComplaintID">
+          <th mat-header-cell *matHeaderCellDef> Sub_Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
+        </ng-container>
+
+        <!-- ProductID Column-->
+        <ng-container matColumnDef="productID">
+          <th mat-header-cell *matHeaderCellDef> Product_Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+        </ng-container>
+
+        <!-- Description Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Description</th>
+          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        </ng-container>
+
+        <!-- SubmittedDate Column-->
+        <ng-container matColumnDef="submittedDate">
+          <th mat-header-cell *matHeaderCellDef> Submitted Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.submittedDate}} </td>
+        </ng-container>
+
+        <!-- Finished Column-->
+        <ng-container matColumnDef="finishedDate">
+          <th mat-header-cell *matHeaderCellDef> Finished Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.finishedDate}} </td>
+        </ng-container>
+
+        <!-- Details button Column -->
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef> Go To</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="redirectToDetails(element.complaintID)">
+              <mat-icon class="mat-18">description</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns6"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns6;"></tr>
+      </table>
+      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+
+
     </mat-tab>
 
 
 
 
   </mat-tab-group>
+  </div>
+
+
+  <!--complaint profile-->
+  <div [hidden]="!complaintprofileMode" >
+    <h1>Complaint details and status update</h1>
+  </div>
+
+  <button class="btn btn-primary" (click)="redirectToComplaints()" [hidden]="!complaintprofileMode">
+    <mat-icon>arrow_back_ios</mat-icon>
+    Back
+  </button>
+  </div>
 
 </mat-card>
 

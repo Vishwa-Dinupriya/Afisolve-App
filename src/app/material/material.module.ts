@@ -14,7 +14,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTableModule} from '@angular/material/table';
-import {MatSortModule} from '@angular/material/sort';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -25,6 +24,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 const Material = [
   MatButtonModule,
@@ -52,7 +52,8 @@ const Material = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatRadioModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatDialogModule,
 ];
 
 @NgModule({

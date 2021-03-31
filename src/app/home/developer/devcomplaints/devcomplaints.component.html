@@ -1,0 +1,49 @@
+<mat-card class="m-5 shadow">
+  <mat-tab-group animationDuration="1000ms">
+
+    <mat-tab label="Complaint Details">
+
+      <!--Filter-->
+      <mat-form-field class="w-75 m-3">
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Ex.Comp ID" (keyup)="applyFilterAll($event)">
+      </mat-form-field>
+
+      <table mat-table [dataSource]="dataSource1" class="w-100" >
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="complaintID">
+          <th mat-header-cell *matHeaderCellDef> Complaint Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
+        </ng-container>
+
+        <!-- SubId Column -->
+        <ng-container matColumnDef="subComplaintID">
+          <th mat-header-cell *matHeaderCellDef> Sub Complaint ID</th>
+          <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
+        </ng-container>
+
+        <!-- Description Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Description</th>
+          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="statusName">
+          <th mat-header-cell *matHeaderCellDef> Status</th>
+          <td mat-cell *matCellDef="let element"> {{element.statusName}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedComp"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedComp;"></tr>
+      </table>
+
+      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+
+    </mat-tab>
+
+  </mat-tab-group>
+</mat-card>
+

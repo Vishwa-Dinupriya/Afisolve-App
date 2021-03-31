@@ -1,6 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
+
+export interface IUser {
+  userEmail: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  contactNumber: string;
+}
 
 @Component({
   selector: 'app-users',
@@ -8,25 +21,71 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./users.component.css']
 })
 
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['userEmail', 'password', 'firstName', 'lastName', 'contactNumber'];
-  dataSource;
+  displayedColumns: string[] = ['userEmail', 'password', 'firstName', 'lastName', 'contactNumber', 'details', 'update', 'delete'];
+
+  dataSource: MatTableDataSource<IUser>;
+  USERS_DATA: IUser[];
+
+  createUserMode = false;
+  profileMode = false;
+
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+  userEmailParent: string;
 
   constructor(private router: Router,
-              private http1: HttpClient) {
+              private http1: HttpClient,
+              public dialog: MatDialog) { }
 
-  }
+  ngOnInit(): void { }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.http1.post<any>(`http://localhost:3000/admin/get-users-details`, {}).subscribe(
       response => {
-        this.dataSource = response.data;
-        console.log(this.dataSource);
+        this.USERS_DATA = response.data;
+        this.dataSource = new MatTableDataSource<IUser>(this.USERS_DATA);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }, error => {
         console.log(error);
       }
     );
+  }
+
+  public redirectToDetails(id: string): void {
+    this.userEmailParent = id;
+    console.log(this.userEmailParent);
+    this.profileMode = true;
+  }
+
+  public redirectToUsers(): void {
+    this.profileMode = false;
+  }
+
+  public redirectToUpdate(id: string): void {
+    console.log(id);
+  }
+
+  public redirectToDelete(id: string): void {
+    console.log(id);
+    const dialogRef = this.dialog.open(DialogBoxComponent, {data: {message: 'Are you want to delete ', name: id}});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        console.log(`Dialog result: ${result}`);
+      } else {
+        console.log(`Dialog result: ${result}`);
+      }
+    });
+  }
+
+  applyFilter(event): void {
+    // console.log('event: ' + event);
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

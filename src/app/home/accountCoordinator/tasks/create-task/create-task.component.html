@@ -1,11 +1,12 @@
 <div class="container-fluid" style="background-color:  #EBEDEF ">
   <h1 align="center" style="">New Task</h1>
-  <form [formGroup]="CreateTaskForm">
+  <form [formGroup]="CreateTaskForm" (ngSubmit)="onSubmit()">
+
     <div class="form-group">
       <div class="form-row">
         <div class="column">
       <label for="exampleFormControlSelect1">Complaint ID :</label>
-      <select class="form-control" id="exampleFormControlSelect1" required>
+      <select class="form-control" formControlName="ComplaintID" id="exampleFormControlSelect1" required>
         <option>Comp10</option>
         <option>Comp9</option>
         <option>Comp8</option>
@@ -13,7 +14,7 @@
       </div>
         <div class="column">
         <label for="exampleFormControlSelect2">Sub Complaint ID :</label>
-        <select class="form-control" id="exampleFormControlSelect2" required>
+        <select class="form-control" formControlName="SubComplaintID" id="exampleFormControlSelect2" required>
           <option>Subcomp10</option>
           <option>SubComp9</option>
           <option>SubComp8</option>
@@ -25,7 +26,7 @@
       <div class="form-row">
         <div class="col-3">
           <label for="exampleFormControlSelect3">Task ID :</label>
-      <input type="text" class="form-control" placeholder="Task ID" required disabled>
+      <input type="text" class="form-control" formControlName="TaskID" placeholder="Task ID" required>
         </div>
       </div>
     </div>
@@ -33,7 +34,7 @@
       <div class="form-row">
         <div class="col-3">
     <label for="exampleFormControlSelect3">Developer :</label>
-    <select class="form-control" id="exampleFormControlSelect3" required>
+    <select class="form-control" formControlName="Developer" id="exampleFormControlSelect3" required>
       <option>Developer1</option>
       <option>Developer2</option>
       <option>Developer3</option>
@@ -43,12 +44,12 @@
     </div>
     <div class="form-group">
       <label for="exampleFormControlTextarea1">Description :</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+      <textarea class="form-control" formControlName="Description" id="exampleFormControlTextarea1" rows="4"></textarea>
     </div>
 
     <div class="form-group" style="background-color: white">
       <label for="exampleFormControlFile1">Upload Files :</label>
-      <input type="file" class="form-control-file" id="exampleFormControlFile1">
+      <input type="file" class="form-control-file" formControlName="UploadFiles" id="exampleFormControlFile1">
       <small id="passwordHelpBlock2" class="form-text text-muted">
         Attach if any type of files related to the task
       </small>
@@ -57,16 +58,17 @@
       <div class="form-row">
         <div class="col-3">
           <label for="exampleFormControlSelect1">Deadline :</label>
-      <input type="date" class="form-control" placeholder="Deadline" required>
+      <input type="date" class="form-control" formControlName="Deadline" placeholder="Deadline" required>
         </div>
       </div>
     </div>
     <div class="form-group">
       <div class="form-row">
-        <button class="btn btn-primary" type="reset" style="background-color: coral" >Reset</button>
+        <button class="btn btn-primary" type="reset" style="background-color: #ff7f50" >Reset</button>
     <button class="btn btn-primary" type="submit" >Create</button>
       </div>
     </div>
+
 
   </form>
 </div>

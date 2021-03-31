@@ -1,23 +1,23 @@
 <div class="container-fluid" style="padding-top: 30px">
 <!--  <button class="btn btn-secondary" type="button" [routerLink]="['/' + '../signup']">Signup</button>-->
   <div align="center">
-    <img src="assets/img/afisolve logo.png" height="60px">
+    <img src="../../../assets/img/afisolve_logo.png" height="60px">
   </div>
   <h1 align="center" style="padding-top: 20px;font-size: 20px">Welcome to Afisolve! Lets Start</h1>
   <form [formGroup]="loginForm" (ngSubmit)="onLogin()" style="padding-left: 430px">
     {{loginForm.value | json}}
 
     <div class="form-group" style="width: 500px;">
-      <label>Username</label>
-      <input align="center" formControlName="userName"
+      <label>Email</label>
+      <input align="center" formControlName="email"
              type="text"
              class="form-control"
-             [class.is-invalid]="loginForm.get('userName').invalid && loginForm.get('userName').touched">
-      <div *ngIf="userName.invalid && userName.touched">
-        <small *ngIf="userName.errors?.required" class="text-danger">Username is required</small>
-        <small *ngIf="userName.errors?.minlength" class="text-danger">Username must be at least 3 characters</small>
-        <small *ngIf="userName.errors?.forbiddenName" class="text-danger">{{userName.errors?.forbiddenName.value}}
-          Username not allowed</small>
+             [class.is-invalid]="loginForm.get('email').invalid && loginForm.get('email').touched">
+      <div *ngIf="email.invalid && email.touched">
+        <small *ngIf="email.errors?.required" class="text-danger">email is required</small>
+        <small *ngIf="email.errors?.minlength" class="text-danger">email must be at least 3 characters</small>
+        <small *ngIf="email.errors?.forbiddenName" class="text-danger">{{email.errors?.forbiddenName.value}}
+          Email not allowed</small>
       </div>
     </div>
 

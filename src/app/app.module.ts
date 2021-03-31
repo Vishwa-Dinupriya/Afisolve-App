@@ -27,13 +27,41 @@ import {UsersComponent} from './home/admin/users/users.component';
 import {ComplaintsComponent} from './home/admin/complaints/complaints.component';
 import {ProductsComponent} from './home/admin/products/products.component';
 import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
-import {ProductService} from './home/services/product.service';
+
 import { TasksComponent } from './home/accountCoordinator/tasks/tasks.component';
 import { AccoorcomplaintsComponent } from './home/accountCoordinator/accoorcomplaints/accoorcomplaints.component';
 import { AddComplaintComponent } from './home/accountCoordinator/accoorcomplaints/add-complaint/add-complaint.component';
 import { CreateTaskComponent } from './home/accountCoordinator/tasks/create-task/create-task.component';
 import { AllocationComponent } from './home/accountCoordinator/allocation/allocation.component';
 import { MailComponent } from './home/accountCoordinator/mail/mail.component';
+import { AccoortestComponent } from './home/accountCoordinator/accoortest/accoortest.component';
+
+
+import {TaskService} from './home/accountCoordinator/tasks/task.service';
+import {ProductService} from './home/admin/products/product.service';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatDialogModule} from '@angular/material/dialog';
+
+import {LateComplaintInformationComponent} from './home/projectManager/late-complaint-information/late-complaint-information.component';
+import {ViewReportsComponent} from './home/projectManager/view-reports/view-reports.component';
+import {ProfileComponent} from './home/projectManager/profile/profile.component';
+import {ActionComponent} from './home/projectManager/late-complaint-information/action/action.component';
+
+import {ProfilePictureComponent} from './home/shared/profile/profile-picture/profile-picture.component';
+import {ImageCropperModule} from 'ngx-image-cropper';
+import {TestComponent} from './home/admin/test/test.component';
+import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
+import {UserProfileComponent} from './home/shared/user-profile/user-profile.component';
+import {ComplaintProfileComponent} from './home/shared/complaint-profile/complaint-profile.component';
+import {ProductProfileComponent} from './home/shared/product-profile/product-profile.component';
+import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-profile.component';
+import { DialogBoxComponent } from './home/shared/dialog-box/dialog-box.component';
+import { DevtasksComponent } from './home/developer/devtasks/devtasks.component';
+import { DevcomplaintsComponent } from './home/developer/devcomplaints/devcomplaints.component';
+import { DevproductsComponent } from './home/developer/devproducts/devproducts.component';
+import { TaskProfileComponent } from './home/accountCoordinator/tasks/task-profile/task-profile.component';
+
+
 
 @NgModule({
   declarations: [
@@ -60,20 +88,44 @@ import { MailComponent } from './home/accountCoordinator/mail/mail.component';
     CreateTaskComponent,
     AllocationComponent,
     MailComponent,
+    AccoortestComponent,
+
+    LateComplaintInformationComponent,
+    ViewReportsComponent,
+    ProfileComponent,
+    ActionComponent,
+
+    ProfilePictureComponent,
+    TestComponent,
+    TestSortingComponent,
+    UserProfileComponent,
+    ComplaintProfileComponent,
+    ProductProfileComponent,
+    FeedbackProfileComponent,
+    DialogBoxComponent,
+    DevtasksComponent,
+    DevcomplaintsComponent,
+    DevproductsComponent,
+    TaskProfileComponent,
 
   ],
+  entryComponents: [DialogBoxComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MaterialModule,
+    ImageCropperModule,
+    MatGridListModule,
+    MatDialogModule
   ],
   providers: [
     AuthenticationService,
     AuthenticationGuard,
     ProductService,
+    TaskService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
