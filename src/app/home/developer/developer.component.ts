@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeveloperComponent implements OnInit {
 
+  activeRoute: string;
   constructor() { }
 
   ngOnInit(): void {
+  }
+  getRoute(event): void {
+    this.activeRoute = event.constructor.name;
+    console.log(this.activeRoute);
   }
 
 }

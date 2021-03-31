@@ -1,22 +1,20 @@
+<script src="signup.component.ts"></script>
 <div class="container-fluid">
 
   <!--  <button class="btn btn-secondary" type="button" [routerLink]="['/' + '../login']">Log In</button>-->
 
-  <h1 align="center" style="">Sign Up</h1>
-
   <form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()">
 
     <div class="row">
-
       <mat-form-field class="col-6" appearance="outline">
         <mat-label>First Name</mat-label>
-        <input type="text" matInput formControlName="firstName" placeholder="Nimal">
+        <input  type="text" matInput formControlName="firstName" placeholder="Nimal">
         <mat-error *ngIf="firstName.touched && firstName.errors?.required">This field is required</mat-error>
         <mat-error *ngIf="firstName.touched && !firstName.errors?.required && firstName.invalid">Invalid Input
         </mat-error>
       </mat-form-field>
-
-      <mat-form-field class="col-6" appearance="outline">
+      <!-------------------------------------------------------------------------->
+      <mat-form-field  class="col-6" appearance="outline">
         <mat-label>Last Name</mat-label>
         <input type="text" matInput formControlName="lastName" placeholder="Nimal">
         <mat-error *ngIf="lastName.touched && lastName.errors?.required">This field is required</mat-error>
@@ -24,42 +22,64 @@
       </mat-form-field>
 
     </div>
-
-
+    <!-------------------------------------------------------------------------------------------------------------->
     <div class="row">
-
-      <mat-form-field class="col-12" appearance="outline">
+      <mat-form-field  class="col-12" appearance="outline">
         <mat-label>Email</mat-label>
         <input type="text" matInput formControlName="email" placeholder="abc@d.com">
         <mat-error *ngIf="email.touched && email.errors?.required">This field is required</mat-error>
         <mat-error *ngIf="email.touched && !email.errors?.required && email.errors?.email">Invalid Email</mat-error>
       </mat-form-field>
-
     </div>
-
-    <div class="row">
-
+    <!-------------------------------------------------------------------------------------------------------------->
+    <div class="row" formGroupName="passwordGroup">
       <mat-form-field class="col-6" appearance="outline">
         <mat-label>Password</mat-label>
-        <input type="password" matInput formControlName="password">
+        <input matInput placeholder="New password" formControlName="password" required [type]="hidePassword ? 'password' : 'text'">
+        <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="userRegistrationForm.hasError('required', 'passwordGroup')">Please enter your newpassword</mat-error>
       </mat-form-field>
-
-      <mat-form-field class="col-6 mb-0" appearance="outline">
+      <!------------------------------------------------------------------------->
+      <mat-form-field class="col-6" appearance="outline">
         <mat-label>Confirm Password</mat-label>
-        <input type="password" matInput formControlName="confirmPassword">
+        <input  matInput placeholder="Confirm password" formControlName="confirmPassword" [errorStateMatcher]="matcher" [type]="hideConfirmPassword ? 'password' : 'text'">
+        <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+          <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="userRegistrationForm.hasError('notSame','passwordGroup')">
+          Passwords do not match
+        </mat-error>
       </mat-form-field>
-
-      <span class="small text-danger" *ngIf="userRegistrationForm.errors?.misMatch">Passwords do not match</span>
-
-
-      <mat-form-field appearance="fill" class="col-12">
+    </div>
+    <!--------------------------------------------------------------------------------------------------------------->
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-12">
         <mat-label>Role</mat-label>
-        <mat-select formControlName="role" multiple >
+        <mat-select formControlName="roles" multiple="true" (valueChange)="toSelectedRoles($event)" >
           <mat-option *ngFor="let role of roleList; let i = index" [value]="i">{{role}}</mat-option>
         </mat-select>
       </mat-form-field>
 
     </div>
+    <!-------------------------------------------------------------------------------------------------------------->
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-12" [hidden]="selectedRoles.length==0">
+        <mat-label>Default Role</mat-label>
+        <mat-select formControlName="defaultRole" multiple="false" >
+          <mat-option *ngFor="let roleId of selectedRoles; let i = index" [value]="roleId">{{roleList[roleId]}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <!-------------------------------------------------------------------------------------------------------------->
+    <div class="row">
+      <mat-form-field  class="col-12" appearance="outline">
+        <mat-label>Contact Number</mat-label>
+        <input type="number" matInput formControlName="contactNumber" placeholder="07*-*******">
+      </mat-form-field>
+    </div>
+    <!-------------------------------------------------------------------------------------------------------------->
 
     <button class="btn btn-primary" type="submit" [disabled]="!userRegistrationForm.valid">Sign Up</button>
 

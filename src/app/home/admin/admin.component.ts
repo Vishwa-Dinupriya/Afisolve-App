@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {AuthenticationService} from '../../authentication/authentication.service';
+import {Component, HostListener, Input, OnInit, ViewChild} from '@angular/core';
+import {AdminService} from './admin.service';
 
 @Component({
   selector: 'app-admin',
@@ -11,7 +10,9 @@ export class AdminComponent implements OnInit {
 
   activeRoute: string;
 
-  constructor() {
+  constructor(
+    public toggleService: AdminService
+  ) {
   }
 
   ngOnInit(): void {

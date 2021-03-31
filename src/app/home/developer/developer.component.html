@@ -1,1 +1,45 @@
-<h1>developer works!</h1>
+<mat-drawer-container style="height:93%">
+  <mat-drawer mode="side" opened style="width: 230px">
+    <mat-selection-list [multiple]="false" >
+
+      <mat-list-option routerLink="devtasks"
+                       [selected]="activeRoute === 'DevTasksComponent'"
+                       [class.selected]="activeRoute === 'DevTasksComponent'">
+        <mat-icon mat-list-icon>build</mat-icon>
+        <div mat-line>Tasks</div>
+      </mat-list-option>
+
+      <mat-list-option routerLink="devcomplaints"
+                       [selected]="activeRoute === 'DevcomplaintsComponent'"
+                       [class.selected]="activeRoute === 'DevcomplaintsComponent'">
+        <mat-icon mat-list-icon>assignment</mat-icon>
+        <div mat-line>Complaints</div>
+      </mat-list-option>
+
+
+      <mat-list-option routerLink="devproducts"
+                       [selected]="activeRoute === 'DevproductsComponent'"
+                       [class.selected]="activeRoute === 'DevproductsComponent'">
+        <mat-icon mat-list-icon>folder_open</mat-icon>
+        <div mat-line>Products</div>
+      </mat-list-option>
+
+      <mat-list-option routerLink="mail"
+                       [selected]="activeRoute === 'MailComponent'"
+                       [class.selected]="activeRoute === 'MailComponent'">
+        <mat-icon mat-list-icon>mail</mat-icon>
+        <div mat-line>Mail</div>
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-drawer>
+
+  <mat-drawer-content class="w-100 h-100 m-0">
+    <mat-drawer-content >
+      <router-outlet (activate)="getRoute($event)" >
+        <!--complaints,-->
+      </router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+

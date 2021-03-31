@@ -1,1 +1,32 @@
-<h1>project-manager works!</h1>
+<mat-drawer-container style="height:93%">
+  <mat-drawer mode="side" opened style="width: 200px">
+    <mat-selection-list [multiple]="false">
+
+      <mat-list-option routerLink="./late-complaint-information" [selected]="activeRoute === 'LateComplaintInformationComponent'"
+                       [class.selected]="activeRoute === 'LateComplaintInformationComponent'">
+        <mat-icon mat-list-icon>dashboard</mat-icon>
+        <div mat-line>Late Complain Information</div>
+      </mat-list-option>
+
+      <mat-list-option routerLink="./view-reports" [selected]="activeRoute === 'ViewReportsComponent'"
+                       [class.selected]="activeRoute === 'ViewReportsComponent'">
+        <mat-icon mat-list-icon>assignment</mat-icon>
+        <div mat-line>View Reports</div>
+      </mat-list-option>
+
+      <mat-list-option routerLink="./profile" [selected]="activeRoute === 'ProfileComponent'"
+                       [class.selected]="activeRoute === 'ProfileComponent'">
+        <mat-icon mat-list-icon>group</mat-icon>
+        <div mat-line>Profile</div>
+      </mat-list-option>
+
+    </mat-selection-list>
+  </mat-drawer>
+
+  <mat-drawer-content class="w-100 h-100 m-0">
+    <mat-drawer-content>
+      <router-outlet (activate)="getRoute($event)"></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-content>
+</mat-drawer-container>
+

@@ -30,11 +30,21 @@ import {AddComplaintComponent} from './home/accountCoordinator/accoorcomplaints/
 import {CreateTaskComponent} from './home/accountCoordinator/tasks/create-task/create-task.component';
 import {AllocationComponent} from './home/accountCoordinator/allocation/allocation.component';
 import {MailComponent} from './home/accountCoordinator/mail/mail.component';
+import {AccoortestComponent} from './home/accountCoordinator/accoortest/accoortest.component';
+import {DevtasksComponent} from './home/developer/devtasks/devtasks.component';
 
 
+import {LateComplaintInformationComponent} from './home/projectManager/late-complaint-information/late-complaint-information.component';
+import {ViewReportsComponent} from './home/projectManager/view-reports/view-reports.component';
+import {ProfileComponent} from './home/projectManager/profile/profile.component';
+import {ActionComponent} from './home/projectManager/late-complaint-information/action/action.component';
 
-
-
+import {TestComponent} from './home/admin/test/test.component';
+import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
+import {UserProfileComponent} from './home/shared/user-profile/user-profile.component';
+import {DevcomplaintsComponent} from './home/developer/devcomplaints/devcomplaints.component';
+import {DevproductsComponent} from './home/developer/devproducts/devproducts.component';
+import {TaskProfileComponent} from './home/accountCoordinator/tasks/task-profile/task-profile.component';
 
 const routes: Routes = [
     {
@@ -66,7 +76,7 @@ const routes: Routes = [
           canActivate: [AuthenticationGuard]
         },
         {
-          path: 'accountCoordinator',
+          path: 'account-coordinator',
           component: AccountCoordinatorComponent,
           canActivate: [AuthenticationGuard],
           children: [
@@ -91,6 +101,10 @@ const routes: Routes = [
                 {
                   path: 'create-task',
                   component: CreateTaskComponent
+                },
+                {
+                  path: 'task-profile',
+                  component: TaskProfileComponent
                 }
               ]
             },
@@ -101,6 +115,10 @@ const routes: Routes = [
             {
               path: 'mail',
               component: MailComponent
+            },
+            {
+              path: 'accoortest',
+              component: AccoortestComponent
             }
             ]
         },
@@ -124,6 +142,12 @@ const routes: Routes = [
             {
               path: 'users',
               component: UsersComponent,
+              children: [
+                {
+                  path: 'user-profile',
+                  component: UserProfileComponent
+                }
+              ]
             },
             {
               path: 'products',
@@ -138,6 +162,14 @@ const routes: Routes = [
             {
               path: 'feedbacks',
               component: FeedbacksComponent
+            },
+            {
+              path: 'test',
+              component: TestComponent
+            },
+            {
+              path: 'test-sorting',
+              component: TestSortingComponent
             }
           ]
         },
@@ -149,12 +181,46 @@ const routes: Routes = [
         {
           path: 'developer',
           component: DeveloperComponent,
-          canActivate: [AuthenticationGuard]
+          canActivate: [AuthenticationGuard],
+          children: [
+            {
+              path: 'devtasks',
+              component: DevtasksComponent,
+            },
+            {
+              path: 'devcomplaints',
+              component: DevcomplaintsComponent,
+            },
+            {
+              path: 'devproducts',
+              component: DevproductsComponent,
+            },
+          ]
         },
         {
-          path: 'projectManager',
+          path: 'project-manager',
           component: ProjectManagerComponent,
-          canActivate: [AuthenticationGuard]
+          canActivate: [AuthenticationGuard],
+          children: [
+            {
+              path: 'late-complaint-information',
+              component: LateComplaintInformationComponent,
+              children: [
+                {
+                  path: 'action',
+                  component: ActionComponent
+                },
+              ]
+            },
+            {
+              path: 'view-reports',
+              component: ViewReportsComponent
+            },
+            {
+              path: 'profile',
+              component: ProfileComponent
+            },
+          ]
         },
       ]
     },

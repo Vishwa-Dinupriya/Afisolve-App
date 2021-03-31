@@ -1,11 +1,10 @@
-<mat-drawer-container style="height:93%">
-  <mat-drawer mode="side" opened style="width: 200px">
-    <mat-selection-list [multiple]="false" >
+<mat-drawer-container style="min-height:93%">
+  <mat-drawer mode="side" [opened]="toggleService.drawer" style="width: 200px">
+    <mat-selection-list [multiple]="false">
 
       <mat-list-option routerLink="./dashboard"
                        [selected]="activeRoute === 'DashboardComponent'"
-                       [class.selected]="activeRoute === 'DashboardComponent'"
-                       >
+                       [class.selected]="activeRoute === 'DashboardComponent'">
         <mat-icon mat-list-icon>dashboard</mat-icon>
         <div mat-line>Dashboard</div>
       </mat-list-option>
@@ -38,14 +37,28 @@
         <div mat-line>Feedbacks</div>
       </mat-list-option>
 
+      <mat-list-option routerLink="./test"
+                       [selected]="activeRoute === 'TestComponent'"
+                       [class.selected]="activeRoute === 'TestComponent'">
+        <mat-icon mat-list-icon>rate_review</mat-icon>
+        <div mat-line>Test</div>
+      </mat-list-option>
+
+      <mat-list-option routerLink="./test-sorting"
+                       [selected]="activeRoute === 'TestSortingComponent'"
+                       [class.selected]="activeRoute === 'TestSortingComponent'">
+        <mat-icon mat-list-icon>rate_review</mat-icon>
+        <div mat-line>Test-Sorting</div>
+      </mat-list-option>
+
     </mat-selection-list>
   </mat-drawer>
 
-  <mat-drawer-content class="w-100 h-100 m-0">
-    <mat-drawer-content >
-      <router-outlet (activate)="getRoute($event)" >
-           <!--dashboard,complaints,users,products,feedbacks-->
-      </router-outlet>
-    </mat-drawer-content>
+  <mat-drawer-content class="">
+
+    <router-outlet (activate)="getRoute($event)">
+      <!--dashboard,complaints,users,products,feedbacks,test,test-sorting-->
+    </router-outlet>
+
   </mat-drawer-content>
 </mat-drawer-container>
