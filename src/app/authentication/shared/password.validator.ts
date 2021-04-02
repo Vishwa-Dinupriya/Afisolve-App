@@ -1,5 +1,4 @@
-import {AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
+import {FormGroup} from '@angular/forms';
 
 export function checkPasswords(group: FormGroup): { notSame: boolean } { // here we have the 'passwords' group
   const password = group.controls.password.value;
