@@ -1,3 +1,77 @@
-<h1>customer works!</h1>
+<mat-drawer-container style="min-height:93%">
+  <mat-drawer mode="side" [opened]="homeService.drawer" style="width: 250px">
+    <mat-selection-list [multiple]="false">
 
-{{ result }}
+      <mat-list-option routerLink="./dashboard"
+                       [selected]="activeRoute === 'DashboardCustomerComponent'"
+                       [class.selected]="activeRoute === 'DashboardCustomerComponent'">
+        <mat-icon mat-list-icon>dashboard</mat-icon>
+        <div mat-line>Dashboard</div>
+      </mat-list-option>
+
+      <mat-list-option routerLink="./lodge-new-complaint"
+                       [selected]="activeRoute === 'AddNewComplaintComponent'"
+                       [class.selected]="activeRoute === 'AddNewComplaintComponent'">
+        <mat-icon mat-list-icon>add</mat-icon>
+        <div mat-line>Add new Complaint</div>
+      </mat-list-option>
+
+      <mat-list-option (click)="collapseComplaints = !collapseComplaints"
+                       [selected]=!collapseComplaints
+                       [class.selected]=!collapseComplaints>
+        <mat-icon mat-list-icon>assignment</mat-icon>
+        <div mat-line>Complaints</div>
+      </mat-list-option>
+
+      <mat-list-option [hidden]=collapseComplaints>
+
+        <mat-selection-list [multiple]="false">
+          <mat-list-option routerLink="./pending-complaints"
+                           [selected]="activeRoute === 'PendingComplaintsComponent'"
+                           [class.selected]="activeRoute === 'PendingComplaintsComponent'">
+            <mat-icon mat-list-icon>pending_actions</mat-icon>
+            <div mat-line>Pending</div>
+          </mat-list-option>
+
+          <mat-list-option routerLink="./in-progress-complaints"
+                           [selected]="activeRoute === 'InProgressComplaintsComponent'"
+                           [class.selected]="activeRoute === 'InProgressComplaintsComponent'">
+            <mat-icon mat-list-icon>published_with_changes</mat-icon>
+            <div mat-line>In Progress</div>
+          </mat-list-option>
+
+          <mat-list-option routerLink="./completed-complaints"
+                           [selected]="activeRoute === 'CompletedComplaintsComponent'"
+                           [class.selected]="activeRoute === 'CompletedComplaintsComponent'">
+            <mat-icon mat-list-icon>event_available</mat-icon>
+            <div mat-line>Completed</div>
+          </mat-list-option>
+
+          <mat-list-option routerLink="./past-complaints"
+                           [selected]="activeRoute === 'ClosedComplaintsComponent'"
+                           [class.selected]="activeRoute === 'ClosedComplaintsComponent'">
+            <mat-icon mat-list-icon>manage_search</mat-icon>
+            <div mat-line>Past</div>
+          </mat-list-option>
+        </mat-selection-list>
+
+      </mat-list-option>
+
+      <mat-list-option routerLink="./purchases"
+                       [selected]="activeRoute === 'ProductsCustomerComponent'"
+                       [class.selected]="activeRoute === 'ProductsCustomerComponent'">
+        <mat-icon mat-list-icon>shopping_cart</mat-icon>
+        <div mat-line>Purchases</div>
+      </mat-list-option>
+
+    </mat-selection-list>
+  </mat-drawer>
+
+  <mat-drawer-content class="">
+
+    <router-outlet (activate)="getRoute($event)">
+      <!--dashboard-customer,complaints-customer,purchases-customer, -->
+    </router-outlet>
+
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -13,7 +13,8 @@ export class AuthenticationService {
   roleChangeUrl = 'http://localhost:3000/authentication/role-change';
   updateProfileUrl = 'http://localhost:3000/admin/update-selected-user-profile-details';
 
-  constructor(private http1: HttpClient, private router: Router) {
+  constructor(private http1: HttpClient,
+              private router: Router) {
   }
 
   signup(userData): Observable<any> {
@@ -38,6 +39,7 @@ export class AuthenticationService {
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('userEmail');
     this.router.navigate(['/login']);
   }
 

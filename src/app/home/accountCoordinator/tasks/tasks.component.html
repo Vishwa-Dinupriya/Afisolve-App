@@ -1,12 +1,14 @@
 <!------------>
-<button mat-raised-button color="primary" class="float-right m-1" (click)="addTaskMode = !addTaskMode"
-        [hidden]="addTaskMode">
+<button mat-raised-button color="primary" class="float-right m-1" (click)="changeMode(taskService.createTaskMode)"
+        [hidden]="taskService.createTaskMode"> <!--(click)="addTaskMode = !addTaskMode"
+        [hidden]="addTaskMode">-->
   <mat-icon>input</mat-icon>
   Create New Task
 </button>
 
-<button mat-raised-button color="primary" class="float-right m-1" (click)="addTaskMode = !addTaskMode"
-        [hidden]="!addTaskMode">
+<button mat-raised-button color="primary" class="float-right m-1" (click)="changeMode(taskService.createTaskMode)"
+        [hidden]="!taskService.createTaskMode"><!-- (click)="addTaskMode = !addTaskMode"
+        [hidden]="!addTaskMode"-->
   <mat-icon>view_list</mat-icon>
   View Tasks
 </button>
@@ -15,24 +17,17 @@
 
 <mat-card class="m-5 shadow mb-4 shadow">
 
-  <mat-card-title [hidden]="!addTaskMode"></mat-card-title>
-  <mat-card-title [hidden]="addTaskMode"></mat-card-title>
+  <mat-card-title [hidden]="!taskService.createTaskMode"></mat-card-title>
+  <mat-card-title [hidden]="taskService.createTaskMode"></mat-card-title>
 
-  <div [hidden]="!addTaskMode">
+  <div [hidden]="!taskService.createTaskMode">
     <app-create-task></app-create-task>
   </div>
 
-  <div [hidden]="addTaskMode">
-    <div [hidden]="taskprofileMode">
+  <div [hidden]="taskService.createTaskMode">
+    <div [hidden]="taskService.isTaskProfileMode">
 
   <mat-tab-group animationDuration="1000ms">
-
-    <!-- Add new task
-    <mat-tab label="Create">
-      <div class="" style="" >
-        <app-create-task></app-create-task>
-      </div>
-    </mat-tab> -->
 
 
     <!-- Displaying All tasks-->
@@ -315,14 +310,16 @@
     </div>
 
     <!--task profile-->
-    <div [hidden]="!taskprofileMode" >
-      <h1>Task details </h1>
+    <div [hidden]="!taskService.isTaskProfileMode" >
+      <app-task-profile [taskIDChild] = selectedTaskID></app-task-profile>
     </div>
 
-    <button class="btn btn-primary" (click)="redirectToTasks()" [hidden]="!taskprofileMode">
+    <!--
+    <button class="btn btn-primary" (click)="redirectToTasks()" [hidden]="!taskService.isTaskProfileMode">
       <mat-icon>arrow_back_ios</mat-icon>
       Back
     </button>
+    -->
 
   </div>
 

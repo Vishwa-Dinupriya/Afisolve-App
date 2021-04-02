@@ -1,14 +1,18 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit,Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
+import {AccoorcomplaintsService} from './accoorcomplaints.service';
+import {TaskService} from '../tasks/task.service';
 
 export interface IAllComp {
-  complaintID: string;
-  subComplaintID: string;
-  productID: string;
+  complaintID: number;
+  subComplaintID: number;
+  productID: number;
   description: string;
   status: string;
 }
@@ -26,13 +30,6 @@ export class AccoorcomplaintsComponent implements OnInit {
   displayedColumns1: string[] = ['complaintID', 'subComplaintID', 'productID', 'description', 'status', 'submittedDate' , 'lastDateOfPending', 'wipStartDate', 'finishedDate', 'details'];
   dataSource1: MatTableDataSource<IAllComp>;
   ALLCOMPLAINTS_DATA: IAllComp[];
-  //////////////////////////
-  addComplaintMode = false;
-  complaintprofileMode = false;
-  //////////////////////////////////
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  complainIDParent: string;
   //////////////////////////////////
   displayedColumns3: string[] = ['complaintID', 'subComplaintID', 'productID', 'description',  'submittedDate' , 'lastDateOfPending', 'details'];
   dataSource3;
@@ -46,12 +43,27 @@ export class AccoorcomplaintsComponent implements OnInit {
   displayedColumns6: string[] = ['complaintID', 'subComplaintID', 'productID', 'description', 'submittedDate' , 'finishedDate', 'details'];
   dataSource6;
 
+  //////////////////////////
+  // addComplaintMode = false;
+  // complaintprofileMode = false;
+  addComplaint = false;
+  selectedComplaintID;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  complainIDParent: string;
+  /////////////////////////
   constructor(private router: Router,
-              private http1: HttpClient) {
-
+              private http1: HttpClient,
+              private dialog: MatDialog,
+              public accoorcomplaintService: AccoorcomplaintsService) {
+    this.accoorcomplaintService.addComplaintModeBooleanSubject.subscribe(value => this.ngAfterViewInit());
   }
 
   ngOnInit(): void {
+    this.accoorcomplaintService.ChangeAddComplaintModeBooleanSubjectValue(false);
+    this.accoorcomplaintService.ChangeComplaintProfileModeBooleanSubjectValue(false);
+  }
+  ngAfterViewInit(): void {
     this.http1.post<any>(`http://localhost:3000/accountCoordinator/get-accoorcomplaints-details`, {}).subscribe(
       response => {
         this.ALLCOMPLAINTS_DATA = response.data;
@@ -99,10 +111,6 @@ export class AccoorcomplaintsComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource1.filter = filterValue.trim().toLowerCase();
   }
- // applyFilterNew(event): void {
-  //  const filterValue = (event.target as HTMLInputElement).value;
-   // this.dataSource2.filter = filterValue.trim().toLowerCase();
- // }
   applyFilterPending(event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource3.filter = filterValue.trim().toLowerCase();
@@ -120,12 +128,13 @@ export class AccoorcomplaintsComponent implements OnInit {
     this.dataSource6.filter = filterValue.trim().toLowerCase();
   }
   public redirectToDetails(id: string): void {
-    this.complainIDParent = id;
-    console.log(this.complainIDParent);
-    this.complaintprofileMode = true;
+    console.log(id);
+    this.selectedComplaintID = id;
+    this.accoorcomplaintService.ChangeComplaintProfileModeBooleanSubjectValue(true);
   }
-  public redirectToComplaints(): void {
-    this.complaintprofileMode = false;
+  changeMode(value: boolean): void {
+    this.accoorcomplaintService.ChangeAddComplaintModeBooleanSubjectValue(!value);
+    this.addComplaint = value;
   }
 
 }

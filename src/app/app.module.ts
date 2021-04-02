@@ -36,8 +36,9 @@ import { AllocationComponent } from './home/accountCoordinator/allocation/alloca
 import { MailComponent } from './home/accountCoordinator/mail/mail.component';
 import { AccoortestComponent } from './home/accountCoordinator/accoortest/accoortest.component';
 
-
+import {AccoorcomplaintsService} from './home/accountCoordinator/accoorcomplaints/accoorcomplaints.service';
 import {TaskService} from './home/accountCoordinator/tasks/task.service';
+
 import {ProductService} from './home/admin/products/product.service';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -55,12 +56,31 @@ import {UserProfileComponent} from './home/shared/user-profile/user-profile.comp
 import {ComplaintProfileComponent} from './home/shared/complaint-profile/complaint-profile.component';
 import {ProductProfileComponent} from './home/shared/product-profile/product-profile.component';
 import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-profile.component';
+
 import { DialogBoxComponent } from './home/shared/dialog-box/dialog-box.component';
 import { DevtasksComponent } from './home/developer/devtasks/devtasks.component';
 import { DevcomplaintsComponent } from './home/developer/devcomplaints/devcomplaints.component';
 import { DevproductsComponent } from './home/developer/devproducts/devproducts.component';
 import { TaskProfileComponent } from './home/accountCoordinator/tasks/task-profile/task-profile.component';
 
+
+
+
+import {PageService, SortService, FilterService} from '@syncfusion/ej2-angular-treegrid';
+
+import {ComplaintsCustomerComponent} from './home/customer/complaints-customer/complaints-customer.component';
+import {DashboardCustomerComponent} from './home/customer/dashboard-customer/dashboard-customer.component';
+import { ProductsCustomerComponent } from './home/customer/products-customer/products-customer.component';
+import { TestCustomerComponent } from './home/customer/test-customer/test-customer.component';
+import { AddNewComplaintComponent } from './home/customer/add-new-complaint/add-new-complaint.component';
+import { PendingComplaintsComponent } from './home/customer/complaints-customer/pending-complaints/pending-complaints.component';
+import { InProgressComplaintsComponent } from './home/customer/complaints-customer/in-progress-complaints/in-progress-complaints.component';
+import { CompletedComplaintsComponent } from './home/customer/complaints-customer/completed-complaints/completed-complaints.component';
+import { ClosedComplaintsComponent } from './home/customer/complaints-customer/closed-complaints/closed-complaints.component';
+import { ReviewDialogBoxComponent } from './home/customer/complaints-customer/completed-complaints/review-dialog-box/review-dialog-box.component';
+import { LodgeSubComplaintComponent } from './home/customer/complaints-customer/completed-complaints/lodge-sub-complaint/lodge-sub-complaint.component';
+import { UserProfileForAdminPurposeComponent } from './home/admin/users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
+import { AccoorcomplaintProfileComponent } from './home/accountCoordinator/accoorcomplaints/accoorcomplaint-profile/accoorcomplaint-profile.component';
 
 
 @NgModule({
@@ -108,6 +128,20 @@ import { TaskProfileComponent } from './home/accountCoordinator/tasks/task-profi
     DevproductsComponent,
     TaskProfileComponent,
 
+    ComplaintsCustomerComponent,
+    DashboardCustomerComponent,
+    ProductsCustomerComponent,
+    TestCustomerComponent,
+    AddNewComplaintComponent,
+    PendingComplaintsComponent,
+    InProgressComplaintsComponent,
+    CompletedComplaintsComponent,
+    ClosedComplaintsComponent,
+    ReviewDialogBoxComponent,
+    LodgeSubComplaintComponent,
+    UserProfileForAdminPurposeComponent,
+    AccoorcomplaintProfileComponent,
+
   ],
   entryComponents: [DialogBoxComponent],
   imports: [
@@ -122,10 +156,14 @@ import { TaskProfileComponent } from './home/accountCoordinator/tasks/task-profi
     MatDialogModule
   ],
   providers: [
+    PageService,
+    SortService,
+    FilterService,
     AuthenticationService,
     AuthenticationGuard,
     ProductService,
     TaskService,
+    AccoorcomplaintsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

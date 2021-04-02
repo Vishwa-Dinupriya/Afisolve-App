@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProductProfileComponent } from './product-profile.component';
+import { LodgeSubComplaintComponent } from './lodge-sub-complaint.component';
 
-describe('ProductProfileComponent', () => {
-  let component: ProductProfileComponent;
-  let fixture: ComponentFixture<ProductProfileComponent>;
+describe('LodgeSubComplaintComponent', () => {
+  let component: LodgeSubComplaintComponent;
+  let fixture: ComponentFixture<LodgeSubComplaintComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProductProfileComponent ]
+      declarations: [ LodgeSubComplaintComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductProfileComponent);
+    fixture = TestBed.createComponent(LodgeSubComplaintComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

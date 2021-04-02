@@ -1,35 +1,39 @@
-<mat-tab-group animationDuration="1000ms" [selectedIndex]="tabIndex">
-  <mat-tab label="General" >
-
-  </mat-tab>
-
-  <mat-tab label="Personal">
+<div>
     <mat-grid-list cols="2" rowHeight="2:2">
-
       <mat-grid-tile>
         <div>
-          <img src="assets/img/default-profile-picture.png">
+          <img src="../../../../assets/img/default-profile-picture.png">
         </div>
       </mat-grid-tile>
 
       <mat-grid-tile>
         <div>
-          <form [formGroup]="userRegistrationForm" (ngSubmit)="saveChangesDialog()">
+          <form [formGroup]="userRegistrationForm" (ngSubmit)="saveChangesDialog()" class="mat-typography">
 
             <div class="row">
               <!--------------------------------------------------------------------------------------------------------->
               <mat-form-field class="col-6" appearance="outline">
                 <mat-label>First Name</mat-label>
                 <input [readonly]="!edit" type="text" matInput formControlName="firstName" [required]="edit">
-                <mat-error [hidden]="!edit" *ngIf="firstName.touched && firstName.errors?.required">You must enter a value</mat-error>
-                <mat-error  [hidden]="!edit"*ngIf="firstName.touched && !firstName.errors?.required && !firstName.errors?.minLength">Enter at least 3 letters</mat-error>
+                <mat-error [hidden]="!edit" *ngIf="firstName.touched && firstName.errors?.required">You must enter a
+                  value
+                </mat-error>
+                <mat-error [hidden]="!edit"
+                           *ngIf="firstName.touched && !firstName.errors?.required && !firstName.errors?.minLength">
+                  Enter at least 3 letters
+                </mat-error>
               </mat-form-field>
               <!-------------------------------------------------------------------------->
-              <mat-form-field  class="col-6" appearance="outline">
+              <mat-form-field class="col-6" appearance="outline">
                 <mat-label>Last Name</mat-label>
                 <input [readonly]="!edit" type="text" matInput formControlName="lastName" [required]="edit">
-                <mat-error [hidden]="!edit" *ngIf="lastName.touched && lastName.errors?.required">You must enter a value</mat-error>
-                <mat-error  [hidden]="!edit"*ngIf="lastName.touched && !lastName.errors?.required && !lastName.errors?.minLength">Enter at least 3 letters</mat-error>
+                <mat-error [hidden]="!edit" *ngIf="lastName.touched && lastName.errors?.required">You must enter a
+                  value
+                </mat-error>
+                <mat-error [hidden]="!edit"
+                           *ngIf="lastName.touched && !lastName.errors?.required && !lastName.errors?.minLength">Enter
+                  at least 3 letters
+                </mat-error>
               </mat-form-field>
 
             </div>
@@ -37,26 +41,35 @@
             <div class="row">
               <mat-form-field class="col-12" appearance="outline">
                 <mat-label>Email</mat-label>
-                <input [readonly]="!edit" matInput placeholder="pat@example.com" [formControl]="email" [required]="edit">
+                <input [readonly]="!edit" matInput placeholder="pat@example.com" [formControl]="email"
+                       [required]="edit">
                 <mat-error *ngIf="email.touched && email.errors?.required">You must enter a value</mat-error>
-                <mat-error *ngIf="email.touched && !email.errors?.required && email.errors?.email">Not a valid email</mat-error>
+                <mat-error *ngIf="email.touched && !email.errors?.required && email.errors?.email">Not a valid email
+                </mat-error>
               </mat-form-field>
             </div>
             <!-------------------------------------------------------------------------------------------------------------->
             <div class="row" formGroupName="passwordGroup">
               <mat-form-field class="col-6" appearance="outline">
                 <mat-label>Password</mat-label>
-                <input [readonly]="!edit" matInput placeholder="New password" formControlName="password" [type]="hidePassword ? 'password' : 'text'" [required]="edit">
-                <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                <input [readonly]="!edit" matInput placeholder="New password" formControlName="password"
+                       [type]="hidePassword ? 'password' : 'text'" [required]="edit">
+                <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
                   <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
-                <mat-error *ngIf="userRegistrationForm.hasError('required', 'passwordGroup')">Please enter your newpassword</mat-error>
+                <mat-error *ngIf="userRegistrationForm.hasError('required', 'passwordGroup')">Please enter your new
+                  password
+                </mat-error>
               </mat-form-field>
 
               <mat-form-field class="col-6" appearance="outline">
                 <mat-label>Confirm Password</mat-label>
-                <input  [readonly]="!edit " matInput placeholder="Confirm password" formControlName="confirmPassword" [errorStateMatcher]="matcher" [type]="hideConfirmPassword ? 'password' : 'text'" [required]="edit">
-                <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+                <input [readonly]="!edit " matInput placeholder="Confirm password" formControlName="confirmPassword"
+                       [errorStateMatcher]="matcher" [type]="hideConfirmPassword ? 'password' : 'text'"
+                       [required]="edit">
+                <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
                   <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
                 <mat-error *ngIf="userRegistrationForm.hasError('notSame','passwordGroup')">
@@ -67,10 +80,11 @@
             </div>
             <!-------------------------------------------------------------------------------------------------------------->
             <div class="row">
-              <mat-form-field appearance="outline" class="col-12" >
+              <mat-form-field appearance="outline" class="col-12">
                 <mat-label>Role</mat-label>
-                <mat-select [disabled]="!edit" formControlName="roles" multiple="true" (valueChange)="toSelectedRoles($event)" >
-                  <mat-option *ngFor="let role of roleList; let i = index" [value]="i" >{{role}}</mat-option>
+                <mat-select [disabled]="!edit" formControlName="roles" multiple="true"
+                            (valueChange)="toSelectedRoles($event)">
+                  <mat-option *ngFor="let role of roleList; let i = index" [value]="i">{{role}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -78,31 +92,39 @@
             <div class="row">
               <mat-form-field appearance="outline" class="col-12">
                 <mat-label>Default Role</mat-label>
-                <mat-select [disabled]="!edit" formControlName="defaultRole" multiple="false" >
-                  <mat-option *ngFor="let roleId of selectedRoles; let i = index" [value]="roleId">{{roleList[roleId]}}</mat-option>
+                <mat-select [disabled]="!edit" formControlName="defaultRole" multiple="false">
+                  <mat-option *ngFor="let roleId of selectedRoles; let i = index"
+                              [value]="roleId">{{roleList[roleId]}}</mat-option>
                 </mat-select>
+                <mat-error>Please select default role</mat-error>
               </mat-form-field>
             </div>
             <!-------------------------------------------------------------------------------------------------------------->
             <div class="row">
-              <mat-form-field  class="col-12" appearance="outline">
+              <mat-form-field class="col-12" appearance="outline">
                 <mat-label>Contact Number</mat-label>
-                <input [readonly]="!edit" type="text" matInput formControlName="contactNumber" placeholder="07*-*******">
+                <input [readonly]="!edit" type="text" matInput formControlName="contactNumber"
+                       placeholder="07*-*******">
               </mat-form-field>
             </div>
             <!-------------------------------------------------------------------------------------------------------------->
 
             <button class="btn btn-primary" type="button" [hidden]="edit" (click)="edit = !edit">Edit Profile</button>
-            <button class="btn btn-primary" type="button" [hidden]="!edit" (click)="whenCancelEdit()">Cancel</button>
+            <button class="btn btn-primary" type="button" [hidden]="!edit" (click)="onCancelEdit()">Cancel</button>
             <span></span>
-            <button class="btn btn-primary" style="float: right" type="submit" [hidden]="!userRegistrationForm.valid || !haveChanges">Save</button>
+            <button class="btn btn-primary" style="float: right" type="submit"
+                    [hidden]="!userRegistrationForm.valid || !haveChanges">Save
+            </button>
 
           </form>
         </div>
       </mat-grid-tile>
-
     </mat-grid-list>
-  </mat-tab>
 
-</mat-tab-group>
+    <button class="btn btn-primary" (click)="backToAllUsers()">
+      <mat-icon>arrow_back_ios</mat-icon>
+      back
+    </button>
+</div>
+
 
