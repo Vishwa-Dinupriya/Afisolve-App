@@ -45,7 +45,7 @@ export class ClateComponent implements  AfterViewInit, OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private http1: HttpClient, private pastname: PastnameService){ }
   selectedRow;
   raw: string;
-  displayedColumns: string[] = ['complainID', 'productID', 'description', 'submittedDate', 'lastDateOfPending', 'accountCoordinatorName' , 'Action', 'history'];
+  displayedColumns: string[] = ['complainID', 'productID', 'description', 'submittedDate', 'lastDateOfPending', 'accountCoordinatorName' , 'accountCoordinatorEmail', 'Action', 'history'];
   displayedColumnshistory: string[] = ['productID', 'submittedTime', 'preAcName', 'newAcName', 'exAcName', 'charac', 'wAction'];
 
   dataSource1: MatTableDataSource<IComplaint>;
@@ -120,6 +120,7 @@ export class ClateComponent implements  AfterViewInit, OnInit {
   // tslint:disable-next-line:typedef
   onRowClicked(row) {
     this.test = row; // click krana row eka mokadd kyla thyna eka
+    console.log(this.test);
   }
   // main eka
   // tslint:disable-next-line:typedef

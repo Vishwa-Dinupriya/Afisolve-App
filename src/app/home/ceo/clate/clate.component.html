@@ -46,6 +46,12 @@
             <td mat-cell *matCellDef="let element">{{element.accountCoordinatorName}}</td>
           </ng-container>
 
+          <!--  test Column-->
+          <ng-container matColumnDef="accountCoordinatorEmail">
+            <th mat-header-cell *matHeaderCellDef> Account Coordinator Email </th>
+            <td mat-cell *matCellDef="let element">{{element.accountCoordinatorEmail}}</td>
+          </ng-container>
+
           <!--  Action Column-->
           <ng-container matColumnDef="Action">
             <th mat-header-cell *matHeaderCellDef>Action</th>
