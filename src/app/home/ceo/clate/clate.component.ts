@@ -67,11 +67,15 @@ export class ClateComponent implements  AfterViewInit, OnInit {
   filterValue: any;
 
   ngOnInit(): void {
+    this.pastname.refreshNeeded$
+      .subscribe(() => {
+        this.ngAfterViewInit();
+      });
   }
 
   // tslint:disable-next-line:typedef
   ngAfterViewInit() {
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-details`, {}).subscribe(
+    this.http1.get<any>(`http://localhost:3000/ceo/get-complaint-details`, {}).subscribe(
       response => {
         this.COMPLAINS_DATA = response.data;
         this.dataSource1 = new MatTableDataSource<IComplaint>(this.COMPLAINS_DATA);
@@ -81,7 +85,7 @@ export class ClateComponent implements  AfterViewInit, OnInit {
         console.log(error);
       }
     );
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-full-history`, {}).subscribe(
+    this.http1.get<any>(`http://localhost:3000/ceo/get-full-history`, {}).subscribe(
       response => {
         this.COMPLAINS_DATA1 = response.data;
         this.dataSourcehistory = new MatTableDataSource<IHistory>(this.COMPLAINS_DATA1);
@@ -151,18 +155,18 @@ export class ClateComponent implements  AfterViewInit, OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          '\'<a href="http://localhost:4200/home/project-manager/late-complaint-information/action"><button>Go to change</button></a> \''
+          '\'<a href="http://localhost:4200/home/ceo/clate/caction"><button>Go to change</button></a> \''
         );
         // console.log(this.test);
         console.log('Row clicked: ', this.test);
-        this.pastname.passn(this.test)
+        this.pastname.cpassn(this.test)
           .subscribe(
             response => {
               console.log('Success!(frontend)' + this.test , response);
             },
             error => console.error('Error!(frontend)', error)
           );
-        this.pastname.newhistory(this.test)
+        this.pastname.cnewhistory(this.test)
           .subscribe(
             response => {
               console.log('Success!(frontend)' + this.test , response);
@@ -209,14 +213,14 @@ export class ClateComponent implements  AfterViewInit, OnInit {
           `Account coordinator get another ${time} hours to finished.`,
           'success');
         console.log(time);
-        this.pastname.reminder(this.test)
+        this.pastname.creminder(this.test)
           .subscribe(
             response => {
               console.log('Success!(frontend)' + this.test , response);
             },
             error => console.error('Error!(frontend)', error)
           );
-        this.pastname.time(time)
+        this.pastname.ctime(time)
           .subscribe(
             response => {
               console.log('Success!(frontend)' + time, response);

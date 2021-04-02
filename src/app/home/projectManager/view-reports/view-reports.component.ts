@@ -8,14 +8,12 @@ import {Router} from '@angular/router';
 
 export interface IComplaint {
   complainID: string;
-  description: string;
-  finishedDate: string;
-  lastDateOfPending: string;
-  productID: string;
-  status: string;
   subComplaintID: string;
+  productID: string;
+  description: string;
+  status: string;
   submittedDate: string;
-  wipStartDate: string;
+  accountCoordinatorName: string;
 }
 
 @Component({
@@ -32,7 +30,7 @@ export class ViewReportsComponent implements OnInit , AfterViewInit {
   constructor(private router: Router,
               private http1: HttpClient) { }
 
-  displayedColumns: string[] = ['description', 'status', 'submittedDate', 'productID', 'print'];
+  displayedColumns: string[] = ['complainID', 'subComplaintID', 'productID', 'description', 'status', 'submittedDate', 'accountCoordinatorName', 'print'];
 
   dataSource: MatTableDataSource<IComplaint>;
   COMPLAINS_DATA: IComplaint[];
@@ -68,7 +66,7 @@ export class ViewReportsComponent implements OnInit , AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    this.http1.post<any>(`http://localhost:3000/ceo/get-complaints-details`, {}).subscribe(
+    this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-details1`, {}).subscribe(
       response => {
         this.COMPLAINS_DATA = response.data;
         this.dataSource = new MatTableDataSource<IComplaint>(this.COMPLAINS_DATA);
@@ -120,7 +118,7 @@ export class ViewReportsComponent implements OnInit , AfterViewInit {
   getAl1(){
     // tslint:disable-next-line:triple-equals
     if ( (this.selectedItemsList[0].label == 'Finish') && (this.selectedItemsList[1].label == 'Working Progress')  ){
-      this.http1.get<any>(`http://localhost:3000/ceo/get-complaint-fw`, {}).subscribe(
+      this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-fw`, {}).subscribe(
         response => {
           this.dataSource = response.data;
           console.log(this.dataSource);
@@ -135,7 +133,7 @@ export class ViewReportsComponent implements OnInit , AfterViewInit {
   getAl2(){
     // tslint:disable-next-line:triple-equals
     if ( (this.selectedItemsList[0].label == 'Finish') && (this.selectedItemsList[1].label == 'Pending')  ){
-      this.http1.get<any>(`http://localhost:3000/ceo/get-complaint-pf`, {}).subscribe(
+      this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-pf`, {}).subscribe(
         response => {
           this.dataSource = response.data;
           console.log(this.dataSource);
@@ -150,7 +148,7 @@ export class ViewReportsComponent implements OnInit , AfterViewInit {
   getAl3(){
     // tslint:disable-next-line:triple-equals
     if ( (this.selectedItemsList[0].label == 'Working Progress') && (this.selectedItemsList[1].label == 'Pending')  ){
-      this.http1.get<any>(`http://localhost:3000/ceo/get-complaint-wp`, {}).subscribe(
+      this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-wp`, {}).subscribe(
         response => {
           this.dataSource = response.data;
           console.log(this.dataSource);
@@ -165,7 +163,7 @@ export class ViewReportsComponent implements OnInit , AfterViewInit {
   getAl4(){
     // tslint:disable-next-line:triple-equals
     if ( (this.selectedItemsList[0].label == 'Finish') ){
-      this.http1.get<any>(`http://localhost:3000/ceo/get-complaint-de`, {}).subscribe(
+      this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-de`, {}).subscribe(
         response => {
           this.dataSource = response.data;
           console.log(this.dataSource);
@@ -180,7 +178,7 @@ export class ViewReportsComponent implements OnInit , AfterViewInit {
   getAl5(){
     // tslint:disable-next-line:triple-equals
     if ( (this.selectedItemsList[0].label == 'Working Progress') ){
-      this.http1.get<any>(`http://localhost:3000/ceo/get-complaint-det`, {}).subscribe(
+      this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-det`, {}).subscribe(
         response => {
           this.dataSource = response.data;
           console.log(this.dataSource);
@@ -195,7 +193,7 @@ export class ViewReportsComponent implements OnInit , AfterViewInit {
   getAl6(){
     // tslint:disable-next-line:triple-equals
     if ( (this.selectedItemsList[0].label == 'Pending') ){
-      this.http1.get<any>(`http://localhost:3000/ceo/get-complaint-detai`, {}).subscribe(
+      this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-detai`, {}).subscribe(
         response => {
           this.dataSource = response.data;
           console.log(this.dataSource);
@@ -208,7 +206,7 @@ export class ViewReportsComponent implements OnInit , AfterViewInit {
 
   // tslint:disable-next-line:typedef
   giveall() {
-    this.http1.post<any>(`http://localhost:3000/ceo/get-complaints-details`, {}).subscribe(
+    this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-details1`, {}).subscribe(
       response => {
         this.COMPLAINS_DATA = response.data;
         this.dataSource = new MatTableDataSource<IComplaint>(this.COMPLAINS_DATA);

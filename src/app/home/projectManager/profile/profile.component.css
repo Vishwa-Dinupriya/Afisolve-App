@@ -1,8 +1,5 @@
-.harahta{
-  background-color: #64ff82;
-  text-align: start;
-}
-
-.example-list-section{
-  padding-bottom: 500px;
+#divChart{
+  display: grid;
+  width: 400px;
+  height: 400px;
 }

@@ -35,6 +35,7 @@ import {CdashboardComponent} from './home/ceo/cdashboard/cdashboard.component';
 import {ClateComponent} from './home/ceo/clate/clate.component';
 import {CviewreportsComponent} from './home/ceo/cviewreports/cviewreports.component';
 import {PdashboardComponent} from './home/projectManager/pdashboard/pdashboard.component';
+import {CactionComponent} from './home/ceo/clate/caction/caction.component';
 
 const routes: Routes = [
     {
@@ -132,7 +133,13 @@ const routes: Routes = [
             },
             {
               path: 'clate',
-              component: ClateComponent
+              component: ClateComponent,
+              children: [
+                {
+                  path: 'caction',
+                  component: CactionComponent
+                }
+               ]
             },
             {
               path: 'cviewreports',

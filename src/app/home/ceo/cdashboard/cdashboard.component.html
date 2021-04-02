@@ -1,1 +1,98 @@
-<p>cdashboard works!</p>
+<mat-grid-list cols="5" rows="4" rowHeight="175px">
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1" >
+    <mat-card style="background-color: dodgerblue">
+      <mat-list>
+        <mat-list-item *ngFor="let full of dataSourceUsers1">Total Complaints -{{full.count}}</mat-list-item>
+      </mat-list>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1" >
+    <mat-card style="background-color:greenyellow">
+      <mat-list>
+        <mat-list-item *ngFor="let fin of dataSourcefinish">Finish Complaints - {{fin.count}}</mat-list-item>
+      </mat-list>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1" >
+    <mat-card style="background-color: orange">
+      <mat-list>
+        <mat-list-item *ngFor="let wor of dataSourceworking">Working Progress Complaints- {{wor.count}}</mat-list-item>
+      </mat-list>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <mat-card style="background-color: purple">
+      <mat-list>
+        <mat-list-item *ngFor="let pen of dataSourcepending">Pending Complaints- {{pen.count}}</mat-list-item>
+      </mat-list>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1" >
+    <mat-card style="background-color: pink">
+      <mat-list>
+        <mat-list-item *ngFor="let lat of dataSourcelate" style="-webkit-text-fill-color: crimson">Late Complaints- {{lat.count}}</mat-list-item>
+      </mat-list>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="2" [rowspan]="3" style="background-color: #dcaedc">
+    <mat-card style="margin: 8% 5%" class="shadow" style="background-color:firebrick">
+      <mat-card-header _ngcontent-c22="" class="mat-card-header2">
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title> </mat-card-title>
+        <mat-card-subtitle><b>You have not get any action for this complaints</b></mat-card-subtitle>
+
+      </mat-card-header>
+
+      <mat-card-content>
+        <div>
+          <table mat-table [dataSource]="dataSourceComplaints" matSort class="mat-elevation-z8 w-100" style="background-color: palevioletred">
+
+
+            <!-- new name Column -->
+            <ng-container matColumnDef="complainID">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Complain ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.complainID}} </td>
+            </ng-container>
+
+            <!-- product ID Column -->
+            <ng-container matColumnDef="productID">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Product ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+            </ng-container>
+
+
+
+            <!-- proevious name Column -->
+            <ng-container matColumnDef="lastDateOfPending">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Deadline</th>
+              <td mat-cell *matCellDef="let element"> {{element.lastDateOfPending | date}} </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsComplaints"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsComplaints;"></tr>
+          </table>
+          <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" style="background-color:palevioletred">
+          </mat-paginator>
+        </div>
+      </mat-card-content>
+
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3" [rowspan]="3" style="background-color: lavender">
+    <div id="divChart1">
+      <canvas id="myChart1"></canvas>
+    </div>
+
+    <div id="divChart2">
+      <canvas id="myChart2"></canvas>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+

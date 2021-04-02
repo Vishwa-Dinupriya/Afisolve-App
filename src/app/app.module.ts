@@ -56,6 +56,7 @@ import { CdashboardComponent } from './home/ceo/cdashboard/cdashboard.component'
 import { ClateComponent } from './home/ceo/clate/clate.component';
 import { CviewreportsComponent } from './home/ceo/cviewreports/cviewreports.component';
 import { PdashboardComponent } from './home/projectManager/pdashboard/pdashboard.component';
+import { CactionComponent } from './home/ceo/clate/caction/caction.component';
 
 
 @NgModule({
@@ -93,7 +94,8 @@ import { PdashboardComponent } from './home/projectManager/pdashboard/pdashboard
     CdashboardComponent,
     ClateComponent,
     CviewreportsComponent,
-    PdashboardComponent
+    PdashboardComponent,
+    CactionComponent
 
 
   ],

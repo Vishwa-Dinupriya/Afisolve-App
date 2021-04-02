@@ -42,6 +42,7 @@ export interface IHistory {
 })
 export class LateComplaintInformationComponent implements AfterViewInit, OnInit {
 
+
   constructor(private router: Router, private route: ActivatedRoute, private http1: HttpClient, private pastname: PastnameService){ }
    selectedRow;
    raw: string;
@@ -67,6 +68,13 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
   filterValue: any;
 
   ngOnInit(): void {
+    // tslint:disable-next-line:no-unused-expression
+    this.pastname.refreshNeeded$
+      .subscribe(() => {
+         this.ngAfterViewInit();
+      });
+
+
   }
 
   // tslint:disable-next-line:typedef
@@ -150,19 +158,21 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
       confirmButtonText: 'Yes, Chnge!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
+       Swal.fire(
           '\'<a href="http://localhost:4200/home/project-manager/late-complaint-information/action"><button>Go to change</button></a> \''
         );
+        // this.router.navigateByUrl('http://localhost:4200/home/project-manager/late-complaint-information/action');
+        // this.router.navigate(['action'], {relativeTo: this._activatedRoute});
         // console.log(this.test);
-        console.log('Row clicked: ', this.test);
-        this.pastname.passn(this.test)
+       console.log('Row clicked: ', this.test);
+       this.pastname.passn(this.test)
           .subscribe(
             response => {
               console.log('Success!(frontend)' + this.test , response);
             },
             error => console.error('Error!(frontend)', error)
           );
-        this.pastname.newhistory(this.test)
+       this.pastname.newhistory(this.test)
           .subscribe(
             response => {
               console.log('Success!(frontend)' + this.test , response);
