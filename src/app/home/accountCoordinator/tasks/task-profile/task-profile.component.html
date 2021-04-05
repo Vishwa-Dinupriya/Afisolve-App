@@ -1,10 +1,51 @@
-<p>task-profile works!</p>
+<div [hidden]="false">
 <mat-tab-group animationDuration="1000ms" [selectedIndex]="tabIndex">
+
   <mat-tab label="General Details">
-    <h2>Under Implementation</h2>
-    <button class="btn btn-primary" (click)="backToAllTasks()" [hidden]="!taskService.isTaskProfileMode">
+    <div>
+      <mat-list *ngIf="!!TASK_DETAILS_DATA">
+
+        <mat-list-item>
+          <div class=" w-25">taskID: </div>
+          <div class="text-secondary w-75">
+            <span *ngIf="!TASK_DETAILS_DATA.taskID; else taskIDBlock"><i> Not Available</i></span>
+            <ng-template #taskIDBlock>
+              <span> {{ TASK_DETAILS_DATA.taskID }} <br/></span>
+            </ng-template>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <div class=" w-25">Developer Contact Number: </div>
+          <div class=" text-secondary w-75">
+            <span *ngIf="!TASK_DETAILS_DATA.contactNumber; else contactNumberBlock"><i> Not Available</i></span>
+            <ng-template #contactNumberBlock>
+              <span> {{ TASK_DETAILS_DATA.contactNumber }} <br/></span>
+            </ng-template>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <div class=" w-25">Task Description: </div>
+          <div class=" text-secondary w-75">
+            <span *ngIf="!TASK_DETAILS_DATA.task_description; else task_descriptionBlock"><i> Not Available</i></span>
+            <ng-template #task_descriptionBlock>
+              <span> {{ TASK_DETAILS_DATA.task_description }} <br/></span>
+            </ng-template>
+          </div>
+        </mat-list-item>
+
+      </mat-list>
+    </div>
+    <div [hidden]="taskIdAvailable">
+      <i> Requested Task Id is null</i>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+  <button class="btn btn-primary" (click)="backToAllTasks()" [hidden]="!taskService.isTaskProfileMode">
       <mat-icon>arrow_back_ios</mat-icon>
       Back to Tasks
     </button>
-  </mat-tab>
-</mat-tab-group>
+
+</div>

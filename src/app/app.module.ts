@@ -34,10 +34,11 @@ import { AddComplaintComponent } from './home/accountCoordinator/accoorcomplaint
 import { CreateTaskComponent } from './home/accountCoordinator/tasks/create-task/create-task.component';
 import { AllocationComponent } from './home/accountCoordinator/allocation/allocation.component';
 import { MailComponent } from './home/accountCoordinator/mail/mail.component';
-import { AccoortestComponent } from './home/accountCoordinator/accoortest/accoortest.component';
+
 
 import {AccoorcomplaintsService} from './home/accountCoordinator/accoorcomplaints/accoorcomplaints.service';
 import {TaskService} from './home/accountCoordinator/tasks/task.service';
+import {DevtaskService} from './home/developer/devtasks/devtask.service';
 
 import {ProductService} from './home/admin/products/product.service';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -81,6 +82,11 @@ import { ReviewDialogBoxComponent } from './home/customer/complaints-customer/co
 import { LodgeSubComplaintComponent } from './home/customer/complaints-customer/completed-complaints/lodge-sub-complaint/lodge-sub-complaint.component';
 import { UserProfileForAdminPurposeComponent } from './home/admin/users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
 import { AccoorcomplaintProfileComponent } from './home/accountCoordinator/accoorcomplaints/accoorcomplaint-profile/accoorcomplaint-profile.component';
+import { UpdateComplaintStatusComponent } from './home/accountCoordinator/accoorcomplaints/update-complaint-status/update-complaint-status.component';
+import { AccoorcomplaintProfileCurrentComponent } from './home/accountCoordinator/accoorcomplaints/accoorcomplaint-profile-current/accoorcomplaint-profile-current.component';
+import { AccoorproductsComponent } from './home/accountCoordinator/accoorproducts/accoorproducts.component';
+import { DevtasksProfileComponent } from './home/developer/devtasks/devtasks-profile/devtasks-profile.component';
+import { UpdateDevtaskStatusComponent } from './home/developer/devtasks/update-devtask-status/update-devtask-status.component';
 
 
 @NgModule({
@@ -108,8 +114,6 @@ import { AccoorcomplaintProfileComponent } from './home/accountCoordinator/accoo
     CreateTaskComponent,
     AllocationComponent,
     MailComponent,
-    AccoortestComponent,
-
     LateComplaintInformationComponent,
     ViewReportsComponent,
     ProfileComponent,
@@ -141,6 +145,11 @@ import { AccoorcomplaintProfileComponent } from './home/accountCoordinator/accoo
     LodgeSubComplaintComponent,
     UserProfileForAdminPurposeComponent,
     AccoorcomplaintProfileComponent,
+    UpdateComplaintStatusComponent,
+    AccoorcomplaintProfileCurrentComponent,
+    AccoorproductsComponent,
+    DevtasksProfileComponent,
+    UpdateDevtaskStatusComponent,
 
   ],
   entryComponents: [DialogBoxComponent],
@@ -163,6 +172,7 @@ import { AccoorcomplaintProfileComponent } from './home/accountCoordinator/accoo
     AuthenticationGuard,
     ProductService,
     TaskService,
+    DevtaskService,
     AccoorcomplaintsService,
     {
       provide: HTTP_INTERCEPTORS,

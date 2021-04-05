@@ -8,7 +8,6 @@ import {MatDialog} from '@angular/material/dialog';
 import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
 import {TaskService} from './task.service';
 
-
 export interface IAllTask {
   taskID: number;
   complaintID: number;
@@ -18,7 +17,6 @@ export interface IAllTask {
   DevName: string;
   developerEmail: string;
 }
-
 export interface INewTask {
   taskID: number;
   complaintID: number;
@@ -47,8 +45,6 @@ export interface ICompletedTask {
   developerEmail: string;
 }
 
-
-
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
@@ -58,27 +54,25 @@ export class TasksComponent implements OnInit{
   displayedColumnsAll: string[] = ['taskID', 'complaintID', 'subComplaintID', 'assignDate', 'deadline', 'DevName', 'developerEmail', 'details'];
   dataSourceAll: MatTableDataSource<IAllTask>;
   ALLTASK_DATA: IAllTask[];
-  ////////////////////////////////////////////
+  // --------------------------------------------------------------------- //
   displayedColumnsNew: string[] = ['taskID', 'complaintID', 'subComplaintID', 'assignDate', 'deadline', 'DevName', 'developerEmail', 'details'];
   dataSourceNew: MatTableDataSource<INewTask>;
   NEWTASK_DATA: INewTask[];
-  /////////////////////////////////////////////////
+  // --------------------------------------------------------------------- //
   displayedColumnsInProgress: string[] = ['taskID', 'complaintID', 'subComplaintID', 'assignDate', 'deadline', 'DevName', 'developerEmail', 'details'];
   dataSourceInProgress: MatTableDataSource<IIPTask>;
   IPTASK_DATA: IIPTask[];
-  ///////////////////////////////////////////////////
+  // --------------------------------------------------------------------- //
   displayedColumnsCompleted: string[] = ['taskID', 'complaintID', 'subComplaintID',  'DevName', 'developerEmail', 'details'];
   dataSourceCompleted: MatTableDataSource<ICompletedTask>;
   COMPLETEDTASK_DATA: IAllTask[];
-  ///////////////////////////////////////////////////
-  // addTaskMode=false;
-  // taskprofileMode=false;
+  // --------------------------------------------------------------------- //
   createTask = false;
   selectedTaskID;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   taskIDParent: string;
-  ////////////////////////////////////////////
+  // --------------------------------------------------------------------- //
   constructor( private router: Router,
                private http1: HttpClient,
                private dialog: MatDialog,
@@ -154,8 +148,6 @@ export class TasksComponent implements OnInit{
     this.selectedTaskID = id;
     this.taskService.ChangeTaskProfileModeBooleanSubjectValue(true);
   }
-  // public redirectToTasks(): void {
-  //  this.taskprofileMode = false;}
   changeMode(value: boolean): void {
     this.taskService.ChangeCreateTaskModeBooleanSubjectValue(!value);
     this.createTask = value;

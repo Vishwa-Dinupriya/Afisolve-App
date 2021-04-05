@@ -5,9 +5,6 @@ import {HttpClient} from '@angular/common/http';
 import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 import {MatDialog} from '@angular/material/dialog';
 
-
-
-
 @Component({
   selector: 'app-create-task',
   templateUrl: './create-task.component.html',
@@ -28,8 +25,7 @@ export class CreateTaskComponent implements OnInit {
       subComplaintID: ['', [Validators.required]],
       deadline: ['', [Validators.required]],
       task_description: ['', [Validators.required]],
-     // accountCoordinatorEmail: ['', [Validators.required]],
-      developerEmail: ['', [Validators.required]],
+     developerEmail: ['', [Validators.required]],
     });
   }
   onSubmit(): void {

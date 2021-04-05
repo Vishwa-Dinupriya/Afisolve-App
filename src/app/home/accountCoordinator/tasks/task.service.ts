@@ -9,7 +9,6 @@ import {Subject} from 'rxjs';
 })
 export class TaskService {
   createtaskUrl = 'http://localhost:3000/accountCoordinator/create-task';
-
   createTaskMode: boolean;
   isTaskProfileMode: boolean;
   taskID: number;
@@ -17,7 +16,6 @@ export class TaskService {
   createTaskModeBooleanSubject: Subject<boolean> = new Subject<boolean>();
   isTaskProfileModeSubjectBoolean: Subject<boolean> = new Subject<boolean>();
   private taskIDSubjectNumber: Subject<number> = new Subject<number>();
-
 
   constructor(private http1: HttpClient, private router: Router) {
     this.createTaskModeBooleanSubject.subscribe(value => this.createTaskMode = value);

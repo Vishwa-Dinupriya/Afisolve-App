@@ -2,12 +2,15 @@
   <mat-drawer mode="side" opened style="width: 230px">
     <mat-selection-list [multiple]="false" >
 
+      <!--Complaints Navigation-->
       <mat-list-option routerLink="accoorcomplaints"
                        [selected]="activeRoute === 'AccoorcomplaintsComponent'"
                        [class.selected]="activeRoute === 'AccoorcomplaintsComponent'">
         <mat-icon mat-list-icon>assignment</mat-icon>
         <div mat-line>Complaints</div>
       </mat-list-option>
+
+      <!--Tasks Navigation-->
       <mat-list-option routerLink="tasks"
                        [selected]="activeRoute === 'TasksComponent'"
                        [class.selected]="activeRoute === 'TasksComponent'">
@@ -15,33 +18,39 @@
         <div mat-line>Tasks</div>
       </mat-list-option>
 
+      <!--Allocation Navigation-->
+
       <mat-list-option routerLink="allocation"
                        [selected]="activeRoute === 'AllocationComponent'"
                        [class.selected]="activeRoute === 'AllocationComponent'">
         <mat-icon mat-list-icon>folder_open</mat-icon>
-        <div mat-line>Product-Allocation</div>
+        <div mat-line>Dev-Allocation</div>
       </mat-list-option>
+
+      <!--Products Navigation-->
+
+      <mat-list-option routerLink="accoorproducts"
+                       [selected]="activeRoute === 'AccoorproductsComponent'"
+                       [class.selected]="activeRoute === 'AccoorproductsComponent'">
+        <mat-icon mat-list-icon>folder_open</mat-icon>
+        <div mat-line>Product Details</div>
+      </mat-list-option>
+
+      <!-- This is for testing purpose- Not related to current state of the project-->
 
       <mat-list-option routerLink="mail"
                        [selected]="activeRoute === 'MailComponent'"
                        [class.selected]="activeRoute === 'MailComponent'">
         <mat-icon mat-list-icon>mail</mat-icon>
-        <div mat-line>Mail</div>
-      </mat-list-option>
-      <!--for test purposes-->
-      <mat-list-option routerLink="accoortest"
-                       [selected]="activeRoute === 'accoortestComponent'"
-                       [class.selected]="activeRoute === 'accoortestComponent'">
-        <mat-icon mat-list-icon>mail</mat-icon>
         <div mat-line>Test</div>
       </mat-list-option>
+
     </mat-selection-list>
   </mat-drawer>
 
   <mat-drawer-content class="w-100 h-100 m-0">
     <mat-drawer-content >
       <router-outlet (activate)="getRoute($event)" >
-        <!--complaints,-->
       </router-outlet>
     </mat-drawer-content>
   </mat-drawer-content>

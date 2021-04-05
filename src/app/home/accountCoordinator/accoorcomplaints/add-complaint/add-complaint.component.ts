@@ -5,8 +5,6 @@ import {HttpClient} from '@angular/common/http';
 import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 import {MatDialog} from '@angular/material/dialog';
 
-
-
 @Component({
   selector: 'app-add-complaint',
   templateUrl: './add-complaint.component.html',
@@ -14,7 +12,6 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class AddComplaintComponent implements OnInit {
   @ViewChild('myForm') myForm;
-
   addComplaintForm: FormGroup;
   constructor(private fb1: FormBuilder,
               private accoorcomplaintsService: AccoorcomplaintsService,

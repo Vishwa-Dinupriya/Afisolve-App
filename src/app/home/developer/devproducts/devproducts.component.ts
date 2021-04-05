@@ -4,7 +4,6 @@ import {HttpClient} from '@angular/common/http';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
-import {IAllComp} from '../devcomplaints/devcomplaints.component';
 
 export interface IAllProd {
   productID: string;

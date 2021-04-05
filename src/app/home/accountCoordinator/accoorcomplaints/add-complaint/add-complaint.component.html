@@ -1,10 +1,11 @@
+<!-------------------Add new complaint-------------------------------------->
 <div class="container-fluid">
 
   <form [formGroup]="addComplaintForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
 
     <div class="row">
 
-      <mat-form-field class="col-12" appearance="outline">
+      <mat-form-field class="col-auto" appearance="outline">
         <mat-label>Product ID</mat-label>
         <input type="text" matInput formControlName="productID" placeholder="Product ID">
       </mat-form-field>
@@ -14,7 +15,7 @@
 
       <mat-form-field class="col-12" appearance="outline">
         <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description" placeholder="Deascription"></textarea>
+        <textarea matInput formControlName="description"  placeholder="Deascription"></textarea>
       </mat-form-field>
 
     </div>
