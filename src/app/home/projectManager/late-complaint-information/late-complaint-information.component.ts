@@ -7,6 +7,7 @@ import {PastnameService} from '../../services/pastname.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatTabGroup} from '@angular/material/tabs';
+import {environment} from '../../../../environments/environment';
 
 export interface IComplaint {
   complainID: string;
@@ -31,27 +32,22 @@ export interface IHistory {
   wAction: string;
 
 }
-
-
-
-
 @Component({
   selector: 'app-late-complaint-information',
   templateUrl: './late-complaint-information.component.html',
   styleUrls: ['./late-complaint-information.component.css']
 })
 export class LateComplaintInformationComponent implements AfterViewInit, OnInit {
-
-
   constructor(private router: Router, private route: ActivatedRoute, private http1: HttpClient, private pastname: PastnameService){ }
-   selectedRow;
-   raw: string;
-  displayedColumns: string[] = ['complainID', 'productID', 'description', 'submittedDate', 'lastDateOfPending', 'accountCoordinatorName' , 'Action', 'history'];
-  displayedColumnshistory: string[] = ['productID', 'submittedTime', 'preAcName', 'newAcName', 'exAcName', 'charac', 'wAction'];
 
+  raw: string;
+  // late complaint table
+  displayedColumns: string[] = ['complainID', 'productID', 'description', 'submittedDate', 'lastDateOfPending', 'accountCoordinatorName' , 'accountCoordinatorEmail', 'Action', 'history'];
   dataSource1: MatTableDataSource<IComplaint>;
   COMPLAINS_DATA: IComplaint[];
 
+  // history table
+  displayedColumnshistory: string[] = ['productID', 'submittedTime', 'preAcName', 'newAcName', 'exAcName', 'charac', 'wAction'];
   dataSourcehistory: MatTableDataSource<IHistory>;
   COMPLAINS_DATA1: IHistory[];
 
@@ -64,6 +60,7 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
   // tslint:disable-next-line:typedef
    m: string;
    bbb: any;
+   // apahu gnna data array eka
    test: string[] = ['complainID', 'productID', 'description', 'submittedDate', 'lastDateOfPending', 'accountCoordinatorName' , 'Action'];
   filterValue: any;
 
@@ -73,13 +70,15 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
       .subscribe(() => {
          this.ngAfterViewInit();
       });
-
-
+    this.pastname.refreshNeededforacname$
+      .subscribe(() => {
+        this.ngAfterViewInit();
+      });
   }
 
   // tslint:disable-next-line:typedef
   ngAfterViewInit() {
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-details`, {}).subscribe(
+    this.http1.get<any>( environment.project_manager_api_url + `/get-complaint-details`, {}).subscribe(
       response => {
         this.COMPLAINS_DATA = response.data;
         this.dataSource1 = new MatTableDataSource<IComplaint>(this.COMPLAINS_DATA);
@@ -89,7 +88,7 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
         console.log(error);
       }
     );
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-full-history`, {}).subscribe(
+    this.http1.get<any>(environment.project_manager_api_url + `/get-full-history`, {}).subscribe(
       response => {
         this.COMPLAINS_DATA1 = response.data;
         this.dataSourcehistory = new MatTableDataSource<IHistory>(this.COMPLAINS_DATA1);
@@ -102,29 +101,27 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
   }
 
 
-  applyFilter(event): void {
+  applyFilter(): void {
     // const filterValue = (event.target as HTMLInputElement).value;
-  // const filterValue2 = '0002';
+    // const filterValue2 = '0002';
    const filterValue2 = this.filterValue;
    this.dataSourcehistory.filter = filterValue2.trim().toLowerCase();
   }
 
-  public redirectToDetails(id: string): void {
-    console.log(id);
-  }
-
+  // history gnna oona row eka
   // tslint:disable-next-line:typedef
   getproductID(history){
     console.log(history);
     this.filterValue = history;
-    this.applyFilter(event);
+    this.applyFilter();
   }
-
-  // ..............................................
   // tslint:disable-next-line:typedef
   onRowClicked(row) {
     this.test = row; // click krana row eka mokadd kyla thyna eka
   }
+
+  // -------------------------------Alert tika-------------------------------
+
   // main eka
   // tslint:disable-next-line:typedef
   getAlert(){
@@ -153,26 +150,22 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
       title: 'Are you sure?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Chnge!'
+      confirmButtonColor: 'rgba(185,179,186,0.52)',
+      cancelButtonColor: '#000000',
+      confirmButtonText: '<a href = "http://localhost:4200/home/project-manager/late-complaint-information/action">Yes,Change</a>'
     }).then((result) => {
       if (result.isConfirmed) {
-       Swal.fire(
-          '\'<a href="http://localhost:4200/home/project-manager/late-complaint-information/action"><button>Go to change</button></a> \''
-        );
-        // this.router.navigateByUrl('http://localhost:4200/home/project-manager/late-complaint-information/action');
-        // this.router.navigate(['action'], {relativeTo: this._activatedRoute});
-        // console.log(this.test);
-       console.log('Row clicked: ', this.test);
-       this.pastname.passn(this.test)
+        console.log('Row clicked: ', this.test);
+       // old-acc-name send
+        this.pastname.passn(this.test)
           .subscribe(
             response => {
               console.log('Success!(frontend)' + this.test , response);
             },
             error => console.error('Error!(frontend)', error)
           );
-       this.pastname.newhistory(this.test)
+       // history table eke row ekk hadima....
+        this.pastname.newhistory(this.test)
           .subscribe(
             response => {
               console.log('Success!(frontend)' + this.test , response);
@@ -187,58 +180,33 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
   // reminder eka yawana eka
   // tslint:disable-next-line:typedef
  reminder() {
-    (async () => {
-
-      const ipAPI = '//api.ipify.org?format=json';
-
-      const inputValue = fetch(ipAPI)
-        .then(response => response.json())
-        .then(data => data.ip);
-
-      // @ts-ignore
-      // tslint:disable-next-line:prefer-const
-      const { value: time } = await Swal.fire({
-        title: 'How long will you give?',
-        icon: 'question',
-        input: 'range',
-        inputLabel: 'minimum hours',
-        inputAttributes: {
-          min: 1,
-          max: 48,
-          step: 1
-        },
-
-
-      });
-
-      // tslint:disable-next-line:no-shadowed-variable typedef
-
-
-      if (time) {
-        Swal.fire('Succesfully send a reminder to Account Coordinator',
-          `Account coordinator get another ${time} hours to finished.`,
-          'success');
-        console.log(time);
-        this.pastname.reminder(this.test)
-          .subscribe(
-            response => {
-              console.log('Success!(frontend)' + this.test , response);
-            },
-            error => console.error('Error!(frontend)', error)
-          );
-        this.pastname.time(time)
-          .subscribe(
+   Swal.fire({
+     title: 'Warning..!!',
+     text: 'Reminder Email and Notification will send to Account Coordinator..',
+     icon: 'warning',
+     showCancelButton: true,
+     confirmButtonText: 'Yes, Send a reminder..!',
+     cancelButtonText: 'No, Cancel....'
+   }).then((result) => {
+     if (result.value) {
+       Swal.fire(
+         'Successfully send a Reminder..!',
+         'success'
+       );
+       // send a reminder to database..................
+       this.pastname.reminder(this.test)
+         .subscribe(
            response => {
-             console.log('Success!(frontend)' + time, response);
-          },
-          error => console.error('Error!(frontend)', error)
-          );
-      }
-      return time;
+             console.log('Success!(frontend)' + this.test , response);
+           },
+           error => console.error('Error!(frontend)', error)
+         );
+     } else if (result.dismiss === Swal.DismissReason.cancel) {
+     }
+   });
+        }
 
-    })();
-  }
-
+        // tab eka vensa krna eka
   // tslint:disable-next-line:typedef
   changetab(selectedTabIndex){
     this.mattabgroup.selectedIndex = selectedTabIndex;

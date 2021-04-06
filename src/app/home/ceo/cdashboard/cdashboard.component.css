@@ -11,3 +11,18 @@
   width: 500px;
   height: 500px;
 }
+
+.class1{
+  text-align: center;
+  font-size: 45px;
+}
+
+.classboxes{
+  width: 250px;
+  height: 100px;
+  padding-top: 25px;
+}
+
+.words{
+  text-align: center;
+}

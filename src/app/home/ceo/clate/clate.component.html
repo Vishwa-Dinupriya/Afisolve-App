@@ -5,7 +5,7 @@
 </div>
 <mat-tab-group animationDuration="2000ms">
   <mat-tab label="Late complaint">
-    <mat-card class="m-5 shadow" style="height: 80%">
+    <mat-card class="m-5 shadow" style="height: 80%; background-color: #b9dcd3">
       <div>
         <table mat-table [dataSource]="dataSource1" matSort class="mat-elevation-z8 w-100">
 
@@ -48,8 +48,8 @@
 
           <!--  test Column-->
           <ng-container matColumnDef="accountCoordinatorEmail">
-            <th mat-header-cell *matHeaderCellDef> Account Coordinator Email </th>
-            <td mat-cell *matCellDef="let element">{{element.accountCoordinatorEmail}}</td>
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"></td>
           </ng-container>
 
           <!--  Action Column-->
@@ -85,43 +85,41 @@
       <div>
         <table mat-table [dataSource]="dataSourcehistory" matSort class="mat-elevation-z8 w-100">
 
-          <!-- Description Column -->
           <ng-container matColumnDef="productID">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Product ID</th>
             <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
           </ng-container>
 
-          <!-- Status Column -->
+
           <ng-container matColumnDef="submittedTime">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Submitted Time</th>
             <td mat-cell *matCellDef="let element">{{element.submittedTime}} </td>
           </ng-container>
 
-          <!-- SubmittedDate Column -->
+
           <ng-container matColumnDef="preAcName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Previous AccountCoordinator</th>
             <td mat-cell *matCellDef="let element"> {{element.preAcName}} </td>
           </ng-container>
 
-          <!--  productID Column-->
+
           <ng-container matColumnDef="newAcName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>New AccountCoordinator </th>
             <td mat-cell *matCellDef="let element"> {{element.newAcName}} </td>
           </ng-container>
 
-          <!--  productID Column-->
           <ng-container matColumnDef="exAcName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Ex. AccountCoordinator </th>
             <td mat-cell *matCellDef="let element"> {{element.exAcName}} </td>
           </ng-container>
 
-          <!--  productID Column-->
+
           <ng-container matColumnDef="charac">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Person </th>
             <td mat-cell *matCellDef="let element"> {{element.charac}} </td>
           </ng-container>
 
-          <!--  productID Column-->
+
           <ng-container matColumnDef="wAction">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
             <td mat-cell *matCellDef="let element"> {{element.wAction}} </td>

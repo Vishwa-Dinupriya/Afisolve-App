@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
+import {Chart} from 'node_modules/chart.js';
 
 export interface IComplaint{
   complainID: string;
@@ -38,6 +39,10 @@ export class PdashboardComponent implements OnInit, AfterViewInit  {
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+  datawo: any;
+  datfi: any;
+  datpe: any
 
   constructor(private router: Router,
               private http1: HttpClient) { }
@@ -94,6 +99,7 @@ export class PdashboardComponent implements OnInit, AfterViewInit  {
       response => {
         this.dataSourcefinish = response.data;
         console.log(this.dataSourcefinish);
+        this.datfi = this.dataSourcefinish[0].count;
       }, error => {
         console.log(error);
       }
@@ -106,6 +112,7 @@ export class PdashboardComponent implements OnInit, AfterViewInit  {
       response => {
         this.dataSourceworking = response.data;
         console.log(this.dataSourceworking);
+        this.datawo = this.dataSourceworking[0].count;
       }, error => {
         console.log(error);
       }
@@ -118,6 +125,7 @@ export class PdashboardComponent implements OnInit, AfterViewInit  {
       response => {
         this.dataSourcepending = response.data;
         console.log(this.dataSourcepending);
+        this.datpe = this.dataSourcepending[0].count;
       }, error => {
         console.log(error);
       }
@@ -129,7 +137,72 @@ export class PdashboardComponent implements OnInit, AfterViewInit  {
     this.http1.get<any>(`http://localhost:3000/projectManager/get-late-count`, {}).subscribe(
       response => {
         this.dataSourcelate = response.data;
-        console.log(this.dataSourcelate);
+        const tet1 = this.dataSourcelate[0].count;
+        console.log(tet1);
+        console.log(this.datawo);
+        // ..........................chart eka
+        // tslint:disable-next-line:prefer-const
+        var myChart = new Chart('myChart1', {
+          type: 'doughnut',
+          data: {
+            labels: ['Finish', 'Working-Progress', 'Pending'],
+            datasets: [{
+              label: ' ',
+              data: [this.datfi , this.datawo, this.datpe],
+              backgroundColor: [
+                'rgba(255,182,149,0.76)',
+                'rgba(255,109,84,0.76)',
+                'rgba(255,7,49,0.76)'
+                // 'rgba(128, 255, 0, 1)',
+                // 'rgba(255, 128, 0, 1)',
+                // 'rgba(102, 0, 102, 0.8)'
+              ],
+              borderColor: [
+                'rgba(128, 255, 0, 1)',
+                'rgba(255, 128, 0, 1)',
+                'rgba(102, 0, 102, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+        });
+
+
+// .................. chart 1 eka iwary
+// 2weni chart eka
+        var myChart = new Chart('myChart2', {
+          type: 'pie',
+          data: {
+            labels: ['late', 'not late '],
+            datasets: [{
+              label: 'Complaints',
+              data: [tet1 , this.datawo + this.datpe - tet1],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)'
+              ],
+              borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+          }
+        });
+// ................ 2 weni chart ekt iwaryi....
       }, error => {
         console.log(error);
       }

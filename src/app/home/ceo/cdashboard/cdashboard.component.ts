@@ -145,16 +145,19 @@ export class CdashboardComponent implements OnInit, AfterViewInit {
     // ..........................chart eka
         // tslint:disable-next-line:prefer-const
         var myChart = new Chart('myChart1', {
-          type: 'bar',
+          type: 'doughnut',
           data: {
             labels: ['Finish', 'Working-Progress', 'Pending'],
             datasets: [{
               label: ' ',
               data: [this.datfi , this.datawo, this.datpe],
               backgroundColor: [
-                'rgba(128, 255, 0, 1)',
-                'rgba(255, 128, 0, 1)',
-                'rgba(102, 0, 102, 0.8)'
+                 '#3778C2',
+                '#4B9FE1',
+                '#63BCE5'
+               // 'rgba(128, 255, 0, 1)',
+                // 'rgba(255, 128, 0, 1)',
+                // 'rgba(102, 0, 102, 0.8)'
               ],
               borderColor: [
                 'rgba(128, 255, 0, 1)',

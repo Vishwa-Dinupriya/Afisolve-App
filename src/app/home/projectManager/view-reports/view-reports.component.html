@@ -47,22 +47,10 @@
             <td mat-cell *matCellDef="let element"> {{element.submittedDate | date}} </td>
           </ng-container>
 
-          <!-- SubmittedDate Column -->
+
           <ng-container matColumnDef="accountCoordinatorName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Coordinator Name</th>
             <td mat-cell *matCellDef="let element"> {{element.accountCoordinatorName}} </td>
-          </ng-container>
-
-
-
-          <!-- Print Column -->
-          <ng-container matColumnDef="print">
-            <th mat-header-cell *matHeaderCellDef> Print</th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="primary" (click)="redirectToDetails(element.description)">
-                <mat-icon class="mat-18">printer</mat-icon>
-              </button>
-            </td>
           </ng-container>
 
           <!-------------------------------------------------------------------------------------------->

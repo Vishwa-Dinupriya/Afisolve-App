@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import Swal from 'sweetalert2';
 import {PastnameService} from '../../../services/pastname.service';
@@ -12,6 +12,9 @@ import {FormBuilder} from '@angular/forms';
 // tslint:disable-next-line:class-name
 
 export class ActionComponent implements OnInit {
+
+
+
   accdata;
   selectedValue: any;
   message: any;

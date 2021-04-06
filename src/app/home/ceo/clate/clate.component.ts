@@ -43,14 +43,14 @@ export interface IHistory {
 export class ClateComponent implements  AfterViewInit, OnInit {
 
   constructor(private router: Router, private route: ActivatedRoute, private http1: HttpClient, private pastname: PastnameService){ }
-  selectedRow;
   raw: string;
+  // late complaint
   displayedColumns: string[] = ['complainID', 'productID', 'description', 'submittedDate', 'lastDateOfPending', 'accountCoordinatorName' , 'accountCoordinatorEmail', 'Action', 'history'];
-  displayedColumnshistory: string[] = ['productID', 'submittedTime', 'preAcName', 'newAcName', 'exAcName', 'charac', 'wAction'];
-
   dataSource1: MatTableDataSource<IComplaint>;
   COMPLAINS_DATA: IComplaint[];
 
+  // history table
+  displayedColumnshistory: string[] = ['productID', 'submittedTime', 'preAcName', 'newAcName', 'exAcName', 'charac', 'wAction'];
   dataSourcehistory: MatTableDataSource<IHistory>;
   COMPLAINS_DATA1: IHistory[];
 
@@ -63,11 +63,15 @@ export class ClateComponent implements  AfterViewInit, OnInit {
   // tslint:disable-next-line:typedef
   m: string;
   bbb: any;
-  test: string[] = ['complainID', 'productID', 'description', 'submittedDate', 'lastDateOfPending', 'accountCoordinatorName' , 'Action'];
+  test: string[] = ['complainID', 'productID', 'description', 'submittedDate', 'lastDateOfPending', 'accountCoordinatorName' , 'accountCoordinatorEmail', 'Action'];
   filterValue: any;
 
   ngOnInit(): void {
     this.pastname.refreshNeeded$
+      .subscribe(() => {
+        this.ngAfterViewInit();
+      });
+    this.pastname.refreshNeededforacname$
       .subscribe(() => {
         this.ngAfterViewInit();
       });
@@ -98,7 +102,7 @@ export class ClateComponent implements  AfterViewInit, OnInit {
   }
 
 
-  applyFilter(event): void {
+  applyFilter(): void {
     // const filterValue = (event.target as HTMLInputElement).value;
     // const filterValue2 = '0002';
     const filterValue2 = this.filterValue;
@@ -113,7 +117,7 @@ export class ClateComponent implements  AfterViewInit, OnInit {
   getproductID(history){
     console.log(history);
     this.filterValue = history;
-    this.applyFilter(event);
+    this.applyFilter();
   }
 
   // ..............................................
@@ -150,16 +154,13 @@ export class ClateComponent implements  AfterViewInit, OnInit {
       title: 'Are you sure?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Chnge!'
+      confirmButtonColor: 'rgba(185,179,186,0.52)',
+      cancelButtonColor: '#000000',
+      confirmButtonText: '<a href = "http://localhost:4200/home/ceo/clate/caction">Yes,Change</a>'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          '\'<a href="http://localhost:4200/home/ceo/clate/caction"><button>Go to change</button></a> \''
-        );
-        // console.log(this.test);
         console.log('Row clicked: ', this.test);
+        // old-acc-name send
         this.pastname.cpassn(this.test)
           .subscribe(
             response => {
@@ -167,6 +168,7 @@ export class ClateComponent implements  AfterViewInit, OnInit {
             },
             error => console.error('Error!(frontend)', error)
           );
+        // history table eke row ekk hadima....
         this.pastname.cnewhistory(this.test)
           .subscribe(
             response => {
@@ -182,38 +184,20 @@ export class ClateComponent implements  AfterViewInit, OnInit {
   // reminder eka yawana eka
   // tslint:disable-next-line:typedef
   reminder() {
-    (async () => {
-
-      const ipAPI = '//api.ipify.org?format=json';
-
-      const inputValue = fetch(ipAPI)
-        .then(response => response.json())
-        .then(data => data.ip);
-
-      // @ts-ignore
-      // tslint:disable-next-line:prefer-const
-      const { value: time } = await Swal.fire({
-        title: 'How long will you give?',
-        icon: 'question',
-        input: 'range',
-        inputLabel: 'minimum hours',
-        inputAttributes: {
-          min: 1,
-          max: 48,
-          step: 1
-        },
-
-
-      });
-
-      // tslint:disable-next-line:no-shadowed-variable typedef
-
-
-      if (time) {
-        Swal.fire('Succesfully send a reminder to Account Coordinator',
-          `Account coordinator get another ${time} hours to finished.`,
-          'success');
-        console.log(time);
+    Swal.fire({
+      title: 'Warning..!!',
+      text: 'Reminder Email and Notification will send to Account Coordinator..',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Send a reminder..!',
+      cancelButtonText: 'No, Cancel....'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Successfully send a Reminder..!',
+          'success'
+        );
+        // send a reminder to database..................
         this.pastname.creminder(this.test)
           .subscribe(
             response => {
@@ -221,17 +205,10 @@ export class ClateComponent implements  AfterViewInit, OnInit {
             },
             error => console.error('Error!(frontend)', error)
           );
-        this.pastname.ctime(time)
-          .subscribe(
-            response => {
-              console.log('Success!(frontend)' + time, response);
-            },
-            error => console.error('Error!(frontend)', error)
-          );
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
       }
-      return time;
+    });
 
-    })();
   }
 
   // tslint:disable-next-line:typedef

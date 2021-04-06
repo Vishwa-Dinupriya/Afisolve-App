@@ -1,7 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {Chart} from 'node_modules/chart.js';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
+import {PastnameService} from '../../services/pastname.service';
+import {forbiddenNameValidator2} from '../../../authentication/shared/user-name.validator';
 
 @Component({
   selector: 'app-profile',
@@ -9,57 +11,60 @@ import {Chart} from 'node_modules/chart.js';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+
+  get massege(): AbstractControl {
+    return this.msgForm.get('massege');
+  }
 
   constructor(private router: Router,
-              private http1: HttpClient) {
+              private http1: HttpClient, private pastname: PastnameService, private fb1: FormBuilder, ) {
   }
+   dataSourcemsge: any;
+
+  // tslint:disable-next-line:typedef
+  msgForm: any;
 
   ngOnInit(): void {
-    this.charteke();
-  }
-  // tslint:disable-next-line:typedef
-  charteke(){
-    // tslint:disable-next-line:prefer-const
-    var myChart = new Chart('myChart', {
-      type: 'pie',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
+    this.getdata();
+    this.scrollToBottom();
+    this.pastname.refreshNeededformsg$
+      .subscribe(() => {
+        this.getdata();
+      });
+    this.msgForm = this.fb1.group({
+      massege: ['']
     });
   }
+  // tslint:disable-next-line:typedef
+  getdata(){
+    this.http1.get<any>(`http://localhost:3000/projectManager/get-message`, {}).subscribe(
+      response => {
+        this.dataSourcemsge = response.data;
+        console.log(this.dataSourcemsge);
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+  // tslint:disable-next-line:typedef
+  onMsg() {
+    console.log(this.msgForm.value);
+    this.pastname.newmsg(this.msgForm.value)
+      .subscribe(
+        response => {
+          console.log('Success!(frontend)', response);
+        },
+        error => console.error('Error!(frontend)', error)
+      );
+  }
 
-
-
+  scrollToBottom(): void {
+    try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch (err) { }
+  }
 
 
 }
+

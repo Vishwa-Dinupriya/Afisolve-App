@@ -1,47 +1,42 @@
 <mat-grid-list cols="5" rows="4" rowHeight="175px">
 
   <mat-grid-tile [colspan]="1" [rowspan]="1" >
-    <mat-card style="background-color: dodgerblue">
-      <mat-list>
-        <mat-list-item *ngFor="let full of dataSourceUsers1">Total Complaints -{{full.count}}</mat-list-item>
-      </mat-list>
+    <mat-card class="classboxes" style="background-color: #28559A">
+      <mat-card-title class="class1" *ngFor="let full of dataSourceUsers1">{{full.count}}</mat-card-title>
+      <h4 class="words">Total Complaints</h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="1" [rowspan]="1" >
-    <mat-card style="background-color:greenyellow">
-      <mat-list>
-        <mat-list-item *ngFor="let fin of dataSourcefinish">Finish Complaints - {{fin.count}}</mat-list-item>
-      </mat-list>
+    <mat-card class="classboxes" style="background-color: #3778C2">
+      <mat-card-title class="class1" *ngFor="let fin of dataSourcefinish">{{fin.count}}</mat-card-title>
+     <h4 class="words">Finish Complaints</h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="1" [rowspan]="1" >
-    <mat-card style="background-color: orange">
-      <mat-list>
-        <mat-list-item *ngFor="let wor of dataSourceworking">Working Progress Complaints- {{wor.count}}</mat-list-item>
-      </mat-list>
+    <mat-card class="classboxes" style="background-color: #4B9FE1">
+        <mat-card-title class="class1" *ngFor="let wor of dataSourceworking">{{wor.count}}</mat-card-title>
+      <h4 class="words">Working Progress Complaints</h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="1" [rowspan]="1">
-    <mat-card style="background-color: purple">
-      <mat-list>
-        <mat-list-item *ngFor="let pen of dataSourcepending">Pending Complaints- {{pen.count}}</mat-list-item>
-      </mat-list>
+    <mat-card class="classboxes" style="background-color: #63BCE5">
+        <mat-card-title class="class1" *ngFor="let pen of dataSourcepending">{{pen.count}}</mat-card-title>
+      <h4 class="words">Pending Complaints</h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="1" [rowspan]="1" >
-    <mat-card style="background-color: pink">
-      <mat-list>
-        <mat-list-item *ngFor="let lat of dataSourcelate" style="-webkit-text-fill-color: crimson">Late Complaints- {{lat.count}}</mat-list-item>
-      </mat-list>
+    <mat-card class="classboxes" style="background-color: #7ED5EA">
+        <mat-card-title class="class1" *ngFor="let lat of dataSourcelate" >{{lat.count}}</mat-card-title>
+     <h4 class="words">Late Complaints</h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="2" [rowspan]="3" style="background-color: #dcaedc">
-    <mat-card style="margin: 8% 5%" class="shadow" style="background-color:firebrick">
+    <mat-card  style="margin: 8% 5%" class="shadow" style="background-color:firebrick">
       <mat-card-header _ngcontent-c22="" class="mat-card-header2">
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title> </mat-card-title>
@@ -51,11 +46,11 @@
 
       <mat-card-content>
         <div>
-          <table mat-table [dataSource]="dataSourceComplaints" matSort class="mat-elevation-z8 w-100" style="background-color: palevioletred">
+          <table mat-table [dataSource]="dataSourceComplaints" matSort class="mat-elevation-z8 w-100" >
 
 
             <!-- new name Column -->
-            <ng-container matColumnDef="complainID">
+            <ng-container matColumnDef="complainID" >
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Complain ID</th>
               <td mat-cell *matCellDef="let element"> {{element.complainID}} </td>
             </ng-container>
@@ -85,7 +80,7 @@
 
     </mat-card>
   </mat-grid-tile>
-  <mat-grid-tile [colspan]="3" [rowspan]="3" style="background-color: lavender">
+  <mat-grid-tile [colspan]="3" [rowspan]="3" style="background-color: black">
     <div id="divChart1">
       <canvas id="myChart1"></canvas>
     </div>
