@@ -10,6 +10,7 @@ import {HomeService} from '../home.service';
 export class CustomerComponent implements OnInit {
 
   activeRoute: string;
+  collapseComplaints;
 
   constructor(
     public homeService: HomeService,
@@ -17,6 +18,7 @@ export class CustomerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.collapseComplaints = true;
   }
 
   getRoute(event): void {

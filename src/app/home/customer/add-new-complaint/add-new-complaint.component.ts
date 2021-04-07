@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
 import {AuthenticationService} from '../../../authentication/authentication.service';
@@ -6,13 +6,7 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
-import {IProduct} from '../../admin/products/products.component';
 import {AddNewComplaintService} from './add-new-complaint.service';
-
-interface Product {
-  productID: number;
-  productName: string;
-}
 
 @Component({
   selector: 'app-add-new-complaint',
@@ -21,10 +15,11 @@ interface Product {
 })
 export class AddNewComplaintComponent implements OnInit, OnChanges {
   @Input() reqProductID: number;
+  @ViewChild('myForm') myForm;
   addComplaintForm: FormGroup;
   productIDList;
   productNameList;
-  complaintCategoryList;
+  complaintCategoryList = ['category 1', 'category 1', 'category 1'];
 
   constructor(
     private fb1: FormBuilder,
@@ -32,19 +27,14 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
     private http1: HttpClient,
     public dialog: MatDialog,
     public addNewComplaintService: AddNewComplaintService
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
     this.formBuildFunction();
     this.http1.post<any>(`http://localhost:3000/customer/get-all-products`, {}).subscribe(
       response => {
-        console.log(response.data);
-        // this.roles.setValue(response.roles.map(value => value.roleID));
         this.productIDList = response.data.map(value => value.productID);
         this.productNameList = response.data.map(value => value.productName);
-        console.log(this.productIDList);
-        console.log(this.productNameList);
       }, error => {
         console.log(error);
       }
@@ -54,20 +44,20 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     if (this.addComplaintForm && this.reqProductID) {
       this.formBuildFunction();
-      this.productName.setValue(this.reqProductID);
+      this.productID.setValue(this.reqProductID);
     }
   }
 
   formBuildFunction(): void {
     this.addComplaintForm = this.fb1.group({
-      productName: ['', [Validators.required]],
+      productID: ['', [Validators.required]],
       description: ['', [Validators.required, Validators.minLength(3)]],
       complaintCategory: [[''], [Validators.required]],
     });
   }
 
-  get productName(): AbstractControl {
-    return this.addComplaintForm.get('productName');
+  get productID(): AbstractControl {
+    return this.addComplaintForm.get('productID');
   }
 
   get description(): AbstractControl {
@@ -87,7 +77,7 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
       data: {
         title: 'Are you sure?',
-        message: 'Lodge complaint with ' + this.productName + '? ',
+        message: 'Lodge complaint with ' + this.productID + '? ',
         name: '',
         button1: 'Cancel',
         button2: 'Save'
@@ -100,6 +90,24 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
         this.http1.post<any>(`http://localhost:3000/customer/lodge-complaint`, this.addComplaintForm.value).subscribe(
           response => {
             console.log(response);
+            const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+              data: {
+                title: 'Success!',
+                message: 'Complaint successfully lodged! ',
+                name: ' ',
+                button1: '',
+                button2: 'Ok'
+              }
+            });
+            dialogRef2.afterClosed().subscribe(result2 => {
+              console.log(`Dialog result: ${result}`);
+              this.myForm.resetForm();
+              if (result2 === true) {
+
+              } else {
+
+              }
+            });
           }, error => {
             console.log(error);
           }

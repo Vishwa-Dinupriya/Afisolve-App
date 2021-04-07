@@ -1,11 +1,11 @@
-<button mat-raised-button color="primary" class="float-right m-1"  (click)="createUserMode = !createUserMode"
-        [hidden]="createUserMode">
+<button mat-raised-button color="primary" class="float-right m-1"  (click)="changeMode(usersService.createUserMode)"
+        [hidden]="usersService.createUserMode">
   <mat-icon>person_add</mat-icon>
    new user
 </button>
 
-<button mat-raised-button color="primary" class="float-right m-1" (click)="createUserMode = !createUserMode"
-        [hidden]="!createUserMode">
+<button mat-raised-button color="primary" class="float-right m-1" (click)="changeMode(usersService.createUserMode)"
+        [hidden]="!usersService.createUserMode">
   <mat-icon>view_list</mat-icon>
   view users
 </button>
@@ -13,15 +13,15 @@
 
 <mat-card class="mr-5 ml-5 mt-5 mb-4 shadow">
 
-  <mat-card-title [hidden]="!createUserMode">Create user</mat-card-title>
-  <mat-card-title [hidden]="createUserMode">Users</mat-card-title>
+  <mat-card-title [hidden]="!usersService.createUserMode">Create user</mat-card-title>
+  <mat-card-title [hidden]="usersService.createUserMode">Users</mat-card-title>
   <hr>
 
-  <div [hidden]="!createUserMode">
+  <div [hidden]="!usersService.createUserMode">
     <app-signup></app-signup>
   </div>
 
-  <div [hidden]="createUserMode">
+  <div [hidden]="usersService.createUserMode">
    <!--all users table-->
     <div [hidden]="usersService.isUserProfileMode">
       <mat-form-field class="w-75 m-3">
@@ -96,7 +96,7 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+        <mat-paginator [length]="5" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
         </mat-paginator>
       </div>
 
@@ -108,7 +108,7 @@
 
    <!--user profile-->
     <div [hidden]="!usersService.isUserProfileMode" >
-      <app-user-profile [userEmailChild]="usersService.userEmailParent"></app-user-profile>
+      <app-user-profile-for-admin-purpose>[userEmailChild]="usersService.userEmailParent" ></app-user-profile-for-admin-purpose>
     </div>
 
   </div>

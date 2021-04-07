@@ -2,12 +2,12 @@
   <mat-card-title >Lodge Complaint</mat-card-title>
   <hr>
 <div class="h-auto">
-  <form [formGroup]="addComplaintForm" (ngSubmit)="saveChangesDialog()" class="mat-typography">
+  <form [formGroup]="addComplaintForm" (ngSubmit)="saveChangesDialog()" class="mat-typography" #myForm="ngForm">
 
     <div class="row">
       <mat-form-field appearance="outline" class="col-auto">
         <mat-label>Select Product</mat-label>
-        <mat-select [disabled]="false" formControlName="productName" multiple="false">
+        <mat-select formControlName="productID" multiple="false">
           <mat-option *ngFor="let productName of productNameList; let i = index"
                       [value]="productIDList[i]">{{productNameList[i]}}</mat-option>
         </mat-select>
@@ -36,7 +36,7 @@
     <button class="btn btn-primary" type="button" [hidden]="!reqProductID" (click)="onCancelEdit()">Cancel</button>
     <span></span>
     <button class="btn btn-primary" style="float: right" type="submit"
-            [hidden]="!addComplaintForm.valid">Save
+            [disabled]="!addComplaintForm.valid">Save
     </button>
   </form>
 </div>

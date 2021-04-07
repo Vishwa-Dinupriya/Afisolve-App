@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../product.service';
 import {HttpClient} from '@angular/common/http';
+import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-register-product',
@@ -10,12 +11,14 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./register-product.component.css']
 })
 export class RegisterProductComponent implements OnInit {
+  @ViewChild('myForm') myForm;
 
   productRegistrationForm: FormGroup;
 
   constructor(private fb1: FormBuilder,
               private productService: ProductService,
-              private http1: HttpClient) {
+              private http1: HttpClient,
+              private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -30,13 +33,47 @@ export class RegisterProductComponent implements OnInit {
 
 
   onSubmit(): void {
-    console.log(this.productRegistrationForm.value);
-    this.productService.registerProduct(this.productRegistrationForm.value)
-      .subscribe(
-        response => {
-          console.log('Success!(frontend)', response);
-        },
-        error => console.error('Error!(frontend)', error)
-      );
+    const dialogRef1 = this.dialog.open(DialogBoxComponent, {
+      data: {
+        title: 'Confirm!!',
+        message: 'Do you want to register this as new product? ',
+        name: ' ',
+        button1: 'Cancel',
+        button2: 'Done'
+      }
+    });
+
+    dialogRef1.afterClosed().subscribe(result => {
+      if (result === true) {
+        console.log(this.productRegistrationForm.value);
+        this.productService.registerProduct(this.productRegistrationForm.value)
+          .subscribe(
+            response => {
+              const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  title: 'Success!',
+                  message: 'Product successfully entered ',
+                  name: ' ',
+                  button1: 'Back to All products',
+                  button2: 'Ok'
+                }
+              });
+
+              dialogRef2.afterClosed().subscribe(result2 => {
+                console.log(`Dialog result: ${result}`);
+                this.myForm.resetForm();
+                if (result2 === true) {
+
+                } else {
+                  this.productService.ChangeCreateProductModeBooleanSubjectValue(false);
+                }
+              });
+            },
+            error => console.error('Error!(frontend)', error)
+          );
+      } else {
+        this.productService.ChangeCreateProductModeBooleanSubjectValue(false);
+      }
+    });
   }
 }

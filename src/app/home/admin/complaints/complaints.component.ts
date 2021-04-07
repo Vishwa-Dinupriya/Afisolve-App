@@ -1,4 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild, Input} from '@angular/core';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {MatTableDataSource} from '@angular/material/table';
@@ -7,34 +8,33 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
 import {ComplaintsService} from './complaints.service';
-
-export interface IComplaint {
-  complaintID: string;
-  description: string;
-  finishedDate: string;
-  lastDateOfPending: string;
-  productID: string;
-  status: string;
-  subComplaintID: string;
-  submittedDate: string;
-  wipStartDate: string;
-}
+import {IComplaintWithSubsElement} from '../../shared/complaintElementWithSubsInterface/interface-complaint-with-subs.service';
 
 @Component({
   selector: 'app-complaint',
   templateUrl: './complaints.component.html',
-  styleUrls: ['./complaints.component.css']
+  styleUrls: ['./complaints.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class ComplaintsComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['description', 'status', 'submittedDate', 'productID', 'details', 'update', 'delete'];
+  columnsToDisplayOuterTable = ['complaintID', 'description', 'submittedDate', 'productID', 'details', 'subComplaints'];
+  columnsToDisplayInnerTable = ['subComplaintID', 'description', 'submittedDate', 'details'];
 
-  dataSource: MatTableDataSource<IComplaint>;
-  COMPLAINS_DATA: IComplaint[];
+  dataSource: MatTableDataSource<IComplaintWithSubsElement>;
+  COMPLAINS_DATA: IComplaintWithSubsElement[];
 
   profileMode = false;
 
   complaintIdParent: string;
+
+  expandedElement: IComplaintWithSubsElement | null;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -53,7 +53,7 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
     this.http1.post<any>(`http://localhost:3000/admin/get-all-complaints`, {}).subscribe(
       response => {
         this.COMPLAINS_DATA = response.data;
-        this.dataSource = new MatTableDataSource<IComplaint>(this.COMPLAINS_DATA);
+        this.dataSource = new MatTableDataSource<IComplaintWithSubsElement>(this.COMPLAINS_DATA);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }, error => {
@@ -68,9 +68,9 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  public redirectToDetails(id: string): void {
-    console.log(this.complaintService.complaintIdParentValue);
-    this.complaintService.changeComplaintIdParentStringSubjectValue(id);
+  public redirectToDetails(complaintID: number, subComplaintID: number): void {
+    this.complaintService.changeComplaintIdParentNumberSubjectValue(complaintID);
+    this.complaintService.changeSubComplaintIdParentNumberSubjectValue(subComplaintID);
     this.complaintService.changeProfileModeBooleanSubjectValue(true);
   }
 

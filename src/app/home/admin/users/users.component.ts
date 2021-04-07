@@ -38,9 +38,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
               private http1: HttpClient,
               public dialog: MatDialog,
               public usersService: UsersService) {
+    this.usersService.createUserModeBooleanSubject.subscribe(value => this.ngAfterViewInit());
   }
 
   ngOnInit(): void {
+    this.usersService.ChangeCreateUserModeBooleanSubjectValue(false);
   }
 
   ngAfterViewInit(): void {
@@ -104,4 +106,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
     });
   }
 
+  changeMode(value: boolean): void {
+    this.usersService.ChangeCreateUserModeBooleanSubjectValue(!value);
+    this.createUserMode = value;
+    this.ngAfterViewInit();
+  }
 }
