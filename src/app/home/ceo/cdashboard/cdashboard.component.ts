@@ -48,6 +48,9 @@ export class CdashboardComponent implements OnInit, AfterViewInit {
   datfi: any;
   datpe: any;
 
+  // tslint:disable-next-line:typedef
+   b: number;
+
   ngOnInit(): void {
 
     this.getfullcount();
@@ -94,14 +97,16 @@ export class CdashboardComponent implements OnInit, AfterViewInit {
       }
     );
   }
-
-  // tslint:disable-next-line:typedef
   getfinishcount() {
     this.http1.get<any>(`http://localhost:3000/ceo/get-finish-count`, {}).subscribe(
       response => {
-        this.dataSourcefinish = response.data;
-        console.log(this.dataSourcefinish);
+        this.dataSourcefinish = response.data
+        // this.dataSourcefinish = response.data;
         this.datfi = this.dataSourcefinish[0].count;
+        const a = this.dataSourceUsers1[0].count;
+        this.b = (this.datfi / a) * 100 ;
+        console.log(this.b);
+
       }, error => {
         console.log(error);
       }
