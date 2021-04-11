@@ -11,9 +11,9 @@ import {CompletedComplaintService} from '../completed-complaint.service';
 })
 export class ReviewDialogBoxComponent implements OnInit {
 
-  @Input('rating') rating = 3;
-  @Input('starCount') starCount = 5;
-  @Input('color') color = 'accent';
+  @Input() rating = 3;
+  @Input() starCount = 5;
+  @Input() color = 'accent';
   @Output() ratingUpdated = new EventEmitter();
 
   ratingArr = [];

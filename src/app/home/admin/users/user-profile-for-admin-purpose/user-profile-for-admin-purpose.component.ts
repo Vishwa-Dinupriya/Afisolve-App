@@ -9,6 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {UsersService} from '../users.service';
 import {IUserGeneral} from '../../../shared/user-profile/user-profile.component';
 import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
+import {DialogBoxSelectPictureComponent} from '../../../shared/dialog-box-select-picture/dialog-box-select-picture.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -42,6 +43,9 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
 
   roleList: string[] = ['Customer', 'Account-Coordinator', 'Developer', 'Project-Manager', 'CEO', 'Admin'];
   selectedRoles: number [] = [];
+
+  currentProfilePicture;
+  newProfilePicture;
 
   matcher = new MyErrorStateMatcher();
 
@@ -201,6 +205,7 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
             this.selectedRoles = response.roles.map(value => value.roleID);
             this.defaultRole.setValue(response.defaultRoleID);
             this.contactNumber.setValue(response.contactNumber);
+            this.currentProfilePicture = 'data:image/png;base64,' + response.profilePhoto;
 
             this.createFormCopy();
             this.subscribeToFormValChange();
@@ -220,17 +225,21 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
     const registrationForm = this.userRegistrationForm.value;
     registrationForm.firstName = this.capitalize(this.firstName.value);
     registrationForm.lastName = this.capitalize(this.lastName.value);
-    this.authenticationService.updateProfile(this.userRegistrationForm.value, this.oldEmail)
-      .subscribe(
-        response => {
-          console.log('Update Success!(frontend)', response);
-          this.edit = false;
-          this.getAndSetValues();
-        },
-        error => {
-          console.error('Update Error!(frontend)', error);
-        }
-      );
+    this.http1.post<any>('http://localhost:3000/admin/update-selected-user-profile-details', {
+      userNewData: this.userRegistrationForm.value,
+      emailOld: this.oldEmail,
+      newProfilePhoto_: this.newProfilePicture,
+
+    }).subscribe(
+      response => {
+        console.log('Update Success!(frontend)', response);
+        this.edit = false;
+        this.getAndSetValues();
+      },
+      error => {
+        console.error('Update Error!(frontend)', error);
+      }
+    );
   }
 
   capitalize(value: string): string {
@@ -240,6 +249,27 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
   public backToAllUsers(): void {
     this.usersService1.changeIsProfileModeSubjectBooleanValue(false);
     this.usersService1.changeUserEmailParentSubjectStringValue(null);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogBoxSelectPictureComponent, {
+      // width: '50%'
+      data: {
+        currentPicture: this.currentProfilePicture
+      }
+
+    });
+
+    dialogRef.afterClosed().subscribe(picture => {
+      this.newProfilePicture = picture;
+      console.log(this.newProfilePicture);
+      if (this.newProfilePicture !== '' && this.newProfilePicture !== this.currentProfilePicture) {
+        console.log('photos are different');
+        this.haveChanges = true;
+      }
+    });
+
+
   }
 
 }

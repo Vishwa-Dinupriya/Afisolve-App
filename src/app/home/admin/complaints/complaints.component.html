@@ -152,7 +152,8 @@
     <!--complaint profile-->
     <div [hidden]="!complaintService.profileModeValue">
       <app-complaint-profile [complaintIdChild]="complaintService.complaintIdParentValue"
-                             [subComplaintIdChild]="complaintService.subComplaintIdParentValue"></app-complaint-profile>
+                             [subComplaintIdChild]="complaintService.subComplaintIdParentValue"
+                             [requestFrom]="'admin'"></app-complaint-profile>
     </div>
 
 

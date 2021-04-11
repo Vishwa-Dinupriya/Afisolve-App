@@ -7,6 +7,7 @@ import {AdminService} from './admin/admin.service';
 import {AppService} from '../app.service';
 import {EventEmitter} from 'events';
 import {HomeService} from './home.service';
+import {MatMenu} from '@angular/material/menu';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class HomeComponent implements OnInit {
   isDarkTheme = false;
   toggleDrawerBtnValue: boolean;
   isBigScreen: boolean;
+  profilePicture;
 
   firstname;
   userEmail;
@@ -54,6 +56,7 @@ export class HomeComponent implements OnInit {
         this.currentRole = response.selectedRole;
         this.firstname = response.firstname;
         this.roles = response.roles;
+        this.profilePicture = 'data:image/png;base64,' + response.profilePhoto;
       },
       error => {
         console.log(error);

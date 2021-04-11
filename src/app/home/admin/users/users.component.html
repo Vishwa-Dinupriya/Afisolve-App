@@ -108,7 +108,7 @@
 
    <!--user profile-->
     <div [hidden]="!usersService.isUserProfileMode" >
-      <app-user-profile-for-admin-purpose>[userEmailChild]="usersService.userEmailParent" ></app-user-profile-for-admin-purpose>
+      <app-user-profile-for-admin-purpose [userEmailChild]="usersService.userEmailParent" ></app-user-profile-for-admin-purpose>
     </div>
 
   </div>

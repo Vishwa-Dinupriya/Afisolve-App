@@ -3,6 +3,7 @@ import {AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild} from '@an
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {ComplaintsService} from '../../admin/complaints/complaints.service';
+import {ComplaintsCustomerService} from '../../customer/complaints-customer/complaints-customer.service';
 
 export interface IComplaintDetailsAdmin {
   accountCoordinatorEmail: string;
@@ -32,29 +33,34 @@ export interface IComplaintDetailsAdmin {
 export class ComplaintProfileComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() complaintIdChild: number;
   @Input() subComplaintIdChild: number;
+  @Input() requestFrom: string;
 
   COMPLAINT_DETAILS_DATA: IComplaintDetailsAdmin;
   tabIndex;
   ComplaintIdAvailable;
 
+  imageAttachments;
+
   constructor(private router: Router,
               private http1: HttpClient,
               public dialog: MatDialog,
-              public complaintService: ComplaintsService) {
+              public complaintService: ComplaintsService,
+              public complaintCustomerService: ComplaintsCustomerService) {
   }
 
   ngOnChanges(): void {
     this.tabIndex = 0;
     if (this.complaintIdChild) {
       this.ComplaintIdAvailable = true;
-      this.http1.post<any>(`http://localhost:3000/admin/get-selected-complaint-details`, {
+      this.http1.post<any>(`http://localhost:3000/` + this.requestFrom + `/get-selected-complaint-details`, {
         complaintID: this.complaintIdChild,
         subComplaintID: this.subComplaintIdChild
       })
         .subscribe(
           response => {
             this.COMPLAINT_DETAILS_DATA = response.data;
-            console.log(this.COMPLAINT_DETAILS_DATA);
+            this.imageAttachments = response.images;
+            console.log(this.imageAttachments);
           },
           error => {
             console.log(error);
@@ -76,10 +82,23 @@ export class ComplaintProfileComponent implements OnInit, AfterViewInit, OnChang
 
   }
 
-  public backToAllComplaints(): void {
+  public backToAllComplaintsAdmin(): void {
     this.complaintService.changeProfileModeBooleanSubjectValue(false);
     this.complaintService.changeComplaintIdParentNumberSubjectValue(null);
     this.complaintService.changeSubComplaintIdParentNumberSubjectValue(null);
   }
 
+  public backToAllComplaintsCustomer(): void {
+    this.complaintCustomerService.changeIsComplaintProfileModeSubjectBooleanValue(false);
+    this.complaintCustomerService.changeComplaintIdParentSubjectNumberValue(null);
+    this.complaintCustomerService.changeSubComplaintIdParentNumberSubjectValue(null);
+  }
+
+  removeSelectedImage(index: number): void {
+    this.imageAttachments[index] = null;
+    for (let i = index; i < this.imageAttachments.length - 1; i++) {
+      this.imageAttachments[i] = this.imageAttachments[i + 1];
+    }
+    this.imageAttachments.pop();
+  }
 }

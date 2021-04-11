@@ -1,10 +1,18 @@
 <script src="signup.component.ts"></script>
 <div class="container-fluid">
 
-  <!--  <button class="btn btn-secondary" type="button" [routerLink]="['/' + '../login']">Log In</button>-->
-
   <form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()" class="mat-typography" #myForm="ngForm">
 
+    <div class="row mb-4" >
+      <div class="col-4">
+        <button type="button" mat-stroked-button color="" (click)="openDialog()" matTooltip="Click to select a profile picture">
+          <img class="m-1" [hidden]="!this.profilePicture" style="border-radius:10%" width="80%" height="80%" [src]="this.profilePicture" />
+          <span></span>
+          <img class="m-1" [hidden]="this.profilePicture" style="border-radius:10%" width="80%" height="80%" src="../../../../assets/img/default-profile-picture.png">
+          </button>
+      </div>
+    </div>
+    <!-------------------------------------------------------------------------------------------------------------->
     <div class="row">
       <mat-form-field class="col-6" appearance="outline">
         <mat-label>First Name</mat-label>
