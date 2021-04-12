@@ -180,7 +180,7 @@ export class PdashboardComponent implements OnInit, AfterViewInit  {
 // .................. chart 1 eka iwary
 // 2weni chart eka
         var myChart = new Chart('myChart2', {
-          type: 'pie',
+          type: 'bar',
           data: {
             labels: ['late', 'not late '],
             datasets: [{

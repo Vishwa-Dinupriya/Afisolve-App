@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
-import {PastnameService} from '../../services/pastname.service';
+import {PastnameService} from '../../projectManager/pastname.service';
 
 @Component({
   selector: 'app-chat',

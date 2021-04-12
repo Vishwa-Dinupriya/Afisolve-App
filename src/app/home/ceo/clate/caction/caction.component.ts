@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import Swal from 'sweetalert2';
-import {PastnameService} from '../../../services/pastname.service';
+import {PastnameService} from '../../../projectManager/pastname.service';
 import {FormBuilder} from '@angular/forms';
 
 @Component({

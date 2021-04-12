@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {MatPaginator} from '@angular/material/paginator';
-import {PastnameService} from '../../services/pastname.service';
+import {PastnameService} from '../pastname.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatTabGroup} from '@angular/material/tabs';

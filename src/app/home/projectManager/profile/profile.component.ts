@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
-import {PastnameService} from '../../services/pastname.service';
+import {PastnameService} from '../pastname.service';
 import {forbiddenNameValidator2} from '../../../authentication/shared/user-name.validator';
 
 @Component({
