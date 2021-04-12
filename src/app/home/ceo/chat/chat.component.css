@@ -179,7 +179,8 @@ img {
 }
 
 .msg_history {
-  height: 510px;
+  height: 480px;
+  width: 950px;
   display: block;
   overflow-y :scroll;
 }
@@ -198,7 +199,7 @@ img {
 }
 
 .input_msg_write{
-background-color: coral;
+  background-color: #12ba20;
   border: 1px solid #ddd;
 }
 
@@ -220,15 +221,14 @@ background-color: coral;
   margin: 40px;
   display: inline-block;
   position: relative;
-  width: 200px;
   height: auto;
-  background-color: b;
-}
-
-.round{
   border-radius: 30px;
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
+}
+
+.round{
+
 
 }
 

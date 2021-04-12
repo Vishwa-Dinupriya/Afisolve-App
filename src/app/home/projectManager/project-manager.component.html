@@ -2,9 +2,15 @@
   <mat-drawer mode="side" opened style="width: 200px">
     <mat-selection-list [multiple]="false">
 
+      <mat-list-option routerLink="./pdashboard" [selected]="activeRoute === 'PdashboardComponent'"
+                       [class.selected]="activeRoute === 'PdashboardComponent'">
+        <mat-icon mat-list-icon>dashboard</mat-icon>
+        <div mat-line>Dashboard</div>
+      </mat-list-option>
+
       <mat-list-option routerLink="./late-complaint-information" [selected]="activeRoute === 'LateComplaintInformationComponent'"
                        [class.selected]="activeRoute === 'LateComplaintInformationComponent'">
-        <mat-icon mat-list-icon>dashboard</mat-icon>
+        <mat-icon mat-list-icon>circle_notifications</mat-icon>
         <div mat-line>Late Complain Information</div>
       </mat-list-option>
 

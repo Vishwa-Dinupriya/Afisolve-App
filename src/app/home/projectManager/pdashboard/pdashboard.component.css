@@ -1,0 +1,28 @@
+#divChart1{
+  display: block;
+  padding-top: 100px;
+  width: 700px;
+  height: 500px;
+}
+
+#divChart2{
+  display: block;
+  padding-top: 100px;
+  width: 500px;
+  height: 500px;
+}
+
+.class1{
+  text-align: center;
+  font-size: 45px;
+}
+
+.classboxes{
+  width: 250px;
+  height: 100px;
+  padding-top: 25px;
+}
+
+.words{
+  text-align: center;
+}
