@@ -1,32 +1,34 @@
-<!--<div [class.myDarkTheme]="isDarkTheme"  class="h-100">-->
-  <div   class="h-100">
-<script src="../app-routing.module.ts"></script>
-<mat-toolbar color="primary" class="" style=" min-height:40px; height: 50px;">
-  <mat-toolbar-row>
+<div class="h-100">
+  <script src="../app-routing.module.ts"></script>
 
-    <!---------------------------->
-<!--    <div class="example-sidenav-content">-->
-<!--      <button type="button" mat-button (click)="admin.drawer.toggle()">-->
-<!--        <mat-icon mat-list-icon>reorder</mat-icon>-->
-<!--      </button>-->
-<!--    </div>-->
-    <!----------------------- -->
+  <div>
+    <mat-toolbar color="primary" class="" style=" min-height:40px; height: 50px;">
+      <mat-toolbar-row>
 
-    <img src="../../../assets/img/afisolve_logo.png" alt="" width="60" height="24"
-         class="d-inline-block align-top border">
+        <!---------------------------->
+        <div class="example-sidenav-content">
+          <button type="button" [hidden]="isBigScreen" mat-button (click)="toggleDrawer()">
+            <mat-icon mat-list-icon>reorder</mat-icon>
+          </button>
+        </div>
+        <!----------------------- -->
 
-    <span style="flex: 0.01 1 auto"></span>
+        <img src="../../../assets/img/afisolve_logo.png" alt="" width="60" height="24"
+             class="d-inline-block align-top border">
 
-    <span class="navbar-brand mb-0 h1 ">{{ userDetails.name }}</span>
+        <span style="flex: 0.01 1 auto"></span>
 
-    <span style="flex: 1 1 auto"></span>
+        <span class="navbar-brand mb-0 h1 ">{{ firstname }}</span>
 
-    <button mat-icon-button (click)="changeTheme()" matTooltip="Change theme to {{nextTheme()}}">
-      <mat-icon>format_color_fill</mat-icon>
-    </button>
+        <span style="flex: 1 1 auto"></span>
 
-    <button mat-button [matMenuTriggerFor]="dropDownRoles" matTooltip="Select role">
+        <button mat-icon-button (click)="changeTheme()" matTooltip="Change theme to {{isDarkTheme? 'light' : 'dark'}}">
+          <mat-icon>format_color_fill</mat-icon>
+        </button>
+
+        <button mat-button [matMenuTriggerFor]="dropDownRoles" matTooltip="Select role">
       <span class="mat-button-wrapper ">
+
         {{this.roles[selectedValue]}}
         <mat-icon >arrow_drop_down</mat-icon>
       </span>
@@ -87,4 +89,73 @@
         developer
         admin-->
 </router-outlet>
+
+        {{ this.roles ? this.currentRole : 'loading...'}}
+        <mat-icon>arrow_drop_down</mat-icon>
+      </span>
+        </button>
+
+        <button mat-icon-button [matMenuTriggerFor]="dropDownNotifications">
+          <mat-icon>notifications</mat-icon>
+        </button>
+
+        <button mat-icon-button [matMenuTriggerFor]="dropDownUser">
+          <mat-icon>
+            <img *ngIf="this.profilePicture"  [src]=this.profilePicture  alt="" width="120%" height="120%" class="d-inline-block align-top border" style="border-radius: 80% ">
+          </mat-icon>
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <!------------------------------------------------------------------------------------------------------>
+    <mat-menu #dropDownRoles="matMenu">
+      <button mat-menu-item type="button"
+              *ngFor="let role_ of roles; let i = index"
+              (click)="roleChangeFunction(i)">
+        <span>{{ role_.roleName }}</span>
+      </button>
+    </mat-menu>
+
+    <mat-menu #dropDownNotifications="matMenu">
+      <button mat-menu-item style="width: 200px">
+        <mat-icon>help_center</mat-icon>
+        <span>notification 01</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>help_center</mat-icon>
+        <span>notification 02</span>
+      </button>
+    </mat-menu>
+
+    <mat-menu #dropDownUser="matMenu">
+      <button mat-menu-item style="width: 200px"  (click)="goToUserProfile()">
+        <mat-icon><img [hidden]="!this.profilePicture" [src]=this.profilePicture  alt="" width="120%" height="120%" class="d-inline-block align-top border" style="border-radius: 80% ">
+        </mat-icon>
+        <span>Profile</span>
+      </button>
+
+      <button mat-menu-item class="btn btn-secondary" type="button" *ngIf="authenticationService.isLoggedIn()"
+              (click)="authenticationService.logout()">
+        <mat-icon>login</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </div>
+
+  <!------------------------------------------------------------------------------------------------------>
+
+  <div [hidden]="homeService.userProfileMode" style="height:92%">
+    <router-outlet>
+      <!--  customer
+            project manager
+            ceo
+            developer
+            admin-->
+    </router-outlet>
+  </div>
+
+  <div [hidden]="!homeService.userProfileMode">
+    <app-user-profile [userEmailChild]="homeService.userEmail"></app-user-profile>
+  </div>
+
+
 </div>

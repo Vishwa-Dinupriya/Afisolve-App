@@ -12,7 +12,8 @@ export class AuthenticationService {
   loginUrl = 'http://localhost:3000/authentication/login';
   roleChangeUrl = 'http://localhost:3000/authentication/role-change';
 
-  constructor(private http1: HttpClient, private router: Router) {
+  constructor(private http1: HttpClient,
+              private router: Router) {
   }
 
   signup(userData): Observable<any> {
@@ -33,6 +34,7 @@ export class AuthenticationService {
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('userEmail');
     this.router.navigate(['/login']);
   }
 

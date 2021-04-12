@@ -1,6 +1,6 @@
-<mat-drawer-container style="min-height:93%" >
-  <mat-drawer #drawer mode="side" opened style="width: 200px">
-    <mat-selection-list [multiple]="false" >
+<mat-drawer-container style="min-height: 100%">
+  <mat-drawer mode="side" [opened]="homeService.drawer" style="width: 200px">
+    <mat-selection-list [multiple]="false">
 
       <mat-list-option routerLink="./dashboard"
                        [selected]="activeRoute === 'DashboardComponent'"
@@ -44,27 +44,14 @@
         <div mat-line>Test</div>
       </mat-list-option>
 
-      <mat-list-option routerLink="./test-sorting"
-                       [selected]="activeRoute === 'TestSortingComponent'"
-                       [class.selected]="activeRoute === 'TestSortingComponent'">
-        <mat-icon mat-list-icon>rate_review</mat-icon>
-        <div mat-line>Test-Sorting</div>
-      </mat-list-option>
-
     </mat-selection-list>
   </mat-drawer>
 
   <mat-drawer-content class="">
 
-    <div class="example-sidenav-content">
-      <button type="button" mat-button (click)="drawer.toggle()">
-        <mat-icon mat-list-icon>reorder</mat-icon>
-      </button>
-    </div>
-
-      <router-outlet (activate)="getRoute($event)" >
-           <!--dashboard,complaints,users,products,feedbacks,test,test-sorting-->
-      </router-outlet>
+    <router-outlet (activate)="getRoute($event)">
+      <!--dashboard,complaints,users,products,feedbacks,test-->
+    </router-outlet>
 
   </mat-drawer-content>
 </mat-drawer-container>

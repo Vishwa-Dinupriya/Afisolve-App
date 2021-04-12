@@ -29,14 +29,24 @@ import {ProfileComponent} from './home/projectManager/profile/profile.component'
 import {ActionComponent} from './home/projectManager/late-complaint-information/action/action.component';
 
 import {TestComponent} from './home/admin/test/test.component';
-import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
 import {UserProfileComponent} from './home/shared/user-profile/user-profile.component';
+
 import {CdashboardComponent} from './home/ceo/cdashboard/cdashboard.component';
 import {ClateComponent} from './home/ceo/clate/clate.component';
 import {CviewreportsComponent} from './home/ceo/cviewreports/cviewreports.component';
 import {PdashboardComponent} from './home/projectManager/pdashboard/pdashboard.component';
 import {CactionComponent} from './home/ceo/clate/caction/caction.component';
 import {ChatComponent} from './home/ceo/chat/chat.component';
+
+import {DashboardCustomerComponent} from './home/customer/dashboard-customer/dashboard-customer.component';
+import {ComplaintsCustomerComponent} from './home/customer/complaints-customer/complaints-customer.component';
+import {ProductsCustomerComponent} from './home/customer/products-customer/products-customer.component';
+import {AddNewComplaintComponent} from './home/customer/add-new-complaint/add-new-complaint.component';
+import {PendingComplaintsComponent} from './home/customer/complaints-customer/pending-complaints/pending-complaints.component';
+import {InProgressComplaintsComponent} from './home/customer/complaints-customer/in-progress-complaints/in-progress-complaints.component';
+import {CompletedComplaintsComponent} from './home/customer/complaints-customer/completed-complaints/completed-complaints.component';
+import {ClosedComplaintsComponent} from './home/customer/complaints-customer/closed-complaints/closed-complaints.component';
+
 
 const routes: Routes = [
     {
@@ -65,7 +75,45 @@ const routes: Routes = [
         {
           path: 'customer',
           component: CustomerComponent,
-          canActivate: [AuthenticationGuard]
+          canActivate: [AuthenticationGuard],
+          children: [
+            {
+              path: '',
+              component: DashboardCustomerComponent,
+            },
+            {
+              path: 'dashboard',
+              component: DashboardCustomerComponent,
+            },
+            {
+              path: 'lodge-new-complaint',
+              component: AddNewComplaintComponent,
+            },
+            {
+              path: 'complaints',
+              component: ComplaintsCustomerComponent,
+            },
+            {
+              path: 'pending-complaints',
+              component: PendingComplaintsComponent,
+            },
+            {
+              path: 'in-progress-complaints',
+              component: InProgressComplaintsComponent,
+            },
+            {
+              path: 'completed-complaints',
+              component: CompletedComplaintsComponent,
+            },
+            {
+              path: 'past-complaints',
+              component: ClosedComplaintsComponent,
+            },
+            {
+              path: 'purchases',
+              component: ProductsCustomerComponent,
+            }
+          ]
         },
         {
           path: 'account-coordinator',
@@ -117,10 +165,6 @@ const routes: Routes = [
               path: 'test',
               component: TestComponent
             },
-            {
-              path: 'test-sorting',
-              component: TestSortingComponent
-            }
           ]
         },
         {

@@ -8,9 +8,7 @@ import {userError} from '@angular/compiler-cli/src/transformers/util';
 })
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(
-    private injector: Injector
-  ) {
+  constructor(private injector: Injector) {
   }
 
   intercept(req: HttpRequest<any>, next): any {

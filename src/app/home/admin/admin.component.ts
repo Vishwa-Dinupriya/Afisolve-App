@@ -1,4 +1,6 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, Input, OnInit, ViewChild} from '@angular/core';
+import {AdminService} from './admin.service';
+import {HomeService} from '../home.service';
 
 @Component({
   selector: 'app-admin',
@@ -9,7 +11,9 @@ export class AdminComponent implements OnInit {
 
   activeRoute: string;
 
-  constructor() {
+  constructor(
+    public homeService: HomeService
+  ) {
   }
 
   ngOnInit(): void {

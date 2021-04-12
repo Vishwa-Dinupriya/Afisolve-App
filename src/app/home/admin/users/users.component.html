@@ -1,10 +1,11 @@
-
-<button mat-raised-button color="primary" class="float-right m-1" (click)="createUser = !createUser" [hidden]="createUser">
+<button mat-raised-button color="primary" class="float-right m-1"  (click)="changeMode(usersService.createUserMode)"
+        [hidden]="usersService.createUserMode">
   <mat-icon>person_add</mat-icon>
-  new user
+   new user
 </button>
 
-<button mat-raised-button color="primary" class="float-right m-1" (click)="createUser = !createUser" [hidden]="!createUser">
+<button mat-raised-button color="primary" class="float-right m-1" (click)="changeMode(usersService.createUserMode)"
+        [hidden]="!usersService.createUserMode">
   <mat-icon>view_list</mat-icon>
   view users
 </button>
@@ -12,65 +13,56 @@
 
 <mat-card class="mr-5 ml-5 mt-5 mb-4 shadow">
 
-  <mat-card-title [hidden]="!createUser">Create user</mat-card-title>
-  <mat-card-title [hidden]="createUser">Users</mat-card-title>
+  <mat-card-title [hidden]="!usersService.createUserMode">Create user</mat-card-title>
+  <mat-card-title [hidden]="usersService.createUserMode">Users</mat-card-title>
   <hr>
 
-  <div [hidden]="!createUser">
+  <div [hidden]="!usersService.createUserMode">
     <app-signup></app-signup>
   </div>
 
-  <div [hidden]="createUser">
-    <div [hidden]="profileMode">
+  <div [hidden]="usersService.createUserMode">
+   <!--all users table-->
+    <div [hidden]="usersService.isUserProfileMode">
       <mat-form-field class="w-75 m-3">
         <mat-label>Filter</mat-label>
         <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
       </mat-form-field>
 
-      <div>
+      <div [hidden]="!dataSource">
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
 
-          <!-- Position Column -->
+          <!-- userEmail Column -->
           <ng-container matColumnDef="userEmail">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> email</th>
             <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
           </ng-container>
 
-          <!-- Name Column -->
+          <!-- password Column -->
           <ng-container matColumnDef="password">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Password</th>
             <td mat-cell *matCellDef="let element"> {{element.password}} </td>
           </ng-container>
 
-          <!-- Weight Column -->
+          <!-- firstName Column -->
           <ng-container matColumnDef="firstName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Firstname</th>
             <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
           </ng-container>
 
-          <!-- Symbol Column -->
+          <!-- lastName Column -->
           <ng-container matColumnDef="lastName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Lastname</th>
             <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
           </ng-container>
 
-
+          <!-- contactNumber Column -->
           <ng-container matColumnDef="contactNumber">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact-Number</th>
             <td mat-cell *matCellDef="let element"> {{element.contactNumber}} </td>
           </ng-container>
 
-          <!-- Details Column -->
-          <ng-container matColumnDef="details">
-            <th mat-header-cell *matHeaderCellDef> Details</th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="primary" (click)="redirectToDetails(element.userEmail)">
-                <mat-icon class="mat-18">reorder</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-
-          <!-- Update Column -->
+          <!-- Update button Column -->
           <ng-container matColumnDef="update">
             <th mat-header-cell *matHeaderCellDef> Update</th>
             <td mat-cell *matCellDef="let element">
@@ -80,7 +72,17 @@
             </td>
           </ng-container>
 
-          <!-- Delete Column -->
+          <!-- Details button Column -->
+          <ng-container matColumnDef="details">
+            <th mat-header-cell *matHeaderCellDef> Details</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="primary" (click)="redirectToDetails(element.userEmail)">
+                <mat-icon class="mat-18">reorder</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <!-- Delete button Column -->
           <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef> Delete</th>
             <td mat-cell *matCellDef="let element">
@@ -94,18 +96,21 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+        <mat-paginator [length]="5" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
         </mat-paginator>
       </div>
+
+      <div *ngIf="!dataSource" class="d-flex justify-content-center w-100">
+        <mat-spinner></mat-spinner>
+      </div>
+
     </div>
 
-    <div [hidden]="!profileMode">
-      <app-user-profile></app-user-profile>
+   <!--user profile-->
+    <div [hidden]="!usersService.isUserProfileMode" >
+      <app-user-profile-for-admin-purpose [userEmailChild]="usersService.userEmailParent" ></app-user-profile-for-admin-purpose>
     </div>
-    <button class="btn btn-primary" (click)="redirectToUsers()" [hidden]="!profileMode">
-      <mat-icon>arrow_back_ios</mat-icon>
-      back
-    </button>
+
   </div>
 
 </mat-card>

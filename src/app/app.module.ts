@@ -6,7 +6,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthenticationComponent} from './authentication/authentication.component';
 import {LoginComponent} from './authentication/login/login.component';
-import {SignupComponent} from './authentication/signup/signup.component';
+import {ProfilePictureDialogComponent, SignupComponent} from './authentication/signup/signup.component';
 import {MaterialModule} from './material/material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
@@ -27,18 +27,22 @@ import {UsersComponent} from './home/admin/users/users.component';
 import {ComplaintsComponent} from './home/admin/complaints/complaints.component';
 import {ProductsComponent} from './home/admin/products/products.component';
 import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
-import {ProductService} from './home/services/product.service';
+import {ProductService} from './home/admin/products/product.service';
 import {MatGridListModule} from '@angular/material/grid-list';
+
 import {MatCheckboxModule} from '@angular/material/checkbox';
+
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 import { LateComplaintInformationComponent } from './home/projectManager/late-complaint-information/late-complaint-information.component';
 import { ViewReportsComponent } from './home/projectManager/view-reports/view-reports.component';
 import { ProfileComponent } from './home/projectManager/profile/profile.component';
 import { ActionComponent } from './home/projectManager/late-complaint-information/action/action.component';
 
-import {ProfilePictureComponent} from './home/shared/profile/profile-picture/profile-picture.component';
 import {ImageCropperModule} from 'ngx-image-cropper';
 import {TestComponent} from './home/admin/test/test.component';
+
 import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -48,16 +52,39 @@ import {MatBadgeModule} from '@angular/material/badge';
 
 
 
+
 import {UserProfileComponent} from './home/shared/user-profile/user-profile.component';
 import {ComplaintProfileComponent} from './home/shared/complaint-profile/complaint-profile.component';
 import {ProductProfileComponent} from './home/shared/product-profile/product-profile.component';
 import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-profile.component';
+
 import { CdashboardComponent } from './home/ceo/cdashboard/cdashboard.component';
 import { ClateComponent } from './home/ceo/clate/clate.component';
 import { CviewreportsComponent } from './home/ceo/cviewreports/cviewreports.component';
 import { PdashboardComponent } from './home/projectManager/pdashboard/pdashboard.component';
 import { CactionComponent } from './home/ceo/clate/caction/caction.component';
 import { ChatComponent } from './home/ceo/chat/chat.component';
+
+import {DialogBoxComponent} from './home/shared/dialog-box/dialog-box.component';
+
+import {PageService, SortService, FilterService} from '@syncfusion/ej2-angular-treegrid';
+
+import {ComplaintsCustomerComponent} from './home/customer/complaints-customer/complaints-customer.component';
+import {DashboardCustomerComponent} from './home/customer/dashboard-customer/dashboard-customer.component';
+import { ProductsCustomerComponent } from './home/customer/products-customer/products-customer.component';
+import { TestCustomerComponent } from './home/customer/test-customer/test-customer.component';
+import { AddNewComplaintComponent } from './home/customer/add-new-complaint/add-new-complaint.component';
+import { PendingComplaintsComponent } from './home/customer/complaints-customer/pending-complaints/pending-complaints.component';
+import { InProgressComplaintsComponent } from './home/customer/complaints-customer/in-progress-complaints/in-progress-complaints.component';
+import { CompletedComplaintsComponent } from './home/customer/complaints-customer/completed-complaints/completed-complaints.component';
+import { ClosedComplaintsComponent } from './home/customer/complaints-customer/closed-complaints/closed-complaints.component';
+import { ReviewDialogBoxComponent } from './home/customer/complaints-customer/completed-complaints/review-dialog-box/review-dialog-box.component';
+import { LodgeSubComplaintComponent } from './home/customer/complaints-customer/completed-complaints/lodge-sub-complaint/lodge-sub-complaint.component';
+import { UserProfileForAdminPurposeComponent } from './home/admin/users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
+import { UploadPictureComponent } from './home/shared/upload-picture/upload-picture.component';
+import { DialogBoxSelectPictureComponent } from './home/shared/dialog-box-select-picture/dialog-box-select-picture.component';
+import { CommentSectionComponent } from './home/shared/comment-section/comment-section.component';
+
 
 
 @NgModule({
@@ -79,19 +106,19 @@ import { ChatComponent } from './home/ceo/chat/chat.component';
     ComplaintsComponent,
     ProductsComponent,
     RegisterProductComponent,
+    ProfilePictureDialogComponent,
 
     LateComplaintInformationComponent,
     ViewReportsComponent,
     ProfileComponent,
     ActionComponent,
 
-    ProfilePictureComponent,
     TestComponent,
-    TestSortingComponent,
     UserProfileComponent,
     ComplaintProfileComponent,
     ProductProfileComponent,
     FeedbackProfileComponent,
+
     CdashboardComponent,
     ClateComponent,
     CviewreportsComponent,
@@ -99,8 +126,27 @@ import { ChatComponent } from './home/ceo/chat/chat.component';
     CactionComponent,
     ChatComponent
 
+    DialogBoxComponent,
+
+
+    ComplaintsCustomerComponent,
+    DashboardCustomerComponent,
+    ProductsCustomerComponent,
+    TestCustomerComponent,
+    AddNewComplaintComponent,
+    PendingComplaintsComponent,
+    InProgressComplaintsComponent,
+    CompletedComplaintsComponent,
+    ClosedComplaintsComponent,
+    ReviewDialogBoxComponent,
+    LodgeSubComplaintComponent,
+    UserProfileForAdminPurposeComponent,
+    UploadPictureComponent,
+    DialogBoxSelectPictureComponent,
+    CommentSectionComponent,
 
   ],
+  entryComponents: [DialogBoxComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -114,10 +160,17 @@ import { ChatComponent } from './home/ceo/chat/chat.component';
     MatInputModule,
     FormsModule,
     MatGridListModule,
+
     MatBadgeModule,
     MatCheckboxModule,
+
+    MatDialogModule
+
   ],
   providers: [
+    PageService,
+    SortService,
+    FilterService,
     AuthenticationService,
     AuthenticationGuard,
     ProductService,

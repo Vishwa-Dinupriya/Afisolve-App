@@ -5,8 +5,14 @@
 
 export const environment = {
   production: false,
+
   project_manager_api_url: 'http://localhost:3000/projectManager',
   ceo_api_url: 'http://localhost:3000/ceo'
+
+  adminApiUrl: 'http://localhost:3000/admin',
+  customerApiUrl: 'http://localhost:3000/customer',
+  homeApiUrl: 'http://localhost:3000/home',
+
 };
 
 /*

@@ -1,13 +1,13 @@
-import {AbstractControl} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 
-export function PasswordValidator1(control: AbstractControl): { [key: string]: boolean } | null {
-  const password = control.get('password');
-  const confirmPassword = control.get('confirmPassword');
-  if (password.pristine || confirmPassword.pristine) {
-    return null;
-  }
-  return password && confirmPassword && password.value !== confirmPassword.value ?
-    {misMatch: true} : null;
+export function checkPasswords(group: FormGroup): { notSame: boolean } { // here we have the 'passwords' group
+  const password = group.controls.password.value;
+  const confirmPassword = group.controls.confirmPassword.value;
+
+  return password === confirmPassword ? null : {notSame: true};
 }
+
+
+
 
 
