@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormGroup, FormBuilder, Validators, AbstractControl, FormControl, FormGroupDirective, NgForm} from '@angular/forms';
 import {checkPasswords} from '../shared/password.validator';
 import {AuthenticationService} from '../authentication.service';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {DialogBoxComponent} from '../../home/shared/dialog-box/dialog-box.component';
-import {MatDialog} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {UsersService} from '../../home/admin/users/users.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -27,6 +27,8 @@ export class SignupComponent implements OnInit {
   userRegistrationForm: FormGroup;
   hidePassword = true;
   hideConfirmPassword = true;
+
+  profilePicture: string;
 
   roleList: string[] = ['Customer', 'Account Coordinator', 'Developer', 'Project Manager', 'CEO', 'Admin'];
   selectedRoles: number [] = [];
@@ -101,12 +103,15 @@ export class SignupComponent implements OnInit {
         const registrationForm = this.userRegistrationForm.value;
         registrationForm.firstName = this.capitalize(this.firstName.value);
         registrationForm.lastName = this.capitalize(this.lastName.value);
-        this.authenticationService.signup(this.userRegistrationForm.value)
+        registrationForm.profilePicture = this.profilePicture;
+
+        this.authenticationService.signup(registrationForm)
           .subscribe(
             response => {
               console.log('Success!(frontend)', response);
               const dialogRef2 = this.dialog.open(DialogBoxComponent, {
                 data: {
+                  image: 'data:image/png;base64,' + response.image,
                   title: 'Success!',
                   message: 'Register new user successfully ',
                   name: ' ',
@@ -137,6 +142,45 @@ export class SignupComponent implements OnInit {
   capitalize(value: string): string {
     return value.charAt(0).toUpperCase() + value.slice(1);
   }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ProfilePictureDialogComponent, {
+      // width: '50%'
+      data: {
+        currentPicture: this.profilePicture
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(picture => {
+      console.log(picture);
+      this.profilePicture = picture;
+    });
+
+  }
+
+}
+
+@Component({
+  selector: 'app-profile-picture-dialog',
+  templateUrl: './profile-picture-dialog.component.html',
+  styleUrls: ['./signup.component.css']
+})
+
+export class ProfilePictureDialogComponent implements OnInit {
+  currentPicture;
+  constructor(
+    public dialogRef: MatDialogRef<ProfilePictureDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.currentPicture = this.data.currentPicture;
+  }
+
+  ngOnInit(): void {
+  }
+
+  onCropped($event): void {
+    this.dialogRef.close($event);
+  }
+
 
 }
 

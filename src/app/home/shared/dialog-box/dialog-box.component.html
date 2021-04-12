@@ -1,6 +1,8 @@
 <h2 mat-dialog-title>{{data.title}}</h2>
 <mat-dialog-content class="mat-typography">
 
+  <img [src]="data.image" />
+
   <p> {{data.message +'\''+ data.name +'\''}}</p>
 
 </mat-dialog-content>

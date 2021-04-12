@@ -20,7 +20,6 @@ export class AddNewComplaintService {
 
   changeIsLodgeComplaintModeSubjectBooleanValue(newIsLodgeComplaintMode: boolean): void {
     this.isLodgeComplaintModeSubjectBoolean.next(newIsLodgeComplaintMode);
-    console.log('value changed');
   }
 
   changeProductIdParentSubjectNumberValue(newProductIdParentValue: number): void {

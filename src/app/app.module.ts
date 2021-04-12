@@ -6,7 +6,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthenticationComponent} from './authentication/authentication.component';
 import {LoginComponent} from './authentication/login/login.component';
-import {SignupComponent} from './authentication/signup/signup.component';
+import {ProfilePictureDialogComponent, SignupComponent} from './authentication/signup/signup.component';
 import {MaterialModule} from './material/material.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
@@ -36,10 +36,8 @@ import {ViewReportsComponent} from './home/projectManager/view-reports/view-repo
 import {ProfileComponent} from './home/projectManager/profile/profile.component';
 import {ActionComponent} from './home/projectManager/late-complaint-information/action/action.component';
 
-import {ProfilePictureComponent} from './home/shared/profile/profile-picture/profile-picture.component';
 import {ImageCropperModule} from 'ngx-image-cropper';
 import {TestComponent} from './home/admin/test/test.component';
-import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
 import {UserProfileComponent} from './home/shared/user-profile/user-profile.component';
 import {ComplaintProfileComponent} from './home/shared/complaint-profile/complaint-profile.component';
 import {ProductProfileComponent} from './home/shared/product-profile/product-profile.component';
@@ -60,6 +58,9 @@ import { ClosedComplaintsComponent } from './home/customer/complaints-customer/c
 import { ReviewDialogBoxComponent } from './home/customer/complaints-customer/completed-complaints/review-dialog-box/review-dialog-box.component';
 import { LodgeSubComplaintComponent } from './home/customer/complaints-customer/completed-complaints/lodge-sub-complaint/lodge-sub-complaint.component';
 import { UserProfileForAdminPurposeComponent } from './home/admin/users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
+import { UploadPictureComponent } from './home/shared/upload-picture/upload-picture.component';
+import { DialogBoxSelectPictureComponent } from './home/shared/dialog-box-select-picture/dialog-box-select-picture.component';
+import { CommentSectionComponent } from './home/shared/comment-section/comment-section.component';
 
 
 @NgModule({
@@ -81,15 +82,14 @@ import { UserProfileForAdminPurposeComponent } from './home/admin/users/user-pro
     ComplaintsComponent,
     ProductsComponent,
     RegisterProductComponent,
+    ProfilePictureDialogComponent,
 
     LateComplaintInformationComponent,
     ViewReportsComponent,
     ProfileComponent,
     ActionComponent,
 
-    ProfilePictureComponent,
     TestComponent,
-    TestSortingComponent,
     UserProfileComponent,
     ComplaintProfileComponent,
     ProductProfileComponent,
@@ -108,6 +108,9 @@ import { UserProfileForAdminPurposeComponent } from './home/admin/users/user-pro
     ReviewDialogBoxComponent,
     LodgeSubComplaintComponent,
     UserProfileForAdminPurposeComponent,
+    UploadPictureComponent,
+    DialogBoxSelectPictureComponent,
+    CommentSectionComponent,
 
   ],
   entryComponents: [DialogBoxComponent],

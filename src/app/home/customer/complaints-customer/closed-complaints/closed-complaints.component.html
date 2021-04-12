@@ -22,13 +22,11 @@
 
   <div [hidden]="createComplaintMode">
     <!--all complaints table-->
-    <mat-form-field class="w-75 m-3">
-      <mat-label>Filter</mat-label>
-      <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
-    </mat-form-field>
-
     <div [hidden]="complaintsCustomerService.isComplaintProfileMode">
-
+      <mat-form-field class="w-75 m-3">
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
+      </mat-form-field>
       <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
 
         <!--  The Header is iterate by ngfor loop -->
@@ -71,7 +69,8 @@
         <ng-container matColumnDef="details">
           <th mat-header-cell *matHeaderCellDef> Details</th>
           <td mat-cell *matCellDef="let element">
-            <button mat-icon-button color="primary" (click)="redirectToDetails(1)">
+            <button mat-icon-button color="primary"
+                    (click)="redirectToDetails(element.complaintID,element.subComplaintID)">
               <mat-icon class="mat-18">reorder</mat-icon>
             </button>
           </td>
@@ -133,7 +132,8 @@
                 <ng-container matColumnDef="details">
                   <th mat-header-cell *matHeaderCellDef> Details</th>
                   <td mat-cell *matCellDef="let element">
-                    <button mat-icon-button color="primary" (click)="redirectToDetails(1)">
+                    <button mat-icon-button color="primary"
+                            (click)="redirectToDetails(element.complaintID,element.subComplaintID)">
                       <mat-icon class="mat-18">reorder</mat-icon>
                     </button>
                   </td>
@@ -146,7 +146,7 @@
           </td>
         </ng-container>
 
-         <!-- 1 row ,5 cells/columns  Header Row(not iterate this<tr> )-->
+        <!-- 1 row ,5 cells/columns  Header Row(not iterate this<tr> )-->
         <tr mat-header-row *matHeaderRowDef="columnsToDisplayOuterTable"></tr>
 
         <!--mainComplaint row-->
@@ -157,12 +157,13 @@
         <!--sub complaint table row-->
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
       </table>
-
     </div>
 
     <!--complaint profile-->
     <div [hidden]="!complaintsCustomerService.isComplaintProfileMode">
-      <app-complaint-profile [complaintIdChild]="complaintsCustomerService.complaintIdParent"></app-complaint-profile>
+      <app-complaint-profile [complaintIdChild]="complaintsCustomerService.complaintIdParent"
+                             [subComplaintIdChild]="complaintsCustomerService.subComplaintIdParentValue"
+                             [requestFrom]="'customer'"></app-complaint-profile>
     </div>
 
   </div>

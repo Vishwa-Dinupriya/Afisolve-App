@@ -1,4 +1,4 @@
-<mat-drawer-container style="min-height:93%">
+<mat-drawer-container style="min-height: 100%">
   <mat-drawer mode="side" [opened]="homeService.drawer" style="width: 250px">
     <mat-selection-list [multiple]="false">
 
@@ -27,6 +27,7 @@
 
         <mat-selection-list [multiple]="false">
           <mat-list-option routerLink="./pending-complaints"
+                           (click)="resetComplaintProfileMode()"
                            [selected]="activeRoute === 'PendingComplaintsComponent'"
                            [class.selected]="activeRoute === 'PendingComplaintsComponent'">
             <mat-icon mat-list-icon>pending_actions</mat-icon>
@@ -34,6 +35,7 @@
           </mat-list-option>
 
           <mat-list-option routerLink="./in-progress-complaints"
+                           (click)="resetComplaintProfileMode()"
                            [selected]="activeRoute === 'InProgressComplaintsComponent'"
                            [class.selected]="activeRoute === 'InProgressComplaintsComponent'">
             <mat-icon mat-list-icon>published_with_changes</mat-icon>
@@ -41,6 +43,7 @@
           </mat-list-option>
 
           <mat-list-option routerLink="./completed-complaints"
+                           (click)="resetComplaintProfileMode()"
                            [selected]="activeRoute === 'CompletedComplaintsComponent'"
                            [class.selected]="activeRoute === 'CompletedComplaintsComponent'">
             <mat-icon mat-list-icon>event_available</mat-icon>
@@ -48,6 +51,7 @@
           </mat-list-option>
 
           <mat-list-option routerLink="./past-complaints"
+                           (click)="resetComplaintProfileMode()"
                            [selected]="activeRoute === 'ClosedComplaintsComponent'"
                            [class.selected]="activeRoute === 'ClosedComplaintsComponent'">
             <mat-icon mat-list-icon>manage_search</mat-icon>

@@ -21,13 +21,14 @@ import {IComplaintWithSubsElement} from '../../../shared/complaintElementWithSub
 })
 export class PendingComplaintsComponent implements OnInit, AfterViewInit {
   createComplaintMode: boolean;
+  complaintIdToCommentSection;
 
   complaintStatusID: number | null;
 
   COMPLAINS_DATA: IComplaintWithSubsElement[];
   dataSource: MatTableDataSource<IComplaintWithSubsElement>;
 
-  columnsToDisplayOuterTable = ['complaintID', 'description', 'submittedDate', 'productID', 'details', 'subComplaints'];
+  columnsToDisplayOuterTable = ['complaintID', 'description', 'submittedDate', 'productID', 'details', 'comment', 'subComplaints'];
   columnsToDisplayInnerTable = ['subComplaintID', 'description', 'submittedDate', 'details'];
 
   expandedElement: IComplaintWithSubsElement | null;
@@ -42,6 +43,7 @@ export class PendingComplaintsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.createComplaintMode = false;
+    this.complaintsCustomerService.changeIsCommentSectionModeSubjectBooleanValue(false);
   }
 
   ngAfterViewInit(): void {
@@ -59,8 +61,15 @@ export class PendingComplaintsComponent implements OnInit, AfterViewInit {
     );
   }
 
-  redirectToDetails(n: number): void {
-    console.log(n);
+  redirectToDetails(complaintID: number, subComplaintID: number): void {
+    this.complaintsCustomerService.changeComplaintIdParentSubjectNumberValue(complaintID);
+    this.complaintsCustomerService.changeSubComplaintIdParentNumberSubjectValue(subComplaintID);
+    this.complaintsCustomerService.changeIsComplaintProfileModeSubjectBooleanValue(true);
+  }
+
+  redirectToCommentSection(complaintID: number): void {
+    this.complaintIdToCommentSection = complaintID;
+    this.complaintsCustomerService.changeIsCommentSectionModeSubjectBooleanValue(true);
   }
 
   applyFilter(event): void {

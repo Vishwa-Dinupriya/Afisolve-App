@@ -1,12 +1,13 @@
 import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
-import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
 import {AddNewComplaintService} from './add-new-complaint.service';
+import {DialogBoxSelectPictureComponent} from '../../shared/dialog-box-select-picture/dialog-box-select-picture.component';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-add-new-complaint',
@@ -19,7 +20,8 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
   addComplaintForm: FormGroup;
   productIDList;
   productNameList;
-  complaintCategoryList = ['category 1', 'category 1', 'category 1'];
+
+  imageAttachments = [];
 
   constructor(
     private fb1: FormBuilder,
@@ -27,7 +29,8 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
     private http1: HttpClient,
     public dialog: MatDialog,
     public addNewComplaintService: AddNewComplaintService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.formBuildFunction();
@@ -85,9 +88,10 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        console.log(`Dialog result: ${result}`);
-        console.log(this.addComplaintForm.value);
-        this.http1.post<any>(`http://localhost:3000/customer/lodge-complaint`, this.addComplaintForm.value).subscribe(
+        const newComplaint = this.addComplaintForm.value;
+        newComplaint.Images = this.imageAttachments;
+
+        this.http1.post<any>(environment.customerApiUrl + `/lodge-complaint`, newComplaint).subscribe(
           response => {
             console.log(response);
             const dialogRef2 = this.dialog.open(DialogBoxComponent, {
@@ -118,4 +122,38 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
     });
   }
 
+  openDialog(n: number): void {
+    let img;
+    if (n === -1) {
+      img = '../../../../assets/img/add-image-icon.jpg';
+    } else {
+      img = this.imageAttachments[n];
+    }
+    const dialogRef = this.dialog.open(DialogBoxSelectPictureComponent, {
+      // width: '50%'
+      data: {
+        currentPicture: img
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(picture => {
+      if (picture !== '' && picture !== undefined) {
+        if (n !== -1) {
+          this.imageAttachments[n] = picture;
+        } else {
+          this.imageAttachments.push(picture);
+        }
+        console.log(this.imageAttachments);
+      }
+    });
+
+  }
+
+  removeSelectedImage(index: number): void {
+    this.imageAttachments[index] = null;
+    for (let i = index; i < this.imageAttachments.length - 1; i++) {
+      this.imageAttachments[i] = this.imageAttachments[i + 1];
+    }
+    this.imageAttachments.pop();
+  }
 }

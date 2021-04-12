@@ -66,6 +66,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   public redirectToDetails(id: string): void {
     this.usersService.changeUserEmailParentSubjectStringValue(id);
+    console.log(this.usersService.userEmailParent);
     this.usersService.changeIsProfileModeSubjectBooleanValue(true);
   }
 

@@ -29,7 +29,6 @@ import {ProfileComponent} from './home/projectManager/profile/profile.component'
 import {ActionComponent} from './home/projectManager/late-complaint-information/action/action.component';
 
 import {TestComponent} from './home/admin/test/test.component';
-import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
 import {UserProfileComponent} from './home/shared/user-profile/user-profile.component';
 import {DashboardCustomerComponent} from './home/customer/dashboard-customer/dashboard-customer.component';
 import {ComplaintsCustomerComponent} from './home/customer/complaints-customer/complaints-customer.component';
@@ -157,10 +156,6 @@ const routes: Routes = [
               path: 'test',
               component: TestComponent
             },
-            {
-              path: 'test-sorting',
-              component: TestSortingComponent
-            }
           ]
         },
         {

@@ -57,8 +57,10 @@ export class ClosedComplaintsComponent implements OnInit, AfterViewInit {
     );
   }
 
-  redirectToDetails(n: number): void {
-    console.log(n);
+  redirectToDetails(complaintID: number, subComplaintID: number): void {
+    this.complaintsCustomerService.changeComplaintIdParentSubjectNumberValue(complaintID);
+    this.complaintsCustomerService.changeSubComplaintIdParentNumberSubjectValue(subComplaintID);
+    this.complaintsCustomerService.changeIsComplaintProfileModeSubjectBooleanValue(true);
   }
 
   applyFilter(event): void {
