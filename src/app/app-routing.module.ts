@@ -30,14 +30,6 @@ import {ActionComponent} from './home/projectManager/late-complaint-information/
 
 import {TestComponent} from './home/admin/test/test.component';
 import {UserProfileComponent} from './home/shared/user-profile/user-profile.component';
-
-import {CdashboardComponent} from './home/ceo/cdashboard/cdashboard.component';
-import {ClateComponent} from './home/ceo/clate/clate.component';
-import {CviewreportsComponent} from './home/ceo/cviewreports/cviewreports.component';
-import {PdashboardComponent} from './home/projectManager/pdashboard/pdashboard.component';
-import {CactionComponent} from './home/ceo/clate/caction/caction.component';
-import {ChatComponent} from './home/ceo/chat/chat.component';
-
 import {DashboardCustomerComponent} from './home/customer/dashboard-customer/dashboard-customer.component';
 import {ComplaintsCustomerComponent} from './home/customer/complaints-customer/complaints-customer.component';
 import {ProductsCustomerComponent} from './home/customer/products-customer/products-customer.component';
@@ -46,7 +38,6 @@ import {PendingComplaintsComponent} from './home/customer/complaints-customer/pe
 import {InProgressComplaintsComponent} from './home/customer/complaints-customer/in-progress-complaints/in-progress-complaints.component';
 import {CompletedComplaintsComponent} from './home/customer/complaints-customer/completed-complaints/completed-complaints.component';
 import {ClosedComplaintsComponent} from './home/customer/complaints-customer/closed-complaints/closed-complaints.component';
-
 
 const routes: Routes = [
     {
@@ -170,31 +161,7 @@ const routes: Routes = [
         {
           path: 'ceo',
           component: CeoComponent,
-          canActivate: [AuthenticationGuard],
-          children: [
-            {
-              path: 'cdashboard',
-              component: CdashboardComponent
-            },
-            {
-              path: 'clate',
-              component: ClateComponent,
-              children: [
-                {
-                  path: 'caction',
-                  component: CactionComponent
-                }
-               ]
-            },
-            {
-              path: 'cviewreports',
-              component: CviewreportsComponent
-            },
-            {
-              path: 'chat',
-              component: ChatComponent
-            },
-          ]
+          canActivate: [AuthenticationGuard]
         },
         {
           path: 'developer',
@@ -206,10 +173,6 @@ const routes: Routes = [
           component: ProjectManagerComponent,
           canActivate: [AuthenticationGuard],
           children: [
-            {
-              path: 'pdashboard',
-              component: PdashboardComponent
-            },
             {
               path: 'late-complaint-information',
               component: LateComplaintInformationComponent,

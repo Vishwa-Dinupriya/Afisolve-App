@@ -8,7 +8,7 @@ import {AuthenticationComponent} from './authentication/authentication.component
 import {LoginComponent} from './authentication/login/login.component';
 import {ProfilePictureDialogComponent, SignupComponent} from './authentication/signup/signup.component';
 import {MaterialModule} from './material/material.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AccountCoordinatorComponent} from './home/accountCoordinator/account-coordinator.component';
 import {AuthenticationService} from './authentication/authentication.service';
@@ -29,42 +29,19 @@ import {ProductsComponent} from './home/admin/products/products.component';
 import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
 import {ProductService} from './home/admin/products/product.service';
 import {MatGridListModule} from '@angular/material/grid-list';
-
-import {MatCheckboxModule} from '@angular/material/checkbox';
-
 import {MatDialogModule} from '@angular/material/dialog';
 
-
-import { LateComplaintInformationComponent } from './home/projectManager/late-complaint-information/late-complaint-information.component';
-import { ViewReportsComponent } from './home/projectManager/view-reports/view-reports.component';
-import { ProfileComponent } from './home/projectManager/profile/profile.component';
-import { ActionComponent } from './home/projectManager/late-complaint-information/action/action.component';
+import {LateComplaintInformationComponent} from './home/projectManager/late-complaint-information/late-complaint-information.component';
+import {ViewReportsComponent} from './home/projectManager/view-reports/view-reports.component';
+import {ProfileComponent} from './home/projectManager/profile/profile.component';
+import {ActionComponent} from './home/projectManager/late-complaint-information/action/action.component';
 
 import {ImageCropperModule} from 'ngx-image-cropper';
 import {TestComponent} from './home/admin/test/test.component';
-
-import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatBadgeModule} from '@angular/material/badge';
-
-
-
-
-
 import {UserProfileComponent} from './home/shared/user-profile/user-profile.component';
 import {ComplaintProfileComponent} from './home/shared/complaint-profile/complaint-profile.component';
 import {ProductProfileComponent} from './home/shared/product-profile/product-profile.component';
 import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-profile.component';
-
-import { CdashboardComponent } from './home/ceo/cdashboard/cdashboard.component';
-import { ClateComponent } from './home/ceo/clate/clate.component';
-import { CviewreportsComponent } from './home/ceo/cviewreports/cviewreports.component';
-import { PdashboardComponent } from './home/projectManager/pdashboard/pdashboard.component';
-import { CactionComponent } from './home/ceo/clate/caction/caction.component';
-import { ChatComponent } from './home/ceo/chat/chat.component';
-
 import {DialogBoxComponent} from './home/shared/dialog-box/dialog-box.component';
 
 import {PageService, SortService, FilterService} from '@syncfusion/ej2-angular-treegrid';
@@ -84,7 +61,6 @@ import { UserProfileForAdminPurposeComponent } from './home/admin/users/user-pro
 import { UploadPictureComponent } from './home/shared/upload-picture/upload-picture.component';
 import { DialogBoxSelectPictureComponent } from './home/shared/dialog-box-select-picture/dialog-box-select-picture.component';
 import { CommentSectionComponent } from './home/shared/comment-section/comment-section.component';
-
 
 
 @NgModule({
@@ -118,16 +94,7 @@ import { CommentSectionComponent } from './home/shared/comment-section/comment-s
     ComplaintProfileComponent,
     ProductProfileComponent,
     FeedbackProfileComponent,
-
-    CdashboardComponent,
-    ClateComponent,
-    CviewreportsComponent,
-    PdashboardComponent,
-    CactionComponent,
-    ChatComponent
-
     DialogBoxComponent,
-
 
     ComplaintsCustomerComponent,
     DashboardCustomerComponent,
@@ -155,17 +122,8 @@ import { CommentSectionComponent } from './home/shared/comment-section/comment-s
     HttpClientModule,
     MaterialModule,
     ImageCropperModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
     MatGridListModule,
-
-    MatBadgeModule,
-    MatCheckboxModule,
-
     MatDialogModule
-
   ],
   providers: [
     PageService,

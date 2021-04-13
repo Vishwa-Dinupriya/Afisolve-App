@@ -1,24 +1,11 @@
 
-<div class="new" align="center">
-  <router-outlet></router-outlet>
-  <hr>
-</div>
-<mat-tab-group animationDuration="2000ms">
-  <mat-tab label="Late complaint">
-  <mat-card class="m-5 shadow" style="height: 80%; background-color: rgba(149,255,156,0.76)">
-    <div>
-  <table mat-table [dataSource]="dataSource1" matSort class="mat-elevation-z8 w-100" style="background-color: rgba(85,255,113,0.76)">
+<mat-card class="m-5 shadow" style="height: 80%">
+  <table mat-table [dataSource]="dataSource" class="w-100">
 
     <!-- Complain ID column -->
     <ng-container matColumnDef="complainID">
       <th mat-header-cell *matHeaderCellDef> Complain ID </th>
       <td mat-cell *matCellDef="let element"> {{element.complainID}} </td>
-    </ng-container>
-
-    <!-- Product ID column -->
-    <ng-container matColumnDef="productID">
-      <th mat-header-cell *matHeaderCellDef> Product ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
     </ng-container>
 
     <!-- Description Column -->
@@ -32,121 +19,31 @@
     <!-- SubmittedDate Column -->
     <ng-container matColumnDef="submittedDate">
       <th mat-header-cell *matHeaderCellDef> Submitted Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.submittedDate | date}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.submittedDate}} </td>
     </ng-container>
 
+    <!--  test Column-->
     <ng-container matColumnDef="lastDateOfPending">
       <th mat-header-cell *matHeaderCellDef> Deadline Date </th>
-      <td mat-cell *matCellDef="let element">{{element.lastDateOfPending | date}}</td>
-    </ng-container>
-
-    <!--  test Column-->
-    <ng-container matColumnDef="accountCoordinatorName">
-      <th mat-header-cell *matHeaderCellDef> Account Coordinator Name </th>
-      <td mat-cell *matCellDef="let element">{{element.accountCoordinatorName}}</td>
-    </ng-container>
-
-
-    <!--  test Column-->
-    <ng-container matColumnDef="accountCoordinatorEmail">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element"></td>
+      <td mat-cell *matCellDef="let element">{{element.lastDateOfPending}}</td>
     </ng-container>
 
     <!--  Action Column-->
     <ng-container matColumnDef="Action">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
-      <td mat-cell *matCellDef="let element"> <button mat-raised-button color="accent" (click)="getAlert()">get Action</button>  </td>
-    </ng-container>
-
-    <!--  History Column-->
-    <ng-container matColumnDef="history">
-      <th mat-header-cell *matHeaderCellDef>History</th>
-      <td mat-cell *matCellDef="let element"><button mat-raised-button color="warn" (click)="getproductID(element.productID)" (dblclick)="changetab(1)">History</button>  </td>
+      <th mat-header-cell *matHeaderCellDef>  </th>
+      <td mat-cell *matCellDef="let element"> <button mat-raised-button color="primary" (click)="getAction()">Get Action</button> </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row class="mat-row1" *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-      </table>
-      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" style="background-color: rgba(85,255,113,0.76)">
-      </mat-paginator>
-    </div>
-  </mat-card>
-  </mat-tab>
+
+  </table>
+</mat-card>
 
 
 
-  //.....................................................................
-
-  <mat-tab label="History">
-    <mat-card class="m-5 shadow" style="height: 80%; background-color: rgba(255,225,178,0.76)">
-
-
-
-
-    <div>
-      <table mat-table [dataSource]="dataSourcehistory" matSort class="mat-elevation-z8 w-100" style="background-color: rgba(255,192,21,0.76)">
-
-
-        <ng-container matColumnDef="productID">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Product ID</th>
-          <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
-        </ng-container>
-
-
-        <ng-container matColumnDef="submittedTime">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Submitted Time</th>
-          <td mat-cell *matCellDef="let element">{{element.submittedTime}} </td>
-        </ng-container>
-
-
-        <ng-container matColumnDef="preAcName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Previous AccountCoordinator</th>
-          <td mat-cell *matCellDef="let element"> {{element.preAcName}} </td>
-        </ng-container>
-
-
-        <ng-container matColumnDef="newAcName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>New AccountCoordinator </th>
-          <td mat-cell *matCellDef="let element"> {{element.newAcName}} </td>
-        </ng-container>
-
-
-        <ng-container matColumnDef="exAcName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Ex. AccountCoordinator </th>
-          <td mat-cell *matCellDef="let element"> {{element.exAcName}} </td>
-        </ng-container>
-
-
-        <ng-container matColumnDef="charac">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Person </th>
-          <td mat-cell *matCellDef="let element"> {{element.charac}} </td>
-        </ng-container>
-
-
-        <ng-container matColumnDef="wAction">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
-          <td mat-cell *matCellDef="let element"> {{element.wAction}} </td>
-        </ng-container>
-
-        <!-------------------------------------------------------------------------------------------->
-        <tr mat-header-row *matHeaderRowDef="displayedColumnshistory"></tr>
-        <tr mat-row class="mat-row2" *matRowDef="let row; columns: displayedColumnshistory;"></tr>
-
-      </table>
-      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" style="background-color: rgba(255,192,21,0.76)">
-      </mat-paginator>
-    </div>
-      <button mat-raised-button color="primary" (click)="changetab(0)">back</button>
-  </mat-card>
-
-
-  </mat-tab>
-</mat-tab-group>
-
-
-
+<router-outlet> </router-outlet>
 
 
 
