@@ -1,1 +1,10 @@
+.icon-display {
+  transform: scale(0.5);
+}
+
+.text-inside-grid {
+  background-color: rgba(4,6,67,0.96);
+  -webkit-text-fill-color: white;
+}
+
 

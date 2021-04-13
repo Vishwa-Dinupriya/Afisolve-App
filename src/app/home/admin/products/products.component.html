@@ -1,11 +1,15 @@
-<button mat-button class="float-right" (click)="createProduct = !createProduct" [hidden]="createProduct">
+<button mat-button class="float-right" (click)="changeMode(productService.createProductMode)"
+        [hidden]="productService.createProductMode">
+  <!--  <button mat-button class="float-right" (click)="createProduct=!createProduct" [hidden]="createProduct">-->
   <span class="mat-button-wrapper">
    <mat-icon>add_business</mat-icon>
     New product
   </span>
 </button>
 
-<button mat-button class="float-right" (click)="createProduct = !createProduct" [hidden]="!createProduct">
+<button mat-button class="float-right" (click)="changeMode(productService.createProductMode)"
+        [hidden]="!productService.createProductMode">
+  <!--<button mat-button class="float-right" (click)="createProduct=!createProduct" [hidden]="!createProduct">-->
   <span class="mat-button-wrapper">
     <mat-icon>view_list</mat-icon>
     View products
@@ -13,94 +17,96 @@
 </button>
 
 <mat-card class="m-5 shadow h-100">
-  <div [hidden]="createProduct">
-    <mat-form-field class="w-75 m-3">
-      <mat-label>Filter</mat-label>
-      <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
-    </mat-form-field>
+  <div [hidden]="productService.createProductMode">
+    <div [hidden]="productService.isProductProfileMode">
+      <div>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
 
-    <div>
-      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
+          <!-- Description Column -->
+          <ng-container matColumnDef="productID">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Id</th>
+            <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+          </ng-container>
 
-        <!-- Description Column -->
-        <ng-container matColumnDef="productID">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Id</th>
-          <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
-        </ng-container>
+          <!-- Status Column -->
+          <ng-container matColumnDef="productName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+          </ng-container>
 
-        <!-- Status Column -->
-        <ng-container matColumnDef="productName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name</th>
-          <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
-        </ng-container>
+          <!-- SubmittedDate Column -->
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Category</th>
+            <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+          </ng-container>
 
-        <!-- SubmittedDate Column -->
-        <ng-container matColumnDef="category">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Category</th>
-          <td mat-cell *matCellDef="let element"> {{element.category}} </td>
-        </ng-container>
+          <!-- customer email Column-->
+          <ng-container matColumnDef="customerEmail">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer</th>
+            <td mat-cell *matCellDef="let element"> {{element.customerEmail}} </td>
+          </ng-container>
 
-        <!-- customer email Column-->
-        <ng-container matColumnDef="customerEmail">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer</th>
-          <td mat-cell *matCellDef="let element"> {{element.customerEmail}} </td>
-        </ng-container>
+          <!-- project manager email Column-->
+          <ng-container matColumnDef="projectManagerEmail">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Manager</th>
+            <td mat-cell *matCellDef="let element"> {{element.projectManagerEmail}} </td>
+          </ng-container>
 
-        <!-- project manager email Column-->
-        <ng-container matColumnDef="projectManagerEmail">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Manager</th>
-          <td mat-cell *matCellDef="let element"> {{element.projectManagerEmail}} </td>
-        </ng-container>
+          <!-- account coordinator email Column-->
+          <ng-container matColumnDef="accountCoordinatorEmail">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Coordinator</th>
+            <td mat-cell *matCellDef="let element"> {{element.accountCoordinatorEmail}} </td>
+          </ng-container>
 
-        <!-- account coordinator email Column-->
-        <ng-container matColumnDef="accountCoordinatorEmail">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Coordinator</th>
-          <td mat-cell *matCellDef="let element"> {{element.accountCoordinatorEmail}} </td>
-        </ng-container>
+          <!-- Details Column -->
+          <ng-container matColumnDef="details">
+            <th mat-header-cell *matHeaderCellDef> Details</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="primary" (click)="redirectToDetails(element.productID)">
+                <mat-icon class="mat-18">reorder</mat-icon>
+              </button>
+            </td>
+          </ng-container>
 
-        <!-- Details Column -->
-        <ng-container matColumnDef="details">
-          <th mat-header-cell *matHeaderCellDef> Details</th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button color="primary" (click)="redirectToDetails(element.productID)">
-              <mat-icon class="mat-18">reorder</mat-icon>
-            </button>
-          </td>
-        </ng-container>
+          <!-- Update Column -->
+          <ng-container matColumnDef="update">
+            <th mat-header-cell *matHeaderCellDef> Update</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="accent" (click)="redirectToUpdate(element.productID)">
+                <mat-icon class="mat-18">system_update</mat-icon>
+              </button>
+            </td>
+          </ng-container>
 
-        <!-- Update Column -->
-        <ng-container matColumnDef="update">
-          <th mat-header-cell *matHeaderCellDef> Update</th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button color="accent" (click)="redirectToUpdate(element.productID)">
-              <mat-icon class="mat-18">system_update</mat-icon>
-            </button>
-          </td>
-        </ng-container>
+          <!-- Delete Column -->
+          <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> Delete</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="warn" (click)="redirectToDelete(element.productID, element.productName)">
+                <mat-icon class="mat-18">delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <!-------------------------------------------------------------------------------------------->
 
-        <!-- Delete Column -->
-        <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef> Delete</th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button color="warn" (click)="redirectToDelete(element.productID)">
-              <mat-icon class="mat-18">delete</mat-icon>
-            </button>
-          </td>
-        </ng-container>
-        <!-------------------------------------------------------------------------------------------->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-      </table>
-      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
-      </mat-paginator>
+        </table>
+        <mat-paginator [length]="5" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+      </div>
+    </div>
+    <div [hidden]="!productService.isProductProfileMode">
+      <app-product-profile [productIDChild] = selectedProductID></app-product-profile>
     </div>
   </div>
 
-  <mat-card-title [hidden]="!createProduct">Register new Product</mat-card-title>
-  <hr>
-  <div [hidden]="!createProduct" class="" style="">
-    <app-register-product></app-register-product>
+  <div [hidden]="!productService.createProductMode">
+    <mat-card-title >Register new Product</mat-card-title>
+    <hr>
+    <div class="" style="">
+      <app-register-product></app-register-product>
+    </div>
   </div>
 </mat-card>

@@ -1,0 +1,95 @@
+<mat-card class="mr-4 ml-4 mt-4 mb-4 shadow">
+  <mat-card-header>
+    <mat-card-title>
+      Comment Section
+<!--      <h4><i>complaint ID:{{complaintIdInput}}</i> </h4>-->
+    </mat-card-title>
+    <button mat-icon-button style=" float: right; margin-top: -1%; margin-left: 77%;"
+            (click)="whenClose()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+
+  <mat-card-content class="mb-0">
+    <mat-grid-list cols="1" rows="11" rowHeight="41px">
+
+      <mat-grid-tile [colspan]="1" [rowspan]="10" style="">
+        <div style=" height:100%; width: 100%; ">
+          <div [hidden]="dataSourceComments.length === 0" class="msg_history" [style.height.%]="chatBoxHeight"
+               #scrollBottom>
+            <li class="message" *ngFor="let comment of dataSourceComments">
+              <div *ngIf="  comment.senderEmail !== 'admin@gmail.com';  then incoming_msg; else outgoing_msg"></div>
+              <ng-template #incoming_msg>
+                <div class="incoming_msg_img">
+                  <img style="width: 100%; margin-top: 40%;"
+                       [src]=" 'data:image/png;base64,' +comment.senderAvatarPicture"
+                       alt="User avatar"/>
+                </div>
+                <div class="received_msg">
+                  <div class="received_width_msg">
+                    <p [hidden]="comment.IsImage"
+                       style="margin: 1%; max-width:100%; word-wrap: break-word;">{{ comment.content }}</p>
+                    <img class="m-1" [hidden]="!comment.IsImage" width="80%" height="80%"
+                         style="border-radius:10%; float: left "
+                         [src]=" 'data:image/png;base64,' +comment.content">
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template #outgoing_msg>
+                <div class="outgoing_msg">
+                  <div class="sent_msg">
+                    <p [hidden]="comment.IsImage"
+                       style="max-width:100%; word-wrap: break-word;">{{ comment.content }}</p>
+                    <img class="m-1" [hidden]="!comment.IsImage" width="80%" height="80%"
+                         style="border-radius:10%; float: right"
+                         [src]=" 'data:image/png;base64,' +comment.content">
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+          </div>
+          <div *ngIf="dataSourceComments.length===0 && !showLoader"
+               [style.height.%]="imageAttachments.length==0 ? 100:13">
+            <p style="margin-top: 20%; margin-left: 39%;"><i>No any comments with this complaint</i></p>
+          </div>
+          <div *ngIf="dataSourceComments.length===0 && showLoader" [style.height.%]="chatBoxHeight"
+               class="d-flex justify-content-center w-100">
+            <mat-spinner style="margin-top: 18%;"></mat-spinner>
+          </div>
+          <div style="overflow-x: scroll; max-height:100%;  width: 100%; ">
+            <div *ngFor="let image of imageAttachments; let i = index"
+                 style="float:left; margin-right: 5px; max-width: 20%;max-height: 100%;">
+              <button style="  border: 0px;" type="button" mat-stroked-button color=""
+                      (click)="openDialog(i)" matTooltip="Click to change a selected image">
+                <mat-icon [hidden]="this.imageAttachments[i]">add_photo_alternate</mat-icon>
+                <img class="m-1" [hidden]="!this.imageAttachments[i]" width="95%" height="95%"
+                     style="border-radius:10% "
+                     [src]="this.imageAttachments[i]">
+              </button>
+              <button mat-button (click)="removeSelectedImage(i)" class="ml-5" matTooltip="Click to remove this image">
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1" class="border-top">
+        <button mat-button class="border" style="margin-left: -92px; margin-right: 11px; width: 83px; height: 32px;"
+                (click)="openDialog(-1)"
+                matTooltip="Click to add new image">
+          <span class="material-icons"> add_photo_alternate </span>
+        </button>
+
+        <input style=" margin-top: 1px; height: 35px; width: 83%; margin-right: -40px;" matInput class="border"
+               type="text" #text>
+        <button [disabled]="!imageAttachments.length && text.value.trim()==='' "
+                style=" margin-right:-100px; margin-left:0px; height: 32px;" class="btn btn-primary float-right ml-5"
+                (click)="clickSend(text.value)">send
+        </button>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </mat-card-content>
+</mat-card>

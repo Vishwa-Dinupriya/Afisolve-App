@@ -1,5 +1,6 @@
 import {Component, HostListener, Input, OnInit, ViewChild} from '@angular/core';
 import {AdminService} from './admin.service';
+import {HomeService} from '../home.service';
 
 @Component({
   selector: 'app-admin',
@@ -11,7 +12,7 @@ export class AdminComponent implements OnInit {
   activeRoute: string;
 
   constructor(
-    public toggleService: AdminService
+    public homeService: HomeService
   ) {
   }
 

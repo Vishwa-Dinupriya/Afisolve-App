@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
+import {ImageCroppedEvent} from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-test',
@@ -11,6 +12,10 @@ export class TestComponent implements OnInit {
 
   displayedColumns = ['userEmail', 'password', 'firstName', 'details', 'update', 'delete'];
   dataSourceUsers;
+
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  loadedImage: any = '';
 
   constructor(private router: Router,
               private http1: HttpClient) {
@@ -39,5 +44,35 @@ export class TestComponent implements OnInit {
 
   public redirectToDelete(id: string): void {
     console.log(id);
+  }
+
+  fileChangeEvent(event: any): void {
+    console.log(this.imageChangedEvent);
+    this.imageChangedEvent = event;
+  }
+
+  imageCropped(event: ImageCroppedEvent): void {
+    this.croppedImage = event.base64;
+    console.log('imageCropped');
+  }
+
+  imageLoaded(image: HTMLImageElement): void {
+    // show cropper
+    console.log('imageLoaded');
+  }
+
+  cropperReady(): void {
+    // cropper ready
+    console.log('cropperReady');
+  }
+
+  loadImageFailed(): void {
+    // show message
+    console.log('loadImageFailed');
+  }
+
+  inputBTNClicked(): void {
+    console.log('btn clicked');
+    this.imageChangedEvent = null;
   }
 }

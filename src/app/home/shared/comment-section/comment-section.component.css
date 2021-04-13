@@ -1,0 +1,72 @@
+
+.incoming_msg_img {
+  display: inline-flex;
+  width: 4%;
+}
+
+.msg_history {
+  height: min-content;
+  max-height: 100%;
+  min-height: 50%;
+  width: 100%;
+  display: block;
+  overflow-y :scroll;
+}
+
+.message {
+  list-style-type: none;
+}
+
+.outgoing_msg {
+  overflow: hidden;
+  margin: 26px 0 26px;
+}
+
+.received_msg {
+  display: inline-block;
+  padding: 0 0 0 10px;
+  vertical-align: bottom;
+  width: 92%;
+}
+
+.received_width_msg p {
+  background: gray;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 14px;
+  margin: 0;
+  padding: 5px 10px 5px 12px;
+  width: fit-content;
+  float: left;
+}
+
+.received_width_msg {
+  width: 90%;
+}
+
+.sent_msg p {
+  background: royalblue;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 14px;
+  margin: 0 1% 0 0;
+  padding: 5px 10px 5px 12px;
+  width: fit-content;
+  float: right;
+}
+
+
+.sent_msg {
+  float: right;
+  width: 90%;
+}
+
+#inner1 {
+  float:left;
+}
+
+#inner2{
+  float:left;
+  clear: left;
+}
+
