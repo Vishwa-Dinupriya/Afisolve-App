@@ -1,0 +1,106 @@
+<!-------------Details of the selected complaint------------------>
+
+<div [hidden]="false">
+  <mat-tab-group animationDuration="1000ms" [selectedIndex]="tabIndex">
+    <mat-tab label="General Details">
+      <div>
+
+        <mat-list *ngIf="!!COMPLAINT_DETAILS_DATA">
+
+          <mat-list-item>
+            <div class=" w-25">Complaint ID - Sub Complaint ID: </div>
+            <div class="text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.complaintID; else complaintIDBlock"><i> Not Available</i></span>
+              <ng-template #complaintIDBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.complaintID+' - '+COMPLAINT_DETAILS_DATA.subComplaintID }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
+
+          <mat-list-item>
+            <div class=" w-25">Product ID: </div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.productID; else productIDBlock"><i> Not Available</i></span>
+              <ng-template #productIDBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.productID }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
+
+          <mat-list-item>
+            <div class=" w-25">Description: </div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.description; else descriptionBlock"><i> Not Available</i></span>
+              <ng-template #descriptionBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.description }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
+
+          <mat-list-item>
+            <div class=" w-25">Starting Progress At: </div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.wipStartDate; else wipStartDateBlock"><i> Not Available</i></span>
+              <ng-template #wipStartDateBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.wipStartDate }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
+
+          <mat-list-item>
+            <div class=" w-25">Finished At: </div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.finishedDate; else finishedDateBlock"><i> Not Available</i></span>
+              <ng-template #finishedDateBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.finishedDate }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
+
+          <mat-list-item>
+              <div class=" w-25">Project Manager Name:</div>
+              <div class=" text-secondary w-75">
+                <span *ngIf="!COMPLAINT_DETAILS_DATA.projectManagerFirstName; else projectManagerNameBlock"><i> Not Available</i></span>
+                <ng-template #projectManagerNameBlock>
+                  <span> {{ COMPLAINT_DETAILS_DATA.projectManagerFirstName + ' ' + COMPLAINT_DETAILS_DATA.projectManagerLastName  }} <br/></span>
+                </ng-template>
+              </div>
+            </mat-list-item>
+
+          <div>
+            <mat-list-item>
+            <div class=" w-25">Project Manager Email:</div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.projectManagerEmail; else projectManagerEmailBlock"><i> Not Available</i></span>
+              <ng-template #projectManagerEmailBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.projectManagerEmail }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div class=" w-25">Project Manager Contact Number:</div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.projectManagerContactNumber; else projectManagerContactNumberBlock"><i> Not Available</i></span>
+              <ng-template #projectManagerContactNumberBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.projectManagerContactNumber }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
+          </div>
+        </mat-list>
+      </div>
+
+      <!--Dispaly message When unable to get the complaint ID-->
+      <div [hidden]="ComplaintIdAvailable">
+        <i> Requested Complaint Id is null</i>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+  <!--Navigate back to all complaints table-->
+  <button class="btn btn-primary" (click)="backToAllComplaints()" [hidden]="!accoorcomplaintService.isComplaintProfileMode">
+    <mat-icon>arrow_back_ios</mat-icon>
+    Complaints
+  </button>
+</div>
+
