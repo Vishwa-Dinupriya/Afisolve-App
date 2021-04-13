@@ -1,0 +1,68 @@
+<!----------------------------Displaying Product Details------------------------------->
+<mat-card class="m-5 shadow">
+  <mat-tab-group animationDuration="1000ms">
+
+    <mat-tab label="Product Details">
+
+      <!--Filter-->
+      <mat-form-field class="w-75 m-3">
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Ex.Developer Name" (keyup)="applyFilterAll($event)">
+      </mat-form-field>
+
+      <table mat-table [dataSource]="dataSourceProd" class="w-100" >
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="productID">
+          <th mat-header-cell *matHeaderCellDef> Product Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="productName">
+          <th mat-header-cell *matHeaderCellDef> Product Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+        </ng-container>
+
+        <!-- Category Column -->
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef> Product Category</th>
+          <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+        </ng-container>
+
+        <!-- Customer Name Column -->
+        <ng-container matColumnDef="CusName">
+          <th mat-header-cell *matHeaderCellDef> Customer Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.CusName}} </td>
+        </ng-container>
+
+        <!-- Company Name Column -->
+        <ng-container matColumnDef="companyName">
+          <th mat-header-cell *matHeaderCellDef> Company Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.companyName}} </td>
+        </ng-container>
+
+        <!-- Customer Email Column -->
+        <ng-container matColumnDef="customerEmail">
+          <th mat-header-cell *matHeaderCellDef> Customer Email</th>
+          <td mat-cell *matCellDef="let element"> {{element.customerEmail}} </td>
+        </ng-container>
+
+        <!-- Contact Number Column -->
+        <ng-container matColumnDef="contactNumber">
+          <th mat-header-cell *matHeaderCellDef> Contact</th>
+          <td mat-cell *matCellDef="let element"> {{element.contactNumber}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedProd"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedProd;"></tr>
+      </table>
+
+      <!--Select number of raws per page-->
+      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>
+

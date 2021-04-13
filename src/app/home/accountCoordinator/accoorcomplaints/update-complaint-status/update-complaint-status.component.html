@@ -1,0 +1,35 @@
+<div class="container-fluid">
+
+  <form [formGroup]="updateComplaintStatusForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
+
+    <div class="row">
+
+      <mat-form-field class="col-auto" appearance="outline">
+        <mat-label>Complaint ID</mat-label>
+        <input type="text" matInput formControlName="complaintID" placeholder="Complaint ID">
+      </mat-form-field>
+
+      <mat-form-field class="col-auto" appearance="outline">
+        <mat-label>Sub Complaint ID</mat-label>
+        <input type="text" matInput formControlName="subComplaintID" placeholder="Sub Complaint ID">
+      </mat-form-field>
+
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Status</mat-label>
+        <mat-select  formControlName="complaintStatus" multiple="false">
+          <mat-option *ngFor="let status of complaintStatusList; let i = index" [value]="status">{{status}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="!updateComplaintStatusForm.valid">Update</button>
+
+  </form>
+
+</div>
+
+
+
