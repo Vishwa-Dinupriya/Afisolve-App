@@ -1,25 +1,19 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import Swal from 'sweetalert2';
-import {PastnameService} from '../../pastname.service';
+import {PastnameService} from '../../../projectManager/pastname.service';
 import {FormBuilder} from '@angular/forms';
 
 @Component({
-  selector: 'app-action',
-  templateUrl: './action.component.html',
-  styleUrls: ['./action.component.css']
+  selector: 'app-caction',
+  templateUrl: './caction.component.html',
+  styleUrls: ['./caction.component.css']
 })
-// tslint:disable-next-line:class-name
-
-export class ActionComponent implements OnInit {
-
-
-
+export class CactionComponent implements OnInit {
   accdata;
   selectedValue: any;
   message: any;
-  constructor(private http1: HttpClient, private pastname: PastnameService, private fb1: FormBuilder, ) {
-  }
+  constructor(private http1: HttpClient, private pastname: PastnameService, private fb1: FormBuilder, ){ }
 
   ngOnInit(): void {
     this.getData1();
@@ -27,7 +21,7 @@ export class ActionComponent implements OnInit {
 
   // account coordinatorlage names
   getData1(): void {
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-account-coordinaters-details`, {}).subscribe(
+    this.http1.get<any>(`http://localhost:3000/ceo/get-account-coordinaters-details`, {}).subscribe(
       response => {
         this.accdata = response.data;
         console.log(this.accdata);
@@ -66,23 +60,21 @@ export class ActionComponent implements OnInit {
   // tslint:disable-next-line:typedef
   givenewName() {
     console.log(this.selectedValue);
-    this.pastname.newacname(this.selectedValue)
+    this.pastname.cnewacname(this.selectedValue)
       .subscribe(
         response => {
           console.log('Success!(frontend)', response);
         },
         error => console.error('Error!(frontend)', error)
       );
-    this.pastname.updatehistory(this.selectedValue)
+    this.pastname.cupdatehistory(this.selectedValue)
       .subscribe(
         response => {
           console.log('Success!(frontend)', response);
         },
         error => console.error('Error!(frontend)', error)
       );
-
   }
 
 
 }
-

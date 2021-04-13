@@ -1,17 +1,15 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
-import {PastnameService} from '../pastname.service';
-import {forbiddenNameValidator2} from '../../../authentication/shared/user-name.validator';
+import {PastnameService} from '../../projectManager/pastname.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'app-chat',
+  templateUrl: './chat.component.html',
+  styleUrls: ['./chat.component.css']
 })
-export class ProfileComponent implements OnInit {
-  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+export class ChatComponent implements OnInit {
 
   get massege(): AbstractControl {
     return this.msgForm.get('massege');
@@ -20,14 +18,13 @@ export class ProfileComponent implements OnInit {
   constructor(private router: Router,
               private http1: HttpClient, private pastname: PastnameService, private fb1: FormBuilder, ) {
   }
-   dataSourcemsge: any;
+  dataSourcemsge: any;
 
   // tslint:disable-next-line:typedef
   msgForm: any;
 
   ngOnInit(): void {
     this.getdata();
-    this.scrollToBottom();
     this.pastname.refreshNeededformsg$
       .subscribe(() => {
         this.getdata();
@@ -38,7 +35,7 @@ export class ProfileComponent implements OnInit {
   }
   // tslint:disable-next-line:typedef
   getdata(){
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-message`, {}).subscribe(
+    this.http1.get<any>(`http://localhost:3000/ceo/get-message`, {}).subscribe(
       response => {
         this.dataSourcemsge = response.data;
         console.log(this.dataSourcemsge);
@@ -50,7 +47,7 @@ export class ProfileComponent implements OnInit {
   // tslint:disable-next-line:typedef
   onMsg() {
     console.log(this.msgForm.value);
-    this.pastname.newmsg(this.msgForm.value)
+    this.pastname.cnewmsg(this.msgForm.value)
       .subscribe(
         response => {
           console.log('Success!(frontend)', response);
@@ -59,12 +56,4 @@ export class ProfileComponent implements OnInit {
       );
   }
 
-  scrollToBottom(): void {
-    try {
-      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    } catch (err) { }
-  }
-
-
 }
-

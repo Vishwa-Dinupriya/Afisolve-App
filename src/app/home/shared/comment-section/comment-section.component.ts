@@ -18,6 +18,7 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
 
   @Input() complaintIdInput: number;
   @Input() senderRole: string;
+  currentUserEmail;
 
   public showLoader = false;
   private subscription: Subscription;
@@ -58,6 +59,7 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
   }
 
   ngOnInit(): void {
+    this.currentUserEmail = localStorage.getItem('userEmail');
     this.chatBoxHeight = 100;
     this.scrollToBottom();
     this.setTimer();
