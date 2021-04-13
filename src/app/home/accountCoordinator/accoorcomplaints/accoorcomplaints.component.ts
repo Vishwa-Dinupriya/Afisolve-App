@@ -27,7 +27,7 @@ export class AccoorcomplaintsComponent implements OnInit {
   dataSource1: MatTableDataSource<IAllComp>;
   ALLCOMPLAINTS_DATA: IAllComp[];
   // Displaying Pending Complaints
-  displayedColumns3: string[] = ['complaintID', 'subComplaintID', 'productID', 'productName', 'submittedDate' , 'lastDateOfPending', 'details'];
+  displayedColumns3: string[] = ['complaintID', 'subComplaintID', 'productID', 'productName', 'submittedDate' , 'lastDateOfPending', 'Comment', 'details'];
   dataSource3;
   // Displaying InProgress Complaints
   displayedColumns4: string[] = ['complaintID', 'subComplaintID', 'productID', 'productName', 'submittedDate' , 'wipStartDate', 'details'];
@@ -43,7 +43,9 @@ export class AccoorcomplaintsComponent implements OnInit {
   selectedComplaintID;
   selectedsubComplaintID;
   complainIDParent: string;
-
+  complaintIdToCommentSection;
+  // subComplaintIdToCommentSection;
+  //
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   //
@@ -57,6 +59,7 @@ export class AccoorcomplaintsComponent implements OnInit {
   ngOnInit(): void {
     this.accoorcomplaintService.ChangeAddComplaintModeBooleanSubjectValue(false);
     this.accoorcomplaintService.ChangeComplaintProfileModeBooleanSubjectValue(false);
+    this.accoorcomplaintService.changeIsCommentSectionModeSubjectBooleanValue(false);
   }
   // tslint:disable-next-line:use-lifecycle-interface
   ngAfterViewInit(): void {
@@ -130,6 +133,11 @@ export class AccoorcomplaintsComponent implements OnInit {
     this.selectedComplaintID = id;
     this.selectedsubComplaintID = subid;
     this.accoorcomplaintService.ChangeComplaintProfileModeBooleanSubjectValue(true);
+  }
+  redirectToCommentSection(complaintID: number): void {
+    this.complaintIdToCommentSection = complaintID;
+   // this.subComplaintIdToCommentSection = subComplaintID;
+    this.accoorcomplaintService.changeIsCommentSectionModeSubjectBooleanValue(true);
   }
   changeMode(value: boolean): void {
     this.accoorcomplaintService.ChangeAddComplaintModeBooleanSubjectValue(!value);
