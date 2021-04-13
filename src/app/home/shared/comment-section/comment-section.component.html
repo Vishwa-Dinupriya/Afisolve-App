@@ -19,7 +19,7 @@
           <div [hidden]="dataSourceComments.length === 0" class="msg_history" [style.height.%]="chatBoxHeight"
                #scrollBottom>
             <li class="message" *ngFor="let comment of dataSourceComments">
-              <div *ngIf="  comment.senderEmail !== 'admin@gmail.com';  then incoming_msg; else outgoing_msg"></div>
+              <div *ngIf="  comment.senderEmail !== currentUserEmail;  then incoming_msg; else outgoing_msg"></div>
               <ng-template #incoming_msg>
                 <div class="incoming_msg_img">
                   <img style="width: 100%; margin-top: 40%;"

@@ -43,7 +43,6 @@ import { ActionComponent } from './home/projectManager/late-complaint-informatio
 import {ImageCropperModule} from 'ngx-image-cropper';
 import {TestComponent} from './home/admin/test/test.component';
 
-import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -84,6 +83,7 @@ import { UserProfileForAdminPurposeComponent } from './home/admin/users/user-pro
 import { UploadPictureComponent } from './home/shared/upload-picture/upload-picture.component';
 import { DialogBoxSelectPictureComponent } from './home/shared/dialog-box-select-picture/dialog-box-select-picture.component';
 import { CommentSectionComponent } from './home/shared/comment-section/comment-section.component';
+import { OtpDialogBoxComponent } from './authentication/shared/otp-dialog-box/otp-dialog-box.component';
 
 
 
@@ -124,7 +124,7 @@ import { CommentSectionComponent } from './home/shared/comment-section/comment-s
     CviewreportsComponent,
     PdashboardComponent,
     CactionComponent,
-    ChatComponent
+    ChatComponent,
 
     DialogBoxComponent,
 
@@ -144,6 +144,7 @@ import { CommentSectionComponent } from './home/shared/comment-section/comment-s
     UploadPictureComponent,
     DialogBoxSelectPictureComponent,
     CommentSectionComponent,
+    OtpDialogBoxComponent,
 
   ],
   entryComponents: [DialogBoxComponent],
