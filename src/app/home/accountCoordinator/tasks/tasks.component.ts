@@ -1,85 +1,91 @@
-import { Component, OnInit , ViewChild} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
-
-
+import {MatDialog} from '@angular/material/dialog';
+import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
+import {TaskService} from './task.service';
 
 export interface IAllTask {
-  taskID: string;
-  complaintID: string;
-  subComplaintID: string;
+  taskID: number;
+  complaintID: number;
+  subComplaintID: number;
   assignDate: string;
   deadline: string;
   DevName: string;
   developerEmail: string;
 }
-
 export interface INewTask {
-  taskID: string;
-  complaintID: string;
-  subComplaintID: string;
+  taskID: number;
+  complaintID: number;
+  subComplaintID: number;
   assignDate: string;
   deadline: string;
   DevName: string;
   developerEmail: string;
 }
 export interface IIPTask {
-  taskID: string;
-  complaintID: string;
-  subComplaintID: string;
+  taskID: number;
+  complaintID: number;
+  subComplaintID: number;
   assignDate: string;
   deadline: string;
   DevName: string;
   developerEmail: string;
 }
 export interface ICompletedTask {
-  taskID: string;
-  complaintID: string;
-  subComplaintID: string;
+  taskID: number;
+  complaintID: number;
+  subComplaintID: number;
   assignDate: string;
   deadline: string;
   DevName: string;
   developerEmail: string;
 }
 
-
-
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css']
 })
-export class TasksComponent implements OnInit {
-  displayedColumnsAll: string[] = ['taskID', 'complaintID', 'subComplaintID', 'assignDate', 'deadline', 'DevName', 'developerEmail', 'details'];
+export class TasksComponent implements OnInit{
+  displayedColumnsAll: string[] = ['complaintID', 'subComplaintID', 'taskID',  'assignDate', 'deadline', 'DevName', 'developerEmail', 'details'];
   dataSourceAll: MatTableDataSource<IAllTask>;
   ALLTASK_DATA: IAllTask[];
-  ////////////////////////////////////////////
+  // --------------------------------------------------------------------- //
   displayedColumnsNew: string[] = ['taskID', 'complaintID', 'subComplaintID', 'assignDate', 'deadline', 'DevName', 'developerEmail', 'details'];
   dataSourceNew: MatTableDataSource<INewTask>;
   NEWTASK_DATA: INewTask[];
-  /////////////////////////////////////////////////
-  addTaskMode = false;
-  taskprofileMode = false;
-  //////////////////////////////////////////////////
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  taskIDParent: string;
-  ////////////////////////////////////////////
+  // --------------------------------------------------------------------- //
   displayedColumnsInProgress: string[] = ['taskID', 'complaintID', 'subComplaintID', 'assignDate', 'deadline', 'DevName', 'developerEmail', 'details'];
   dataSourceInProgress: MatTableDataSource<IIPTask>;
   IPTASK_DATA: IIPTask[];
-
+  // --------------------------------------------------------------------- //
   displayedColumnsCompleted: string[] = ['taskID', 'complaintID', 'subComplaintID',  'DevName', 'developerEmail', 'details'];
   dataSourceCompleted: MatTableDataSource<ICompletedTask>;
   COMPLETEDTASK_DATA: IAllTask[];
-
+  // --------------------------------------------------------------------- //
+  createTask = false;
+  selectedTaskID;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  taskIDParent: string;
+  // --------------------------------------------------------------------- //
   constructor( private router: Router,
-               private http1: HttpClient) { }
+               private http1: HttpClient,
+               private dialog: MatDialog,
+               public taskService: TaskService) {
+    this.taskService.createTaskModeBooleanSubject.subscribe(value => this.ngAfterViewInit());
+  }
 
   ngOnInit(): void {
+    this.taskService.ChangeCreateTaskModeBooleanSubjectValue(false);
+    this.taskService.ChangeTaskProfileModeBooleanSubjectValue(false);
+  }
+  // tslint:disable-next-line:use-lifecycle-interface
+   ngAfterViewInit(): void {
     this.http1.post<any>(`http://localhost:3000/accountCoordinator//get-Task-All-details`, {}).subscribe(
       response => {
         this.ALLTASK_DATA = response.data;
@@ -137,13 +143,14 @@ export class TasksComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceCompleted.filter = filterValue.trim().toLowerCase();
   }
-  public redirectToDetails(id: string): void {
-    this.taskIDParent = id;
-    console.log(this.taskIDParent);
-    this.taskprofileMode = true;
+  public redirectToDetails(id: number): void {
+    console.log(id);
+    this.selectedTaskID = id;
+    this.taskService.ChangeTaskProfileModeBooleanSubjectValue(true);
   }
-  public redirectToTasks(): void {
-    this.taskprofileMode = false;
+  changeMode(value: boolean): void {
+    this.taskService.ChangeCreateTaskModeBooleanSubjectValue(!value);
+    this.createTask = value;
   }
 
 }

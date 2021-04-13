@@ -1,39 +1,29 @@
-<div class="container-fluid" style="background-color:  #EBEDEF ">
-  <h1 align="center" style="">Add New Complaint</h1>
-  <form [formGroup]="AddComplaintForm">
-    <div class="form-group">
-      <div class="row">
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Complaint ID" required>
-        </div>
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Sub-Complaint ID" required>
-        </div>
-      </div>
+<!-------------------Add new complaint-------------------------------------->
+<div class="container-fluid">
+
+  <form [formGroup]="addComplaintForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
+
+    <div class="row">
+
+      <mat-form-field class="col-auto" appearance="outline">
+        <mat-label>Product ID</mat-label>
+        <input type="text" matInput formControlName="productID" placeholder="Product ID">
+      </mat-form-field>
     </div>
-    <div class="form-group">
-      <label for="exampleFormControlSelect1">Product :</label>
-      <select class="form-control" id="exampleFormControlSelect1" required>
-        <option>Product 1</option>
-        <option>Product 2</option>
-        <option>Product 3</option>
-      </select>
+
+    <div class="row">
+
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"  placeholder="Deascription"></textarea>
+      </mat-form-field>
+
     </div>
-    <div class="form-group">
-      <label for="exampleFormControlTextarea1">Description :</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-      <small id="passwordHelpBlock" class="form-text text-muted">
-        Enter a brief description about the complaint.
-      </small>
-    </div>
-    <div class="form-group" style="background-color: white">
-      <label for="exampleFormControlFile1">Upload Files :</label>
-      <input type="file" class="form-control-file" id="exampleFormControlFile1">
-      <small id="passwordHelpBlock2" class="form-text text-muted">
-        Attach if any type of files related to the complaint
-      </small>
-    </div>
-    <button class="btn btn-primary" type="submit">Submit</button>
+
+    <button class="btn btn-primary" type="submit" [disabled]="!addComplaintForm.valid">Enter</button>
 
   </form>
+
 </div>
+
+

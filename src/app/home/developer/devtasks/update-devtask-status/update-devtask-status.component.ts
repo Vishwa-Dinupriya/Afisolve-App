@@ -1,40 +1,39 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AccoorcomplaintsService} from '../accoorcomplaints/accoorcomplaints.service';
+import {DevtaskService} from '../devtask.service';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
+import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 
 @Component({
-  selector: 'app-mail',
-  templateUrl: './mail.component.html',
-  styleUrls: ['./mail.component.css']
+  selector: 'app-update-devtask-status',
+  templateUrl: './update-devtask-status.component.html',
+  styleUrls: ['./update-devtask-status.component.css']
 })
-
-export class MailComponent implements OnInit {
+export class UpdateDevtaskStatusComponent implements OnInit {
   @ViewChild('myForm') myForm;
-  MailForm: FormGroup;
+  taskStatusList = ['InProgress', 'Completed'];
 
+  updateDevTaskStatusForm: FormGroup;
 
   constructor(
     private fb1: FormBuilder,
-    private accoorcomplaintsService: AccoorcomplaintsService,
+    private devtaskService: DevtaskService,
     private http1: HttpClient,
     private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    this.MailForm = this.fb1.group({
-      subject: ['', [Validators.required]],
-      recMail: ['', [Validators.email, Validators.required]],
-      message: ['', [Validators.required]],
+    this.updateDevTaskStatusForm = this.fb1.group({
+      taskID: ['', [Validators.required]],
+      task_status: ['', [Validators.required]],
     });
   }
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
       data: {
-        title: 'Confirm!',
-        message: 'Do you want to send this mail ? ',
+        title: 'Confirm form submission!',
+        message: 'Do you want to update status ? ',
         name: ' ',
         button1: 'No',
         button2: 'Yes'
@@ -42,25 +41,30 @@ export class MailComponent implements OnInit {
     });
     dialogRef1.afterClosed().subscribe(result => {
       if (result === true) {
-        console.log(this.MailForm.value);
-        this.accoorcomplaintsService.sendMail(this.MailForm.value)
+        console.log(this.updateDevTaskStatusForm.value);
+        this.devtaskService.updatetaskstatus(this.updateDevTaskStatusForm.value)
           .subscribe(
             response => {
               const dialogRef2 = this.dialog.open(DialogBoxComponent, {
                 data: {
                   title: 'Success!',
-                  message: 'You have successfully sent the mail',
+                  message: 'You have successfully updated a task status',
                   name: ' ',
+                  button1: 'Back to tasks',
                   button2: 'Ok'
                 }
               });
-
               dialogRef2.afterClosed().subscribe(result2 => {
                 console.log(`Dialog result: ${result}`);
                 this.myForm.resetForm();
-               });
+                if (result2 === true) {
+
+                }});
             },
             error => console.error('Error!(frontend)', error)
-            );
+          );
       }});
-  }}
+  }
+
+
+}

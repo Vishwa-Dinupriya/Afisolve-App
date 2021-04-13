@@ -16,7 +16,6 @@
         <div mat-line>Complaints</div>
       </mat-list-option>
 
-
       <mat-list-option routerLink="devproducts"
                        [selected]="activeRoute === 'DevproductsComponent'"
                        [class.selected]="activeRoute === 'DevproductsComponent'">
@@ -24,19 +23,12 @@
         <div mat-line>Products</div>
       </mat-list-option>
 
-      <mat-list-option routerLink="mail"
-                       [selected]="activeRoute === 'MailComponent'"
-                       [class.selected]="activeRoute === 'MailComponent'">
-        <mat-icon mat-list-icon>mail</mat-icon>
-        <div mat-line>Mail</div>
-      </mat-list-option>
     </mat-selection-list>
   </mat-drawer>
 
   <mat-drawer-content class="w-100 h-100 m-0">
     <mat-drawer-content >
       <router-outlet (activate)="getRoute($event)" >
-        <!--complaints,-->
       </router-outlet>
     </mat-drawer-content>
   </mat-drawer-content>
