@@ -29,7 +29,6 @@
 
   <mat-tab-group animationDuration="1000ms">
 
-
     <!-- Displaying All tasks-->
     <mat-tab label="All">
 
@@ -41,43 +40,43 @@
 
       <table mat-table [dataSource]="dataSourceAll" class="w-100" >
 
-        <!-- Id Column -->
-        <ng-container matColumnDef="taskID">
-          <th mat-header-cell *matHeaderCellDef>Task Id</th>
-          <td mat-cell *matCellDef="let element"> {{element.taskID}} </td>
-        </ng-container>
-
-        <!-- SubId Column -->
+        <!-- complaint ID Column -->
         <ng-container matColumnDef="complaintID">
           <th mat-header-cell *matHeaderCellDef> Complaint ID</th>
           <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
         </ng-container>
 
-        <!-- ProductID Column-->
+        <!-- Sub complaint ID Column-->
         <ng-container matColumnDef="subComplaintID">
           <th mat-header-cell *matHeaderCellDef> Sub-Complaint ID</th>
           <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
         </ng-container>
 
-        <!-- Description Column -->
+        <!-- task Id Column -->
+        <ng-container matColumnDef="taskID">
+          <th mat-header-cell *matHeaderCellDef>Task Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.taskID}} </td>
+        </ng-container>
+
+        <!-- Assigned date Column -->
         <ng-container matColumnDef="assignDate">
           <th mat-header-cell *matHeaderCellDef> Assigned Date</th>
           <td mat-cell *matCellDef="let element"> {{element.assignDate}} </td>
         </ng-container>
 
-        <!-- Status Column-->
+        <!-- Deadline Column-->
         <ng-container matColumnDef="deadline">
           <th mat-header-cell *matHeaderCellDef> Deadline</th>
           <td mat-cell *matCellDef="let element"> {{element.deadline}} </td>
         </ng-container>
 
-        <!-- SubmittedDate Column-->
+        <!-- Developer Name Column-->
         <ng-container matColumnDef="DevName">
           <th mat-header-cell *matHeaderCellDef> Developer Name</th>
           <td mat-cell *matCellDef="let element"> {{element.DevName}} </td>
         </ng-container>
 
-        <!-- LastPending Column-->
+        <!-- Develoer Email Column-->
         <ng-container matColumnDef="developerEmail">
           <th mat-header-cell *matHeaderCellDef> Developer Email</th>
           <td mat-cell *matCellDef="let element"> {{element.developerEmail}} </td>
@@ -111,46 +110,45 @@
         <input matInput placeholder="Ex.Task ID" (keyup)="applyFilterNew($event)">
       </mat-form-field>
 
-
       <table mat-table [dataSource]="dataSourceNew" class="w-100" >
 
-        <!-- Id Column -->
+        <!--Task Id Column -->
         <ng-container matColumnDef="taskID">
           <th mat-header-cell *matHeaderCellDef>Task Id</th>
           <td mat-cell *matCellDef="let element"> {{element.taskID}} </td>
         </ng-container>
 
-        <!-- SubId Column -->
+        <!-- Complaint ID Column -->
         <ng-container matColumnDef="complaintID">
           <th mat-header-cell *matHeaderCellDef> Complaint ID</th>
           <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
         </ng-container>
 
-        <!-- ProductID Column-->
+        <!-- Sub complaint ID Column-->
         <ng-container matColumnDef="subComplaintID">
           <th mat-header-cell *matHeaderCellDef> Sub-Complaint ID</th>
           <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
         </ng-container>
 
-        <!-- Description Column -->
+        <!--Assigned date Column -->
         <ng-container matColumnDef="assignDate">
           <th mat-header-cell *matHeaderCellDef> Assigned Date</th>
           <td mat-cell *matCellDef="let element"> {{element.assignDate}} </td>
         </ng-container>
 
-        <!-- Status Column-->
+        <!--Deadline Column-->
         <ng-container matColumnDef="deadline">
           <th mat-header-cell *matHeaderCellDef> Deadline</th>
           <td mat-cell *matCellDef="let element"> {{element.deadline}} </td>
         </ng-container>
 
-        <!-- SubmittedDate Column-->
+        <!-- Developer Name Column-->
         <ng-container matColumnDef="DevName">
           <th mat-header-cell *matHeaderCellDef> Developer Name</th>
           <td mat-cell *matCellDef="let element"> {{element.DevName}} </td>
         </ng-container>
 
-        <!-- LastPending Column-->
+        <!-- Developer Email Column-->
         <ng-container matColumnDef="developerEmail">
           <th mat-header-cell *matHeaderCellDef> Developer Email</th>
           <td mat-cell *matCellDef="let element"> {{element.developerEmail}} </td>
@@ -175,8 +173,6 @@
 
     </mat-tab>
 
-
-
     <!-- Displaying In-Progress tasks-->
     <mat-tab label="In-Progress">
 
@@ -194,37 +190,37 @@
           <td mat-cell *matCellDef="let element"> {{element.taskID}} </td>
         </ng-container>
 
-        <!-- SubId Column -->
+        <!-- Complaint ID Column -->
         <ng-container matColumnDef="complaintID">
           <th mat-header-cell *matHeaderCellDef> Complaint ID</th>
           <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
         </ng-container>
 
-        <!-- ProductID Column-->
+        <!-- Sub complaint ID Column-->
         <ng-container matColumnDef="subComplaintID">
           <th mat-header-cell *matHeaderCellDef> Sub-Complaint ID</th>
           <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
         </ng-container>
 
-        <!-- Description Column -->
+        <!-- Assigned date Column -->
         <ng-container matColumnDef="assignDate">
           <th mat-header-cell *matHeaderCellDef> Assigned Date</th>
           <td mat-cell *matCellDef="let element"> {{element.assignDate}} </td>
         </ng-container>
 
-        <!-- Status Column-->
+        <!-- Deadline Column-->
         <ng-container matColumnDef="deadline">
           <th mat-header-cell *matHeaderCellDef> Deadline</th>
           <td mat-cell *matCellDef="let element"> {{element.deadline}} </td>
         </ng-container>
 
-        <!-- SubmittedDate Column-->
+        <!-- Developer Name Column-->
         <ng-container matColumnDef="DevName">
           <th mat-header-cell *matHeaderCellDef> Developer Name</th>
           <td mat-cell *matCellDef="let element"> {{element.DevName}} </td>
         </ng-container>
 
-        <!-- LastPending Column-->
+        <!-- Developer Email Column-->
         <ng-container matColumnDef="developerEmail">
           <th mat-header-cell *matHeaderCellDef> Developer Email</th>
           <td mat-cell *matCellDef="let element"> {{element.developerEmail}} </td>
@@ -264,25 +260,25 @@
           <td mat-cell *matCellDef="let element"> {{element.taskID}} </td>
         </ng-container>
 
-        <!-- SubId Column -->
+        <!-- Complaint ID Column -->
         <ng-container matColumnDef="complaintID">
           <th mat-header-cell *matHeaderCellDef> Complaint ID</th>
           <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
         </ng-container>
 
-        <!-- ProductID Column-->
+        <!-- Sub Complaint ID Column-->
         <ng-container matColumnDef="subComplaintID">
           <th mat-header-cell *matHeaderCellDef> Sub-Complaint ID</th>
           <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
         </ng-container>
 
-        <!-- SubmittedDate Column-->
+        <!-- Developer Name Column-->
         <ng-container matColumnDef="DevName">
           <th mat-header-cell *matHeaderCellDef> Developer Name</th>
           <td mat-cell *matCellDef="let element"> {{element.DevName}} </td>
         </ng-container>
 
-        <!-- LastPending Column-->
+        <!-- Developer Email Column-->
         <ng-container matColumnDef="developerEmail">
           <th mat-header-cell *matHeaderCellDef> Developer Email</th>
           <td mat-cell *matCellDef="let element"> {{element.developerEmail}} </td>
@@ -292,7 +288,7 @@
         <ng-container matColumnDef="details">
           <th mat-header-cell *matHeaderCellDef> Go To</th>
           <td mat-cell *matCellDef="let element">
-            <button mat-icon-button color="primary" (click)="redirectToDetails(element.complainID)">
+            <button mat-icon-button color="primary" (click)="redirectToDetails(element.taskID)">
               <mat-icon class="mat-18">description</mat-icon>
             </button>
           </td>
@@ -313,13 +309,6 @@
     <div [hidden]="!taskService.isTaskProfileMode" >
       <app-task-profile [taskIDChild] = selectedTaskID></app-task-profile>
     </div>
-
-    <!--
-    <button class="btn btn-primary" (click)="redirectToTasks()" [hidden]="!taskService.isTaskProfileMode">
-      <mat-icon>arrow_back_ios</mat-icon>
-      Back
-    </button>
-    -->
 
   </div>
 

@@ -1,6 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
+
+
+export interface IAll {
+  productID: number;
+  productName: string;
+  DevName: string;
+  developerEmail: string;
+  contactNumber: number;
+}
 
 @Component({
   selector: 'app-allocation',
@@ -8,22 +20,35 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./allocation.component.css']
 })
 export class AllocationComponent implements OnInit {
-  displayedAllo: string[] = ['productID', 'DevName', 'developerEmail'];
-  dataSourceAllo;
+  displayedAllo: string[] = ['productID', 'productName', 'DevName', 'developerEmail', 'contactNumber'];
+  dataSourceAllo: MatTableDataSource<IAll>;
+  ALL_DATA: IAll[];
 
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private router: Router,
               private http1: HttpClient) { }
 
-  ngOnInit(): void {
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngAfterViewInit(): void {
     this.http1.post<any>(`http://localhost:3000/accountCoordinator/get-allocation-details`, {}).subscribe(
-      response => {
-        this.dataSourceAllo = response.data;
-        console.log(this.dataSourceAllo);
+      response =>  {
+        this.ALL_DATA = response.data;
+        this.dataSourceAllo = new MatTableDataSource<IAll>(this.ALL_DATA);
+        this.dataSourceAllo.sort = this.sort;
+        this.dataSourceAllo.paginator = this.paginator;
       }, error => {
         console.log(error);
       }
     );
+  }
+  ngOnInit(): void {
+  }
+
+  applyFilterAll(event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceAllo.filter = filterValue.trim().toLowerCase();
   }
 
 }
