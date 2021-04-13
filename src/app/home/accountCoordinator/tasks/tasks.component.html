@@ -40,12 +40,6 @@
 
       <table mat-table [dataSource]="dataSourceAll" class="w-100" >
 
-        <!-- task Id Column -->
-        <ng-container matColumnDef="taskID">
-          <th mat-header-cell *matHeaderCellDef>Task Id</th>
-          <td mat-cell *matCellDef="let element"> {{element.taskID}} </td>
-        </ng-container>
-
         <!-- complaint ID Column -->
         <ng-container matColumnDef="complaintID">
           <th mat-header-cell *matHeaderCellDef> Complaint ID</th>
@@ -56,6 +50,12 @@
         <ng-container matColumnDef="subComplaintID">
           <th mat-header-cell *matHeaderCellDef> Sub-Complaint ID</th>
           <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
+        </ng-container>
+
+        <!-- task Id Column -->
+        <ng-container matColumnDef="taskID">
+          <th mat-header-cell *matHeaderCellDef>Task Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.taskID}} </td>
         </ng-container>
 
         <!-- Assigned date Column -->

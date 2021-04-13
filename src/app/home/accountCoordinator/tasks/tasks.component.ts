@@ -51,7 +51,7 @@ export interface ICompletedTask {
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit{
-  displayedColumnsAll: string[] = ['taskID', 'complaintID', 'subComplaintID', 'assignDate', 'deadline', 'DevName', 'developerEmail', 'details'];
+  displayedColumnsAll: string[] = ['complaintID', 'subComplaintID', 'taskID',  'assignDate', 'deadline', 'DevName', 'developerEmail', 'details'];
   dataSourceAll: MatTableDataSource<IAllTask>;
   ALLTASK_DATA: IAllTask[];
   // --------------------------------------------------------------------- //

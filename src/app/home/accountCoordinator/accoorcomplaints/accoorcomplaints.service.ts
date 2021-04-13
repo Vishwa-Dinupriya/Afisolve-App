@@ -12,6 +12,7 @@ export class AccoorcomplaintsService {
   addcomplaintUrl = 'http://localhost:3000/accountCoordinator/add-complaint';
   updatecomplaintstatusUrl = 'http://localhost:3000/accountCoordinator/update-common-complaint-status';
   updateStatusUrl = 'http://localhost:3000/accountCoordinator/update-selected-acccomplaint-profile-status';
+  sendMailUrl = 'http://localhost:3000/accountCoordinator/sendMail';
 
   addComplaintMode: boolean;
   isComplaintProfileMode: boolean;
@@ -45,5 +46,8 @@ export class AccoorcomplaintsService {
   }
   updateStatus(Status, ID, subID): Observable<any> {
     return this.http1.post<any>(this.updateStatusUrl, {complaintNewStatus: Status, compID: ID, subcompID: subID});
+  }
+  sendMail(userData): Observable<any> {
+    return this.http1.post<any>(this.sendMailUrl, userData);
   }
 }
