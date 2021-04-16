@@ -164,6 +164,17 @@
           </td>
         </ng-container>
 
+        <!-- Comment-section button Column -->
+        <ng-container matColumnDef="Comment">
+          <th mat-header-cell *matHeaderCellDef> Comments</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary"
+                    (click)="redirectToCommentSection(element.complaintID)">
+              <mat-icon class="mat-18">forum</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
       </table>
@@ -228,6 +239,18 @@
               </button>
             </td>
           </ng-container>
+
+        <!-- Comment-section button Column -->
+
+        <ng-container matColumnDef="Comment">
+          <th mat-header-cell *matHeaderCellDef> Comments</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary"
+                    (click)="redirectToCommentSection(element.complaintID)">
+              <mat-icon class="mat-18">forum</mat-icon>
+            </button>
+          </td>
+        </ng-container>
 
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
@@ -381,8 +404,14 @@
   <div [hidden]="!accoorcomplaintService.isComplaintProfileMode" >
     <app-accoorcomplaint-profile-current [complaintIDChild] = selectedComplaintID [subComplaintIDChild] = selectedsubComplaintID></app-accoorcomplaint-profile-current>
   </div>
+    <!--comment section-->
+    <div [hidden]="!accoorcomplaintService.isCommentSectionMode">
+      <app-comment-section [complaintIdInput]="complaintIdToCommentSection" [senderRole]="'accountCoordinator'"></app-comment-section>
+    </div>
 
   </div>
+
+
 
 </mat-card>
 

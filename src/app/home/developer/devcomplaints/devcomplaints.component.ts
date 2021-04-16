@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
+import {environment} from '../../../../environments/environment';
 
 
 export interface IAllComp {
@@ -21,7 +22,7 @@ export interface IAllComp {
   styleUrls: ['./devcomplaints.component.css']
 })
 export class DevcomplaintsComponent implements OnInit {
-  displayedComp: string[] = ['complaintID', 'subComplaintID', 'description', 'statusName'];
+  displayedComp: string[] = ['complaintID', 'subComplaintID', 'submittedDate', 'description', 'statusName'];
   dataSource1: MatTableDataSource<IAllComp>;
   ALLCOMPLAINTS_DATA: IAllComp[];
 
@@ -32,7 +33,7 @@ export class DevcomplaintsComponent implements OnInit {
               private http1: HttpClient) { }
 
   ngOnInit(): void {
-    this.http1.post<any>(`http://localhost:3000/developer/get-devComplaints-details`, {}).subscribe(
+    this.http1.post<any>(environment.developerApiUrl + `/get-devComplaints-details`, {}).subscribe(
       response => {
         this.ALLCOMPLAINTS_DATA = response.data;
         this.dataSource1 = new MatTableDataSource<IAllComp>(this.ALLCOMPLAINTS_DATA);

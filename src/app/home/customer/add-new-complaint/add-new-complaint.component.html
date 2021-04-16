@@ -1,43 +1,59 @@
 <mat-card class="m-5 shadow" style="height: 80%">
-  <mat-card-title >Lodge Complaint</mat-card-title>
+  <mat-card-title>Lodge Complaint</mat-card-title>
   <hr>
-<div class="h-auto">
-  <form [formGroup]="addComplaintForm" (ngSubmit)="saveChangesDialog()" class="mat-typography" #myForm="ngForm">
+  <div class="h-auto">
+    <form [formGroup]="addComplaintForm" (ngSubmit)="saveChangesDialog()" class="mat-typography" #myForm="ngForm">
 
-    <div class="row">
-      <mat-form-field appearance="outline" class="col-auto">
-        <mat-label>Select Product</mat-label>
-        <mat-select formControlName="productID" multiple="false">
-          <mat-option *ngFor="let productName of productNameList; let i = index"
-                      [value]="productIDList[i]">{{productNameList[i]}}</mat-option>
-        </mat-select>
-        <mat-error>Please select a product</mat-error>
-      </mat-form-field>
-    </div>
-    <!-------------------------------------------------------------------------------------------------------------->
-    <div class="row">
-      <mat-form-field class="col-xl-12 h-auto " appearance="outline">
-        <mat-label>Issue/Description</mat-label>
-        <textarea  type="text" matInput formControlName="description" [required]="true"></textarea>
-      </mat-form-field>
+      <div class="row">
+        <mat-form-field appearance="outline" class="col-auto">
+          <mat-label>Select Product</mat-label>
+          <mat-select formControlName="productID" multiple="false">
+            <mat-option *ngFor="let productName of productNameList; let i = index"
+                        [value]="productIDList[i]">{{productNameList[i]}}</mat-option>
+          </mat-select>
+          <mat-error>Please select a product</mat-error>
+        </mat-form-field>
+      </div>
+      <!-------------------------------------------------------------------------------------------------------------->
+      <div class="row">
+        <mat-form-field class="col-xl-12 h-auto " appearance="outline">
+          <mat-label>Issue/Description</mat-label>
+          <textarea type="text" matInput formControlName="description" [required]="true"></textarea>
+        </mat-form-field>
 
-    </div>
-    <!-------------------------------------------------------------------------------------------------------------->
-    <div class="row">
-      <mat-form-field appearance="outline" class="col-auto">
-        <mat-label>Category</mat-label>
-        <mat-select  formControlName="complaintCategory" multiple="true">
-          <mat-option *ngFor="let category of complaintCategoryList; let i = index" [value]="category">{{category}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <!-------------------------------------------------------------------------------------------------------------->
+      </div>
+      <!-------------------------------------------------------------------------------------------------------------->
 
-    <button class="btn btn-primary" type="button" [hidden]="!reqProductID" (click)="onCancelEdit()">Cancel</button>
-    <span></span>
-    <button class="btn btn-primary" style="float: right" type="submit"
-            [disabled]="!addComplaintForm.valid">Save
-    </button>
-  </form>
-</div>
+      <div>
+        <button class="mb-lg-5 border h-100 " style="width: 30%;" type="button" mat-stroked-button color=""
+                (click)="openDialog(-1)"
+                matTooltip="Click to add new image">
+          <mat-icon>add_photo_alternate</mat-icon>
+          <span> Add Images</span>
+        </button>
+      </div>
+
+      <div style="overflow: hidden;">
+        <div *ngFor="let image of imageAttachments; let i = index"
+             style="float:left; margin-right: 5px; max-width: 20%;max-height: 20%;">
+          <button style="  border: 0px;" type="button" mat-stroked-button color=""
+                  (click)="openDialog(i)" matTooltip="Click to change a selected image">
+            <mat-icon [hidden]="this.imageAttachments[i]">add_photo_alternate</mat-icon>
+            <img class="m-1" [hidden]="!this.imageAttachments[i]" width="95%" height="95%" style="border-radius:10% "
+                 [src]="this.imageAttachments[i]">
+          </button>
+          <button mat-button (click)="removeSelectedImage(i)" class="ml-5" matTooltip="Click to remove this image">
+            Remove
+          </button>
+        </div>
+      </div>
+      <!-------------------------------------------------------------------------------------------------------------->
+
+      <button class="btn btn-primary" type="button" [hidden]="!reqProductID" (click)="onCancelEdit()">Cancel</button>
+      <span></span>
+      <button class="btn btn-primary" style="margin-left: 92%" type="submit"
+              [disabled]="!addComplaintForm.valid">Save
+      </button>
+    </form>
+  </div>
 </mat-card>

@@ -1,0 +1,62 @@
+  <mat-card style="max-width:450px; margin: -20px">
+
+  <div class="card-header m-0 d-flex justify-content-between">
+
+    <div class="mt-2 mat-typography">
+      <b><h2>Upload Picture</h2></b>
+    </div>
+
+    <div>
+      <a mat-icon-button mat-dialog-close style="float: right">
+        <mat-icon>close</mat-icon>
+      </a>
+    </div>
+
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div style="height: 350px; width: 100%; ">
+
+    <img *ngIf="!imageChangedEvent && this.currentPicture"  style="height: 350px; width: 100%"  class="card-image p-0 m-1"
+         [src]="this.currentPicture" alt="profile Picture"/>
+
+    <img *ngIf="!imageChangedEvent && !this.currentPicture"  style="height: 350px; width: 100%"  class="card-image p-0 m-1"
+         src="../../../../assets/img/default-profile-picture.png" alt="profile Picture"/>
+
+    <image-cropper *ngIf="imageChangedEvent"
+                   [imageChangedEvent]="imageChangedEvent"
+                   [maintainAspectRatio]="false"
+                   [aspectRatio]="1"
+                   format="png"
+                   (imageCropped)="imageCropped($event)"
+                   class="card-image p-0 m-1"></image-cropper>
+  </div>
+
+
+  <div class="card-body p-0">
+
+    <div *ngIf="error" class="alert alert-danger m-2">{{ error }}</div>
+
+    <div class="d-flex flex-row-reverse">
+
+      <input #fileUpload type="file" (change)="fileChangeEvent($event)" (click)="inputBTNClicked()" style="display: none"  />
+
+      <button *ngIf="!imageChangedEvent" mat-button type="button" class="my-2 mx-1" (click)="clickFileUpload()">Select
+        an Image
+      </button>
+
+      <button *ngIf="imageChangedEvent" mat-button type="button" class="my-2 mx-1" (click)="clickFileUpload()">Change
+        Image
+      </button>
+
+      <button *ngIf="imageChangedEvent" mat-button color="primary" (click)="onFileSelected()" type="button"
+              class="my-2 mx-1">
+        <span *ngIf="savingData" class="spinner-border spinner-border-sm mr-1"></span>
+        Done
+      </button>
+
+    </div>
+
+  </div>
+  </mat-card>

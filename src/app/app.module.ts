@@ -6,9 +6,9 @@ import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthenticationComponent} from './authentication/authentication.component';
 import {LoginComponent} from './authentication/login/login.component';
-import {SignupComponent} from './authentication/signup/signup.component';
+import {ProfilePictureDialogComponent, SignupComponent} from './authentication/signup/signup.component';
 import {MaterialModule} from './material/material.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AccountCoordinatorComponent} from './home/accountCoordinator/account-coordinator.component';
 import {AuthenticationService} from './authentication/authentication.service';
@@ -42,17 +42,29 @@ import {DevtaskService} from './home/developer/devtasks/devtask.service';
 
 import {ProductService} from './home/admin/products/product.service';
 import {MatGridListModule} from '@angular/material/grid-list';
+
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 import {MatDialogModule} from '@angular/material/dialog';
 
-import {LateComplaintInformationComponent} from './home/projectManager/late-complaint-information/late-complaint-information.component';
-import {ViewReportsComponent} from './home/projectManager/view-reports/view-reports.component';
-import {ProfileComponent} from './home/projectManager/profile/profile.component';
-import {ActionComponent} from './home/projectManager/late-complaint-information/action/action.component';
 
-import {ProfilePictureComponent} from './home/shared/profile/profile-picture/profile-picture.component';
+import { LateComplaintInformationComponent } from './home/projectManager/late-complaint-information/late-complaint-information.component';
+import { ViewReportsComponent } from './home/projectManager/view-reports/view-reports.component';
+import { ProfileComponent } from './home/projectManager/profile/profile.component';
+import { ActionComponent } from './home/projectManager/late-complaint-information/action/action.component';
+
 import {ImageCropperModule} from 'ngx-image-cropper';
 import {TestComponent} from './home/admin/test/test.component';
-import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
+
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatBadgeModule} from '@angular/material/badge';
+
+
+
+
+
 import {UserProfileComponent} from './home/shared/user-profile/user-profile.component';
 import {ComplaintProfileComponent} from './home/shared/complaint-profile/complaint-profile.component';
 import {ProductProfileComponent} from './home/shared/product-profile/product-profile.component';
@@ -63,6 +75,15 @@ import { DevtasksComponent } from './home/developer/devtasks/devtasks.component'
 import { DevcomplaintsComponent } from './home/developer/devcomplaints/devcomplaints.component';
 import { DevproductsComponent } from './home/developer/devproducts/devproducts.component';
 import { TaskProfileComponent } from './home/accountCoordinator/tasks/task-profile/task-profile.component';
+
+
+
+import { CdashboardComponent } from './home/ceo/cdashboard/cdashboard.component';
+import { ClateComponent } from './home/ceo/clate/clate.component';
+import { CviewreportsComponent } from './home/ceo/cviewreports/cviewreports.component';
+import { PdashboardComponent } from './home/projectManager/pdashboard/pdashboard.component';
+import { CactionComponent } from './home/ceo/clate/caction/caction.component';
+import { ChatComponent } from './home/ceo/chat/chat.component';
 
 
 
@@ -81,12 +102,20 @@ import { ClosedComplaintsComponent } from './home/customer/complaints-customer/c
 import { ReviewDialogBoxComponent } from './home/customer/complaints-customer/completed-complaints/review-dialog-box/review-dialog-box.component';
 import { LodgeSubComplaintComponent } from './home/customer/complaints-customer/completed-complaints/lodge-sub-complaint/lodge-sub-complaint.component';
 import { UserProfileForAdminPurposeComponent } from './home/admin/users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
-import { AccoorcomplaintProfileComponent } from './home/accountCoordinator/accoorcomplaints/accoorcomplaint-profile/accoorcomplaint-profile.component';
+
+import { UploadPictureComponent } from './home/shared/upload-picture/upload-picture.component';
+import { DialogBoxSelectPictureComponent } from './home/shared/dialog-box-select-picture/dialog-box-select-picture.component';
+import { CommentSectionComponent } from './home/shared/comment-section/comment-section.component';
+import { OtpDialogBoxComponent } from './authentication/shared/otp-dialog-box/otp-dialog-box.component';
+
+
+
 import { UpdateComplaintStatusComponent } from './home/accountCoordinator/accoorcomplaints/update-complaint-status/update-complaint-status.component';
 import { AccoorcomplaintProfileCurrentComponent } from './home/accountCoordinator/accoorcomplaints/accoorcomplaint-profile-current/accoorcomplaint-profile-current.component';
 import { AccoorproductsComponent } from './home/accountCoordinator/accoorproducts/accoorproducts.component';
 import { DevtasksProfileComponent } from './home/developer/devtasks/devtasks-profile/devtasks-profile.component';
 import { UpdateDevtaskStatusComponent } from './home/developer/devtasks/update-devtask-status/update-devtask-status.component';
+
 
 
 @NgModule({
@@ -108,29 +137,43 @@ import { UpdateDevtaskStatusComponent } from './home/developer/devtasks/update-d
     ComplaintsComponent,
     ProductsComponent,
     RegisterProductComponent,
+
     TasksComponent,
     AccoorcomplaintsComponent,
     AddComplaintComponent,
     CreateTaskComponent,
     AllocationComponent,
     MailComponent,
+
+    // AccoortestComponent,
+
+    ProfilePictureDialogComponent,
+
+
     LateComplaintInformationComponent,
     ViewReportsComponent,
     ProfileComponent,
     ActionComponent,
 
-    ProfilePictureComponent,
     TestComponent,
-    TestSortingComponent,
     UserProfileComponent,
     ComplaintProfileComponent,
     ProductProfileComponent,
     FeedbackProfileComponent,
+
+    CdashboardComponent,
+    ClateComponent,
+    CviewreportsComponent,
+    PdashboardComponent,
+    CactionComponent,
+    ChatComponent,
+
     DialogBoxComponent,
     DevtasksComponent,
     DevcomplaintsComponent,
     DevproductsComponent,
     TaskProfileComponent,
+
 
     ComplaintsCustomerComponent,
     DashboardCustomerComponent,
@@ -144,12 +187,19 @@ import { UpdateDevtaskStatusComponent } from './home/developer/devtasks/update-d
     ReviewDialogBoxComponent,
     LodgeSubComplaintComponent,
     UserProfileForAdminPurposeComponent,
-    AccoorcomplaintProfileComponent,
+
+    UploadPictureComponent,
+    DialogBoxSelectPictureComponent,
+    CommentSectionComponent,
+    OtpDialogBoxComponent,
+
+
     UpdateComplaintStatusComponent,
     AccoorcomplaintProfileCurrentComponent,
     AccoorproductsComponent,
     DevtasksProfileComponent,
     UpdateDevtaskStatusComponent,
+
 
   ],
   entryComponents: [DialogBoxComponent],
@@ -161,8 +211,17 @@ import { UpdateDevtaskStatusComponent } from './home/developer/devtasks/update-d
     HttpClientModule,
     MaterialModule,
     ImageCropperModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
     MatGridListModule,
+
+    MatBadgeModule,
+    MatCheckboxModule,
+
     MatDialogModule
+
   ],
   providers: [
     PageService,

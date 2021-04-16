@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {environment} from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DevtaskService {
-  updatetaskstatusUrl = 'http://localhost:3000/developer/update-devtask-status';
+  updatetaskstatusUrl = environment.developerApiUrl + '/update-devtask-status';
   isTaskProfileMode: boolean;
   taskIdParentValue: number;
   taskID: number;

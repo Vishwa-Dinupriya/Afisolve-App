@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {DevtaskService} from './devtask.service';
+import {environment} from '../../../../environments/environment';
 
 export interface IAllTask {
   taskID: number;
@@ -78,7 +79,7 @@ export class DevtasksComponent implements OnInit {
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngAfterViewInit(): void {
-    this.http1.post<any>(`http://localhost:3000/developer//get-Task-All-details`, {}).subscribe(
+    this.http1.post<any>(environment.developerApiUrl + `//get-Task-All-details`, {}).subscribe(
       response => {
         this.ALLTASK_DATA = response.data;
         this.dataSourceAll = new MatTableDataSource<IAllTask>(this.ALLTASK_DATA);
@@ -88,7 +89,7 @@ export class DevtasksComponent implements OnInit {
         console.log(error);
       }
     ),
-      this.http1.post<any>(`http://localhost:3000/developer//get-Task-Pending-details`, {}).subscribe(
+      this.http1.post<any>(environment.developerApiUrl + `//get-Task-Pending-details`, {}).subscribe(
         response => {
           this.PENDINGTASK_DATA = response.data;
           this.dataSourcePending = new MatTableDataSource<IPendingTask>(this.PENDINGTASK_DATA);
@@ -98,7 +99,7 @@ export class DevtasksComponent implements OnInit {
           console.log(error);
         }
       ),
-      this.http1.post<any>(`http://localhost:3000/developer//get-Task-InProgress-details`, {}).subscribe(
+      this.http1.post<any>(environment.developerApiUrl + `//get-Task-InProgress-details`, {}).subscribe(
         response => {
           this.IPTASK_DATA = response.data;
           this.dataSourceInProgress = new MatTableDataSource<IIPTask>(this.IPTASK_DATA);
@@ -108,7 +109,7 @@ export class DevtasksComponent implements OnInit {
           console.log(error);
         }
       ),
-      this.http1.post<any>(`http://localhost:3000/developer//get-Task-Completed-details`, {}).subscribe(
+      this.http1.post<any>(environment.developerApiUrl + `//get-Task-Completed-details`, {}).subscribe(
         response => {
           this.COMPLETEDTASK_DATA = response.data;
           this.dataSourceCompleted = new MatTableDataSource<ICompletedTask>(this.COMPLETEDTASK_DATA);

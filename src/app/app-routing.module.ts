@@ -39,12 +39,20 @@ import {ProfileComponent} from './home/projectManager/profile/profile.component'
 import {ActionComponent} from './home/projectManager/late-complaint-information/action/action.component';
 
 import {TestComponent} from './home/admin/test/test.component';
-import {TestSortingComponent} from './home/admin/test-sorting/test-sorting.component';
 import {UserProfileComponent} from './home/shared/user-profile/user-profile.component';
 
 import {DevcomplaintsComponent} from './home/developer/devcomplaints/devcomplaints.component';
 import {DevproductsComponent} from './home/developer/devproducts/devproducts.component';
 import {TaskProfileComponent} from './home/accountCoordinator/tasks/task-profile/task-profile.component';
+
+
+import {CdashboardComponent} from './home/ceo/cdashboard/cdashboard.component';
+import {ClateComponent} from './home/ceo/clate/clate.component';
+import {CviewreportsComponent} from './home/ceo/cviewreports/cviewreports.component';
+import {PdashboardComponent} from './home/projectManager/pdashboard/pdashboard.component';
+import {CactionComponent} from './home/ceo/clate/caction/caction.component';
+import {ChatComponent} from './home/ceo/chat/chat.component';
+
 
 import {DashboardCustomerComponent} from './home/customer/dashboard-customer/dashboard-customer.component';
 import {ComplaintsCustomerComponent} from './home/customer/complaints-customer/complaints-customer.component';
@@ -54,12 +62,15 @@ import {PendingComplaintsComponent} from './home/customer/complaints-customer/pe
 import {InProgressComplaintsComponent} from './home/customer/complaints-customer/in-progress-complaints/in-progress-complaints.component';
 import {CompletedComplaintsComponent} from './home/customer/complaints-customer/completed-complaints/completed-complaints.component';
 import {ClosedComplaintsComponent} from './home/customer/complaints-customer/closed-complaints/closed-complaints.component';
-import {AccoorcomplaintProfileComponent} from './home/accountCoordinator/accoorcomplaints/accoorcomplaint-profile/accoorcomplaint-profile.component';
+
+
+
 import {UpdateComplaintStatusComponent} from './home/accountCoordinator/accoorcomplaints/update-complaint-status/update-complaint-status.component';
 import {AccoorcomplaintProfileCurrentComponent} from './home/accountCoordinator/accoorcomplaints/accoorcomplaint-profile-current/accoorcomplaint-profile-current.component';
 import {AccoorproductsComponent} from './home/accountCoordinator/accoorproducts/accoorproducts.component';
 import {DevtasksProfileComponent} from './home/developer/devtasks/devtasks-profile/devtasks-profile.component';
 import {UpdateDevtaskStatusComponent} from './home/developer/devtasks/update-devtask-status/update-devtask-status.component';
+
 
 const routes: Routes = [
     {
@@ -146,10 +157,6 @@ const routes: Routes = [
                   component: UpdateComplaintStatusComponent
                 },
                 {
-                  path: 'accoorcomplaint-profile',
-                  component: AccoorcomplaintProfileComponent
-                },
-                {
                   path: 'accoorcomplaint-profile-current',
                   component: AccoorcomplaintProfileCurrentComponent
                 },
@@ -232,16 +239,36 @@ const routes: Routes = [
               path: 'test',
               component: TestComponent
             },
-            {
-              path: 'test-sorting',
-              component: TestSortingComponent
-            }
           ]
         },
         {
           path: 'ceo',
           component: CeoComponent,
-          canActivate: [AuthenticationGuard]
+          canActivate: [AuthenticationGuard],
+          children: [
+            {
+              path: 'cdashboard',
+              component: CdashboardComponent
+            },
+            {
+              path: 'clate',
+              component: ClateComponent,
+              children: [
+                {
+                  path: 'caction',
+                  component: CactionComponent
+                }
+               ]
+            },
+            {
+              path: 'cviewreports',
+              component: CviewreportsComponent
+            },
+            {
+              path: 'chat',
+              component: ChatComponent
+            },
+          ]
         },
         {
           path: 'developer',
@@ -277,6 +304,10 @@ const routes: Routes = [
           component: ProjectManagerComponent,
           canActivate: [AuthenticationGuard],
           children: [
+            {
+              path: 'pdashboard',
+              component: PdashboardComponent
+            },
             {
               path: 'late-complaint-information',
               component: LateComplaintInformationComponent,

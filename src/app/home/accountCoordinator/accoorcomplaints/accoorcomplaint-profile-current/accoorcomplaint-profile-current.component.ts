@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {AccoorcomplaintsService} from '../accoorcomplaints.service';
+import {environment} from '../../../../../environments/environment';
 
 export interface IComplaintDetailsAcc {
   complaintID: number;
@@ -39,7 +40,7 @@ export class AccoorcomplaintProfileCurrentComponent implements OnInit, AfterView
     this.tabIndex = 0;
     if (this.complaintIDChild) {
       this.ComplaintIdAvailable = true;
-      this.http1.post<any>(`http://localhost:3000/accountCoordinator/get-selected-accoorcomplaint-details-current`, {
+      this.http1.post<any>( environment.accountCoordinatorApiUrl + `/get-selected-accoorcomplaint-details-current`, {
         complaintID: this.complaintIDChild,
         subComplaintID: this.subComplaintIDChild
       })

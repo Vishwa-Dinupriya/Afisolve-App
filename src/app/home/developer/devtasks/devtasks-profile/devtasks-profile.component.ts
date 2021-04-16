@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {DevtaskService} from '../devtask.service';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
+import {environment} from '../../../../../environments/environment';
 
 export interface ITaskDetailsDev {
   taskID: number;
@@ -30,7 +31,7 @@ export class DevtasksProfileComponent implements OnInit, AfterViewInit, OnChange
     this.tabIndex = 0;
     if (this.devtaskIDChild) {
       this. taskIdAvailable = true;
-      this.http1.post<any>(`http://localhost:3000/developer/get-selected-task-details`, {
+      this.http1.post<any>(environment.developerApiUrl + `/get-selected-task-details`, {
         taskID: this.devtaskIDChild,
       })
         .subscribe(

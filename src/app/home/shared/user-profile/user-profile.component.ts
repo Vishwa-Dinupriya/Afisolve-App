@@ -9,6 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {DialogBoxComponent} from '../dialog-box/dialog-box.component';
 import {UsersService} from '../../admin/users/users.service';
 import {HomeService} from '../../home.service';
+import {DialogBoxSelectPictureComponent} from '../dialog-box-select-picture/dialog-box-select-picture.component';
 
 export interface IUserGeneral {
   lastLogin: string;
@@ -38,6 +39,8 @@ export class UserProfileComponent implements OnInit, OnChanges {
 
   USER_GENERAL_DATA: IUserGeneral;
 
+  title;
+  subtitle;
   hidePassword = true;
   hideConfirmPassword = true;
   edit = false;
@@ -51,6 +54,9 @@ export class UserProfileComponent implements OnInit, OnChanges {
   roleList: string[] = ['Customer', 'Account-Coordinator', 'Developer', 'Project-Manager', 'CEO', 'Admin'];
   selectedRoles: number [] = [];
 
+  currentProfilePicture;
+  newProfilePicture;
+
   matcher = new MyErrorStateMatcher();
 
   constructor(
@@ -60,18 +66,17 @@ export class UserProfileComponent implements OnInit, OnChanges {
     private http1: HttpClient,
     public dialog: MatDialog,
     public usersService1: UsersService,
-    public homeService: HomeService
+    public homeService: HomeService,
+    private authService: AuthenticationService
   ) {
   }
 
   ngOnInit(): void {
-    console.log('ngOn init');
     this.formBuildFunction();
   }
 
   ngOnChanges(): void {
     console.log(this.userEmailChild);
-    // this.formBuildFunction();
     if (this.userRegistrationForm) {
       console.log('form is build');
       this.tabIndex = '1';
@@ -81,7 +86,6 @@ export class UserProfileComponent implements OnInit, OnChanges {
   }
 
   formBuildFunction(): void {
-    console.log('form build func');
     this.userRegistrationForm = this.fb1.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
@@ -99,6 +103,8 @@ export class UserProfileComponent implements OnInit, OnChanges {
   createFormCopy(): void {
     this.userRegistrationFormCopy = Object.assign({}, this.userRegistrationForm.value);
     this.oldEmail = this.userRegistrationFormCopy.email;
+    this.title = this.userRegistrationFormCopy.firstName + ' ' + this.userRegistrationFormCopy.lastName;
+    this.subtitle = this.userRegistrationFormCopy.email;
     console.log('init form copy ');
     console.log(this.userRegistrationFormCopy);
     this.haveChanges = null;
@@ -109,6 +115,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
   subscribeToFormValChange(): void {
 
     if (this.userRegistrationFormCopy) {
+
       this.userRegistrationForm.valueChanges.subscribe(value => {
         if (this.userRegistrationFormCopy.firstName !== value.firstName ||
           this.userRegistrationFormCopy.lastName !== value.lastName ||
@@ -183,28 +190,55 @@ export class UserProfileComponent implements OnInit, OnChanges {
   }
 
   public saveChangesDialog(): void {
-    const dialogRef = this.dialog.open(DialogBoxComponent, {
-      data: {
-        title: 'Are you sure?',
-        message: 'Save changes with ' + this.oldEmail + '? ',
-        name: '',
-        button1: 'Cancel',
-        button2: 'Save'
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
-        console.log(`Dialog result: ${result}`);
-        this.onUpdate();
-      } else {
-        console.log(`Dialog result: ${result}`);
-      }
-    });
+    const oldEmail = this.userRegistrationFormCopy.email;
+    const updatedEmail = this.email.value;
+    const oldPassword = this.userRegistrationFormCopy.passwordGroup.password;
+    const updatedPassword = this.password.value;
+
+    if (oldEmail !== updatedEmail || oldPassword !== updatedPassword) {
+      const dialogRef = this.dialog.open(DialogBoxComponent, {
+        data: {
+          title: 'Are you sure?',
+          message: 'Save changes with ' + this.oldEmail + '? ' + 'Note: when you gonna update username or password, you have to re-login with new login credentials',
+          name: '',
+          button1: 'Cancel',
+          button2: 'Continue'
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === true) {
+          console.log(`Dialog result: ${result}`);
+          this.onUpdate();
+          this.authService.logout();
+        } else {
+          console.log(`Dialog result: ${result}`);
+        }
+      });
+
+    } else {
+      const dialogRef = this.dialog.open(DialogBoxComponent, {
+        data: {
+          title: 'Are you sure?',
+          message: 'Save changes with ' + this.oldEmail + '? ',
+          name: '',
+          button1: 'Cancel',
+          button2: 'Continue'
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === true) {
+          console.log(`Dialog result: ${result}`);
+          this.onUpdate();
+        } else {
+          console.log(`Dialog result: ${result}`);
+        }
+      });
+    }
   }
 
   getAndSetValues(): void {
     if (this.userEmailChild) {
-      this.http1.post<any>(`http://localhost:3000/admin//get-selected-user-profile-details`, {selectedUserEmail: this.userEmailChild})
+      this.http1.post<any>(`http://localhost:3000/home/get-my-profile-details`, {UserEmail: this.userEmailChild})
         .subscribe(
           response => {
             this.firstName.setValue(response.firstname);
@@ -216,6 +250,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
             this.selectedRoles = response.roles.map(value => value.roleID);
             this.defaultRole.setValue(response.defaultRoleID);
             this.contactNumber.setValue(response.contactNumber);
+            this.currentProfilePicture = 'data:image/png;base64,' + response.profilePhoto;
 
             this.createFormCopy();
             this.subscribeToFormValChange();
@@ -235,17 +270,21 @@ export class UserProfileComponent implements OnInit, OnChanges {
     const registrationForm = this.userRegistrationForm.value;
     registrationForm.firstName = this.capitalize(this.firstName.value);
     registrationForm.lastName = this.capitalize(this.lastName.value);
-    this.authenticationService.updateProfile(this.userRegistrationForm.value, this.oldEmail)
-      .subscribe(
-        response => {
-          console.log('Update Success!(frontend)', response);
-          this.edit = false;
-          this.getAndSetValues();
-        },
-        error => {
-          console.error('Update Error!(frontend)', error);
-        }
-      );
+    this.http1.post<any>('http://localhost:3000/home/update-my-profile-details', {
+      userNewData: this.userRegistrationForm.value,
+      emailOld: this.oldEmail,
+      newProfilePhoto_: this.newProfilePicture,
+
+    }).subscribe(
+      response => {
+        console.log('Update Success!(frontend)', response);
+        this.edit = false;
+        this.getAndSetValues();
+      },
+      error => {
+        console.error('Update Error!(frontend)', error);
+      }
+    );
   }
 
   capitalize(value: string): string {
@@ -255,6 +294,27 @@ export class UserProfileComponent implements OnInit, OnChanges {
   public backToAllUsers(): void {
     this.homeService.changeUserProfileModeBooleanSubject(false);
     this.homeService.changeUserEmailStringSubjectValue(null);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogBoxSelectPictureComponent, {
+      // width: '50%'
+      data: {
+        currentPicture: this.currentProfilePicture
+      }
+
+    });
+
+    dialogRef.afterClosed().subscribe(picture => {
+      this.newProfilePicture = picture;
+      console.log(this.newProfilePicture);
+      if (this.newProfilePicture !== '' && this.newProfilePicture !== this.currentProfilePicture) {
+        console.log('photos are different');
+        this.haveChanges = true;
+      }
+    });
+
+
   }
 
 }

@@ -10,8 +10,6 @@ import {HttpClient} from '@angular/common/http';
 export class DashboardComponent implements OnInit {
 
   displayedColumnsUsers: string[] = ['fullName', 'email'];
-  displayedColumnsComplaints: string[] = ['description', 'status'];
-
   dataSourceUsers;
   dataSourceComplaints;
 
@@ -37,13 +35,5 @@ export class DashboardComponent implements OnInit {
         console.log(error);
       }
     );
-  }
-
-  showMoreUsers(): void {
-
-  }
-
-  showMoreComplaints(): void {
-
   }
 }
