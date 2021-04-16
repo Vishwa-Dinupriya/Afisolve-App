@@ -3,6 +3,7 @@ import {TaskService} from '../task.service';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
+import {environment} from '../../../../../environments/environment';
 
 export interface ITaskDetailsAccoor {
   taskID: number;
@@ -29,7 +30,7 @@ TASK_DETAILS_DATA: ITaskDetailsAccoor;
     this.tabIndex = 0;
     if (this.taskIDChild) {
       this. taskIdAvailable = true;
-      this.http1.post<any>(`http://localhost:3000/accountCoordinator/get-selected-task-details`, {
+      this.http1.post<any>(environment.accountCoordinatorApiUrl + `/get-selected-task-details`, {
         taskID: this.taskIDChild,
       })
         .subscribe(

@@ -3,12 +3,13 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
+import {environment} from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  createtaskUrl = 'http://localhost:3000/accountCoordinator/create-task';
+  createtaskUrl = environment.accountCoordinatorApiUrl + '/create-task';
   createTaskMode: boolean;
   isTaskProfileMode: boolean;
   taskID: number;

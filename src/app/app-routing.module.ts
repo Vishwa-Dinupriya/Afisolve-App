@@ -65,7 +65,6 @@ import {ClosedComplaintsComponent} from './home/customer/complaints-customer/clo
 
 
 
-import {AccoorcomplaintProfileComponent} from './home/accountCoordinator/accoorcomplaints/accoorcomplaint-profile/accoorcomplaint-profile.component';
 import {UpdateComplaintStatusComponent} from './home/accountCoordinator/accoorcomplaints/update-complaint-status/update-complaint-status.component';
 import {AccoorcomplaintProfileCurrentComponent} from './home/accountCoordinator/accoorcomplaints/accoorcomplaint-profile-current/accoorcomplaint-profile-current.component';
 import {AccoorproductsComponent} from './home/accountCoordinator/accoorproducts/accoorproducts.component';
@@ -156,10 +155,6 @@ const routes: Routes = [
                 {
                   path: 'update-complaintStatus',
                   component: UpdateComplaintStatusComponent
-                },
-                {
-                  path: 'accoorcomplaint-profile',
-                  component: AccoorcomplaintProfileComponent
                 },
                 {
                   path: 'accoorcomplaint-profile-current',

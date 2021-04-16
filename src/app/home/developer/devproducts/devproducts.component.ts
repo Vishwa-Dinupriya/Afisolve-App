@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
+import {environment} from '../../../../environments/environment';
 
 export interface IAllProd {
   productID: string;
@@ -30,7 +31,7 @@ export class DevproductsComponent implements OnInit {
               private http1: HttpClient) { }
 
   ngOnInit(): void {
-    this.http1.post<any>(`http://localhost:3000/developer/get-devProducts-details`, {}).subscribe(
+    this.http1.post<any>(environment.developerApiUrl + `/get-devProducts-details`, {}).subscribe(
       response => {
         this.ALLPRODUCTS_DATA = response.data;
         this.dataSource1 = new MatTableDataSource<IAllProd>(this.ALLPRODUCTS_DATA);

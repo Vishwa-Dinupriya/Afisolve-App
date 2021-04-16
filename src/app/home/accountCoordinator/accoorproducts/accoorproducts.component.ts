@@ -4,14 +4,15 @@ import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
 
 export interface IAll {
   productID: number;
   productName: string;
   category: string;
   CusName: string;
-  companyName: string;
-  customerEmail: string;
+  // companyName: string;
+  userEmail: string;
   contactNumber: number;
 }
 
@@ -22,7 +23,7 @@ export interface IAll {
 })
 // Displayed columns
 export class AccoorproductsComponent implements OnInit {
-  displayedProd: string[] = ['productID', 'productName', 'category', 'CusName', 'companyName', 'customerEmail', 'contactNumber'];
+  displayedProd: string[] = ['productID', 'productName', 'category', 'CusName', 'userEmail', 'contactNumber'];
   dataSourceProd: MatTableDataSource<IAll>;
   ALL_DATA: IAll[];
 
@@ -33,7 +34,7 @@ export class AccoorproductsComponent implements OnInit {
               private http1: HttpClient) { }
   // tslint:disable-next-line:use-lifecycle-interface
   ngAfterViewInit(): void {
-    this.http1.post<any>(`http://localhost:3000/accountCoordinator/get-product-details`, {}).subscribe(
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + `/get-product-details`, {}).subscribe(
       response =>  {
         this.ALL_DATA = response.data;
         this.dataSourceProd = new MatTableDataSource<IAll>(this.ALL_DATA);

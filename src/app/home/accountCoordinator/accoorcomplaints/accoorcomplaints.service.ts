@@ -3,16 +3,17 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
+import {environment} from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccoorcomplaintsService {
   private isCreateTaskModeSubjectBoolean: Subject<boolean> = new Subject<boolean>();
-  addcomplaintUrl = 'http://localhost:3000/accountCoordinator/add-complaint';
-  updatecomplaintstatusUrl = 'http://localhost:3000/accountCoordinator/update-common-complaint-status';
-  updateStatusUrl = 'http://localhost:3000/accountCoordinator/update-selected-acccomplaint-profile-status';
-  sendMailUrl = 'http://localhost:3000/accountCoordinator/sendMail';
+  addcomplaintUrl = environment.accountCoordinatorApiUrl + '/add-complaint';
+  updatecomplaintstatusUrl = environment.accountCoordinatorApiUrl + '/update-common-complaint-status';
+  updateStatusUrl = environment.accountCoordinatorApiUrl + '/update-selected-acccomplaint-profile-status';
+  sendMailUrl = environment.accountCoordinatorApiUrl + '/sendMail';
 
   addComplaintMode: boolean;
   isComplaintProfileMode: boolean;

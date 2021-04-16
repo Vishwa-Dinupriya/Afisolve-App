@@ -6,6 +6,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
 import {AccoorcomplaintsService} from './accoorcomplaints.service';
+import {environment} from '../../../../environments/environment';
 
 export interface IAllComp {
   complaintID: number;
@@ -13,6 +14,30 @@ export interface IAllComp {
   productID: number;
   description: string;
   status: string;
+}
+export interface IPendingComp {
+  complaintID: number;
+  subComplaintID: number;
+  productID: number;
+  description: string;
+}
+export interface IIPComp {
+  complaintID: number;
+  subComplaintID: number;
+  productID: number;
+  description: string;
+}
+export interface ICompletedComp {
+  complaintID: number;
+  subComplaintID: number;
+  productID: number;
+  description: string;
+}
+export interface IClosedComp {
+  complaintID: number;
+  subComplaintID: number;
+  productID: number;
+  description: string;
 }
 @Component({
   selector: 'app-accoorcomplaints',
@@ -28,16 +53,20 @@ export class AccoorcomplaintsComponent implements OnInit {
   ALLCOMPLAINTS_DATA: IAllComp[];
   // Displaying Pending Complaints
   displayedColumns3: string[] = ['complaintID', 'subComplaintID', 'productID', 'productName', 'submittedDate' , 'lastDateOfPending', 'Comment', 'details'];
-  dataSource3;
+  dataSource3: MatTableDataSource<IPendingComp>;
+  PENDINGCOMPLAINTS_DATA: IPendingComp[];
   // Displaying InProgress Complaints
-  displayedColumns4: string[] = ['complaintID', 'subComplaintID', 'productID', 'productName', 'submittedDate' , 'wipStartDate', 'details'];
-  dataSource4;
+  displayedColumns4: string[] = ['complaintID', 'subComplaintID', 'productID', 'productName', 'submittedDate' , 'wipStartDate', 'Comment', 'details'];
+  dataSource4: MatTableDataSource<IIPComp>;
+  IPCOMPLAINTS_DATA: IIPComp[];
   // Displaying Completed Complaints
   displayedColumns5: string[] = ['complaintID', 'subComplaintID', 'productID', 'productName', 'submittedDate' , 'finishedDate', 'details'];
-  dataSource5;
+  dataSource5: MatTableDataSource<ICompletedComp>;
+  COMPLETEDCOMPLAINTS_DATA: ICompletedComp[];
   // Displaying Closed Complaints
   displayedColumns6: string[] = ['complaintID', 'subComplaintID', 'productID', 'productName',  'submittedDate' , 'finishedDate', 'details'];
-  dataSource6;
+  dataSource6: MatTableDataSource<IClosedComp>;
+  CLOSEDCOMPLAINTS_DATA: IClosedComp[];
 
   addComplaint = false;
   selectedComplaintID;
@@ -63,7 +92,7 @@ export class AccoorcomplaintsComponent implements OnInit {
   }
   // tslint:disable-next-line:use-lifecycle-interface
   ngAfterViewInit(): void {
-    this.http1.post<any>(`http://localhost:3000/accountCoordinator/get-accoorcomplaints-details`, {}).subscribe(
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + `/get-accoorcomplaints-details`, {}).subscribe(
       response => {
         this.ALLCOMPLAINTS_DATA = response.data;
         this.dataSource1 = new MatTableDataSource<IAllComp>(this.ALLCOMPLAINTS_DATA);
@@ -73,34 +102,42 @@ export class AccoorcomplaintsComponent implements OnInit {
         console.log(error);
       }
     ),
-      this.http1.post<any>(`http://localhost:3000/accountCoordinator/get-pending-accoorcomplaints-details`, {}).subscribe(
+      this.http1.post<any>(environment.accountCoordinatorApiUrl + `/get-pending-accoorcomplaints-details`, {}).subscribe(
         response => {
-          this.dataSource3 = response.data;
-          console.log(this.dataSource3);
+          this.PENDINGCOMPLAINTS_DATA = response.data;
+          this.dataSource3 = new MatTableDataSource<IPendingComp>(this.PENDINGCOMPLAINTS_DATA);
+          this.dataSource3.sort = this.sort;
+          this.dataSource3.paginator = this.paginator;
         }, error => {
           console.log(error);
         }
       ),
-      this.http1.post<any>(`http://localhost:3000/accountCoordinator/get-InProgress-accoorcomplaints-details`, {}).subscribe(
+      this.http1.post<any>(environment.accountCoordinatorApiUrl + `/get-InProgress-accoorcomplaints-details`, {}).subscribe(
         response => {
-          this.dataSource4 = response.data;
-          console.log(this.dataSource4);
+          this.IPCOMPLAINTS_DATA = response.data;
+          this.dataSource4 = new MatTableDataSource<IIPComp>(this.IPCOMPLAINTS_DATA);
+          this.dataSource4.sort = this.sort;
+          this.dataSource4.paginator = this.paginator;
         }, error => {
           console.log(error);
         }
       ),
-      this.http1.post<any>(`http://localhost:3000/accountCoordinator/get-Solved-accoorcomplaints-details`, {}).subscribe(
+      this.http1.post<any>(environment.accountCoordinatorApiUrl + `/get-Solved-accoorcomplaints-details`, {}).subscribe(
         response => {
-          this.dataSource5 = response.data;
-          console.log(this.dataSource5);
+          this.COMPLETEDCOMPLAINTS_DATA = response.data;
+          this.dataSource5 = new MatTableDataSource<ICompletedComp>(this.COMPLETEDCOMPLAINTS_DATA);
+          this.dataSource5.sort = this.sort;
+          this.dataSource5.paginator = this.paginator;
         }, error => {
           console.log(error);
         }
       ),
-      this.http1.post<any>(`http://localhost:3000/accountCoordinator/get-Closed-accoorcomplaints-details`, {}).subscribe(
+      this.http1.post<any>(environment.accountCoordinatorApiUrl + `/get-Closed-accoorcomplaints-details`, {}).subscribe(
         response => {
-          this.dataSource6 = response.data;
-          console.log(this.dataSource6);
+          this.CLOSEDCOMPLAINTS_DATA = response.data;
+          this.dataSource6 = new MatTableDataSource<IClosedComp>(this.CLOSEDCOMPLAINTS_DATA);
+          this.dataSource6.sort = this.sort;
+          this.dataSource6.paginator = this.paginator;
         }, error => {
           console.log(error);
         }
@@ -134,7 +171,7 @@ export class AccoorcomplaintsComponent implements OnInit {
     this.selectedsubComplaintID = subid;
     this.accoorcomplaintService.ChangeComplaintProfileModeBooleanSubjectValue(true);
   }
-  redirectToCommentSection(complaintID: number): void {
+  public redirectToCommentSection(complaintID: number): void {
     this.complaintIdToCommentSection = complaintID;
    // this.subComplaintIdToCommentSection = subComplaintID;
     this.accoorcomplaintService.changeIsCommentSectionModeSubjectBooleanValue(true);

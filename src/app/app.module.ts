@@ -110,7 +110,6 @@ import { OtpDialogBoxComponent } from './authentication/shared/otp-dialog-box/ot
 
 
 
-import { AccoorcomplaintProfileComponent } from './home/accountCoordinator/accoorcomplaints/accoorcomplaint-profile/accoorcomplaint-profile.component';
 import { UpdateComplaintStatusComponent } from './home/accountCoordinator/accoorcomplaints/update-complaint-status/update-complaint-status.component';
 import { AccoorcomplaintProfileCurrentComponent } from './home/accountCoordinator/accoorcomplaints/accoorcomplaint-profile-current/accoorcomplaint-profile-current.component';
 import { AccoorproductsComponent } from './home/accountCoordinator/accoorproducts/accoorproducts.component';
@@ -194,7 +193,7 @@ import { UpdateDevtaskStatusComponent } from './home/developer/devtasks/update-d
     CommentSectionComponent,
     OtpDialogBoxComponent,
 
-    AccoorcomplaintProfileComponent,
+
     UpdateComplaintStatusComponent,
     AccoorcomplaintProfileCurrentComponent,
     AccoorproductsComponent,

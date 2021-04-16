@@ -7,6 +7,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
 import {TaskService} from './task.service';
+import {environment} from '../../../../environments/environment';
 
 export interface IAllTask {
   taskID: number;
@@ -51,7 +52,7 @@ export interface ICompletedTask {
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit{
-  displayedColumnsAll: string[] = ['complaintID', 'subComplaintID', 'taskID',  'assignDate', 'deadline', 'DevName', 'developerEmail', 'details'];
+  displayedColumnsAll: string[] = ['complaintID', 'subComplaintID', 'taskID',  'assignDate', 'deadline', 'task_status', 'DevName', 'developerEmail', 'details'];
   dataSourceAll: MatTableDataSource<IAllTask>;
   ALLTASK_DATA: IAllTask[];
   // --------------------------------------------------------------------- //
@@ -86,7 +87,7 @@ export class TasksComponent implements OnInit{
   }
   // tslint:disable-next-line:use-lifecycle-interface
    ngAfterViewInit(): void {
-    this.http1.post<any>(`http://localhost:3000/accountCoordinator//get-Task-All-details`, {}).subscribe(
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + `//get-Task-All-details`, {}).subscribe(
       response => {
         this.ALLTASK_DATA = response.data;
         this.dataSourceAll = new MatTableDataSource<IAllTask>(this.ALLTASK_DATA);
@@ -96,7 +97,7 @@ export class TasksComponent implements OnInit{
         console.log(error);
       }
     ),
-    this.http1.post<any>(`http://localhost:3000/accountCoordinator//get-Task-New-details`, {}).subscribe(
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + `//get-Task-New-details`, {}).subscribe(
       response => {
         this.NEWTASK_DATA = response.data;
         this.dataSourceNew = new MatTableDataSource<INewTask>(this.NEWTASK_DATA);
@@ -106,7 +107,7 @@ export class TasksComponent implements OnInit{
         console.log(error);
       }
     ),
-    this.http1.post<any>(`http://localhost:3000/accountCoordinator//get-Task-IP-details`, {}).subscribe(
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + `//get-Task-IP-details`, {}).subscribe(
       response => {
         this.IPTASK_DATA = response.data;
         this.dataSourceInProgress = new MatTableDataSource<IIPTask>(this.IPTASK_DATA);
@@ -116,7 +117,7 @@ export class TasksComponent implements OnInit{
         console.log(error);
       }
     ),
-      this.http1.post<any>(`http://localhost:3000/accountCoordinator//get-Task-Comple-details`, {}).subscribe(
+      this.http1.post<any>(environment.accountCoordinatorApiUrl + `//get-Task-Comple-details`, {}).subscribe(
         response => {
           this.COMPLETEDTASK_DATA = response.data;
           this.dataSourceCompleted = new MatTableDataSource<ICompletedTask>(this.COMPLETEDTASK_DATA);

@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
+import {environment} from '../../../../environments/environment';
 
 
 export interface IAll {
@@ -32,7 +33,7 @@ export class AllocationComponent implements OnInit {
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngAfterViewInit(): void {
-    this.http1.post<any>(`http://localhost:3000/accountCoordinator/get-allocation-details`, {}).subscribe(
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + `/get-allocation-details`, {}).subscribe(
       response =>  {
         this.ALL_DATA = response.data;
         this.dataSourceAllo = new MatTableDataSource<IAll>(this.ALL_DATA);
