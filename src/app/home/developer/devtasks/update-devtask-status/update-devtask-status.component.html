@@ -1,0 +1,30 @@
+<div class="container-fluid">
+
+  <form [formGroup]="updateDevTaskStatusForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
+
+    <div class="row">
+
+      <mat-form-field class="col-auto" appearance="outline">
+        <mat-label>Task ID</mat-label>
+        <input type="text" matInput formControlName="taskID" placeholder="Task ID">
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Status</mat-label>
+        <mat-select  formControlName="task_status" multiple="false">
+          <mat-option *ngFor="let status of taskStatusList; let i = index" [value]="status">{{status}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="!updateDevTaskStatusForm.valid">Update</button>
+
+  </form>
+
+</div>
+
+
+
+

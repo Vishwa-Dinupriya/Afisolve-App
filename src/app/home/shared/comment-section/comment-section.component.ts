@@ -8,6 +8,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {ComplaintsCustomerService} from '../../customer/complaints-customer/complaints-customer.service';
 import {Observable, Subscription} from 'rxjs';
 import 'rxjs/add/observable/timer';
+import {AccoorcomplaintsService} from '../../accountCoordinator/accoorcomplaints/accoorcomplaints.service';
 
 @Component({
   selector: 'app-comment-section',
@@ -29,7 +30,8 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
               private commentSectionService: CommentSectionService,
               private fb1: FormBuilder,
               public dialog: MatDialog,
-              public complaintCustomerService: ComplaintsCustomerService) {
+              public complaintCustomerService: ComplaintsCustomerService,
+              public accoorcomplaintService: AccoorcomplaintsService) {
   }
 
   @ViewChild('scrollBottom') private scrollBottom: ElementRef;
@@ -161,6 +163,7 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
 
   whenClose(): void {
     this.complaintCustomerService.changeIsCommentSectionModeSubjectBooleanValue(false);
+    this.accoorcomplaintService.changeIsCommentSectionModeSubjectBooleanValue(false);
     this.ngOnDestroy(); // to unsubscribe timer
     for (let i = 0; i < this.imageAttachments.length - 1;) {// clear all selected images
       this.imageAttachments.pop();

@@ -1,0 +1,289 @@
+<mat-card class="m-5 shadow mb-4 shadow">
+<div>
+  <!--mat-card-title [hidden]="!devtaskService.createTaskMode"></mat-card-title>
+  <mat-card-title [hidden]="devtaskService.createTaskMode"></mat-card-title-->
+
+  <!--div [hidden]="devtaskService.createTaskMode"-->
+    <div [hidden]="devtaskService.isTaskProfileMode">
+
+      <mat-tab-group animationDuration="1000ms">
+
+
+        <!-- Displaying All tasks-->
+        <mat-tab label="All">
+
+          <!--Filter-->
+          <mat-form-field class="w-75 m-3">
+            <mat-label>Filter</mat-label>
+            <input matInput placeholder="Ex.Task ID" (keyup)="applyFilterAll($event)">
+          </mat-form-field>
+
+          <table mat-table [dataSource]="dataSourceAll" class="w-100" >
+
+            <!-- Id Column -->
+            <ng-container matColumnDef="taskID">
+              <th mat-header-cell *matHeaderCellDef>Task Id</th>
+              <td mat-cell *matCellDef="let element"> {{element.taskID}} </td>
+            </ng-container>
+            <!-- Id Column -->
+            <ng-container matColumnDef="productName">
+              <th mat-header-cell *matHeaderCellDef>Product Name</th>
+              <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+            </ng-container>
+            <!-- SubId Column -->
+            <ng-container matColumnDef="complaintID">
+              <th mat-header-cell *matHeaderCellDef> Complaint ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
+            </ng-container>
+            <!-- ProductID Column-->
+            <ng-container matColumnDef="subComplaintID">
+              <th mat-header-cell *matHeaderCellDef> Sub-Complaint ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
+            </ng-container>
+
+            <!-- Description Column -->
+            <ng-container matColumnDef="assignDate">
+              <th mat-header-cell *matHeaderCellDef> Assigned Date</th>
+              <td mat-cell *matCellDef="let element"> {{element.assignDate}} </td>
+            </ng-container>
+
+            <!-- Status Column-->
+            <ng-container matColumnDef="deadline">
+              <th mat-header-cell *matHeaderCellDef> Deadline</th>
+              <td mat-cell *matCellDef="let element"> {{element.deadline}} </td>
+            </ng-container>
+
+            <!-- Id Column -->
+            <ng-container matColumnDef="task_status">
+              <th mat-header-cell *matHeaderCellDef>Status</th>
+              <td mat-cell *matCellDef="let element"> {{element.task_status}} </td>
+            </ng-container>
+
+            <!-- Details button Column -->
+            <ng-container matColumnDef="details">
+              <th mat-header-cell *matHeaderCellDef> Go To</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" (click)="redirectToDetails(element.taskID)">
+                  <mat-icon class="mat-18">description</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsAll"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsAll;"></tr>
+
+          </table>
+          <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+          </mat-paginator>
+
+        </mat-tab>
+
+        <!-- Displaying new tasks-->
+        <mat-tab label="Pending">
+
+          <!--Filter-->
+          <mat-form-field class="w-75 m-3">
+            <mat-label>Filter</mat-label>
+            <input matInput placeholder="Ex.Task ID" (keyup)="applyFilterPending($event)">
+          </mat-form-field>
+
+
+          <table mat-table [dataSource]="dataSourcePending" class="w-100" >
+
+            <!-- Id Column -->
+            <ng-container matColumnDef="taskID">
+              <th mat-header-cell *matHeaderCellDef>Task Id</th>
+              <td mat-cell *matCellDef="let element"> {{element.taskID}} </td>
+            </ng-container>
+            <!-- Id Column -->
+            <ng-container matColumnDef="productName">
+              <th mat-header-cell *matHeaderCellDef>Product Name</th>
+              <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+            </ng-container>
+            <!-- SubId Column -->
+            <ng-container matColumnDef="complaintID">
+              <th mat-header-cell *matHeaderCellDef> Complaint ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
+            </ng-container>
+            <!-- ProductID Column-->
+            <ng-container matColumnDef="subComplaintID">
+              <th mat-header-cell *matHeaderCellDef> Sub-Complaint ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
+            </ng-container>
+
+            <!-- Description Column -->
+            <ng-container matColumnDef="assignDate">
+              <th mat-header-cell *matHeaderCellDef> Assigned Date</th>
+              <td mat-cell *matCellDef="let element"> {{element.assignDate}} </td>
+            </ng-container>
+
+            <!-- Status Column-->
+            <ng-container matColumnDef="deadline">
+              <th mat-header-cell *matHeaderCellDef> Deadline</th>
+              <td mat-cell *matCellDef="let element"> {{element.deadline}} </td>
+            </ng-container>
+
+            <!-- Details button Column -->
+            <ng-container matColumnDef="details">
+              <th mat-header-cell *matHeaderCellDef> Go To</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" (click)="redirectToDetails(element.taskID)">
+                  <mat-icon class="mat-18">description</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsPending"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsPending;"></tr>
+          </table>
+
+          <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+          </mat-paginator>
+
+        </mat-tab>
+
+
+
+        <!-- Displaying In-Progress tasks-->
+        <mat-tab label="In-Progress">
+
+          <!--Filter-->
+          <mat-form-field class="w-75 m-3">
+            <mat-label>Filter</mat-label>
+            <input matInput placeholder="Ex.Task ID" (keyup)="applyFilterInProgress($event)">
+          </mat-form-field>
+
+          <table mat-table [dataSource]="dataSourceInProgress" class="w-100" >
+
+            <!-- Id Column -->
+            <ng-container matColumnDef="taskID">
+              <th mat-header-cell *matHeaderCellDef>Task Id</th>
+              <td mat-cell *matCellDef="let element"> {{element.taskID}} </td>
+            </ng-container>
+            <!-- Id Column -->
+            <ng-container matColumnDef="productName">
+              <th mat-header-cell *matHeaderCellDef>Product Name</th>
+              <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+            </ng-container>
+            <!-- SubId Column -->
+            <ng-container matColumnDef="complaintID">
+              <th mat-header-cell *matHeaderCellDef> Complaint ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
+            </ng-container>
+            <!-- ProductID Column-->
+            <ng-container matColumnDef="subComplaintID">
+              <th mat-header-cell *matHeaderCellDef> Sub-Complaint ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
+            </ng-container>
+
+            <!-- Description Column -->
+            <ng-container matColumnDef="assignDate">
+              <th mat-header-cell *matHeaderCellDef> Assigned Date</th>
+              <td mat-cell *matCellDef="let element"> {{element.assignDate}} </td>
+            </ng-container>
+
+            <!-- Status Column-->
+            <ng-container matColumnDef="deadline">
+              <th mat-header-cell *matHeaderCellDef> Deadline</th>
+              <td mat-cell *matCellDef="let element"> {{element.deadline}} </td>
+            </ng-container>
+
+            <!-- Details button Column -->
+            <ng-container matColumnDef="details">
+              <th mat-header-cell *matHeaderCellDef> Go To</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" (click)="redirectToDetails(element.taskID)">
+                  <mat-icon class="mat-18">description</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsInProgress"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsInProgress;"></tr>
+
+          </table>
+          <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+          </mat-paginator>
+
+        </mat-tab>
+        <mat-tab label="Completed">
+
+          <!--Filter-->
+          <mat-form-field class="w-75 m-3">
+            <mat-label>Filter</mat-label>
+            <input matInput placeholder="Ex.Task ID" (keyup)="applyFilterCompleted($event)">
+          </mat-form-field>
+
+          <table mat-table [dataSource]="dataSourceCompleted" class="w-100" >
+
+            <!-- Id Column -->
+            <ng-container matColumnDef="taskID">
+              <th mat-header-cell *matHeaderCellDef>Task Id</th>
+              <td mat-cell *matCellDef="let element"> {{element.taskID}} </td>
+            </ng-container>
+            <!-- Id Column -->
+            <ng-container matColumnDef="productName">
+              <th mat-header-cell *matHeaderCellDef>Product Name</th>
+              <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+            </ng-container>
+            <!-- SubId Column -->
+            <ng-container matColumnDef="complaintID">
+              <th mat-header-cell *matHeaderCellDef> Complaint ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
+            </ng-container>
+            <!-- ProductID Column-->
+            <ng-container matColumnDef="subComplaintID">
+              <th mat-header-cell *matHeaderCellDef> Sub-Complaint ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
+            </ng-container>
+
+            <!-- Description Column -->
+            <ng-container matColumnDef="assignDate">
+              <th mat-header-cell *matHeaderCellDef> Assigned Date</th>
+              <td mat-cell *matCellDef="let element"> {{element.assignDate}} </td>
+            </ng-container>
+
+            <!-- Status Column-->
+            <ng-container matColumnDef="deadline">
+              <th mat-header-cell *matHeaderCellDef> Deadline</th>
+              <td mat-cell *matCellDef="let element"> {{element.deadline}} </td>
+            </ng-container>
+
+            <!-- Details button Column -->
+            <ng-container matColumnDef="details">
+              <th mat-header-cell *matHeaderCellDef> Go To</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" (click)="redirectToDetails(element.taskID)">
+                  <mat-icon class="mat-18">description</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsCompleted"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsCompleted;"></tr>
+
+          </table>
+          <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+          </mat-paginator>
+        </mat-tab>
+
+        <mat-tab label="Update Status">
+          <app-update-devtask-status></app-update-devtask-status>
+
+        </mat-tab>
+
+      </mat-tab-group>
+    </div>
+
+    <!--task profile-->
+    <div [hidden]="!devtaskService.isTaskProfileMode" >
+      <app-devtasks-profile [devtaskIDChild] = "devtaskService.taskIdParentValue"></app-devtasks-profile>
+    </div>
+
+
+  <!--/div-->
+</div>
+</mat-card>
+
+
+

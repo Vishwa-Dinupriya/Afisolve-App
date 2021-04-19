@@ -113,7 +113,9 @@ export class UserProfileComponent implements OnInit, OnChanges {
   }
 
   subscribeToFormValChange(): void {
+
     if (this.userRegistrationFormCopy) {
+
       this.userRegistrationForm.valueChanges.subscribe(value => {
         if (this.userRegistrationFormCopy.firstName !== value.firstName ||
           this.userRegistrationFormCopy.lastName !== value.lastName ||
