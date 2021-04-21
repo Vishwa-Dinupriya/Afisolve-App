@@ -145,7 +145,28 @@ export class SignupComponent implements OnInit {
                 }
               });
             },
-            error => console.error('Error!(frontend)', error)
+            error => {
+              console.error('Error!(frontend)', error);
+              const dialogRef3 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  image: '',
+                  title: 'Failed!',
+                  message: error,
+                  name: ' ',
+                  button1: '',
+                  button2: 'Retry'
+                }
+              });
+
+              dialogRef3.afterClosed().subscribe(result3 => {
+                console.log(`Dialog result: ${result3}`);
+                if (result3 === true) {
+
+                } else {
+
+                }
+              });
+            }
           );
       } else {
         console.log(`Dialog result: ${result1}`);
@@ -153,58 +174,6 @@ export class SignupComponent implements OnInit {
       }
     });
   }
-
-  // onSubmit(): void {
-  //   const dialogRef1 = this.dialog.open(DialogBoxComponent, {
-  //     data: {
-  //       title: 'Confirm!',
-  //       message: 'Are you sure to add this new user? ',
-  //       name: ' ',
-  //       button1: 'Cancel',
-  //       button2: 'Done'
-  //     }
-  //   });
-  //
-  //   dialogRef1.afterClosed().subscribe(result1 => {
-  //     if (result1 === true) {
-  //       const registrationForm = this.userRegistrationForm.value;
-  //       registrationForm.firstName = this.capitalize(this.firstName.value);
-  //       registrationForm.lastName = this.capitalize(this.lastName.value);
-  //       registrationForm.profilePicture = this.profilePicture;
-  //
-  //       this.authenticationService.signup(registrationForm)
-  //         .subscribe(
-  //           response => {
-  //             console.log('Success!(frontend)', response);
-  //             const dialogRef2 = this.dialog.open(DialogBoxComponent, {
-  //               data: {
-  //                 image: 'data:image/png;base64,' + response.image,
-  //                 title: 'Success!',
-  //                 message: 'Register new user successfully ',
-  //                 name: ' ',
-  //                 button1: 'Back to All users',
-  //                 button2: 'Ok'
-  //               }
-  //             });
-  //
-  //             dialogRef2.afterClosed().subscribe(result2 => {
-  //               console.log(`Dialog result: ${result2}`);
-  //               this.myForm.resetForm();
-  //               if (result2 === true) {
-  //
-  //               } else {
-  //                 this.userService.ChangeCreateUserModeBooleanSubjectValue(false);
-  //               }
-  //             });
-  //           },
-  //           error => console.error('Error!(frontend)', error)
-  //         );
-  //     } else {
-  //       console.log(`Dialog result: ${result1}`);
-  //
-  //     }
-  //   });
-  // }
 
   capitalize(value: string): string {
     return value.charAt(0).toUpperCase() + value.slice(1);
@@ -251,4 +220,3 @@ export class ProfilePictureDialogComponent implements OnInit {
 
 
 }
-
