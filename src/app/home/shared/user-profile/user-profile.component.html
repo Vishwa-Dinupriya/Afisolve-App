@@ -21,9 +21,9 @@
       <mat-grid-tile>
         <div>
           <button [disabled]="!edit" class="mb-lg-5 " style="border: 0px" type="button" mat-stroked-button color="" (click)="openDialog()" matTooltip="Click to select a profile picture">
-            <img class="m-1" [hidden]="!this.newProfilePicture" style="border-radius:50%" width="80%" height="80%" [src]="this.newProfilePicture" />
+            <img class="m-1" [hidden]="!this.newProfilePicture" style="border-radius:45%; width:55%"  [src]="this.newProfilePicture" />
             <span></span>
-            <img class="m-1" [hidden]="this.newProfilePicture" style="border-radius:50%" width="80%" height="80%" [src]="this.currentProfilePicture">
+            <img class="m-1" [hidden]="this.newProfilePicture" style="border-radius:45%; width:55%" [src]="this.currentProfilePicture">
           </button>
         </div>
       </mat-grid-tile>
@@ -135,7 +135,7 @@
             <button class="btn btn-primary" type="button" [hidden]="!edit" (click)="onCancelEdit()">Cancel</button>
             <span></span>
             <button class="btn btn-primary" style="float: right" type="submit"
-                    [hidden]="!userRegistrationForm.valid || !haveChanges">Save
+                    [hidden]="!(userRegistrationForm.valid && haveChanges)">Save
             </button>
 
           </form>

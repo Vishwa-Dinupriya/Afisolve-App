@@ -10,6 +10,8 @@ import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.componen
 import {UsersService} from '../../admin/users/users.service';
 import {HomeService} from '../../home.service';
 import {DialogBoxSelectPictureComponent} from '../../../shared/dialog-box-select-picture/dialog-box-select-picture.component';
+import {OtpService} from '../../../shared/otp-service/otp.service';
+import {OtpDialogBoxComponent} from '../../../shared/otp-dialog-box/otp-dialog-box.component';
 
 export interface IUserGeneral {
   lastLogin: string;
@@ -67,7 +69,8 @@ export class UserProfileComponent implements OnInit, OnChanges {
     public dialog: MatDialog,
     public usersService1: UsersService,
     public homeService: HomeService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private otpService: OtpService
   ) {
   }
 
@@ -196,6 +199,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
     const updatedPassword = this.password.value;
 
     if (oldEmail !== updatedEmail || oldPassword !== updatedPassword) {
+      // when admin update only 2 dialog boxes. but here 3 dialog boxes.because we have to inform about re-login
       const dialogRef = this.dialog.open(DialogBoxComponent, {
         data: {
           title: 'Are you sure?',
@@ -208,8 +212,32 @@ export class UserProfileComponent implements OnInit, OnChanges {
       dialogRef.afterClosed().subscribe(result => {
         if (result === true) {
           console.log(`Dialog result: ${result}`);
-          this.onUpdate();
-          this.authService.logout();
+          this.http1.post<any>(`http://localhost:3000/authentication/sendOtpToEmail`, {userEnteredEmail: this.email.value})
+            .subscribe(
+              response => {
+                console.log(response.otpID);
+                this.otpService.changeOtpIDSubjectNumberValue(response.otpID);
+              }, error => {
+                console.log(error);
+              }
+            );
+          const dialogRef1 = this.dialog.open(OtpDialogBoxComponent, {
+            data: {
+              title: 'Enter OTP: !',
+              message: 'We sent an one-time-password(OTP) to your new email address. ',
+              name: ' ',
+              button1: 'Cancel',
+              button2: 'Submit'
+            }
+          });
+
+          dialogRef1.afterClosed().subscribe(result1 => {
+            if (result1 === true) {
+              this.onUpdate();
+            } else {
+              console.log(`Dialog result: ${result1}`);
+            }
+          });
         } else {
           console.log(`Dialog result: ${result}`);
         }
@@ -274,15 +302,57 @@ export class UserProfileComponent implements OnInit, OnChanges {
       userNewData: this.userRegistrationForm.value,
       emailOld: this.oldEmail,
       newProfilePhoto_: this.newProfilePicture,
+      clientOtp: this.otpService.otp,
+      generatedOtpID: this.otpService.otpID
 
     }).subscribe(
       response => {
         console.log('Update Success!(frontend)', response);
         this.edit = false;
         this.getAndSetValues();
+        const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+          data: {
+            image: '',
+            title: 'Success!',
+            message: 'Update Successfully! ',
+            name: ' click ok and redirect to the login page ',
+            button1: '',
+            button2: 'Ok'
+          }
+        });
+
+        dialogRef2.afterClosed().subscribe(result2 => {
+          console.log(`Dialog result: ${result2}`);
+          if (result2 === true) {
+            this.usersService1.changeIsProfileModeSubjectBooleanValue(false);
+            this.authService.logout();
+          } else {
+            this.usersService1.changeIsProfileModeSubjectBooleanValue(false);
+            this.authService.logout();
+          }
+        });
       },
       error => {
         console.error('Update Error!(frontend)', error);
+        const dialogRef3 = this.dialog.open(DialogBoxComponent, {
+          data: {
+            image: '',
+            title: 'Failed!',
+            message: error,
+            name: ' ',
+            button1: '',
+            button2: 'Retry'
+          }
+        });
+
+        dialogRef3.afterClosed().subscribe(result3 => {
+          console.log(`Dialog result: ${result3}`);
+          if (result3 === true) {
+
+          } else {
+
+          }
+        });
       }
     );
   }
