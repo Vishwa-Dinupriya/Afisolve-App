@@ -8,7 +8,7 @@ import {ComplaintsCustomerService} from '../complaints-customer.service';
 import {MatDialog} from '@angular/material/dialog';
 import {ReviewDialogBoxComponent} from './review-dialog-box/review-dialog-box.component';
 import {CompletedComplaintService} from './completed-complaint.service';
-import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
+import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
 import {IComplaintWithSubsElement} from '../../../shared/complaintElementWithSubsInterface/interface-complaint-with-subs.service';
 
 @Component({

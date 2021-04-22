@@ -3,12 +3,12 @@ import {FormGroup, FormBuilder, Validators, AbstractControl, FormControl, FormGr
 import {checkPasswords} from '../shared/password.validator';
 import {AuthenticationService} from '../authentication.service';
 import {ErrorStateMatcher} from '@angular/material/core';
-import {DialogBoxComponent} from '../../home/shared/dialog-box/dialog-box.component';
+import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {UsersService} from '../../home/admin/users/users.service';
 import {HttpClient} from '@angular/common/http';
-import {OtpDialogBoxComponent} from '../shared/otp-dialog-box/otp-dialog-box.component';
-import {OtpService} from '../../home/shared/otp-service/otp.service';
+import {OtpDialogBoxComponent} from '../../shared/otp-dialog-box/otp-dialog-box.component';
+import {OtpService} from '../../shared/otp-service/otp.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {

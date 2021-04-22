@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {CommentSectionService} from './comment-section.service';
-import {DialogBoxSelectPictureComponent} from '../dialog-box-select-picture/dialog-box-select-picture.component';
+import {DialogBoxSelectPictureComponent} from '../../../shared/dialog-box-select-picture/dialog-box-select-picture.component';
 import {MatDialog} from '@angular/material/dialog';
 import {ComplaintsCustomerService} from '../../customer/complaints-customer/complaints-customer.service';
 import {Observable, Subscription} from 'rxjs';

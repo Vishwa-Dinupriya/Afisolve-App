@@ -21,8 +21,8 @@
     <img *ngIf="!imageChangedEvent && this.currentPicture"  style="height: 350px; width: 100%"  class="card-image p-0 m-1"
          [src]="this.currentPicture" alt="profile Picture"/>
 
-    <img *ngIf="!imageChangedEvent && !this.currentPicture"  style="height: 350px; width: 100%"  class="card-image p-0 m-1"
-         src="../../../../assets/img/default-profile-picture.png" alt="profile Picture"/>
+    <img *ngIf="!imageChangedEvent && !this.currentPicture" style="height: 350px; width: 100%" class="card-image p-0 m-1"
+         src="../../../assets/img/default-profile-picture.png" alt="profile Picture"/>
 
     <image-cropper *ngIf="imageChangedEvent"
                    [imageChangedEvent]="imageChangedEvent"

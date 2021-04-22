@@ -4,10 +4,10 @@ import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-upload-picture',
-  templateUrl: './upload-picture.component.html',
-  styleUrls: ['./upload-picture.component.css']
+  templateUrl: './crop-and-upload-picture.component.html',
+  styleUrls: ['./crop-and-upload-picture.component.css']
 })
-export class UploadPictureComponent implements OnInit {
+export class CropAndUploadPictureComponent implements OnInit {
 
   @Input() currentPicture;
   @ViewChild('fileUpload') fileUploadClick: ElementRef;

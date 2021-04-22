@@ -5,7 +5,7 @@
 
     <div class="row mb-4" >
       <div class="col-4" style ="margin-left: 33%;">
-        <button style="border: 0px" type="button" mat-stroked-button color="" (click)="openDialog()" matTooltip="Click to select a profile picture">
+        <button  type="button" mat-stroked-button color="" (click)="openDialog()" matTooltip="Click to select a profile picture">
           <img class="m-1" [hidden]="!this.profilePicture" style="border-radius:45%" width="80%" height="80%" [src]="this.profilePicture" />
           <span></span>
           <img class="m-1" [hidden]="this.profilePicture" style="border-radius:45%" width="80%" height="80%" src="../../../../assets/img/default-profile-picture.png">

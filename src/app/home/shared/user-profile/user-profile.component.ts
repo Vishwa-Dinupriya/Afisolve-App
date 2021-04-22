@@ -6,10 +6,10 @@ import {AuthenticationService} from 'src/app/authentication/authentication.servi
 import {ErrorStateMatcher} from '@angular/material/core';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogBoxComponent} from '../dialog-box/dialog-box.component';
+import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 import {UsersService} from '../../admin/users/users.service';
 import {HomeService} from '../../home.service';
-import {DialogBoxSelectPictureComponent} from '../dialog-box-select-picture/dialog-box-select-picture.component';
+import {DialogBoxSelectPictureComponent} from '../../../shared/dialog-box-select-picture/dialog-box-select-picture.component';
 
 export interface IUserGeneral {
   lastLogin: string;

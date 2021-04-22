@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DevtaskService} from '../devtask.service';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
+import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
 
 @Component({
   selector: 'app-update-devtask-status',

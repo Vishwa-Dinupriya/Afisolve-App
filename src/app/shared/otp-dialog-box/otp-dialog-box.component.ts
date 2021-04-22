@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {OtpService} from '../../../home/shared/otp-service/otp.service';
+import {OtpService} from '../../shared/otp-service/otp.service';
 
 @Component({
   selector: 'app-otp-dialog-box',

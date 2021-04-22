@@ -1,12 +1,12 @@
 import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
+import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
 import {AddNewComplaintService} from './add-new-complaint.service';
-import {DialogBoxSelectPictureComponent} from '../../shared/dialog-box-select-picture/dialog-box-select-picture.component';
+import {DialogBoxSelectPictureComponent} from '../../../shared/dialog-box-select-picture/dialog-box-select-picture.component';
 import {environment} from '../../../../environments/environment';
 
 @Component({

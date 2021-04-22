@@ -8,10 +8,10 @@ import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {UsersService} from '../users.service';
 import {IUserGeneral} from '../../../shared/user-profile/user-profile.component';
-import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
-import {DialogBoxSelectPictureComponent} from '../../../shared/dialog-box-select-picture/dialog-box-select-picture.component';
-import {OtpDialogBoxComponent} from '../../../../authentication/shared/otp-dialog-box/otp-dialog-box.component';
-import {OtpService} from '../../../shared/otp-service/otp.service';
+import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
+import {DialogBoxSelectPictureComponent} from '../../../../shared/dialog-box-select-picture/dialog-box-select-picture.component';
+import {OtpDialogBoxComponent} from '../../../../shared/otp-dialog-box/otp-dialog-box.component';
+import {OtpService} from '../../../../shared/otp-service/otp.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {

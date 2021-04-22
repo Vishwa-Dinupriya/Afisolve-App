@@ -70,7 +70,7 @@ import {ComplaintProfileComponent} from './home/shared/complaint-profile/complai
 import {ProductProfileComponent} from './home/shared/product-profile/product-profile.component';
 import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-profile.component';
 
-import { DialogBoxComponent } from './home/shared/dialog-box/dialog-box.component';
+import { DialogBoxComponent } from './shared/dialog-box/dialog-box.component';
 import { DevtasksComponent } from './home/developer/devtasks/devtasks.component';
 import { DevcomplaintsComponent } from './home/developer/devcomplaints/devcomplaints.component';
 import { DevproductsComponent } from './home/developer/devproducts/devproducts.component';
@@ -103,10 +103,10 @@ import { ReviewDialogBoxComponent } from './home/customer/complaints-customer/co
 import { LodgeSubComplaintComponent } from './home/customer/complaints-customer/completed-complaints/lodge-sub-complaint/lodge-sub-complaint.component';
 import { UserProfileForAdminPurposeComponent } from './home/admin/users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
 
-import { UploadPictureComponent } from './home/shared/upload-picture/upload-picture.component';
-import { DialogBoxSelectPictureComponent } from './home/shared/dialog-box-select-picture/dialog-box-select-picture.component';
+import { CropAndUploadPictureComponent } from './shared/crop-and-upload-picture/crop-and-upload-picture.component';
+import { DialogBoxSelectPictureComponent } from './shared/dialog-box-select-picture/dialog-box-select-picture.component';
 import { CommentSectionComponent } from './home/shared/comment-section/comment-section.component';
-import { OtpDialogBoxComponent } from './authentication/shared/otp-dialog-box/otp-dialog-box.component';
+import { OtpDialogBoxComponent } from './shared/otp-dialog-box/otp-dialog-box.component';
 
 
 
@@ -188,7 +188,7 @@ import { UpdateDevtaskStatusComponent } from './home/developer/devtasks/update-d
     LodgeSubComplaintComponent,
     UserProfileForAdminPurposeComponent,
 
-    UploadPictureComponent,
+    CropAndUploadPictureComponent,
     DialogBoxSelectPictureComponent,
     CommentSectionComponent,
     OtpDialogBoxComponent,

@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TaskService} from '../task.service';
 import {HttpClient} from '@angular/common/http';
-import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
+import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
 import {MatDialog} from '@angular/material/dialog';
 
 @Component({
