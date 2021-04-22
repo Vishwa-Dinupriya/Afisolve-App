@@ -181,7 +181,7 @@
             <button class="btn btn-primary" type="button" [hidden]="!edit" (click)="onCancelEdit()">Cancel</button>
             <span></span>
             <button class="btn btn-primary" style="float: right" type="submit"
-                    [hidden]="!userRegistrationForm.valid || !haveChanges">Save
+                    [hidden]="!(userRegistrationForm.valid && haveChanges)">Save
             </button>
 
           </form>

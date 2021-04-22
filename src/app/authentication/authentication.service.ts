@@ -16,8 +16,8 @@ export class AuthenticationService {
               private router: Router) {
   }
 
-  signup(userData, otp): Observable<any> {
-    return this.http1.post<any>(this.signupUrl, {userData, otp});
+  signup(userData, otp, otpID): Observable<any> {
+    return this.http1.post<any>(this.signupUrl, {userData, otp, otpID});
   }
 
   login(userData): Observable<any> {

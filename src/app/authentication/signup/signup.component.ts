@@ -6,9 +6,9 @@ import {ErrorStateMatcher} from '@angular/material/core';
 import {DialogBoxComponent} from '../../home/shared/dialog-box/dialog-box.component';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {UsersService} from '../../home/admin/users/users.service';
-import {SignupService} from './signup.service';
 import {HttpClient} from '@angular/common/http';
 import {OtpDialogBoxComponent} from '../shared/otp-dialog-box/otp-dialog-box.component';
+import {OtpService} from '../../home/shared/otp-service/otp.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -44,7 +44,7 @@ export class SignupComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private dialog: MatDialog,
     public userService: UsersService,
-    private signUpService: SignupService) {
+    private otpService: OtpService) {
   }
 
   ngOnInit(): void {
@@ -92,12 +92,11 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.http1.post<any>(`http://localhost:3000/authentication/sendOtpToEmail`,
-      {
-        userEnteredEmail: this.email.value
-      }).subscribe(
+    this.http1.post<any>(`http://localhost:3000/authentication/sendOtpToEmail`, {userEnteredEmail: this.email.value})
+      .subscribe(
       response => {
-        console.log(response);
+        console.log(response.otpID);
+        this.otpService.changeOtpIDSubjectNumberValue(response.otpID);
       }, error => {
         console.log(error);
       }
@@ -120,7 +119,7 @@ export class SignupComponent implements OnInit {
         registrationForm.profilePicture = this.profilePicture;
 
         // user-data and otp send to back end
-        this.authenticationService.signup(registrationForm, this.signUpService.otp)
+        this.authenticationService.signup(registrationForm, this.otpService.otp, this.otpService.otpID)
           .subscribe(
             response => {
               console.log('Success!(frontend)', response);
