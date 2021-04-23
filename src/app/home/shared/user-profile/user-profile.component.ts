@@ -315,7 +315,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
             image: '',
             title: 'Success!',
             message: 'Update Successfully! ',
-            name: ' click ok and redirect to the login page ',
+            name: ' ',
             button1: '',
             button2: 'Ok'
           }
@@ -325,15 +325,19 @@ export class UserProfileComponent implements OnInit, OnChanges {
           console.log(`Dialog result: ${result2}`);
           if (result2 === true) {
             this.usersService1.changeIsProfileModeSubjectBooleanValue(false);
-            this.authService.logout();
+            if (this.oldEmail !== this.email.value) {
+              this.authService.logout();
+            }
           } else {
             this.usersService1.changeIsProfileModeSubjectBooleanValue(false);
-            this.authService.logout();
+            if (this.oldEmail !== this.email.value) {
+              this.authService.logout();
+            }
           }
         });
       },
       error => {
-        console.error('Update Error!(frontend)', error);
+        console.error('Update Error!', error);
         const dialogRef3 = this.dialog.open(DialogBoxComponent, {
           data: {
             image: '',
