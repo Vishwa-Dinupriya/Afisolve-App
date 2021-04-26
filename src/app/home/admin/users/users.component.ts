@@ -7,6 +7,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 import {UsersService} from './users.service';
+import {any} from 'codelyzer/util/function';
 
 export interface IUser {
   userEmail: string;
@@ -14,6 +15,13 @@ export interface IUser {
   firstName: string;
   lastName: string;
   contactNumber: string;
+  roleIDs: any[];
+}
+
+export interface ITabUsers {
+  roleID: number;
+  roleName: string;
+  dataSource?: MatTableDataSource<IUser>;
 }
 
 @Component({
@@ -22,12 +30,21 @@ export interface IUser {
   styleUrls: ['./users.component.css']
 })
 
-export class UsersComponent implements OnInit, AfterViewInit {
+export class UsersComponent implements OnInit {
 
   displayedColumns: string[] = ['userEmail', 'password', 'firstName', 'lastName', 'contactNumber', 'details', 'update', 'delete'];
 
   dataSource: MatTableDataSource<IUser>;
   USERS_DATA: IUser[];
+
+  tabs: ITabUsers[] = [
+    {roleID: 6, roleName: 'All'},
+    {roleID: 0, roleName: 'Customers'},
+    {roleID: 1, roleName: 'Account Coordinators'},
+    {roleID: 2, roleName: 'Developers'},
+    {roleID: 3, roleName: 'Project Managers'},
+    {roleID: 4, roleName: 'CEO'},
+    {roleID: 5, roleName: 'Admins'}];
 
   createUserMode = false;
 
@@ -38,20 +55,24 @@ export class UsersComponent implements OnInit, AfterViewInit {
               private http1: HttpClient,
               public dialog: MatDialog,
               public usersService: UsersService) {
-    this.usersService.createUserModeBooleanSubject.subscribe(value => this.ngAfterViewInit());
+    this.usersService.createUserModeBooleanSubject.subscribe(value => this.getData());
   }
 
   ngOnInit(): void {
     this.usersService.ChangeCreateUserModeBooleanSubjectValue(false);
   }
 
-  ngAfterViewInit(): void {
+  getData(): void {
     this.http1.post<any>(`http://localhost:3000/admin/get-users-details`, {}).subscribe(
       response => {
         this.USERS_DATA = response.data;
-        this.dataSource = new MatTableDataSource<IUser>(this.USERS_DATA);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        console.log(response.data);
+        this.tabs.forEach(tab => {
+          tab.dataSource = new MatTableDataSource<IUser>(this.USERS_DATA.filter(
+            user => tab.roleID === 6 ? true : user.roleIDs.indexOf(tab.roleID) !== -1));
+          tab.dataSource.sort = this.sort;
+          tab.dataSource.paginator = this.paginator;
+        });
       }, error => {
         console.log(error);
       }
@@ -94,12 +115,12 @@ export class UsersComponent implements OnInit, AfterViewInit {
             response => {
               console.log(response);
               console.log('delete successfully!' + id);
-              this.ngAfterViewInit();
+              this.getData();
             },
             error => {
               console.log(error);
               console.log('error! delete not success! ' + id);
-              this.ngAfterViewInit();
+              this.getData();
             });
       } else {
         console.log(`Dialog result: ${result}`);
@@ -110,6 +131,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
   changeMode(value: boolean): void {
     this.usersService.ChangeCreateUserModeBooleanSubjectValue(!value);
     this.createUserMode = value;
-    this.ngAfterViewInit();
+    this.getData();
   }
 }
