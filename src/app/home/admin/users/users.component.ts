@@ -15,7 +15,7 @@ export interface IUser {
   firstName: string;
   lastName: string;
   contactNumber: string;
-  roleIDs: any[];
+  roleIDs: number[];
 }
 
 export interface ITabUsers {
