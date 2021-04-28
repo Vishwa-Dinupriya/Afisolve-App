@@ -13,7 +13,7 @@ export interface IComplaintWithSubsElement {
   finishedDate: string;
   lastDateOfPending: string;
   productID: string;
-  status: string;
+  status: number;
   subComplaintID: number;
   submittedDate: string;
   wipStartDate: string;

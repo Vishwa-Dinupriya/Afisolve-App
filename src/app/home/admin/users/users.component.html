@@ -25,7 +25,8 @@
    <!--all users table-->
     <div [hidden]="usersService.isUserProfileMode">
       <mat-tab-group animationDuration="1000ms" [selectedIndex]="0">
-        <mat-tab *ngFor="let tab of tabs; let i = index"  [label]="tab.roleName">
+        <mat-tab *ngFor="let tab of usersTabs; let i = index"  [label]="tab.roleName">
+
           <mat-form-field class="w-75 m-3">
             <mat-label>Filter</mat-label>
             <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">

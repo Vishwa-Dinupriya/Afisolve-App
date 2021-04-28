@@ -56,6 +56,25 @@
           </mat-list-item>
 
           <mat-list-item>
+            <div class=" w-25">Customer Email:</div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.customerEmail; else customerEmailBlock"><i> Not Available</i></span>
+              <ng-template #customerEmailBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.customerEmail }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
+
+          <mat-list-item>
+            <div class=" w-25">Customer Name:</div>
+            <div class=" text-secondary w-75">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.customerFirstName; else customerNameBlock"><i> Not Available</i></span>
+              <ng-template #customerNameBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.customerFirstName+' '+ COMPLAINT_DETAILS_DATA.customerLastName }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
             <div class=" w-25">Account Coordinator Email:</div>
             <div class=" text-secondary w-75">
               <span *ngIf="!COMPLAINT_DETAILS_DATA.accountCoordinatorEmail; else accountCoordinatorEmaileBlock"><i> Not Available</i></span>

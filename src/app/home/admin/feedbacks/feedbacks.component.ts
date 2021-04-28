@@ -8,7 +8,12 @@ import {MatPaginator} from '@angular/material/paginator';
 export interface IFeedback {
   complaintID: string;
   description: string;
-  satisfaction: string;
+  satisfaction: number;
+}
+
+export interface ITabFeedbacks {
+  ratedValue: number;
+  dataSource?: MatTableDataSource<IFeedback>;
 }
 
 @Component({
@@ -22,8 +27,20 @@ export class FeedbacksComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<IFeedback>;
   FEEDBACKS_DATA: IFeedback[];
 
+  feedbacksTabs: ITabFeedbacks[] = [
+    {ratedValue: 6},
+    {ratedValue: 0},
+    {ratedValue: 1},
+    {ratedValue: 2},
+    {ratedValue: 3},
+    {ratedValue: 4},
+    {ratedValue: 5}];
+
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+  starCount = 5;
+  ratingArr = [];
 
   constructor(private router: Router,
               private http1: HttpClient) {
@@ -31,20 +48,34 @@ export class FeedbacksComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-
+    for (let index = 0; index < this.starCount; index++) {
+      this.ratingArr.push(index);
+    }
   }
 
   ngAfterViewInit(): void {
     this.http1.post<any>(`http://localhost:3000/admin/get-feedbacks-details`, {}).subscribe(
       response => {
         this.FEEDBACKS_DATA = response.data;
-        this.dataSource = new MatTableDataSource<IFeedback>(this.FEEDBACKS_DATA);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.feedbacksTabs.forEach(tab => {
+          tab.dataSource = new MatTableDataSource<IFeedback>(this.FEEDBACKS_DATA.filter(
+            feedback => tab.ratedValue === 6 ? true : feedback.satisfaction === tab.ratedValue));
+          tab.dataSource.sort = this.sort;
+          tab.dataSource.paginator = this.paginator;
+        });
+
       }, error => {
         console.log(error);
       }
     );
+  }
+
+  showIcon(index: number, ratedValue: number): 'star' | 'star_border' {
+    if (ratedValue >= index + 1) {
+      return 'star';
+    } else {
+      return 'star_border';
+    }
   }
 
   applyFilter(event): void {

@@ -9,6 +9,9 @@ export interface IComplaintDetailsAdmin {
   accountCoordinatorEmail: string;
   accountCoordinatorFirstName: string;
   accountCoordinatorLastName: string;
+  customerEmail: string;
+  customerFirstName: string;
+  customerLastName: string;
   complaintID: number;
   description: string;
   finishedDate: string;

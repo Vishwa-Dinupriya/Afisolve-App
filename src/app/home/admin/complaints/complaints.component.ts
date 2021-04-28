@@ -10,6 +10,12 @@ import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.componen
 import {ComplaintsService} from './complaints.service';
 import {IComplaintWithSubsElement} from '../../shared/complaintElementWithSubsInterface/interface-complaint-with-subs.service';
 
+export interface ITabComplaints {
+  statusID: number;
+  statusName: string;
+  dataSource?: MatTableDataSource<IComplaintWithSubsElement>;
+}
+
 @Component({
   selector: 'app-complaint',
   templateUrl: './complaints.component.html',
@@ -29,6 +35,13 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
 
   dataSource: MatTableDataSource<IComplaintWithSubsElement>;
   COMPLAINS_DATA: IComplaintWithSubsElement[];
+
+  complaintsTabs: ITabComplaints[] = [
+    {statusID: 4, statusName: 'All'},
+    {statusID: 0, statusName: 'Pending'},
+    {statusID: 1, statusName: 'Inprogress'},
+    {statusID: 2, statusName: 'Completed'},
+    {statusID: 3, statusName: 'Closed'}];
 
   profileMode = false;
 
@@ -52,10 +65,14 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.http1.post<any>(`http://localhost:3000/admin/get-all-complaints`, {}).subscribe(
       response => {
+        console.log(response.data);
         this.COMPLAINS_DATA = response.data;
-        this.dataSource = new MatTableDataSource<IComplaintWithSubsElement>(this.COMPLAINS_DATA);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.complaintsTabs.forEach(tab => {
+          tab.dataSource = new MatTableDataSource<IComplaintWithSubsElement>(this.COMPLAINS_DATA.filter(
+            complaint => tab.statusID === 4 ? true : complaint.status === tab.statusID));
+          tab.dataSource.sort = this.sort;
+          tab.dataSource.paginator = this.paginator;
+        });
       }, error => {
         console.log(error);
       }

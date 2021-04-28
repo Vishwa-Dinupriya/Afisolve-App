@@ -7,7 +7,6 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 import {UsersService} from './users.service';
-import {any} from 'codelyzer/util/function';
 
 export interface IUser {
   userEmail: string;
@@ -37,7 +36,7 @@ export class UsersComponent implements OnInit {
   dataSource: MatTableDataSource<IUser>;
   USERS_DATA: IUser[];
 
-  tabs: ITabUsers[] = [
+  usersTabs: ITabUsers[] = [
     {roleID: 6, roleName: 'All'},
     {roleID: 0, roleName: 'Customers'},
     {roleID: 1, roleName: 'Account Coordinators'},
@@ -63,11 +62,11 @@ export class UsersComponent implements OnInit {
   }
 
   getData(): void {
-    this.http1.post<any>(`http://localhost:3000/admin/get-users-details`, {}).subscribe(
+    this.http1.post<any>(`http://localhost:3000/admin/get-all-users-details`, {}).subscribe(
       response => {
         this.USERS_DATA = response.data;
         console.log(response.data);
-        this.tabs.forEach(tab => {
+        this.usersTabs.forEach(tab => {
           tab.dataSource = new MatTableDataSource<IUser>(this.USERS_DATA.filter(
             user => tab.roleID === 6 ? true : user.roleIDs.indexOf(tab.roleID) !== -1));
           tab.dataSource.sort = this.sort;
