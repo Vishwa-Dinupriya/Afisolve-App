@@ -4,7 +4,7 @@
   <div>
     <mat-tab-group animationDuration="1000ms" [selectedIndex]="0">
       <mat-tab *ngFor="let tab of feedbacksTabs; let i = index">
-        <ng-template #starIcons mat-tab-label>
+        <ng-template mat-tab-label>
           <span [hidden]="tab.ratedValue<=5 "> All</span>
           <mat-icon [hidden]="tab.ratedValue>5" *ngFor="let ratingId of ratingArr;index as k" class="example-tab-icon">{{showIcon(k, tab.ratedValue)}}</mat-icon>
         </ng-template>

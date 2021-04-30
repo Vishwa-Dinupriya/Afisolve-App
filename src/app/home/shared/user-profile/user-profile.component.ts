@@ -97,8 +97,8 @@ export class UserProfileComponent implements OnInit, OnChanges {
         password: ['', [Validators.required]],
         confirmPassword: ['']
       }, {validators: checkPasswords}),
-      roles: [[''], [Validators.required]],
-      defaultRole: ['', [Validators.required]],
+      roles: [{value: '', disabled: true}, [Validators.required]],
+      defaultRole: [{value: '', disabled: true}, [Validators.required]],
       contactNumber: ['']
     });
   }
@@ -106,13 +106,26 @@ export class UserProfileComponent implements OnInit, OnChanges {
   createFormCopy(): void {
     this.userRegistrationFormCopy = Object.assign({}, this.userRegistrationForm.value);
     this.oldEmail = this.userRegistrationFormCopy.email;
+    this.userRegistrationFormCopy.roles = this.roles.value;
+    this.userRegistrationFormCopy.defaultRole = this.defaultRole.value;
     this.title = this.userRegistrationFormCopy.firstName + ' ' + this.userRegistrationFormCopy.lastName;
     this.subtitle = this.userRegistrationFormCopy.email;
-    console.log('init form copy ');
-    console.log(this.userRegistrationFormCopy);
+    // console.log('init form copy ');
+    // console.log(this.userRegistrationFormCopy);
     this.haveChanges = null;
-    console.log('have changes ? ' + this.haveChanges);
+    // console.log('have changes ? ' + this.haveChanges);
 
+  }
+
+  toggleDisabled(): void {
+    if (this.edit) {
+      this.roles.disable();
+      this.defaultRole.disable();
+    } else {
+      this.roles.enable();
+      this.defaultRole.enable();
+    }
+    this.edit = !this.edit;
   }
 
   subscribeToFormValChange(): void {
@@ -186,10 +199,10 @@ export class UserProfileComponent implements OnInit, OnChanges {
   }
 
   onCancelEdit(): void {
-    this.edit = !this.edit;
     this.userRegistrationForm.reset();
     this.userRegistrationForm.setValue(this.userRegistrationFormCopy);
     this.selectedRoles = this.roles.value;
+    this.toggleDisabled();
   }
 
   public saveChangesDialog(): void {
@@ -308,7 +321,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
     }).subscribe(
       response => {
         console.log('Update Success!(frontend)', response);
-        this.edit = false;
+        this.toggleDisabled();
         this.getAndSetValues();
         const dialogRef2 = this.dialog.open(DialogBoxComponent, {
           data: {

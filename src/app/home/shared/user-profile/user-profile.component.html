@@ -104,7 +104,7 @@
             <div class="row">
               <mat-form-field appearance="outline" class="col-12">
                 <mat-label>Role</mat-label>
-                <mat-select [disabled]="!edit" formControlName="roles" multiple="true"
+                <mat-select  formControlName="roles" multiple="true"
                             (valueChange)="toSelectedRoles($event)">
                   <mat-option *ngFor="let role of roleList; let i = index" [value]="i">{{role}}</mat-option>
                 </mat-select>
@@ -114,7 +114,7 @@
             <div class="row">
               <mat-form-field appearance="outline" class="col-12">
                 <mat-label>Default Role</mat-label>
-                <mat-select [disabled]="!edit" formControlName="defaultRole" multiple="false">
+                <mat-select  formControlName="defaultRole" multiple="false">
                   <mat-option *ngFor="let roleId of selectedRoles; let i = index"
                               [value]="roleId">{{roleList[roleId]}}</mat-option>
                 </mat-select>
@@ -131,11 +131,11 @@
             </div>
             <!-------------------------------------------------------------------------------------------------------------->
 
-            <button class="btn btn-primary" type="button" [hidden]="edit" (click)="edit = !edit">Edit Profile</button>
+            <button class="btn btn-primary" type="button" [hidden]="edit" (click)="toggleDisabled()">Edit Profile</button>
             <button class="btn btn-primary" type="button" [hidden]="!edit" (click)="onCancelEdit()">Cancel</button>
             <span></span>
             <button class="btn btn-primary" style="float: right" type="submit"
-                    [hidden]="!(userRegistrationForm.valid && haveChanges)">Save
+                    [hidden]="!(userRegistrationForm.valid && haveChanges) || !edit">Save
             </button>
 
           </form>
