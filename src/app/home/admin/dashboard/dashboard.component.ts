@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
     this.http1.post<any>(`http://localhost:3000/admin/get-users-details-brief`, {}).subscribe(
       response => {
         this.dataSourceUsers = response.data;
-        console.log(this.dataSourceUsers);
+        // console.log(this.dataSourceUsers);
       }, error => {
         console.log(error);
       }
@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
     this.http1.post<any>(`http://localhost:3000/admin/get-complaints-details-brief`, {}).subscribe(
       response => {
         this.dataSourceComplaints = response.data;
-        console.log(this.dataSourceComplaints);
+        // console.log(this.dataSourceComplaints);
       }, error => {
         console.log(error);
       }

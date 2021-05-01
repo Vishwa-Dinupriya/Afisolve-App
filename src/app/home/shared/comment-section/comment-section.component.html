@@ -4,25 +4,25 @@
       Comment Section
 <!--      <h4><i>complaint ID:{{complaintIdInput}}</i> </h4>-->
     </mat-card-title>
-    <button mat-icon-button style=" float: right; margin-top: -1%; margin-left: 77%;"
+    <button mat-icon-button style=" float: right; margin-top: -1%; margin-left: 80%;"
             (click)="whenClose()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-card-header>
   <mat-divider></mat-divider>
 
-  <mat-card-content class="mb-0">
-    <mat-grid-list cols="1" rows="11" rowHeight="41px">
+  <mat-card-content class="mb-0" >
+    <mat-grid-list cols="1" rows="13" rowHeight="41px">
 
-      <mat-grid-tile [colspan]="1" [rowspan]="10" style="">
+      <mat-grid-tile [colspan]="1" [rowspan]="12" style="">
         <div style=" height:100%; width: 100%; ">
           <div [hidden]="dataSourceComments.length === 0" class="msg_history" [style.height.%]="chatBoxHeight"
                #scrollBottom>
             <li class="message" *ngFor="let comment of dataSourceComments">
-              <div *ngIf="  comment.senderEmail !== currentUserEmail;  then incoming_msg; else outgoing_msg"></div>
+              <div *ngIf=" comment.senderID != this.currentUserID;  then incoming_msg; else outgoing_msg"></div>
               <ng-template #incoming_msg>
                 <div class="incoming_msg_img">
-                  <img style="width: 100%; margin-top: 40%;"
+                  <img style="width: 100%; margin-top: 40%; border-radius:45% "
                        [src]=" 'data:image/png;base64,' +comment.senderAvatarPicture"
                        alt="User avatar"/>
                 </div>

@@ -79,7 +79,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    console.log(this.userEmailChild);
+    // console.log(this.userEmailChild);
     if (this.userRegistrationForm) {
       console.log('form is build');
       this.tabIndex = '1';

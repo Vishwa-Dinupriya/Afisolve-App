@@ -19,7 +19,7 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
 
   @Input() complaintIdInput: number;
   @Input() senderRole: string;
-  currentUserEmail;
+  currentUserID;
 
   public showLoader = false;
   private subscription: Subscription;
@@ -28,7 +28,6 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
   constructor(private router: Router,
               private http1: HttpClient,
               private commentSectionService: CommentSectionService,
-              private fb1: FormBuilder,
               public dialog: MatDialog,
               public complaintCustomerService: ComplaintsCustomerService,
               public accoorcomplaintService: AccoorcomplaintsService) {
@@ -51,6 +50,7 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
 
   ngOnChanges(): void {
     if (this.complaintIdInput) {
+      this.currentUserID = localStorage.getItem('userID');
       this.getComments(this.complaintIdInput);
       this.setTimer();
     }
@@ -61,7 +61,7 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
   }
 
   ngOnInit(): void {
-    this.currentUserEmail = localStorage.getItem('userEmail');
+    // this.currentUserID = localStorage.getItem('userID');
     this.chatBoxHeight = 100;
     this.scrollToBottom();
     this.setTimer();
@@ -81,7 +81,8 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
     this.http1.get<any>(`http://localhost:3000/` + this.senderRole + `/get-comments`, {params: complaintID}).subscribe(
       response => {
         this.dataSourceComments = response.data;
-        console.log(this.dataSourceComments.length);
+        console.log(this.dataSourceComments);
+        console.log('this.currentUserID: ' + this.currentUserID);
       }, error => {
         console.log(error);
       }
@@ -103,10 +104,7 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
     this.commentSectionService.sendComment(text, this.imageAttachments, this.complaintIdInput, this.senderRole).subscribe(
       response => {
         if (this.imageAttachments.length > 0) { // clear image attachment array
-          for (let i = 0; i < this.imageAttachments.length;) {
-            this.imageAttachments.pop();
-            i++;
-          }
+          this.imageAttachments = []; // reset the array
         }
         this.chatBoxHeight = 100;
         console.log('Success!(frontend)', response);

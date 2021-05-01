@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         response => {
           console.log('Login Success!(frontend)', response);
+          localStorage.setItem('userID', response.userID);
           localStorage.setItem('userEmail', response.userEmail);
           localStorage.setItem('token', response.token);
           this.router.navigate([`../home/${response.defaultRole.toLowerCase()}`]);
