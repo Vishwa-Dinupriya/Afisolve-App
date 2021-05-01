@@ -20,6 +20,7 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
   @Input() complaintIdInput: number;
   @Input() senderRole: string;
   currentUserID;
+  textComment: string = null;
 
   public showLoader = false;
   private subscription: Subscription;
@@ -81,8 +82,8 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
     this.http1.get<any>(`http://localhost:3000/` + this.senderRole + `/get-comments`, {params: complaintID}).subscribe(
       response => {
         this.dataSourceComments = response.data;
-        console.log(this.dataSourceComments);
-        console.log('this.currentUserID: ' + this.currentUserID);
+        // console.log(this.dataSourceComments);
+        // console.log('this.currentUserID: ' + this.currentUserID);
       }, error => {
         console.log(error);
       }
@@ -103,11 +104,12 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
   clickSend(text: string): void {
     this.commentSectionService.sendComment(text, this.imageAttachments, this.complaintIdInput, this.senderRole).subscribe(
       response => {
+        this.textComment = '';
         if (this.imageAttachments.length > 0) { // clear image attachment array
           this.imageAttachments = []; // reset the array
         }
         this.chatBoxHeight = 100;
-        console.log('Success!(frontend)', response);
+        // console.log('Success!(frontend)', response);
       },
       error => console.error('Error!(frontend)', error)
     );

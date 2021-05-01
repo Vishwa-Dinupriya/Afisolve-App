@@ -83,10 +83,11 @@
         </button>
 
         <input style=" margin-top: 1px; height: 35px; width: 83%; margin-right: -40px;" matInput class="border"
-               type="text" #text>
-        <button [disabled]="!imageAttachments.length && text.value.trim()==='' "
+               type="text" #textC  [(ngModel)]="textComment" name="textComment">
+        <button [disabled]="!imageAttachments.length && textC.value.trim()==='' "
                 style=" margin-right:-100px; margin-left:0px; height: 32px;" class="btn btn-primary float-right ml-5"
-                (click)="clickSend(text.value)">send
+                (click)="clickSend(textC.value)">
+          <div style="margin-top: -3px;">send</div>
         </button>
       </mat-grid-tile>
 

@@ -208,7 +208,8 @@ export class HomeComponent implements OnInit {
   }
 
   roleChangeFunction(i): void {
-    console.log(this.roles[i].roleName);
+    // console.log(this.roles[i].roleName);
+    this.homeService.changeUserProfileModeBooleanSubject(false);
     this.authenticationService.roleChange(this.roles[i])
       .subscribe(
         response => {

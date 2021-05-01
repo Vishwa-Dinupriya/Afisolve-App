@@ -81,7 +81,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     // console.log(this.userEmailChild);
     if (this.userRegistrationForm) {
-      console.log('form is build');
+      // console.log('form is build');
       this.tabIndex = '1';
       this.formBuildFunction();
       this.getAndSetValues();
@@ -228,7 +228,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
           this.http1.post<any>(`http://localhost:3000/authentication/sendOtpToEmail`, {userEnteredEmail: this.email.value})
             .subscribe(
               response => {
-                console.log(response.otpID);
+                // console.log(response.otpID);
                 this.otpService.changeOtpIDSubjectNumberValue(response.otpID);
               }, error => {
                 console.log(error);
@@ -394,7 +394,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
 
     dialogRef.afterClosed().subscribe(picture => {
       this.newProfilePicture = picture;
-      console.log(this.newProfilePicture);
+      // console.log(this.newProfilePicture);
       if (this.newProfilePicture !== '' && this.newProfilePicture !== this.currentProfilePicture) {
         console.log('photos are different');
         this.haveChanges = true;
