@@ -1,7 +1,8 @@
+
 <div [hidden]="false">
   <mat-tab-group animationDuration="1000ms" [selectedIndex]="tabIndex">
     <mat-tab label="General Details">
-      <div>
+      <div >
 
         <mat-list *ngIf="!!COMPLAINT_DETAILS_DATA">
 
@@ -153,14 +154,18 @@
       </div>
     </mat-tab>
   </mat-tab-group>
-  <button class="btn btn-primary" (click)="backToAllComplaintsAdmin()" [hidden]="!complaintService.profileModeValue && requestFrom!=='admin' ">
+  <button class="btn btn-primary" style="margin-left: 86%" (click)="backToAllComplaintsAdmin()" [hidden]="!complaintService.profileModeValue && requestFrom!=='admin' ">
+    <div style="display: flex">
     <mat-icon>arrow_back_ios</mat-icon>
     All Complains
+    </div>
   </button>
 
-  <button class="btn btn-primary" (click)="backToAllComplaintsCustomer()" [hidden]="!complaintCustomerService.isComplaintProfileMode && requestFrom!=='customer'">
-    <mat-icon>arrow_back_ios</mat-icon>
-    All Complains
+  <button class="btn btn-primary" style="margin-left: 86%" (click)="backToAllComplaintsCustomer()" [hidden]="!complaintCustomerService.isComplaintProfileMode && requestFrom!=='customer'">
+    <div style="display: flex">
+      <mat-icon>arrow_back_ios</mat-icon>
+      All Complains
+    </div>
   </button>
 </div>
 

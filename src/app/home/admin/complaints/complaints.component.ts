@@ -127,5 +127,9 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
+  // public backToAllComplaintsAdmin(): void {
+  //   this.complaintService.changeProfileModeBooleanSubjectValue(false);
+  //   this.complaintService.changeComplaintIdParentNumberSubjectValue(null);
+  //   this.complaintService.changeSubComplaintIdParentNumberSubjectValue(null);
+  // }
 }
