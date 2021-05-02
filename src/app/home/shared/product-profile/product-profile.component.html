@@ -151,9 +151,11 @@
         <i> Requested Product Id is null</i>
       </div>
 
-      <button class="btn btn-primary" (click)="backToAllProducts()" [hidden]="!productService.isProductProfileMode">
-        <mat-icon>arrow_back_ios</mat-icon>
-        All Products
+      <button class="btn btn-primary" style="margin-left: 86%" (click)="backToAllProducts()" [hidden]="!productService.isProductProfileMode">
+       <div style="display: flex">
+         <mat-icon>arrow_back_ios</mat-icon>
+         All Products
+       </div>
       </button>
     </mat-tab>
 
