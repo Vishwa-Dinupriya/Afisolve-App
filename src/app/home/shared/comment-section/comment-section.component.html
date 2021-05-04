@@ -4,25 +4,25 @@
       Comment Section
 <!--      <h4><i>complaint ID:{{complaintIdInput}}</i> </h4>-->
     </mat-card-title>
-    <button mat-icon-button style=" float: right; margin-top: -1%; margin-left: 77%;"
+    <button mat-icon-button style=" float: right; margin-top: -1%; margin-left: 80%;"
             (click)="whenClose()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-card-header>
   <mat-divider></mat-divider>
 
-  <mat-card-content class="mb-0">
-    <mat-grid-list cols="1" rows="11" rowHeight="41px">
+  <mat-card-content class="mb-0" >
+    <mat-grid-list cols="1" rows="13" rowHeight="41px">
 
-      <mat-grid-tile [colspan]="1" [rowspan]="10" style="">
+      <mat-grid-tile [colspan]="1" [rowspan]="12" style="">
         <div style=" height:100%; width: 100%; ">
           <div [hidden]="dataSourceComments.length === 0" class="msg_history" [style.height.%]="chatBoxHeight"
                #scrollBottom>
             <li class="message" *ngFor="let comment of dataSourceComments">
-              <div *ngIf="  comment.senderEmail !== currentUserEmail;  then incoming_msg; else outgoing_msg"></div>
+              <div *ngIf=" comment.senderID != this.currentUserID;  then incoming_msg; else outgoing_msg"></div>
               <ng-template #incoming_msg>
                 <div class="incoming_msg_img">
-                  <img style="width: 100%; margin-top: 40%;"
+                  <img style="width: 100%; margin-top: 40%; border-radius:45% "
                        [src]=" 'data:image/png;base64,' +comment.senderAvatarPicture"
                        alt="User avatar"/>
                 </div>
@@ -67,7 +67,7 @@
                      style="border-radius:10% "
                      [src]="this.imageAttachments[i]">
               </button>
-              <button mat-button (click)="removeSelectedImage(i)" class="ml-5" matTooltip="Click to remove this image">
+              <button mat-button (click)="removeSelectedImage(i)" style="margin-left: 30%;" matTooltip="Click to remove this image">
                 Remove
               </button>
             </div>
@@ -83,10 +83,11 @@
         </button>
 
         <input style=" margin-top: 1px; height: 35px; width: 83%; margin-right: -40px;" matInput class="border"
-               type="text" #text>
-        <button [disabled]="!imageAttachments.length && text.value.trim()==='' "
+               type="text" #textC  [(ngModel)]="textComment" name="textComment">
+        <button [disabled]="!imageAttachments.length && textC.value.trim()==='' "
                 style=" margin-right:-100px; margin-left:0px; height: 32px;" class="btn btn-primary float-right ml-5"
-                (click)="clickSend(text.value)">send
+                (click)="clickSend(textC.value)">
+          <div style="margin-top: -3px;">send</div>
         </button>
       </mat-grid-tile>
 

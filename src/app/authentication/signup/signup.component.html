@@ -4,11 +4,11 @@
   <form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()" class="mat-typography" #myForm="ngForm">
 
     <div class="row mb-4" >
-      <div class="col-4">
-        <button type="button" mat-stroked-button color="" (click)="openDialog()" matTooltip="Click to select a profile picture">
-          <img class="m-1" [hidden]="!this.profilePicture" style="border-radius:10%" width="80%" height="80%" [src]="this.profilePicture" />
+      <div class="col-4" style ="margin-left: 33%;">
+        <button  type="button" mat-stroked-button color="" (click)="openDialog()" matTooltip="Click to select a profile picture">
+          <img class="m-1" [hidden]="!this.profilePicture" style="border-radius:45%" width="80%" height="80%" [src]="this.profilePicture" />
           <span></span>
-          <img class="m-1" [hidden]="this.profilePicture" style="border-radius:10%" width="80%" height="80%" src="../../../../assets/img/default-profile-picture.png">
+          <img class="m-1" [hidden]="this.profilePicture" style="border-radius:45%" width="80%" height="80%" src="../../../../assets/img/default-profile-picture.png">
           </button>
       </div>
     </div>
@@ -89,7 +89,7 @@
     </div>
     <!-------------------------------------------------------------------------------------------------------------->
 
-    <button class="btn btn-primary" type="submit" [disabled]="!userRegistrationForm.valid">Done</button>
+    <button class="btn btn-primary" type="submit" style="margin-left: 93%; width: 7%;" [disabled]="!userRegistrationForm.valid">Done</button>
 
   </form>
 

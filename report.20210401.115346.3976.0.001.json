@@ -1,0 +1,362 @@
+
+{
+  "header": {
+    "reportVersion": 1,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20210401.115346.3976.0.001.json",
+    "dumpEventTime": "2021-04-01T11:53:46Z",
+    "dumpEventTimeStamp": "1617258226683",
+    "processId": 3976,
+    "cwd": "F:\\Acadamic\\sw project\\mygithub\\Code2\\Afisolve-App",
+    "commandLine": [
+      "D:\\nodejs\\node.exe",
+      "D:\\intelij\\IntelliJ IDEA 2020.2.3\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\js-language-service.js",
+      "-id=1617255188360",
+      "-debug-name=typescript"
+    ],
+    "nodejsVersion": "v12.16.1",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "win32",
+    "componentVersions": {
+      "node": "12.16.1",
+      "v8": "7.8.279.23-node.31",
+      "uv": "1.34.0",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.40.0",
+      "napi": "5",
+      "llhttp": "2.0.4",
+      "http_parser": "2.9.3",
+      "openssl": "1.1.1d",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019c",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "lts": "Erbium",
+      "headersUrl": "https://nodejs.org/download/release/v12.16.1/node-v12.16.1-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.16.1/node-v12.16.1.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v12.16.1/win-x64/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "10.0.19042",
+    "osVersion": "Windows 10 Home Single Language",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+        "speed": 1800,
+        "user": 2220078,
+        "nice": 0,
+        "sys": 2623484,
+        "idle": 51254609,
+        "irq": 829484
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+        "speed": 1800,
+        "user": 1531296,
+        "nice": 0,
+        "sys": 791781,
+        "idle": 53774937,
+        "irq": 16765
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+        "speed": 1800,
+        "user": 2522546,
+        "nice": 0,
+        "sys": 1477359,
+        "idle": 52098093,
+        "irq": 27984
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+        "speed": 1800,
+        "user": 1943828,
+        "nice": 0,
+        "sys": 741171,
+        "idle": 53413015,
+        "irq": 16203
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+        "speed": 1800,
+        "user": 2816375,
+        "nice": 0,
+        "sys": 1236078,
+        "idle": 52045562,
+        "irq": 27484
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+        "speed": 1800,
+        "user": 1379640,
+        "nice": 0,
+        "sys": 724546,
+        "idle": 53993828,
+        "irq": 17093
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+        "speed": 1800,
+        "user": 2030609,
+        "nice": 0,
+        "sys": 1060000,
+        "idle": 53007390,
+        "irq": 28437
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+        "speed": 1800,
+        "user": 1245828,
+        "nice": 0,
+        "sys": 1161390,
+        "idle": 53690781,
+        "irq": 19031
+      }
+    ],
+    "host": "LAPTOP-JJI4RQ71"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ]
+  },
+  "nativeStack": [
+    {
+      "pc": "0x00007ff6de8619f9",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6de865e1c",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6de864dd8",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6de9634cb",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6df179f4e",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6df162021",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6df02e57c",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6df036521",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6df02bb13",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6df02a184",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6df04b36d",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6dedb0c51",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6df5c4ddd",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff6df5c5d0d",
+      "symbol": ""
+    },
+    {
+      "pc": "0x000002cd157a45f3",
+      "symbol": ""
+    }
+  ],
+  "javascriptHeap": {
+    "totalMemory": 319627264,
+    "totalCommittedMemory": 319627264,
+    "usedMemory": 317490840,
+    "availableMemory": 1880375216,
+    "memoryLimit": 2197815296,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 262144,
+        "committedMemory": 262144,
+        "capacity": 32808,
+        "used": 32808,
+        "available": 0
+      },
+      "new_space": {
+        "memorySize": 1048576,
+        "committedMemory": 1048576,
+        "capacity": 1047456,
+        "used": 1047432,
+        "available": 24
+      },
+      "old_space": {
+        "memorySize": 290078720,
+        "committedMemory": 290078720,
+        "capacity": 289598888,
+        "used": 289059536,
+        "available": 539352
+      },
+      "code_space": {
+        "memorySize": 2002944,
+        "committedMemory": 2002944,
+        "capacity": 1815104,
+        "used": 1639840,
+        "available": 175264
+      },
+      "map_space": {
+        "memorySize": 1052672,
+        "committedMemory": 1052672,
+        "capacity": 1051168,
+        "used": 626080,
+        "available": 425088
+      },
+      "large_object_space": {
+        "memorySize": 25133056,
+        "committedMemory": 25133056,
+        "capacity": 25082360,
+        "used": 25082360,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 49152,
+        "committedMemory": 49152,
+        "capacity": 2784,
+        "used": 2784,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 1047456,
+        "used": 0,
+        "available": 1047456
+      }
+    }
+  },
+  "resourceUsage": {
+    "userCpuSeconds": 27.89,
+    "kernelCpuSeconds": 27.812,
+    "cpuConsumptionPercent": 1.83351,
+    "maxRss": 401080320,
+    "pageFaults": {
+      "IORequired": 255232,
+      "IONotRequired": 0
+    },
+    "fsActivity": {
+      "reads": 6694,
+      "writes": 186
+    }
+  },
+  "libuv": [
+  ],
+  "environmentVariables": {
+    "=::": "::\\",
+    "ALLUSERSPROFILE": "C:\\ProgramData",
+    "ANDROID_HOME": "D:\\Sdk",
+    "APPDATA": "C:\\Users\\Theekshana\\AppData\\Roaming",
+    "CommonProgramFiles": "C:\\Program Files\\Common Files",
+    "CommonProgramFiles(x86)": "C:\\Program Files (x86)\\Common Files",
+    "CommonProgramW6432": "C:\\Program Files\\Common Files",
+    "COMPUTERNAME": "LAPTOP-JJI4RQ71",
+    "ComSpec": "C:\\WINDOWS\\system32\\cmd.exe",
+    "DriverData": "C:\\Windows\\System32\\Drivers\\DriverData",
+    "FPS_BROWSER_APP_PROFILE_STRING": "Internet Explorer",
+    "FPS_BROWSER_USER_PROFILE_STRING": "Default",
+    "HOMEDRIVE": "C:",
+    "HOMEPATH": "\\Users\\Theekshana",
+    "IDEA_INITIAL_DIRECTORY": "D:\\intelij\\IntelliJ IDEA 2020.2.3\\bin",
+    "IntelliJ IDEA": "D:\\intelij\\IntelliJ IDEA 2020.2.3\\bin;",
+    "JAVA_HOME": "C:\\Program Files\\Java\\jdk-13",
+    "LOCALAPPDATA": "C:\\Users\\Theekshana\\AppData\\Local",
+    "LOGONSERVER": "\\\\LAPTOP-JJI4RQ71",
+    "MAVEN_HOME": "D:\\Maven\\apache-maven-3.6.3",
+    "NUMBER_OF_PROCESSORS": "8",
+    "OneDrive": "C:\\Users\\Theekshana\\OneDrive",
+    "OneDriveConsumer": "C:\\Users\\Theekshana\\OneDrive",
+    "OS": "Windows_NT",
+    "Path": "D:\\Sdk\\tools;D:\\Sdk\\platform-tools;C:\\Windows\\System32;C:\\Program Files\\Java\\jdk-13\\bin;C:\\src\\flutter\\bin;D:\\android studio\\New folder\\bin;D:\\nodejs;D:\\Program Files\\Oracle\\VirtualBox;D:\\Program Files\\R\\R-4.0.0\\bin;C:\\Program Files\\Java\\jdk-13\\bin;D:\\Maven\\apache-maven-3.6.3\\bin;D:\\xampp\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Program Files\\MongoDB\\Server\\4.4\\bin\\mongo.exe;C:\\Windows\\System32\\wbem;D:\\Git\\cmd;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Users\\Theekshana\\AppData\\Local\\Programs\\Python\\Python38-32\\Scripts\\;C:\\Users\\Theekshana\\AppData\\Local\\Programs\\Python\\Python38-32\\;C:\\Users\\Theekshana\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Microsoft VS Code\\bin;C:\\Users\\Theekshana\\AppData\\Roaming\\npm;D:\\Microsoft VS Code\\bin;C:\\Program Files\\Java\\jdk-13\\bin;D:\\android studio\\New folder\\bin;C:\\src\\flutter\\bin;D:\\Git\\bin;C:\\Users\\Theekshana\\AppData\\Roaming\\Composer\\vendor\\bin;D:\\intelij\\IntelliJ IDEA 2020.2.3\\bin;;",
+    "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC",
+    "PROCESSOR_ARCHITECTURE": "AMD64",
+    "PROCESSOR_IDENTIFIER": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+    "PROCESSOR_LEVEL": "6",
+    "PROCESSOR_REVISION": "8e0c",
+    "ProgramData": "C:\\ProgramData",
+    "ProgramFiles": "C:\\Program Files",
+    "ProgramFiles(x86)": "C:\\Program Files (x86)",
+    "ProgramW6432": "C:\\Program Files",
+    "PSModulePath": "C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules;C:\\Program Files (x86)\\Microsoft SQL Server\\150\\Tools\\PowerShell\\Modules\\",
+    "PT5HOME": "D:\\Cisco packet tracer network simulator 6.0.1\\Cisco Packet Tracer 6.0.1",
+    "PT6HOME": "D:\\Cisco packet tracer network simulator 6.0.1\\Cisco Packet Tracer 6.0.1",
+    "PUBLIC": "C:\\Users\\Public",
+    "SESSIONNAME": "Console",
+    "SystemDrive": "C:",
+    "SystemRoot": "C:\\WINDOWS",
+    "TEMP": "C:\\Users\\THEEKS~1\\AppData\\Local\\Temp",
+    "TMP": "C:\\Users\\THEEKS~1\\AppData\\Local\\Temp",
+    "USERDOMAIN": "LAPTOP-JJI4RQ71",
+    "USERDOMAIN_ROAMINGPROFILE": "LAPTOP-JJI4RQ71",
+    "USERNAME": "Theekshana",
+    "USERPROFILE": "C:\\Users\\Theekshana",
+    "VBOX_MSI_INSTALL_PATH": "D:\\Program Files\\Oracle\\VirtualBox\\",
+    "windir": "C:\\WINDOWS",
+    "ZES_ENABLE_SYSMAN": "1"
+  },
+  "sharedObjects": [
+    "D:\\nodejs\\node.exe",
+    "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+    "C:\\Program Files\\AVAST Software\\Avast\\aswhook.dll",
+    "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+    "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+    "C:\\WINDOWS\\System32\\WS2_32.dll",
+    "C:\\WINDOWS\\System32\\RPCRT4.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dbghelp.dll",
+    "C:\\WINDOWS\\System32\\PSAPI.DLL",
+    "C:\\WINDOWS\\System32\\ucrtbase.dll",
+    "C:\\WINDOWS\\System32\\ADVAPI32.dll",
+    "C:\\WINDOWS\\System32\\msvcrt.dll",
+    "C:\\WINDOWS\\SYSTEM32\\IPHLPAPI.DLL",
+    "C:\\WINDOWS\\System32\\sechost.dll",
+    "C:\\WINDOWS\\SYSTEM32\\USERENV.dll",
+    "C:\\WINDOWS\\System32\\USER32.dll",
+    "C:\\WINDOWS\\System32\\win32u.dll",
+    "C:\\WINDOWS\\System32\\GDI32.dll",
+    "C:\\WINDOWS\\System32\\gdi32full.dll",
+    "C:\\WINDOWS\\System32\\msvcp_win.dll",
+    "C:\\WINDOWS\\System32\\CRYPT32.dll",
+    "C:\\WINDOWS\\System32\\bcrypt.dll",
+    "C:\\WINDOWS\\SYSTEM32\\WINMM.dll",
+    "C:\\WINDOWS\\System32\\IMM32.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\powrprof.dll",
+    "C:\\WINDOWS\\SYSTEM32\\UMPDC.dll",
+    "C:\\WINDOWS\\SYSTEM32\\CRYPTBASE.DLL",
+    "C:\\WINDOWS\\system32\\uxtheme.dll",
+    "C:\\WINDOWS\\System32\\combase.dll",
+    "C:\\WINDOWS\\system32\\mswsock.dll",
+    "C:\\WINDOWS\\SYSTEM32\\kernel.appcore.dll",
+    "C:\\WINDOWS\\System32\\bcryptprimitives.dll"
+  ]
+}

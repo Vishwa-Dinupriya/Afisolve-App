@@ -21,7 +21,7 @@ export class AdminComponent implements OnInit {
 
   getRoute(event): void {
     this.activeRoute = event.constructor.name;
-    console.log(this.activeRoute);
+    // console.log(this.activeRoute);
   }
 
 }

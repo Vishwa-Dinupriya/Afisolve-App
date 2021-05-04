@@ -9,6 +9,9 @@ export interface IComplaintDetailsAdmin {
   accountCoordinatorEmail: string;
   accountCoordinatorFirstName: string;
   accountCoordinatorLastName: string;
+  customerEmail: string;
+  customerFirstName: string;
+  customerLastName: string;
   complaintID: number;
   description: string;
   finishedDate: string;
@@ -60,7 +63,7 @@ export class ComplaintProfileComponent implements OnInit, AfterViewInit, OnChang
           response => {
             this.COMPLAINT_DETAILS_DATA = response.data;
             this.imageAttachments = response.images;
-            console.log(this.imageAttachments);
+            // console.log(this.imageAttachments);
           },
           error => {
             console.log(error);

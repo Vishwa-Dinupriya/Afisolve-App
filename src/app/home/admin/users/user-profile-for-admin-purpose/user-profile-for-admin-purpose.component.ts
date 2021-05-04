@@ -8,8 +8,10 @@ import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {UsersService} from '../users.service';
 import {IUserGeneral} from '../../../shared/user-profile/user-profile.component';
-import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
-import {DialogBoxSelectPictureComponent} from '../../../shared/dialog-box-select-picture/dialog-box-select-picture.component';
+import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
+import {DialogBoxSelectPictureComponent} from '../../../../shared/dialog-box-select-picture/dialog-box-select-picture.component';
+import {OtpDialogBoxComponent} from '../../../../shared/otp-dialog-box/otp-dialog-box.component';
+import {OtpService} from '../../../../shared/otp-service/otp.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -55,7 +57,8 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
     private router: Router,
     private http1: HttpClient,
     public dialog: MatDialog,
-    public usersService1: UsersService
+    public usersService1: UsersService,
+    private otpService: OtpService
   ) {
   }
 
@@ -80,20 +83,33 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
         password: ['', [Validators.required]],
         confirmPassword: ['']
       }, {validators: checkPasswords}),
-      roles: [[''], [Validators.required]],
-      defaultRole: ['', [Validators.required]],
+      roles: [{value: '', disabled: true}, [Validators.required]], // this assigned value is only valid for in initiate form
+      defaultRole: [{value: '', disabled: true}, [Validators.required]],
       contactNumber: ['']
     });
   }
 
   createFormCopy(): void {
     this.userRegistrationFormCopy = Object.assign({}, this.userRegistrationForm.value);
+    this.userRegistrationFormCopy.roles = this.roles.value;
+    this.userRegistrationFormCopy.defaultRole = this.defaultRole.value;
     this.oldEmail = this.userRegistrationFormCopy.email;
-    console.log('init form copy ');
-    console.log(this.userRegistrationFormCopy);
+    // console.log('init form copy ');
+    // console.log(this.userRegistrationFormCopy);
     this.haveChanges = null;
-    console.log('have changes ? ' + this.haveChanges);
+    // console.log('have changes ? ' + this.haveChanges);
 
+  }
+
+  toggleDisabled(): void {
+    if (this.edit) {
+      this.roles.disable();
+      this.defaultRole.disable();
+    } else {
+      this.roles.enable();
+      this.defaultRole.enable();
+    }
+    this.edit = !this.edit;
   }
 
   subscribeToFormValChange(): void {
@@ -107,12 +123,12 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
           this.userRegistrationFormCopy.defaultRole !== value.defaultRole ||
           this.userRegistrationFormCopy.contactNumber !== value.contactNumber) {
           this.haveChanges = true;
-          console.log('have changes? ' + this.haveChanges);
+          // console.log('have changes? ' + this.haveChanges);
         } else {
           this.haveChanges = false;
-          console.log('have changes? ' + this.haveChanges);
+          // console.log('have changes? ' + this.haveChanges);
         }
-        console.log('valid ? ' + this.userRegistrationForm.valid);
+        // console.log('valid ? ' + this.userRegistrationForm.valid);
       });
     }
   }
@@ -151,10 +167,6 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
 
   toSelectedRoles(value): void {
     this.selectedRoles = value;
-    // console.log('$event ' + value);
-    // console.log('selectedRoles: ' + this.selectedRoles);
-    // console.log('roles: ' + this.roles.value);
-    // console.log('default role: ' + this.defaultRole.value);
 
     if (!this.selectedRoles.includes(this.defaultRole.value)) {
       this.defaultRole.reset();
@@ -165,30 +177,59 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
   }
 
   onCancelEdit(): void {
-    this.edit = !this.edit;
     this.userRegistrationForm.reset();
     this.userRegistrationForm.setValue(this.userRegistrationFormCopy);
     this.selectedRoles = this.roles.value;
+    this.toggleDisabled();
   }
 
   public saveChangesDialog(): void {
-    const dialogRef = this.dialog.open(DialogBoxComponent, {
-      data: {
-        title: 'Are you sure?',
-        message: 'Save changes with ' + this.oldEmail + '? ',
-        name: '',
-        button1: 'Cancel',
-        button2: 'Save'
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
-        console.log(`Dialog result: ${result}`);
-        this.onUpdate();
-      } else {
-        console.log(`Dialog result: ${result}`);
-      }
-    });
+    if (this.userRegistrationFormCopy.email !== this.email.value) {
+      this.http1.post<any>(`http://localhost:3000/authentication/sendOtpToEmail`, {userEnteredEmail: this.email.value})
+        .subscribe(
+          response => {
+            console.log(response.otpID);
+            this.otpService.changeOtpIDSubjectNumberValue(response.otpID);
+          }, error => {
+            console.log(error);
+          }
+        );
+      const dialogRef1 = this.dialog.open(OtpDialogBoxComponent, {
+        data: {
+          title: 'Enter OTP: !',
+          message: 'We sent an one-time-password(OTP) to your new email address. ',
+          name: ' ',
+          button1: 'Cancel',
+          button2: 'Submit'
+        }
+      });
+
+      dialogRef1.afterClosed().subscribe(result1 => {
+        if (result1 === true) {
+          this.onUpdate();
+        } else {
+          console.log(`Dialog result: ${result1}`);
+        }
+      });
+    } else {
+      const dialogRef = this.dialog.open(DialogBoxComponent, {
+        data: {
+          title: 'Are you sure?',
+          message: 'Save changes with ' + this.oldEmail + '? ',
+          name: '',
+          button1: 'Cancel',
+          button2: 'Save'
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === true) {
+          // console.log(`Dialog result: ${result}`);
+          this.onUpdate();
+        } else {
+          // console.log(`Dialog result: ${result}`);
+        }
+      });
+    }
   }
 
   getAndSetValues(): void {
@@ -229,15 +270,54 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
       userNewData: this.userRegistrationForm.value,
       emailOld: this.oldEmail,
       newProfilePhoto_: this.newProfilePicture,
-
+      clientOtp: this.otpService.otp,
+      generatedOtpID: this.otpService.otpID
     }).subscribe(
       response => {
         console.log('Update Success!(frontend)', response);
-        this.edit = false;
+        this.toggleDisabled();
         this.getAndSetValues();
+        const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+          data: {
+            image: '',
+            title: 'Success!',
+            message: 'Update Successfully! ',
+            name: ' ',
+            button1: 'Back to All users',
+            button2: 'Ok'
+          }
+        });
+
+        dialogRef2.afterClosed().subscribe(result2 => {
+          console.log(`Dialog result: ${result2}`);
+          if (result2 === true) {
+
+          } else {
+            this.usersService1.changeIsProfileModeSubjectBooleanValue(false);
+          }
+        });
       },
       error => {
         console.error('Update Error!(frontend)', error);
+        const dialogRef3 = this.dialog.open(DialogBoxComponent, {
+          data: {
+            image: '',
+            title: 'Failed!',
+            message: error,
+            name: ' ',
+            button1: '',
+            button2: 'Retry'
+          }
+        });
+
+        dialogRef3.afterClosed().subscribe(result3 => {
+          console.log(`Dialog result: ${result3}`);
+          if (result3 === true) {
+
+          } else {
+
+          }
+        });
       }
     );
   }

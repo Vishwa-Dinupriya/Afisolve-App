@@ -27,6 +27,19 @@ import {UsersComponent} from './home/admin/users/users.component';
 import {ComplaintsComponent} from './home/admin/complaints/complaints.component';
 import {ProductsComponent} from './home/admin/products/products.component';
 import {RegisterProductComponent} from './home/admin/products/register-product/register-product.component';
+
+import { TasksComponent } from './home/accountCoordinator/tasks/tasks.component';
+import { AccoorcomplaintsComponent } from './home/accountCoordinator/accoorcomplaints/accoorcomplaints.component';
+import { AddComplaintComponent } from './home/accountCoordinator/accoorcomplaints/add-complaint/add-complaint.component';
+import { CreateTaskComponent } from './home/accountCoordinator/tasks/create-task/create-task.component';
+import { AllocationComponent } from './home/accountCoordinator/allocation/allocation.component';
+import { MailComponent } from './home/accountCoordinator/mail/mail.component';
+
+
+import {AccoorcomplaintsService} from './home/accountCoordinator/accoorcomplaints/accoorcomplaints.service';
+import {TaskService} from './home/accountCoordinator/tasks/task.service';
+import {DevtaskService} from './home/developer/devtasks/devtask.service';
+
 import {ProductService} from './home/admin/products/product.service';
 import {MatGridListModule} from '@angular/material/grid-list';
 
@@ -57,6 +70,14 @@ import {ComplaintProfileComponent} from './home/shared/complaint-profile/complai
 import {ProductProfileComponent} from './home/shared/product-profile/product-profile.component';
 import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-profile.component';
 
+import { DialogBoxComponent } from './shared/dialog-box/dialog-box.component';
+import { DevtasksComponent } from './home/developer/devtasks/devtasks.component';
+import { DevcomplaintsComponent } from './home/developer/devcomplaints/devcomplaints.component';
+import { DevproductsComponent } from './home/developer/devproducts/devproducts.component';
+import { TaskProfileComponent } from './home/accountCoordinator/tasks/task-profile/task-profile.component';
+
+
+
 import { CdashboardComponent } from './home/ceo/cdashboard/cdashboard.component';
 import { ClateComponent } from './home/ceo/clate/clate.component';
 import { CviewreportsComponent } from './home/ceo/cviewreports/cviewreports.component';
@@ -64,7 +85,8 @@ import { PdashboardComponent } from './home/projectManager/pdashboard/pdashboard
 import { CactionComponent } from './home/ceo/clate/caction/caction.component';
 import { ChatComponent } from './home/ceo/chat/chat.component';
 
-import {DialogBoxComponent} from './home/shared/dialog-box/dialog-box.component';
+
+
 
 import {PageService, SortService, FilterService} from '@syncfusion/ej2-angular-treegrid';
 
@@ -80,10 +102,19 @@ import { ClosedComplaintsComponent } from './home/customer/complaints-customer/c
 import { ReviewDialogBoxComponent } from './home/customer/complaints-customer/completed-complaints/review-dialog-box/review-dialog-box.component';
 import { LodgeSubComplaintComponent } from './home/customer/complaints-customer/completed-complaints/lodge-sub-complaint/lodge-sub-complaint.component';
 import { UserProfileForAdminPurposeComponent } from './home/admin/users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
-import { UploadPictureComponent } from './home/shared/upload-picture/upload-picture.component';
-import { DialogBoxSelectPictureComponent } from './home/shared/dialog-box-select-picture/dialog-box-select-picture.component';
+
+import { CropAndUploadPictureComponent } from './shared/crop-and-upload-picture/crop-and-upload-picture.component';
+import { DialogBoxSelectPictureComponent } from './shared/dialog-box-select-picture/dialog-box-select-picture.component';
 import { CommentSectionComponent } from './home/shared/comment-section/comment-section.component';
-import { OtpDialogBoxComponent } from './authentication/shared/otp-dialog-box/otp-dialog-box.component';
+import { OtpDialogBoxComponent } from './shared/otp-dialog-box/otp-dialog-box.component';
+
+
+
+import { UpdateComplaintStatusComponent } from './home/accountCoordinator/accoorcomplaints/update-complaint-status/update-complaint-status.component';
+import { AccoorcomplaintProfileCurrentComponent } from './home/accountCoordinator/accoorcomplaints/accoorcomplaint-profile-current/accoorcomplaint-profile-current.component';
+import { AccoorproductsComponent } from './home/accountCoordinator/accoorproducts/accoorproducts.component';
+import { DevtasksProfileComponent } from './home/developer/devtasks/devtasks-profile/devtasks-profile.component';
+import { UpdateDevtaskStatusComponent } from './home/developer/devtasks/update-devtask-status/update-devtask-status.component';
 
 
 
@@ -106,7 +137,18 @@ import { OtpDialogBoxComponent } from './authentication/shared/otp-dialog-box/ot
     ComplaintsComponent,
     ProductsComponent,
     RegisterProductComponent,
+
+    TasksComponent,
+    AccoorcomplaintsComponent,
+    AddComplaintComponent,
+    CreateTaskComponent,
+    AllocationComponent,
+    MailComponent,
+
+    // AccoortestComponent,
+
     ProfilePictureDialogComponent,
+
 
     LateComplaintInformationComponent,
     ViewReportsComponent,
@@ -127,6 +169,10 @@ import { OtpDialogBoxComponent } from './authentication/shared/otp-dialog-box/ot
     ChatComponent,
 
     DialogBoxComponent,
+    DevtasksComponent,
+    DevcomplaintsComponent,
+    DevproductsComponent,
+    TaskProfileComponent,
 
 
     ComplaintsCustomerComponent,
@@ -141,10 +187,19 @@ import { OtpDialogBoxComponent } from './authentication/shared/otp-dialog-box/ot
     ReviewDialogBoxComponent,
     LodgeSubComplaintComponent,
     UserProfileForAdminPurposeComponent,
-    UploadPictureComponent,
+
+    CropAndUploadPictureComponent,
     DialogBoxSelectPictureComponent,
     CommentSectionComponent,
     OtpDialogBoxComponent,
+
+
+    UpdateComplaintStatusComponent,
+    AccoorcomplaintProfileCurrentComponent,
+    AccoorproductsComponent,
+    DevtasksProfileComponent,
+    UpdateDevtaskStatusComponent,
+
 
   ],
   entryComponents: [DialogBoxComponent],
@@ -175,6 +230,9 @@ import { OtpDialogBoxComponent } from './authentication/shared/otp-dialog-box/ot
     AuthenticationService,
     AuthenticationGuard,
     ProductService,
+    TaskService,
+    DevtaskService,
+    AccoorcomplaintsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

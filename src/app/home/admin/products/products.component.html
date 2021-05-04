@@ -1,13 +1,12 @@
-<button mat-button class="float-right" (click)="changeMode(productService.createProductMode)"
+<button mat-raised-button color="primary" style=" margin-left: 84%; margin-top: 1%; width: 12%"  (click)="changeMode(productService.createProductMode)"
         [hidden]="productService.createProductMode">
-  <!--  <button mat-button class="float-right" (click)="createProduct=!createProduct" [hidden]="createProduct">-->
   <span class="mat-button-wrapper">
    <mat-icon>add_business</mat-icon>
     New product
   </span>
 </button>
 
-<button mat-button class="float-right" (click)="changeMode(productService.createProductMode)"
+<button mat-raised-button color="primary" style=" margin-left: 84%; margin-top: 1%; width: 12%"  (click)="changeMode(productService.createProductMode)"
         [hidden]="!productService.createProductMode">
   <!--<button mat-button class="float-right" (click)="createProduct=!createProduct" [hidden]="!createProduct">-->
   <span class="mat-button-wrapper">
@@ -16,8 +15,11 @@
   </span>
 </button>
 
-<mat-card class="m-5 shadow h-100">
+<mat-card class="ml-5 mr-5 mb-5 mt-3 shadow h-100">
+
   <div [hidden]="productService.createProductMode">
+    <mat-card-title>Products</mat-card-title>
+    <hr>
     <div [hidden]="productService.isProductProfileMode">
       <div>
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">

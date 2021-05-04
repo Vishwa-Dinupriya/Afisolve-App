@@ -54,7 +54,7 @@ export class PendingComplaintsComponent implements OnInit, AfterViewInit {
         this.dataSource = new MatTableDataSource<IComplaintWithSubsElement>(this.COMPLAINS_DATA);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        console.log(this.dataSource);
+        // console.log(this.dataSource);
       }, error => {
         console.log(error);
       }

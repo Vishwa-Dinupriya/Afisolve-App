@@ -162,7 +162,7 @@ export class HomeComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event?): void {
-    this.isBigScreen = (window.innerWidth) > 700;
+    this.isBigScreen = (window.innerWidth) > 800;
     this.homeService.ToggleDrawer(this.isBigScreen);
     this.toggleDrawerBtnValue = this.homeService.drawer;
   }
@@ -208,13 +208,15 @@ export class HomeComponent implements OnInit {
   }
 
   roleChangeFunction(i): void {
-    console.log(this.roles[i].roleName);
+    // console.log(this.roles[i].roleName);
+    this.homeService.changeUserProfileModeBooleanSubject(false);
     this.authenticationService.roleChange(this.roles[i])
       .subscribe(
         response => {
           console.log('Role change Success!(frontend)', response);
-          console.log(response.requestedRole);
+          // console.log(response.requestedRole);
           localStorage.setItem('token', response.token);
+
           this.router.navigate([`../home/${response.requestedRole.toLowerCase()}`]);
           this.currentRole = response.requestedRole;
         },

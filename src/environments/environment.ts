@@ -13,6 +13,9 @@ export const environment = {
   customerApiUrl: 'http://localhost:3000/customer',
   homeApiUrl: 'http://localhost:3000/home',
 
+  accountCoordinatorApiUrl: 'http://localhost:3000/accountCoordinator',
+  developerApiUrl: 'http://localhost:3000/developer'
+
 };
 
 /*
