@@ -65,7 +65,7 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.http1.post<any>(`http://localhost:3000/admin/get-all-complaints`, {}).subscribe(
       response => {
-        console.log(response.data);
+        // console.log(response.data);
         this.COMPLAINS_DATA = response.data;
         this.complaintsTabs.forEach(tab => {
           tab.dataSource = new MatTableDataSource<IComplaintWithSubsElement>(this.COMPLAINS_DATA.filter(

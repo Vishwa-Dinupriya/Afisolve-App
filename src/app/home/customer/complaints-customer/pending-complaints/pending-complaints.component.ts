@@ -6,6 +6,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {HttpClient} from '@angular/common/http';
 import {ComplaintsCustomerService} from '../complaints-customer.service';
 import {IComplaintWithSubsElement} from '../../../shared/complaintElementWithSubsInterface/interface-complaint-with-subs.service';
+import {AddNewComplaintService} from '../../add-new-complaint/add-new-complaint.service';
 
 @Component({
   selector: 'app-pending-complaints',
@@ -20,7 +21,6 @@ import {IComplaintWithSubsElement} from '../../../shared/complaintElementWithSub
   ],
 })
 export class PendingComplaintsComponent implements OnInit, AfterViewInit {
-  createComplaintMode: boolean;
   complaintIdToCommentSection;
 
   complaintStatusID: number | null;
@@ -38,11 +38,12 @@ export class PendingComplaintsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private http1: HttpClient,
-    public complaintsCustomerService: ComplaintsCustomerService) {
+    public complaintsCustomerService: ComplaintsCustomerService,
+    public addNewComplaintService: AddNewComplaintService) {
   }
 
   ngOnInit(): void {
-    this.createComplaintMode = false;
+    this.addNewComplaintService.changeIsLodgeComplaintModeSubjectBooleanValue(false);
     this.complaintsCustomerService.changeIsCommentSectionModeSubjectBooleanValue(false);
   }
 

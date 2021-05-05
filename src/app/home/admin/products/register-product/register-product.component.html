@@ -26,20 +26,22 @@
 
     <div class="row">
       <mat-form-field class="col-12" appearance="outline">
-        <mat-label>Project-Manager Email</mat-label>
-        <input type="text" matInput formControlName="projectManagerEmail" placeholder="user@gmail.com">
-      </mat-form-field>
-    </div>
-
-    <div class="row">
-      <mat-form-field class="col-12" appearance="outline">
         <mat-label>Account-Coordinator Email</mat-label>
         <input type="text" matInput formControlName="accountCoordinatorEmail" placeholder="user@gmail.com">
       </mat-form-field>
     </div>
 
-    <button class="btn btn-primary" style=" margin-left: 92%; width: 8%;" type="submit" [disabled]="!productRegistrationForm.valid">Register</button>
+    <div class="row">
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Project-Manager Email</mat-label>
+        <input type="text" matInput formControlName="projectManagerEmail" placeholder="user@gmail.com">
+      </mat-form-field>
+    </div>
 
+    <div style="display: flex">
+      <button class="btn btn-primary" type="button" [hidden]="false" (click)="onCancel()">Cancel</button>
+      <button class="btn btn-primary" style=" margin-left: 85%; width: 9%;" type="submit" [disabled]="!productRegistrationForm.valid">Register</button>
+    </div>
   </form>
 
 </div>

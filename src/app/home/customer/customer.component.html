@@ -11,7 +11,8 @@
 
       <mat-list-option routerLink="./lodge-new-complaint"
                        [selected]="activeRoute === 'AddNewComplaintComponent'"
-                       [class.selected]="activeRoute === 'AddNewComplaintComponent'">
+                       [class.selected]="activeRoute === 'AddNewComplaintComponent'"
+                       (click)="addNewComplaintService.changeIsLodgeComplaintModeSubjectBooleanValue(false)">
         <mat-icon mat-list-icon>add</mat-icon>
         <div mat-line>Add new Complaint</div>
       </mat-list-option>
@@ -74,7 +75,7 @@
   <mat-drawer-content class="">
 
     <router-outlet (activate)="getRoute($event)">
-      <!--dashboard-customer,complaints-customer,purchases-customer, -->
+      <!--dashboard-customer,add-new-complaint,complaints-customer,purchases-customer, -->
     </router-outlet>
 
   </mat-drawer-content>

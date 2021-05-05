@@ -10,11 +10,12 @@ import {UsersService} from './users.service';
 
 export interface IUser {
   userEmail: string;
-  password: string;
   firstName: string;
   lastName: string;
   contactNumber: string;
   roleIDs: number[];
+  activeStatus: boolean;
+  createdAt: string;
 }
 
 export interface ITabUsers {
@@ -31,7 +32,7 @@ export interface ITabUsers {
 
 export class UsersComponent implements OnInit {
 
-  displayedColumns: string[] = ['userEmail', 'password', 'firstName', 'lastName', 'contactNumber', 'details', 'update', 'delete'];
+  displayedColumns: string[] = ['userEmail', 'firstName', 'lastName', 'contactNumber', 'createdAt', 'activeStatus', 'details', 'delete'];
 
   dataSource: MatTableDataSource<IUser>;
   USERS_DATA: IUser[];
@@ -64,8 +65,8 @@ export class UsersComponent implements OnInit {
   getData(): void {
     this.http1.post<any>(`http://localhost:3000/admin/get-all-users-details`, {}).subscribe(
       response => {
+        // console.log(response.data);
         this.USERS_DATA = response.data;
-        console.log(response.data);
         this.usersTabs.forEach(tab => {
           tab.dataSource = new MatTableDataSource<IUser>(this.USERS_DATA.filter(
             user => tab.roleID === 6 ? true : user.roleIDs.indexOf(tab.roleID) !== -1));
@@ -90,9 +91,6 @@ export class UsersComponent implements OnInit {
     this.usersService.changeIsProfileModeSubjectBooleanValue(true);
   }
 
-  public redirectToUpdate(id: string): void {
-    console.log(id);
-  }
 
   public redirectToDelete(id: string): void {
     console.log(id);

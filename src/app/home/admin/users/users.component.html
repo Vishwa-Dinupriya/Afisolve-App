@@ -1,14 +1,14 @@
 <button mat-raised-button color="primary" style="margin-left: 87%; margin-top: 1%;"  (click)="changeMode(usersService.createUserMode)"
         [hidden]="usersService.createUserMode">
   <mat-icon>person_add</mat-icon>
-   new user
+   New user
 </button>
 
-<button mat-raised-button color="primary" style="margin-left: 87%; margin-top: 1%;"  (click)="changeMode(usersService.createUserMode)"
-        [hidden]="!usersService.createUserMode">
-  <mat-icon>view_list</mat-icon>
-  view users
-</button>
+<!--<button mat-raised-button color="primary" style="margin-left: 87%; margin-top: 1%;"  (click)="changeMode(usersService.createUserMode)"-->
+<!--        [hidden]="!usersService.createUserMode">-->
+<!--  <mat-icon>view_list</mat-icon>-->
+<!--  view users-->
+<!--</button>-->
 
 
 <mat-card class="mr-5 ml-5 mt-3 mb-4 shadow">
@@ -44,7 +44,7 @@
               <!-- password Column -->
               <ng-container matColumnDef="password">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Password</th>
-                <td mat-cell *matCellDef="let element"> {{element.password}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
               </ng-container>
 
               <!-- firstName Column -->
@@ -65,13 +65,20 @@
                 <td mat-cell *matCellDef="let element"> {{element.contactNumber}} </td>
               </ng-container>
 
-              <!-- Update button Column -->
-              <ng-container matColumnDef="update">
-                <th mat-header-cell *matHeaderCellDef> Update</th>
-                <td mat-cell *matCellDef="let element">
-                  <button mat-icon-button color="accent" (click)="redirectToUpdate(element.userEmail)">
-                    <mat-icon class="mat-18">system_update</mat-icon>
-                  </button>
+              <!-- registered Date Column -->
+              <ng-container matColumnDef="createdAt">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Registered At</th>
+                <td mat-cell *matCellDef="let element"> {{element.createdAt}} </td>
+              </ng-container>
+
+              <!-- Active status Column -->
+              <ng-container matColumnDef="activeStatus">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="justify-content:center;" > Active Status</th>
+                <td mat-cell *matCellDef="let element" style="text-align: center" >
+                  <span *ngIf="element.activeStatus; else inactiveBlock" style=" height: 15px; width: 15px;background-color: #01a701 ;border-radius: 50%;display: inline-block;"> </span>
+                  <ng-template #inactiveBlock>
+                    <span  style=" height: 15px; width: 15px;background-color: crimson; border-radius: 50%;display: inline-block;"></span>
+                  </ng-template>
                 </td>
               </ng-container>
 

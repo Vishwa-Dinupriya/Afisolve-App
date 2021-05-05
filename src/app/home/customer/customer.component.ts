@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpRequest} from '@angular/common/http';
 import {HomeService} from '../home.service';
 import {ComplaintsCustomerService} from './complaints-customer/complaints-customer.service';
+import {AddNewComplaintService} from './add-new-complaint/add-new-complaint.service';
 
 @Component({
   selector: 'app-customer',
@@ -15,7 +16,8 @@ export class CustomerComponent implements OnInit {
 
   constructor(
     public homeService: HomeService,
-    private complaintsCustomerService: ComplaintsCustomerService
+    private complaintsCustomerService: ComplaintsCustomerService,
+    public addNewComplaintService: AddNewComplaintService
   ) {
   }
 

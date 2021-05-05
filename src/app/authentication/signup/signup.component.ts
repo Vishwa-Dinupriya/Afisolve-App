@@ -94,13 +94,13 @@ export class SignupComponent implements OnInit {
   onSubmit(): void {
     this.http1.post<any>(`http://localhost:3000/authentication/sendOtpToEmail`, {userEnteredEmail: this.email.value})
       .subscribe(
-      response => {
-        console.log(response.otpID);
-        this.otpService.changeOtpIDSubjectNumberValue(response.otpID);
-      }, error => {
-        console.log(error);
-      }
-    );
+        response => {
+          console.log(response.otpID);
+          this.otpService.changeOtpIDSubjectNumberValue(response.otpID);
+        }, error => {
+          console.log(error);
+        }
+      );
     const dialogRef1 = this.dialog.open(OtpDialogBoxComponent, {
       data: {
         title: 'Enter OTP: !',
@@ -191,6 +191,11 @@ export class SignupComponent implements OnInit {
       this.profilePicture = picture;
     });
 
+  }
+
+  onCancel(): void {
+    this.userRegistrationForm.reset();
+    this.userService.ChangeCreateUserModeBooleanSubjectValue(false);
   }
 
 }

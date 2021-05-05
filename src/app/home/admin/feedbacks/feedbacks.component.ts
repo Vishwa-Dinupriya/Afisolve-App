@@ -23,7 +23,7 @@ export interface ITabFeedbacks {
 })
 export class FeedbacksComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['complaintID', 'satisfaction', 'description', 'details', 'update', 'delete'];
+  displayedColumns: string[] = ['complaintID', 'satisfaction', 'description', 'details', 'delete'];
   dataSource: MatTableDataSource<IFeedback>;
   FEEDBACKS_DATA: IFeedback[];
 

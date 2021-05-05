@@ -1,30 +1,23 @@
-<button mat-raised-button color="primary" style=" margin-left: 84%; margin-top: 1%; width: 12%" (click)="createComplaintMode = !createComplaintMode"
-        [hidden]="createComplaintMode">
+<button mat-raised-button color="primary" style=" margin-left: 84%; margin-top: 1%; width: 12%"
+        (click)="addNewComplaintService.changeIsLodgeComplaintModeSubjectBooleanValue(true)"
+        [hidden]="addNewComplaintService.isLodgeComplaintMode">
   <span class="mat-button-wrapper">
   <mat-icon>add_box</mat-icon>
   New complaint
   </span>
 </button>
 
-<button mat-raised-button color="primary" style=" margin-left: 79%; margin-top: 1%; width: 17%" (click)="createComplaintMode = !createComplaintMode"
-        [hidden]="!createComplaintMode">
-  <span class="mat-button-wrapper">
-  <mat-icon>view_list</mat-icon>
-  view completed complaints
-  </span>
-</button>
-
 <mat-card class="mr-5 ml-5 mt-3 mb-4 shadow">
 
-  <mat-card-title [hidden]="!createComplaintMode">Add new complaint</mat-card-title>
-  <mat-card-title [hidden]="createComplaintMode">Completed Complaints</mat-card-title>
+  <mat-card-title [hidden]="!addNewComplaintService.isLodgeComplaintMode">Add new complaint</mat-card-title>
+  <mat-card-title [hidden]="addNewComplaintService.isLodgeComplaintMode">Completed Complaints</mat-card-title>
   <hr>
 
-  <div [hidden]="!createComplaintMode">
+  <div [hidden]="!addNewComplaintService.isLodgeComplaintMode">
     <app-add-new-complaint></app-add-new-complaint>
   </div>
 
-  <div [hidden]="createComplaintMode">
+  <div [hidden]="addNewComplaintService.isLodgeComplaintMode">
     <!--all complaints table-->
     <div [hidden]="complaintsCustomerService.isComplaintProfileMode">
       <mat-form-field class="w-75 m-3">

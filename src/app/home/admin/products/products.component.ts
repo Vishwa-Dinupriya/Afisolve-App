@@ -16,6 +16,7 @@ export interface IProduct {
   productID: number;
   productName: string;
   projectManagerEmail: string;
+  createdAt: string;
 }
 
 @Component({
@@ -25,7 +26,7 @@ export interface IProduct {
 })
 export class ProductsComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['productID', 'productName', 'category', 'customerEmail', 'projectManagerEmail', 'accountCoordinatorEmail', 'details', 'update', 'delete'];
+  displayedColumns: string[] = ['productID', 'productName', 'category', 'customerEmail', 'projectManagerEmail', 'accountCoordinatorEmail', 'details', 'delete'];
   dataSource: MatTableDataSource<IProduct>;
   PRODUCTS_DATA: IProduct[];
 
@@ -50,6 +51,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.http1.post<any>(`http://localhost:3000/admin/get-all-products`, {}).subscribe(
       response => {
+        // console.log(response.data);
         this.PRODUCTS_DATA = response.data;
         this.dataSource = new MatTableDataSource<IProduct>(this.PRODUCTS_DATA);
         this.dataSource.sort = this.sort;
