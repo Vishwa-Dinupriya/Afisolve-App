@@ -31,7 +31,7 @@
                     <p [hidden]="comment.IsImage"
                        style="margin: 1%; max-width:100%; word-wrap: break-word;">{{ comment.content }}</p>
                     <img class="m-1" [hidden]="!comment.IsImage" width="80%" height="80%"
-                         style="border-radius:10%; float: left; max-width: fit-content "
+                         style="border-radius:10%; float: left; max-width: fit-content; "
                          [src]=" 'data:image/png;base64,' +comment.content">
                   </div>
                 </div>
@@ -42,7 +42,7 @@
                     <p [hidden]="comment.IsImage"
                        style="max-width:100%; word-wrap: break-word;">{{ comment.content }}</p>
                     <img class="m-1" [hidden]="!comment.IsImage" width="80%" height="80%"
-                         style="border-radius: 20px; float: right; max-width: fit-content"
+                         style="border-radius: 20px; float: right; max-width: fit-content;"
                          [src]=" 'data:image/png;base64,' +comment.content">
                   </div>
                 </div>

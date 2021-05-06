@@ -2,77 +2,86 @@
   <mat-card-title>Feedbacks</mat-card-title>
   <hr>
   <div>
-    <mat-tab-group animationDuration="1000ms" [selectedIndex]="0">
-      <mat-tab *ngFor="let tab of feedbacksTabs; let i = index">
-        <ng-template mat-tab-label>
-          <span [hidden]="tab.ratedValue<=5 "> All</span>
-          <mat-icon [hidden]="tab.ratedValue>5" *ngFor="let ratingId of ratingArr;index as k" class="example-tab-icon">{{showIcon(k, tab.ratedValue)}}</mat-icon>
-        </ng-template>
-        <mat-form-field class="w-75 m-3">
-          <mat-label>Filter</mat-label>
-          <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
-        </mat-form-field>
+    <!--all feedbacks table-->
+    <div [hidden]="feedbacksService.profileModeValue">
+      <mat-tab-group animationDuration="1000ms" [selectedIndex]="0">
+        <mat-tab *ngFor="let tab of feedbacksTabs; let i = index">
+          <ng-template mat-tab-label>
+            <span [hidden]="tab.ratedValue<=5 "> All</span>
+            <mat-icon [hidden]="tab.ratedValue>5" *ngFor="let ratingId of ratingArr;index as k"
+                      class="example-tab-icon">{{showIcon(k, tab.ratedValue)}}</mat-icon>
+          </ng-template>
+          <mat-form-field class="w-75 m-3">
+            <mat-label>Filter</mat-label>
+            <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
+          </mat-form-field>
 
-        <div>
-          <table mat-table [dataSource]="tab.dataSource" matSort class="mat-elevation-z8 w-100">
+          <div>
+            <table mat-table [dataSource]="tab.dataSource" matSort class="mat-elevation-z8 w-100">
 
-            <!-- complaint ID Column -->
-            <ng-container matColumnDef="complaintID">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Complaint-ID</th>
-              <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
-            </ng-container>
+              <!-- complaint ID Column -->
+              <ng-container matColumnDef="complaintID">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Complaint-ID</th>
+                <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
+              </ng-container>
 
-            <!-- satisfaction level Column -->
-            <ng-container matColumnDef="satisfaction">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Satisfied-level</th>
-              <td mat-cell *matCellDef="let element">
-                <mat-icon *ngFor="let ratingId of ratingArr;index as i">
-                  {{showIcon(i, element.satisfaction)}}
-                </mat-icon>
-              </td>
-            </ng-container>
+              <!-- satisfaction level Column -->
+              <ng-container matColumnDef="satisfaction">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Satisfied-level</th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-icon *ngFor="let ratingId of ratingArr;index as i">
+                    {{showIcon(i, element.satisfaction)}}
+                  </mat-icon>
+                </td>
+              </ng-container>
 
-            <!-- feedback description Column -->
-            <ng-container matColumnDef="description">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Feedback</th>
-              <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-            </ng-container>
+              <!-- feedback description Column -->
+              <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Feedback</th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+              </ng-container>
 
-            <!-- Details Column -->
-            <ng-container matColumnDef="details">
-              <th mat-header-cell *matHeaderCellDef> Details</th>
-              <td mat-cell *matCellDef="let element">
-                <button mat-icon-button color="primary" (click)="redirectToDetails(element.complaintID)">
-                  <mat-icon class="mat-18">reorder</mat-icon>
-                </button>
-              </td>
-            </ng-container>
+              <!-- Details Column -->
+              <ng-container matColumnDef="details">
+                <th mat-header-cell *matHeaderCellDef> Details</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button color="primary" (click)="redirectToDetails(element.complaintID)">
+                    <mat-icon class="mat-18">reorder</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
 
-            <!-- Delete Column -->
-            <ng-container matColumnDef="delete">
-              <th mat-header-cell *matHeaderCellDef> Delete</th>
-              <td mat-cell *matCellDef="let element">
-                <button mat-icon-button color="warn" (click)="redirectToDelete(element.complaintID)">
-                  <mat-icon class="mat-18">delete</mat-icon>
-                </button>
-              </td>
-            </ng-container>
-            <!-------------------------------------------------------------------------------------------->
+              <!-- Delete Column -->
+              <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef> Delete</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button color="warn" (click)="redirectToDelete(element.complaintID)">
+                    <mat-icon class="mat-18">delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+              <!-------------------------------------------------------------------------------------------->
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-          </table>
-          <mat-paginator [length]="5" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
-          </mat-paginator>
-        </div>
+            </table>
+            <mat-paginator [length]="5" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+          </div>
 
-        <div *ngIf="!tab.dataSource" class="d-flex justify-content-center w-100">
-          <mat-spinner></mat-spinner>
-        </div>
+          <div *ngIf="!tab.dataSource" class="d-flex justify-content-center w-100">
+            <mat-spinner></mat-spinner>
+          </div>
 
-      </mat-tab>
+        </mat-tab>
 
-    </mat-tab-group>
+      </mat-tab-group>
+    </div>
+
+    <!--feedback profile-->
+    <div [hidden]="!feedbacksService.profileModeValue">
+      <app-feedback-profile [complaintIdChild]="feedbacksService.complaintIdParentValue"></app-feedback-profile>
+    </div>
   </div>
 </mat-card>

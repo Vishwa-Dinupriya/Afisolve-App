@@ -1,1 +1,150 @@
-<p>feedback-profile works!</p>
+<div >
+
+  <mat-list *ngIf="!!FEEDBACK_DETAILS_DATA">
+
+    <mat-list-item>
+      <div class=" w-25">Satisfaction: </div>
+      <div class="text-secondary w-75">
+        <span *ngIf="!FEEDBACK_DETAILS_DATA.satisfaction; else satisfactionBlock"><i> Not Available</i></span>
+        <ng-template #satisfactionBlock>
+          <mat-icon *ngFor="let ratingId of ratingArr;index as i">
+            {{showIcon(i,FEEDBACK_DETAILS_DATA.satisfaction)}}
+          </mat-icon>
+        </ng-template>
+      </div>
+    </mat-list-item>
+
+    <mat-list-item>
+      <div class=" w-25">complaintID: </div>
+      <div class="text-secondary w-75">
+        <span *ngIf="!FEEDBACK_DETAILS_DATA.complaintID; else complaintIDBlock"><i> Not Available</i></span>
+        <ng-template #complaintIDBlock>
+          <span> {{ FEEDBACK_DETAILS_DATA.complaintID }} <br/></span>
+        </ng-template>
+      </div>
+    </mat-list-item>
+
+    <mat-list-item>
+      <div class=" w-25">Number of Sub-Complaints: </div>
+      <div class=" text-secondary w-75">
+        <span *ngIf="!FEEDBACK_DETAILS_DATA.nOfSubComplaints; else nOfSubComplaintsBlock"><i> No any Sub Complaint</i></span>
+        <ng-template #nOfSubComplaintsBlock>
+          <span> {{ FEEDBACK_DETAILS_DATA.nOfSubComplaints }} <br/></span>
+        </ng-template>
+      </div>
+    </mat-list-item>
+
+    <mat-list-item>
+      <div class=" w-25">product ID: </div>
+      <div class=" text-secondary w-75">
+        <span *ngIf="!FEEDBACK_DETAILS_DATA.productID; else productIDBlock"><i> Not Available</i></span>
+        <ng-template #productIDBlock>
+          <span> {{ FEEDBACK_DETAILS_DATA.productID }} <br/></span>
+        </ng-template>
+      </div>
+    </mat-list-item>
+
+    <mat-list-item>
+      <div class=" w-25">Product Name:</div>
+      <div class=" text-secondary w-75">
+        <span *ngIf="!FEEDBACK_DETAILS_DATA.productName; else productNameBlock"><i> Not Available</i></span>
+        <ng-template #productNameBlock>
+          <span> {{ FEEDBACK_DETAILS_DATA.productName }} <br/></span>
+        </ng-template>
+      </div>
+    </mat-list-item>
+
+    <mat-list-item>
+      <div class=" w-25">Customer Email:</div>
+      <div class=" text-secondary w-75">
+        <span *ngIf="!FEEDBACK_DETAILS_DATA.customerEmail; else customerEmailBlock"><i> Not Available</i></span>
+        <ng-template #customerEmailBlock>
+          <span> {{ FEEDBACK_DETAILS_DATA.customerEmail }} <br/></span>
+        </ng-template>
+      </div>
+    </mat-list-item>
+
+    <mat-list-item>
+      <div class=" w-25">Customer Name:</div>
+      <div class=" text-secondary w-75">
+        <span *ngIf="!FEEDBACK_DETAILS_DATA.customerFirstName; else customerNameBlock"><i> Not Available</i></span>
+        <ng-template #customerNameBlock>
+          <span> {{ FEEDBACK_DETAILS_DATA.customerFirstName+' '+ FEEDBACK_DETAILS_DATA.customerLastName }} <br/></span>
+        </ng-template>
+      </div>
+    </mat-list-item>
+
+    <mat-list-item>
+      <div class=" w-25">Account Coordinator Email:</div>
+      <div class=" text-secondary w-75">
+        <span *ngIf="!FEEDBACK_DETAILS_DATA.accountCoordinatorEmail; else accountCoordinatorEmaileBlock"><i> Not Available</i></span>
+        <ng-template #accountCoordinatorEmaileBlock>
+          <span> {{ FEEDBACK_DETAILS_DATA.accountCoordinatorEmail }} <br/></span>
+        </ng-template>
+      </div>
+    </mat-list-item>
+
+    <mat-list-item>
+      <div class=" w-25">Account Coordinator Name:</div>
+      <div class=" text-secondary w-75">
+        <span *ngIf="!FEEDBACK_DETAILS_DATA.accountCoordinatorFirstName; else accountCoordinatorNameBlock"><i> Not Available</i></span>
+        <ng-template #accountCoordinatorNameBlock>
+          <span> {{ FEEDBACK_DETAILS_DATA.accountCoordinatorFirstName+' '+ FEEDBACK_DETAILS_DATA.accountCoordinatorLastName }} <br/></span>
+        </ng-template>
+      </div>
+    </mat-list-item>
+
+    <mat-list-item>
+      <div class=" w-25">Project Manager Email:</div>
+      <div class=" text-secondary w-75">
+        <span *ngIf="!FEEDBACK_DETAILS_DATA.projectManagerEmail; else projectManagerEmailBlock"><i> Not Available</i></span>
+        <ng-template #projectManagerEmailBlock>
+          <span> {{ FEEDBACK_DETAILS_DATA.projectManagerEmail }} <br/></span>
+        </ng-template>
+      </div>
+    </mat-list-item>
+
+    <mat-list-item>
+      <div class=" w-25">Project Manager Name:</div>
+      <div class=" text-secondary w-75">
+        <span *ngIf="!FEEDBACK_DETAILS_DATA.projectManagerFirstName; else projectManagerNameBlock"><i> Not Available</i></span>
+        <ng-template #projectManagerNameBlock>
+          <span> {{ FEEDBACK_DETAILS_DATA.projectManagerFirstName + ' ' + FEEDBACK_DETAILS_DATA.accountCoordinatorLastName  }} <br/></span>
+        </ng-template>
+      </div>
+    </mat-list-item>
+
+    <mat-list-item>
+      <div class=" w-25">Complaint Submit At: </div>
+      <div class=" text-secondary w-75">
+        <span *ngIf="!FEEDBACK_DETAILS_DATA.submittedDate; else submittedDateBlock"><i> Not Available</i></span>
+        <ng-template #submittedDateBlock>
+          <span> {{ FEEDBACK_DETAILS_DATA.submittedDate }} <br/></span>
+        </ng-template>
+      </div>
+    </mat-list-item>
+
+    <mat-list-item>
+      <div class=" w-25">Complaint Starting Progress At: </div>
+      <div class=" text-secondary w-75">
+        <span *ngIf="!FEEDBACK_DETAILS_DATA.wipStartDate; else wipStartDateBlock"><i> Not Available</i></span>
+        <ng-template #wipStartDateBlock>
+          <span> {{ FEEDBACK_DETAILS_DATA.wipStartDate }} <br/></span>
+        </ng-template>
+      </div>
+    </mat-list-item>
+
+  </mat-list>
+
+</div>
+
+<div [hidden]="ComplaintIdAvailable">
+  <i> Requested Complaint Id is null</i>
+</div>
+
+<button class="btn btn-primary" style="margin-left: 86%" (click)="backToAllFeedbacks()" [hidden]="!feedbacksService.profileModeValue ">
+  <div style="display: flex">
+    <mat-icon>arrow_back_ios</mat-icon>
+    All Feedbacks
+  </div>
+</button>

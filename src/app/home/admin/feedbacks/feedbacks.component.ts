@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
+import {FeedbacksService} from './feedbacks.service';
 
 export interface IFeedback {
   complaintID: string;
@@ -43,7 +44,8 @@ export class FeedbacksComponent implements OnInit, AfterViewInit {
   ratingArr = [];
 
   constructor(private router: Router,
-              private http1: HttpClient) {
+              private http1: HttpClient,
+              public feedbacksService: FeedbacksService) {
 
   }
 
@@ -84,8 +86,10 @@ export class FeedbacksComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  public redirectToDetails(id: string): void {
-    console.log(id);
+  public redirectToDetails(complaintID: number): void {
+    console.log(complaintID);
+    this.feedbacksService.changeComplaintIdParentNumberSubjectValue(complaintID);
+    this.feedbacksService.changeProfileModeBooleanSubjectValue(true);
   }
 
   public redirectToUpdate(id: string): void {
