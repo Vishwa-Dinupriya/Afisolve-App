@@ -43,7 +43,7 @@ export class SignupComponent implements OnInit {
     private fb1: FormBuilder,
     private authenticationService: AuthenticationService,
     private dialog: MatDialog,
-    public userService: UsersService,
+    public usersService: UsersService,
     private otpService: OtpService) {
   }
 
@@ -140,7 +140,7 @@ export class SignupComponent implements OnInit {
                 if (result2 === true) {
 
                 } else {
-                  this.userService.ChangeCreateUserModeBooleanSubjectValue(false);
+                  this.usersService.ChangeCreateUserModeBooleanSubjectValue(false);
                 }
               });
             },
@@ -195,7 +195,7 @@ export class SignupComponent implements OnInit {
 
   onCancel(): void {
     this.userRegistrationForm.reset();
-    this.userService.ChangeCreateUserModeBooleanSubjectValue(false);
+    this.usersService.ChangeCreateUserModeBooleanSubjectValue(false);
   }
 
 }

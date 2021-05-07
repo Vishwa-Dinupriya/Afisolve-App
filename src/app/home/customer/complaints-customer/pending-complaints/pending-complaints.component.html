@@ -12,9 +12,8 @@
   <div>
     <mat-card class="mr-5 ml-5 mt-3 mb-4 shadow">
 
-      <mat-card-title [hidden]="!addNewComplaintService.isLodgeComplaintMode">Add new complaint</mat-card-title>
-      <mat-card-title [hidden]="addNewComplaintService.isLodgeComplaintMode">Pending Complaints</mat-card-title>
-      <hr>
+      <mat-card-title [hidden]="addNewComplaintService.isLodgeComplaintMode || complaintsCustomerService.isComplaintProfileMode">Pending Complaints</mat-card-title>
+      <hr [hidden]="addNewComplaintService.isLodgeComplaintMode || complaintsCustomerService.isComplaintProfileMode">
 
       <div [hidden]="!addNewComplaintService.isLodgeComplaintMode">
         <app-add-new-complaint></app-add-new-complaint>

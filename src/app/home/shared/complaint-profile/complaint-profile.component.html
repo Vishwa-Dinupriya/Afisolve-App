@@ -1,4 +1,5 @@
-
+<mat-card-title *ngIf="!!COMPLAINT_DETAILS_DATA" >Complaints > ID: {{ COMPLAINT_DETAILS_DATA.complaintID+' - '+COMPLAINT_DETAILS_DATA.subComplaintID }} </mat-card-title>
+<hr >
 <div [hidden]="false">
   <mat-tab-group animationDuration="1000ms" [selectedIndex]="tabIndex">
     <mat-tab label="General Details">
@@ -75,6 +76,7 @@
               </ng-template>
             </div>
           </mat-list-item>
+
           <mat-list-item>
             <div class=" w-25">Account Coordinator Email:</div>
             <div class=" text-secondary w-75">
@@ -154,18 +156,26 @@
       </div>
     </mat-tab>
   </mat-tab-group>
-  <button class="btn btn-primary" style="margin-left: 86%" (click)="backToAllComplaintsAdmin()" [hidden]="!complaintService.profileModeValue && requestFrom!=='admin' ">
+
+  <button class="btn btn-primary" style="margin-left: 86%" (click)="backToAllComplaints()">
     <div style="display: flex">
-    <mat-icon>arrow_back_ios</mat-icon>
-    All Complains
+      <mat-icon>arrow_back_ios</mat-icon>
+      Complaints
     </div>
   </button>
 
-  <button class="btn btn-primary" style="margin-left: 86%" (click)="backToAllComplaintsCustomer()" [hidden]="!complaintCustomerService.isComplaintProfileMode && requestFrom!=='customer'">
-    <div style="display: flex">
-      <mat-icon>arrow_back_ios</mat-icon>
-      All Complains
-    </div>
-  </button>
+<!--  <button class="btn btn-primary" style="margin-left: 86%" (click)="backToAllComplaintsAdmin()" [hidden]="!complaintService.profileModeValue && requestFrom!=='admin' ">-->
+<!--    <div style="display: flex">-->
+<!--    <mat-icon>arrow_back_ios</mat-icon>-->
+<!--    All Complains-->
+<!--    </div>-->
+<!--  </button>-->
+
+<!--  <button class="btn btn-primary" style="margin-left: 86%" (click)="backToAllComplaintsCustomer()" [hidden]="!complaintCustomerService.isComplaintProfileMode && requestFrom!=='customer'">-->
+<!--    <div style="display: flex">-->
+<!--      <mat-icon>arrow_back_ios</mat-icon>-->
+<!--      All Complains-->
+<!--    </div>-->
+<!--  </button>-->
 </div>
 

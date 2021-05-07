@@ -27,7 +27,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './user-profile-for-admin-purpose.component.html',
   styleUrls: ['./user-profile-for-admin-purpose.component.css']
 })
-export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
+export class UserProfileForAdminPurposeComponent implements OnChanges {
 
   @Input() userEmailChild: string;
 
@@ -40,7 +40,7 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
   userRegistrationForm: FormGroup;
   tabIndex;
   oldEmail;
-
+  name;
   userRegistrationFormCopy;
 
   roleList: string[] = ['Customer', 'Account-Coordinator', 'Developer', 'Project-Manager', 'CEO', 'Admin'];
@@ -62,16 +62,11 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
   ) {
   }
 
-  ngOnInit(): void {
-    this.formBuildFunction();
-  }
-
   ngOnChanges(): void {
-    if (this.userRegistrationForm) {
-      this.tabIndex = '1';
-      this.formBuildFunction();
-      this.getAndSetValues();
-    }
+    // console.log('ngOnChanges');
+    this.tabIndex = '1';
+    this.formBuildFunction();
+    this.getAndSetValues();
   }
 
   formBuildFunction(): void {
@@ -247,6 +242,8 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
             this.defaultRole.setValue(response.defaultRoleID);
             this.contactNumber.setValue(response.contactNumber);
             this.currentProfilePicture = 'data:image/png;base64,' + response.profilePhoto;
+
+            this.name = response.firstname + ' ' + response.lastname;
 
             this.createFormCopy();
             this.subscribeToFormValChange();

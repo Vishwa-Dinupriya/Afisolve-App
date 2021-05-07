@@ -1,3 +1,5 @@
+<mat-card-title >Users > {{name}}</mat-card-title>
+<hr>
 <mat-tab-group animationDuration="1000ms" [selectedIndex]="tabIndex">
   <mat-tab label="General">
 
@@ -194,10 +196,10 @@
 
 </mat-tab-group>
 
-<button style="margin-left: 87%" class="btn btn-primary" (click)="backToAllUsers()" [hidden]="!usersService1.isUserProfileMode">
+<button style="margin-left: 89%" class="btn btn-primary" (click)="backToAllUsers()" [hidden]="!usersService1.isUserProfileMode">
   <div style="display: flex">
     <mat-icon>arrow_back_ios</mat-icon>
-    All Users
+    Users
   </div>
 </button>
 
