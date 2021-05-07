@@ -25,8 +25,7 @@ import {RegisterProductComponent} from './home/admin/products/register-product/r
 
 import {LateComplaintInformationComponent} from './home/projectManager/late-complaint-information/late-complaint-information.component';
 import {ViewReportsComponent} from './home/projectManager/view-reports/view-reports.component';
-import {ProfileComponent} from './home/projectManager/profile/profile.component';
-import {ActionComponent} from './home/projectManager/late-complaint-information/action/action.component';
+
 
 import {TestComponent} from './home/admin/test/test.component';
 import {UserProfileComponent} from './home/shared/user-profile/user-profile.component';
@@ -35,9 +34,6 @@ import {CdashboardComponent} from './home/ceo/cdashboard/cdashboard.component';
 import {ClateComponent} from './home/ceo/clate/clate.component';
 import {CviewreportsComponent} from './home/ceo/cviewreports/cviewreports.component';
 import {PdashboardComponent} from './home/projectManager/pdashboard/pdashboard.component';
-import {CactionComponent} from './home/ceo/clate/caction/caction.component';
-import {ChatComponent} from './home/ceo/chat/chat.component';
-
 import {DashboardCustomerComponent} from './home/customer/dashboard-customer/dashboard-customer.component';
 import {ComplaintsCustomerComponent} from './home/customer/complaints-customer/complaints-customer.component';
 import {ProductsCustomerComponent} from './home/customer/products-customer/products-customer.component';
@@ -179,20 +175,10 @@ const routes: Routes = [
             {
               path: 'clate',
               component: ClateComponent,
-              children: [
-                {
-                  path: 'caction',
-                  component: CactionComponent
-                }
-               ]
             },
             {
               path: 'cviewreports',
               component: CviewreportsComponent
-            },
-            {
-              path: 'chat',
-              component: ChatComponent
             },
           ]
         },
@@ -212,21 +198,11 @@ const routes: Routes = [
             },
             {
               path: 'late-complaint-information',
-              component: LateComplaintInformationComponent,
-              children: [
-                {
-                  path: 'action',
-                  component: ActionComponent
-                },
-              ]
+              component: LateComplaintInformationComponent
             },
             {
               path: 'view-reports',
               component: ViewReportsComponent
-            },
-            {
-              path: 'profile',
-              component: ProfileComponent
             },
           ]
         },

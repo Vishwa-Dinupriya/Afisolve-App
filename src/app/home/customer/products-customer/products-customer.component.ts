@@ -63,4 +63,9 @@ export class ProductsCustomerComponent implements OnInit, AfterViewInit {
   public redirectToDelete(id: number): void {
     console.log(id);
   }
+
+  // tslint:disable-next-line:typedef
+  test(){
+
+  }
 }

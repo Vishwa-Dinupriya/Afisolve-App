@@ -4,6 +4,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {Router} from '@angular/router';
+import {MatTabGroup} from '@angular/material/tabs';
 
 
 export interface IComplaint {
@@ -13,7 +14,7 @@ export interface IComplaint {
   description: string;
   status: string;
   submittedDate: string;
-  accountCoordinatorName: string;
+  firstName: string;
 }
 
 @Component({
@@ -23,20 +24,29 @@ export interface IComplaint {
 })
 
 export class ViewReportsComponent implements OnInit , AfterViewInit {
-  selectedAll: any;
+ scid: any;
+pid: any;
+did: any;
+ssid: any;
+ststid: any;
+acid: any;
 
 
 
   constructor(private router: Router,
               private http1: HttpClient) { }
+  selectedAll: any;
+  selectData: any;
+  cid: string;
 
-  displayedColumns: string[] = ['complainID', 'subComplaintID', 'productID', 'description', 'status', 'submittedDate', 'accountCoordinatorName'];
+  displayedColumns: string[] = ['productID', 'complaintID', 'subComplaintID', 'description', 'statusName', 'submittedDate', 'firstName', 'print'];
 
   dataSource: MatTableDataSource<IComplaint>;
   COMPLAINS_DATA: IComplaint[];
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatTabGroup) mattabgroup: MatTabGroup;
 
   title = 'angular-checkbox-list-demo';
   selectedItemsList = [];
@@ -60,7 +70,15 @@ export class ViewReportsComponent implements OnInit , AfterViewInit {
     }
   ]
 
+  // onRowClicked(row) {
+  //   this.selectData = row; // click krana row eka mokadd kyla thyna eka
+  //   console.log(this.selectData.description);
+  //   this.cid = this.selectData.complaintID;
+  // }
+  hid2: boolean;
+
   ngOnInit(): void {
+    this.hid2 = true;
     this.fetchSelectedItems();
   }
 
@@ -69,6 +87,7 @@ export class ViewReportsComponent implements OnInit , AfterViewInit {
     this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-details1`, {}).subscribe(
       response => {
         this.COMPLAINS_DATA = response.data;
+        console.log(this.COMPLAINS_DATA);
         this.dataSource = new MatTableDataSource<IComplaint>(this.COMPLAINS_DATA);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -236,7 +255,27 @@ export class ViewReportsComponent implements OnInit , AfterViewInit {
     }
   }
 
+  getID(row) {
+    this.hid2 = false;
+    this.selectData = row; // click krana row eka mokadd kyla thyna eka
+    console.log(this.selectData.description);
+    this.cid = this.selectData.complaintID;
+    this.pid = this.selectData.productID;
+    this.scid = this.selectData.subComplaintID;
+    this.did = this.selectData.description;
+    this.ssid = this.selectData.statusName;
+    this.ststid = this.selectData.submittedDate;
+    this.acid = this.selectData.firstName + ' ' + this.selectData.lastName;
+  }
 
+  // tslint:disable-next-line:typedef
+  changetab(selectedTabIndex){
+    this.mattabgroup.selectedIndex = selectedTabIndex;
+    // tslint:disable-next-line:no-conditional-assignment triple-equals
+    if (selectedTabIndex == 0){
+      this.hid2 = true;
+    }
+  }
 
 
 }

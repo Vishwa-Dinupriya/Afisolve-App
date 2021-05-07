@@ -37,8 +37,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 
 import { LateComplaintInformationComponent } from './home/projectManager/late-complaint-information/late-complaint-information.component';
 import { ViewReportsComponent } from './home/projectManager/view-reports/view-reports.component';
-import { ProfileComponent } from './home/projectManager/profile/profile.component';
-import { ActionComponent } from './home/projectManager/late-complaint-information/action/action.component';
+
 
 import {ImageCropperModule} from 'ngx-image-cropper';
 import {TestComponent} from './home/admin/test/test.component';
@@ -61,8 +60,6 @@ import { CdashboardComponent } from './home/ceo/cdashboard/cdashboard.component'
 import { ClateComponent } from './home/ceo/clate/clate.component';
 import { CviewreportsComponent } from './home/ceo/cviewreports/cviewreports.component';
 import { PdashboardComponent } from './home/projectManager/pdashboard/pdashboard.component';
-import { CactionComponent } from './home/ceo/clate/caction/caction.component';
-import { ChatComponent } from './home/ceo/chat/chat.component';
 
 import {DialogBoxComponent} from './home/shared/dialog-box/dialog-box.component';
 
@@ -84,7 +81,7 @@ import { UploadPictureComponent } from './home/shared/upload-picture/upload-pict
 import { DialogBoxSelectPictureComponent } from './home/shared/dialog-box-select-picture/dialog-box-select-picture.component';
 import { CommentSectionComponent } from './home/shared/comment-section/comment-section.component';
 import { OtpDialogBoxComponent } from './authentication/shared/otp-dialog-box/otp-dialog-box.component';
-
+import { NgxPrintModule} from 'ngx-print';
 
 
 @NgModule({
@@ -110,8 +107,6 @@ import { OtpDialogBoxComponent } from './authentication/shared/otp-dialog-box/ot
 
     LateComplaintInformationComponent,
     ViewReportsComponent,
-    ProfileComponent,
-    ActionComponent,
 
     TestComponent,
     UserProfileComponent,
@@ -123,9 +118,6 @@ import { OtpDialogBoxComponent } from './authentication/shared/otp-dialog-box/ot
     ClateComponent,
     CviewreportsComponent,
     PdashboardComponent,
-    CactionComponent,
-    ChatComponent,
-
     DialogBoxComponent,
 
 
@@ -165,7 +157,8 @@ import { OtpDialogBoxComponent } from './authentication/shared/otp-dialog-box/ot
     MatBadgeModule,
     MatCheckboxModule,
 
-    MatDialogModule
+    MatDialogModule,
+    NgxPrintModule
 
   ],
   providers: [
