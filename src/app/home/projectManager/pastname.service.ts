@@ -21,11 +21,6 @@ export class PastnameService {
   }
 
   // tslint:disable-next-line:typedef
-  get refreshNeededformsg$() {
-    return this._refreshNeededformsg$;
-  }
-
-  // tslint:disable-next-line:typedef
   get refreshNeededforacname$() {
     return this._refreshNeededforacname$;
   }
@@ -44,7 +39,6 @@ export class PastnameService {
   cnewaccurl = environment.ceo_api_url + '/update-name';
   creminderurl = environment.ceo_api_url + '/update-reminder';
   pmsgsendurl = environment.project_manager_api_url + '/send-msg';
-  cpmsgsendurl = environment.ceo_api_url + '/send-msgg';
 
   // tslint:disable-next-line:variable-name
   private _refreshNeeded$ = new Subject<void>();
@@ -159,35 +153,5 @@ export class PastnameService {
   // acc. change krddi history update krnn
   cupdatehistory(selectedValue: string): Observable<any> {
     return this.http1.put<any>(this.cnewhistoryurl, selectedValue);
-  }
-
-
-  // ................................Chat box eka ..............................................
-
-
-  // projecct manger msg ekk ywddi
-  newmsg(user: string[]): Observable<any> {
-    return this.http1
-      .put<any>(this.pmsgsendurl, user)
-      // tslint:disable-next-line:align
-      .pipe(
-        tap(() => {
-            this._refreshNeededformsg$.next();
-          }
-        )
-      );
-  }
-
-  // ceo msg ekk ywaddi.........................
-  cnewmsg(user: string[]): Observable<any> {
-    return this.http1
-      .put<any>(this.cpmsgsendurl, user)
-      // tslint:disable-next-line:align
-      .pipe(
-        tap(() => {
-            this._refreshNeededformsg$.next();
-          }
-        )
-      );
   }
 }
