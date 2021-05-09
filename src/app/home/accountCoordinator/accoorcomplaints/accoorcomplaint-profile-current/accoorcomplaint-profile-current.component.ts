@@ -30,6 +30,7 @@ export class AccoorcomplaintProfileCurrentComponent implements OnInit, AfterView
   COMPLAINT_DETAILS_DATA: IComplaintDetailsAcc;
   tabIndex;
   ComplaintIdAvailable;
+  imageAttachments;
   //
   constructor(private router: Router,
               private http1: HttpClient,
@@ -48,6 +49,8 @@ export class AccoorcomplaintProfileCurrentComponent implements OnInit, AfterView
           response => {
             this.COMPLAINT_DETAILS_DATA = response.data;
             console.log(this.COMPLAINT_DETAILS_DATA);
+            this.imageAttachments = response.images;
+            console.log(this.imageAttachments);
           },
           error => {
             console.log(error);

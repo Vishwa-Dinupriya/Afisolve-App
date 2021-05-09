@@ -143,5 +143,11 @@
     <mat-icon>arrow_back_ios</mat-icon>
     All Complains
   </button>
+
+  <button class="btn btn-primary" (click)="backToAllComplaintsDeveloper()" [hidden]="!devtaskService.profileModeValue && requestFrom!=='developer' ">
+    <mat-icon>arrow_back_ios</mat-icon>
+    All Complains
+  </button>
+
 </div>
 

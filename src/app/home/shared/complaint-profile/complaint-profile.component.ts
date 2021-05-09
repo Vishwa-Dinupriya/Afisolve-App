@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {ComplaintsService} from '../../admin/complaints/complaints.service';
 import {ComplaintsCustomerService} from '../../customer/complaints-customer/complaints-customer.service';
+import {DevtaskService} from '../../developer/devtasks/devtask.service';
 
 export interface IComplaintDetailsAdmin {
   accountCoordinatorEmail: string;
@@ -45,7 +46,8 @@ export class ComplaintProfileComponent implements OnInit, AfterViewInit, OnChang
               private http1: HttpClient,
               public dialog: MatDialog,
               public complaintService: ComplaintsService,
-              public complaintCustomerService: ComplaintsCustomerService) {
+              public complaintCustomerService: ComplaintsCustomerService,
+              public devtaskService: DevtaskService) {
   }
 
   ngOnChanges(): void {
@@ -92,6 +94,12 @@ export class ComplaintProfileComponent implements OnInit, AfterViewInit, OnChang
     this.complaintCustomerService.changeIsComplaintProfileModeSubjectBooleanValue(false);
     this.complaintCustomerService.changeComplaintIdParentSubjectNumberValue(null);
     this.complaintCustomerService.changeSubComplaintIdParentNumberSubjectValue(null);
+  }
+
+  public backToAllComplaintsDeveloper(): void {
+    this.devtaskService.changeProfileModeBooleanSubjectValue(false);
+    this.devtaskService.changeComplaintIdParentNumberSubjectValue(null);
+    this.devtaskService.changeSubComplaintIdParentNumberSubjectValue(null);
   }
 
   removeSelectedImage(index: number): void {

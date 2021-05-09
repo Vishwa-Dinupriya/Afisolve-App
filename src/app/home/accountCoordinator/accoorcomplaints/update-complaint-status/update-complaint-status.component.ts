@@ -65,7 +65,16 @@ export class UpdateComplaintStatusComponent implements OnInit {
                 }
               });
             },
-            error => console.error('Error!(frontend)', error)
+            error => {console.error('Error!(frontend)', error);
+                      const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  title: 'Failed! Please try again.',
+                  message: 'Please make sure the details you entered are valied. ',
+                  name: ' ',
+                  button1: '',
+                  button2: 'Ok'
+                }
+              }); }
           );
       } else {
         this.accoorcomplaintsService.ChangeAddComplaintModeBooleanSubjectValue(true);

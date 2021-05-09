@@ -24,7 +24,8 @@
   </div>
 
   <div [hidden]="accoorcomplaintService.addComplaintMode">
-    <div [hidden]="accoorcomplaintService.isComplaintProfileMode">
+   <!-- <div [hidden]="accoorcomplaintService.isComplaintProfileMode"> -->
+    <div [hidden]="accoorcomplaintService.isComplaintProfileMode || accoorcomplaintService.isCommentSectionMode">
 
   <mat-tab-group animationDuration="1000ms">
 

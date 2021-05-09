@@ -23,6 +23,15 @@
         <div mat-line>Products</div>
       </mat-list-option>
 
+      <!--Mail navigation-->
+
+      <mat-list-option routerLink="devmail"
+                       [selected]="activeRoute === 'DevMailComponent'"
+                       [class.selected]="activeRoute === 'DevMailComponent'">
+        <mat-icon mat-list-icon>mail</mat-icon>
+        <div mat-line>Compose Mail</div>
+      </mat-list-option>
+
     </mat-selection-list>
   </mat-drawer>
 

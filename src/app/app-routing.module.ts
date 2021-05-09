@@ -70,6 +70,7 @@ import {AccoorcomplaintProfileCurrentComponent} from './home/accountCoordinator/
 import {AccoorproductsComponent} from './home/accountCoordinator/accoorproducts/accoorproducts.component';
 import {DevtasksProfileComponent} from './home/developer/devtasks/devtasks-profile/devtasks-profile.component';
 import {UpdateDevtaskStatusComponent} from './home/developer/devtasks/update-devtask-status/update-devtask-status.component';
+import {DevMailComponent} from './home/developer/dev-mail/dev-mail.component';
 
 
 const routes: Routes = [
@@ -276,7 +277,7 @@ const routes: Routes = [
           canActivate: [AuthenticationGuard],
           children: [
             {
-              path: 'devtasks',
+              path: '',
               component: DevtasksComponent,
               children: [
                 {
@@ -290,6 +291,10 @@ const routes: Routes = [
               ]
             },
             {
+              path: 'devtasks',
+              component: DevtasksComponent,
+            },
+            {
               path: 'devcomplaints',
               component: DevcomplaintsComponent,
             },
@@ -297,6 +302,10 @@ const routes: Routes = [
               path: 'devproducts',
               component: DevproductsComponent,
             },
+            {
+              path: 'devmail',
+              component: DevMailComponent,
+            }
           ]
         },
         {
