@@ -258,21 +258,21 @@ export class PdashboardComponent implements OnInit, AfterViewInit {
         var myChart = new Chart('myChart1', {
           type: 'doughnut',
           data: {
-            labels: ['Finish', 'Working-Progress', 'Pending', 'Closed'],
+            labels: ['Pending', 'Working-Progress', 'Finish', 'Closed'],
             datasets: [{
               label: ' ',
-              data: [this.datfi , this.datawo, this.datpe, this.dataSourceClosed[0].count],
+              data: [this.datpe , this.datawo, this.datfi, this.dataSourceClosed[0].count],
               backgroundColor: [
-                '#EA6A47',
-                '#A5D8DD',
-                '#1C4E80',
-                '#ed3453',
+                '#9DC2FF',
+                '#4F91FF',
+                '#2264D1',
+                '#133774',
               ],
               borderColor: [
-                '#EA6A47',
-                '#A5D8DD',
-                '#1C4E80',
-                '#ed3453',
+                '#9DC2FF',
+                '#4F91FF',
+                '#2264D1',
+                '#133774',
 
               ],
               borderWidth: 1

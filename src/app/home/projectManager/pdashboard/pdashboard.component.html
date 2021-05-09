@@ -1,35 +1,35 @@
 <mat-grid-list cols="6" rows="4" rowHeight="175px" class="mat-typography">
 
   <mat-grid-tile [colspan]="1" [rowspan]="1" >
-    <mat-card  style="background-color: #0091D5">
+    <mat-card  style="background-color: #D8E6FF">
       <mat-card-title class="class1" *ngFor="let full of dataSourceUsers1">{{full.count}}</mat-card-title>
       <h4 class="words">Total Complaints</h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="1" [rowspan]="1" >
-    <mat-card  style="background-color: #EA6A47">
-      <mat-card-title class="class1" *ngFor="let fin of dataSourcefinish">{{fin.count}}</mat-card-title>
-      <h4 class="words">Finish Complaints</h4>
+    <mat-card  style="background-color: #9DC2FF">
+      <mat-card-title class="class1" *ngFor="let fin of dataSourcepending">{{fin.count}}</mat-card-title>
+      <h4 class="words">Pending Complaints</h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="1" [rowspan]="1" >
-    <mat-card  style="background-color:#A5D8DD">
+    <mat-card  style="background-color:#4F91FF">
       <mat-card-title class="class1" *ngFor="let wor of dataSourceworking">{{wor.count}}</mat-card-title>
       <h4 class="words">Working Progress </h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="1" [rowspan]="1">
-    <mat-card  style="background-color: #1C4E80">
-      <mat-card-title class="class1" *ngFor="let pen of dataSourcepending">{{pen.count}}</mat-card-title>
-      <h4 class="words">Pending Complaints</h4>
+    <mat-card  style="background-color: #2264D1">
+      <mat-card-title class="class1" *ngFor="let pen of dataSourcefinish">{{pen.count}}</mat-card-title>
+      <h4 class="words">Finish Complaints</h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="1" [rowspan]="1">
-    <mat-card  style="background-color:#ed3453">
+    <mat-card  style="background-color:#133774">
       <mat-card-title class="class1" *ngFor="let full of dataSourceClosed">{{full.count}}</mat-card-title>
       <h4 class="words">Closed Complaints</h4>
     </mat-card>
@@ -37,7 +37,7 @@
 
 
   <mat-grid-tile [colspan]="1" [rowspan]="1" >
-    <mat-card style="background-color:  #7E909A">
+    <mat-card style="background-color:  #D8E6FF">
       <mat-card-title class="class1" *ngFor="let lat of dataSourcelate" >{{lat.count}}</mat-card-title>
       <h4 class="words">Late Complaints</h4>
     </mat-card>

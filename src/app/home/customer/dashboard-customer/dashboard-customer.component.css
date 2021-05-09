@@ -1,8 +1,10 @@
 .icon-display {
-  transform: scale(0.2);
-  border-color: rgba(18,162,67,0.96);
-  background-color: #1ec952;
-  -webkit-text-fill-color: #1ec952;
+  transform: scale(3.5);
+  margin-top: 13%;
+  margin-left: 40%;
+  /*border-color: rgba(18,162,67,0.96);*/
+  /*background-color: #1ec952;*/
+  /*-webkit-text-fill-color: #1ec952;*/
 }
 
 
@@ -18,42 +20,22 @@
   -webkit-text-fill-color: black;
 }
 
-#divChart3{
-  display: block;
-  padding-top: 20px;
-  width: 350px;
-  height: 200px;
-  background-color: #e36120;
-}
-
-#divChart4{
-  display: block;
-  padding-top: 20px;
-  width: 350px;
-  height: 200px;
-  background-color: #358731;
-}
-
 #divChart5{
   display: block;
-  padding-top: 20px;
-  padding-right: 10%;
-  width: 450px;
-  height: 150px;
+  width: 90%;
+  height: 90%;
 }
 
 #divChart1{
   display: block;
-  padding-top: 20px;
-  padding-right: 43px;
-  width: 400px;
-  height: 150px;
-  border-color: black;
+  width: 90%;
+  height: 90%;
 }
 
 .class1{
+  margin-top: 18%;
   text-align: center;
-  font-size: 45px;
+  font-size: 70px;
 }
 
 .classboxes{
@@ -63,6 +45,7 @@
 }
 
 .words{
+  margin-top: 20%;
   text-align: center;
 }
 
