@@ -115,6 +115,7 @@ import { AccoorcomplaintProfileCurrentComponent } from './home/accountCoordinato
 import { AccoorproductsComponent } from './home/accountCoordinator/accoorproducts/accoorproducts.component';
 import { DevtasksProfileComponent } from './home/developer/devtasks/devtasks-profile/devtasks-profile.component';
 import { UpdateDevtaskStatusComponent } from './home/developer/devtasks/update-devtask-status/update-devtask-status.component';
+import { ForgetPasswordDialogBoxComponent } from './authentication/login/forget-password-dialog-box/forget-password-dialog-box.component';
 
 
 
@@ -199,6 +200,7 @@ import { UpdateDevtaskStatusComponent } from './home/developer/devtasks/update-d
     AccoorproductsComponent,
     DevtasksProfileComponent,
     UpdateDevtaskStatusComponent,
+    ForgetPasswordDialogBoxComponent,
 
 
   ],

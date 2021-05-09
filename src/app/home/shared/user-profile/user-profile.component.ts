@@ -311,7 +311,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
     const registrationForm = this.userRegistrationForm.value;
     registrationForm.firstName = this.capitalize(this.firstName.value);
     registrationForm.lastName = this.capitalize(this.lastName.value);
-    this.http1.post<any>('http://localhost:3000/home/update-my-profile-details', {
+    this.http1.post<any>('http://localhost:3000/home/update-own-profile-details', {
       userNewData: this.userRegistrationForm.value,
       emailOld: this.oldEmail,
       newProfilePhoto_: this.newProfilePicture,

@@ -18,17 +18,17 @@
     <div class="row">
       <mat-form-field class="col-6" appearance="outline">
         <mat-label>First Name</mat-label>
-        <input  type="text" matInput formControlName="firstName" placeholder="Nimal">
+        <input  type="text" matInput formControlName="firstName" placeholder="John">
         <mat-error *ngIf="firstName.touched && firstName.errors?.required">This field is required</mat-error>
-        <mat-error *ngIf="firstName.touched && !firstName.errors?.required && firstName.invalid">Invalid Input
+        <mat-error *ngIf="firstName.touched && !firstName.errors?.required && firstName.invalid">First name needs at least 3 characters
         </mat-error>
       </mat-form-field>
       <!-------------------------------------------------------------------------->
       <mat-form-field  class="col-6" appearance="outline">
         <mat-label>Last Name</mat-label>
-        <input type="text" matInput formControlName="lastName" placeholder="Nimal">
+        <input type="text" matInput formControlName="lastName" placeholder="Smith">
         <mat-error *ngIf="lastName.touched && lastName.errors?.required">This field is required</mat-error>
-        <mat-error *ngIf="lastName.touched && !lastName.errors?.required && lastName.invalid">Invalid Input</mat-error>
+        <mat-error *ngIf="lastName.touched && !lastName.errors?.required && lastName.invalid">Last name needs at least 3 characters</mat-error>
       </mat-form-field>
 
     </div>
@@ -36,7 +36,7 @@
     <div class="row">
       <mat-form-field  class="col-12" appearance="outline">
         <mat-label>Email</mat-label>
-        <input type="text" matInput formControlName="email" placeholder="abc@d.com">
+        <input type="text" matInput formControlName="email" placeholder="abc@mail.com">
         <mat-error *ngIf="email.touched && email.errors?.required">This field is required</mat-error>
         <mat-error *ngIf="email.touched && !email.errors?.required && email.errors?.email">Invalid Email</mat-error>
       </mat-form-field>

@@ -10,6 +10,7 @@ export class AuthenticationService {
 
   signupUrl = 'http://localhost:3000/authentication/register';
   loginUrl = 'http://localhost:3000/authentication/login';
+  forgetPasswordUrl = 'http://localhost:3000/authentication/forget-password';
   roleChangeUrl = 'http://localhost:3000/authentication/role-change';
 
   constructor(private http1: HttpClient,
@@ -22,6 +23,10 @@ export class AuthenticationService {
 
   login(userData): Observable<any> {
     return this.http1.post<any>(this.loginUrl, userData);
+  }
+
+  forgetPassword(forgetPasswordEmail, newPassword, otp, otpID): Observable<any> {
+    return this.http1.post<any>(this.forgetPasswordUrl, {forgetPasswordEmail, newPassword, otp, otpID});
   }
 
   isLoggedIn(): boolean {
