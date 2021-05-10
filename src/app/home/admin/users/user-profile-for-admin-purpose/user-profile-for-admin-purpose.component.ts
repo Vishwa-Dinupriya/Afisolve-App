@@ -46,6 +46,9 @@ export class UserProfileForAdminPurposeComponent implements OnChanges {
   roleList: string[] = ['Customer', 'Account-Coordinator', 'Developer', 'Project-Manager', 'CEO', 'Admin'];
   selectedRoles: number [] = [];
 
+  customerRoleSelected;
+  nonCustomerRoleSelected;
+
   currentProfilePicture;
   newProfilePicture;
 
@@ -163,9 +166,22 @@ export class UserProfileForAdminPurposeComponent implements OnChanges {
   toSelectedRoles(value): void {
     this.selectedRoles = value;
 
+    if (this.selectedRoles.length !== 0) {
+      if (this.selectedRoles.includes(0)) {
+        this.nonCustomerRoleSelected = false;
+        this.customerRoleSelected = true;
+      } else {
+        this.nonCustomerRoleSelected = true;
+        this.customerRoleSelected = false;
+      }
+    } else {
+      this.nonCustomerRoleSelected = false;
+      this.customerRoleSelected = false;
+    }
+
     if (!this.selectedRoles.includes(this.defaultRole.value)) {
       this.defaultRole.reset();
-      console.log('hasError ' + this.userRegistrationForm.hasError('required', 'defaultRole'));
+      // console.log('hasError ' + this.userRegistrationForm.hasError('required', 'defaultRole'));
       this.defaultRole.markAsTouched();
     }
 
@@ -249,7 +265,14 @@ export class UserProfileForAdminPurposeComponent implements OnChanges {
             this.subscribeToFormValChange();
 
             this.USER_GENERAL_DATA = response.generalData[0];
-            // this.dataSource = new MatTableDataSource<IUserGeneral>(this.USER_GENERAL_DATA);
+
+            if (this.roles.value.includes(0)) {
+              this.nonCustomerRoleSelected = false;
+              this.customerRoleSelected = true;
+            } else {
+              this.nonCustomerRoleSelected = true;
+              this.customerRoleSelected = false;
+            }
           },
           error => {
             console.log(error);
