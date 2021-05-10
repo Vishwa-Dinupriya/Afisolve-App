@@ -36,6 +36,9 @@ export class SignupComponent implements OnInit {
   roleList: string[] = ['Customer', 'Account Coordinator', 'Developer', 'Project Manager', 'CEO', 'Admin'];
   selectedRoles: number [] = [];
 
+  customerRoleSelected;
+  nonCustomerRoleSelected;
+
   matcher = new MyErrorStateMatcher();
 
   constructor(
@@ -87,8 +90,20 @@ export class SignupComponent implements OnInit {
   }
 
   toSelectedRoles(value): void {
-    console.log(value);
+    // console.log(value);
     this.selectedRoles = value;
+    if (this.selectedRoles.length !== 0) {
+      if (this.selectedRoles.includes(0)) {
+        this.nonCustomerRoleSelected = false;
+        this.customerRoleSelected = true;
+      } else {
+        this.nonCustomerRoleSelected = true;
+        this.customerRoleSelected = false;
+      }
+    } else {
+      this.nonCustomerRoleSelected = false;
+      this.customerRoleSelected = false;
+    }
   }
 
   onSubmit(): void {

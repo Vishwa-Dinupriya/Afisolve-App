@@ -162,12 +162,9 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
   }
 
   whenClose(): void {
+    this.imageAttachments = [];
     this.complaintCustomerService.changeIsCommentSectionModeSubjectBooleanValue(false);
     this.accoorcomplaintService.changeIsCommentSectionModeSubjectBooleanValue(false);
     this.ngOnDestroy(); // to unsubscribe timer
-    for (let i = 0; i < this.imageAttachments.length - 1;) {// clear all selected images
-      this.imageAttachments.pop();
-      i++;
-    }
   }
 }

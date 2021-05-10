@@ -42,7 +42,7 @@ export class ComplaintProfileComponent implements AfterViewInit, OnChanges {
   tabIndex;
   ComplaintIdAvailable;
 
-  imageAttachments;
+  imageAttachments = [];
 
   constructor(private router: Router,
               private http1: HttpClient,
@@ -65,7 +65,6 @@ export class ComplaintProfileComponent implements AfterViewInit, OnChanges {
           response => {
             this.COMPLAINT_DETAILS_DATA = response.data;
             this.imageAttachments = response.images;
-            // console.log(this.imageAttachments);
           },
           error => {
             console.log(error);
