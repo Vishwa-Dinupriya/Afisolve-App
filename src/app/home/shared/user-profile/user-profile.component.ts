@@ -337,12 +337,12 @@ export class UserProfileComponent implements OnInit, OnChanges {
         dialogRef2.afterClosed().subscribe(result2 => {
           console.log(`Dialog result: ${result2}`);
           if (result2 === true) {
-            this.usersService1.changeIsProfileModeSubjectBooleanValue(false);
+            // this.usersService1.changeIsProfileModeSubjectBooleanValue(false);
             if (this.oldEmail !== this.email.value) {
               this.authService.logout();
             }
           } else {
-            this.usersService1.changeIsProfileModeSubjectBooleanValue(false);
+            // this.usersService1.changeIsProfileModeSubjectBooleanValue(false);
             if (this.oldEmail !== this.email.value) {
               this.authService.logout();
             }

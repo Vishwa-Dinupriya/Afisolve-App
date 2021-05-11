@@ -144,7 +144,7 @@ export class SignupComponent implements OnInit {
                   title: 'Success!',
                   message: 'Register new user successfully ',
                   name: ' ',
-                  button1: 'Back to All users',
+                  button1: '',
                   button2: 'Ok'
                 }
               });
@@ -155,7 +155,6 @@ export class SignupComponent implements OnInit {
                 if (result2 === true) {
 
                 } else {
-                  this.usersService.ChangeCreateUserModeBooleanSubjectValue(false);
                 }
               });
             },
@@ -210,7 +209,6 @@ export class SignupComponent implements OnInit {
 
   onCancel(): void {
     this.userRegistrationForm.reset();
-    this.usersService.ChangeCreateUserModeBooleanSubjectValue(false);
   }
 
 }

@@ -27,7 +27,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './user-profile-for-admin-purpose.component.html',
   styleUrls: ['./user-profile-for-admin-purpose.component.css']
 })
-export class UserProfileForAdminPurposeComponent implements OnInit {
+export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
 
   USER_GENERAL_DATA: IUserGeneral;
 
@@ -36,7 +36,6 @@ export class UserProfileForAdminPurposeComponent implements OnInit {
   edit = false;
   haveChanges = false;
   userRegistrationForm: FormGroup;
-  tabIndex;
   oldEmail;
   name;
   userRegistrationFormCopy;
@@ -50,7 +49,7 @@ export class UserProfileForAdminPurposeComponent implements OnInit {
   currentProfilePicture;
   newProfilePicture;
 
-  userEmailChild: string;
+  @Input() userEmailChild: string;
 
   matcher = new MyErrorStateMatcher();
 
@@ -66,15 +65,20 @@ export class UserProfileForAdminPurposeComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
-    console.log('ngOnChanges');
-    this.tabIndex = '1';
-    this.formBuildFunction();
-    this.route.params.subscribe(params => {
-      this.userEmailChild = params.username;
-      console.log(this.userEmailChild);
-    });
+  ngOnChanges(): void {
+    // this.userEmailChild = this.usersService1.userEmailParent;
     this.getAndSetValues();
+  }
+
+  ngOnInit(): void {
+    this.formBuildFunction();
+    // this.route.params.subscribe(params => {
+    //   this.userEmailChild = params.username;
+    //   console.log(this.userEmailChild);
+    // });
+    if (this.userEmailChild) {
+      this.getAndSetValues();
+    }
   }
 
   formBuildFunction(): void {
@@ -349,11 +353,6 @@ export class UserProfileForAdminPurposeComponent implements OnInit {
 
   capitalize(value: string): string {
     return value.charAt(0).toUpperCase() + value.slice(1);
-  }
-
-  public backToAllUsers(): void {
-    this.usersService1.changeIsProfileModeSubjectBooleanValue(false);
-    this.usersService1.changeUserEmailParentSubjectStringValue(null);
   }
 
   openDialog(): void {

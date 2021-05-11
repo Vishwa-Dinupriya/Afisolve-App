@@ -1,20 +1,21 @@
-<mat-card>
+<mat-sidenav-container class="h-100">
+  <mat-sidenav [opened]="usersService.isUserProfileMode"  mode="side" position="end" style="width: 375px">
+    <app-user-profile-for-admin-purpose [userEmailChild]="userEmailParent"></app-user-profile-for-admin-purpose>
+  </mat-sidenav>
 
-  <mat-card-header>
+  <mat-card style="padding: 0!important; margin-left: 1%; margin-right: 1%">
 
-    <mat-card-title>All Users</mat-card-title>
+    <mat-card-header class="pt-3 pl-2">
 
-  </mat-card-header>
+      <mat-card-title>
+        Users
+      </mat-card-title>
 
-  <mat-card-content>
+    </mat-card-header>
 
-<!--    <div class="row my-3 d-flex justify-content-end">-->
-<!--      <button mat-raised-button [routerLink]="['../new-user']" class="mx-2">New User</button>-->
-<!--    </div>-->
+    <mat-card-content>
 
-    <div [hidden]="usersService.createUserMode">
-      <!--all users table-->
-      <div [hidden]="usersService.isUserProfileMode">
+      <div >
         <mat-tab-group animationDuration="1000ms" [selectedIndex]="0">
           <mat-tab *ngFor="let tab of usersTabs; let i = index"  [label]="tab.roleName">
 
@@ -110,8 +111,8 @@
 
       </div>
 
-    </div>
+    </mat-card-content>
 
-  </mat-card-content>
+  </mat-card>
+</mat-sidenav-container>
 
-</mat-card>

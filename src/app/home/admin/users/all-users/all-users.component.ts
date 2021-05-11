@@ -7,7 +7,22 @@ import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {UsersService} from '../users.service';
 import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
-import {ITabUsers, IUser} from '../users.component';
+
+export interface IUser {
+  userEmail: string;
+  firstName: string;
+  lastName: string;
+  contactNumber: string;
+  roleIDs: number[];
+  activeStatus: boolean;
+  createdAt: string;
+}
+
+export interface ITabUsers {
+  roleID: number;
+  roleName: string;
+  dataSource?: MatTableDataSource<IUser>;
+}
 
 @Component({
   selector: 'app-all-users',
@@ -20,6 +35,7 @@ export class AllUsersComponent implements OnInit {
 
   dataSource: MatTableDataSource<IUser>;
   USERS_DATA: IUser[];
+  userEmailParent;
 
   usersTabs: ITabUsers[] = [
     {roleID: 6, roleName: 'All'},
@@ -30,8 +46,6 @@ export class AllUsersComponent implements OnInit {
     {roleID: 4, roleName: 'CEO'},
     {roleID: 5, roleName: 'Admins'}];
 
-  createUserMode = false;
-
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -40,21 +54,18 @@ export class AllUsersComponent implements OnInit {
               private http1: HttpClient,
               public dialog: MatDialog,
               public usersService: UsersService) {
-    this.usersService.createUserModeBooleanSubject.subscribe(value => this.getData());
   }
 
   ngOnInit(): void {
-    this.usersService.ChangeCreateUserModeBooleanSubjectValue(false);
+    // this.usersService.ChangeCreateUserModeBooleanSubjectValue(false);
+    this.getData();
   }
 
-  goto(): void {
-    this.router.navigate(['../complaints', {username: 'abc'}],{relativeTo: this.route} );
-  }
 
   getData(): void {
     this.http1.post<any>(`http://localhost:3000/admin/get-all-users-details`, {}).subscribe(
       response => {
-        // console.log(response.data);
+        console.log(response.data);
         this.USERS_DATA = response.data;
         this.usersTabs.forEach(tab => {
           tab.dataSource = new MatTableDataSource<IUser>(this.USERS_DATA.filter(
@@ -75,10 +86,10 @@ export class AllUsersComponent implements OnInit {
   }
 
   public redirectToDetails(id: string): void {
-    this.router.navigate(['../user-profile', {username: id}], {relativeTo: this.route});
-    // this.usersService.changeUserEmailParentSubjectStringValue(id);
-    // console.log(this.usersService.userEmailParent);
-    // this.usersService.changeIsProfileModeSubjectBooleanValue(true);
+    // this.router.navigate(['../user-profile', {username: id}], {relativeTo: this.route});
+    this.userEmailParent = id;
+    this.usersService.changeIsProfileModeSubjectBooleanValue(true);
+
   }
 
 
@@ -115,10 +126,5 @@ export class AllUsersComponent implements OnInit {
     });
   }
 
-  changeMode(value: boolean): void {
-    this.usersService.ChangeCreateUserModeBooleanSubjectValue(!value);
-    this.createUserMode = value;
-    this.getData();
-  }
 }
 

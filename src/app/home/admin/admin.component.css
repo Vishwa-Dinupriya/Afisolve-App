@@ -1,5 +1,5 @@
 .selected {
-  background: #8f7fd5 !important;
+  background: #b8b8b8 !important;
   font-weight: bold;
 }
 
@@ -14,5 +14,5 @@
 }
 
 .active {
-  background-color: #8f7fd5 !important;
+  background-color: #d57f86 !important;
 }

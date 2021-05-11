@@ -1,5 +1,6 @@
-<mat-drawer-container style="min-height: 100%">
-  <mat-drawer mode="side" [opened]="homeService.drawer" style="width: 250px">
+<mat-drawer-container style="height: 100%!important;">
+
+  <mat-drawer mode="side" [opened]="homeService.drawer" style="width: 250px" class="h-100">
     <mat-selection-list [multiple]="false">
 
       <mat-list-option routerLink="./dashboard"
@@ -27,18 +28,20 @@
            [hidden]="activeRoute !== 'UsersComponent'">
         <mat-divider></mat-divider>
 
+        <mat-list-option routerLink="./users/all-users"
+                         [selected]="childRoute === 'all-users'"
+                         [class.selected]="childRoute === 'all-users'">
+          <mat-icon mat-list-icon>
+            recent_actors
+          </mat-icon>
+          <div mat-line>View Users</div>
+        </mat-list-option>
+
         <mat-list-option routerLink="./users/new-user"
                          [selected]="childRoute === 'new-user'"
                          [class.selected]="childRoute === 'new-user'">
           <mat-icon mat-list-icon>person_add</mat-icon>
           <div mat-line>New User</div>
-        </mat-list-option>
-
-        <mat-list-option routerLink="./users/all-users"
-                         [selected]="childRoute === 'all-users'"
-                         [class.selected]="childRoute === 'all-users'">
-          <mat-icon mat-list-icon>group</mat-icon>
-          <div mat-line>Users</div>
         </mat-list-option>
       </div>
 
@@ -66,11 +69,10 @@
     </mat-selection-list>
   </mat-drawer>
 
-  <mat-drawer-content class="">
-
+  <mat-drawer-content>
     <router-outlet (activate)="getRoute($event)">
       <!--dashboard,complaints,users,products,feedbacks,test-->
     </router-outlet>
-
   </mat-drawer-content>
+
 </mat-drawer-container>

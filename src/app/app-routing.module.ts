@@ -233,10 +233,6 @@ const routes: Routes = [
                   component: AllUsersComponent
                 },
                 {
-                  path: 'user-profile',
-                  component: UserProfileForAdminPurposeComponent
-                },
-                {
                   path: 'new-user',
                   component: SignupComponent
                 }
