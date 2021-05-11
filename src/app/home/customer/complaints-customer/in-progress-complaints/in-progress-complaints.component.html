@@ -1,15 +1,15 @@
 <div style="display: flow-root" [hidden]="complaintsCustomerService.isCommentSectionMode">
-  <div>
-    <button mat-raised-button color="primary" style=" margin-left: 84%; margin-top: 1%; width: 12%"
-            (click)="addNewComplaintService.changeIsLodgeComplaintModeSubjectBooleanValue(true)"
-            [hidden]="addNewComplaintService.isLodgeComplaintMode">
-  <span class="mat-button-wrapper">
-  <mat-icon>add_box</mat-icon>
-  New complaint
-  </span>
-    </button>
+<!--  <div>-->
+<!--    <button mat-raised-button color="primary" style=" margin-left: 84%; margin-top: 1%; width: 12%"-->
+<!--            (click)="addNewComplaintService.changeIsLodgeComplaintModeSubjectBooleanValue(true)"-->
+<!--            [hidden]="addNewComplaintService.isLodgeComplaintMode">-->
+<!--  <span class="mat-button-wrapper">-->
+<!--  <mat-icon>add_box</mat-icon>-->
+<!--  New complaint-->
+<!--  </span>-->
+<!--    </button>-->
 
-  </div>
+<!--  </div>-->
   <div>
     <mat-card class="mr-5 ml-5 mt-3 mb-4 shadow" >
 
@@ -17,9 +17,9 @@
       <mat-card-title [hidden]="addNewComplaintService.isLodgeComplaintMode">In-progress Complaints</mat-card-title>
       <hr>
 
-      <div [hidden]="!addNewComplaintService.isLodgeComplaintMode">
-        <app-add-new-complaint></app-add-new-complaint>
-      </div>
+<!--      <div [hidden]="!addNewComplaintService.isLodgeComplaintMode">-->
+<!--        <app-add-new-complaint></app-add-new-complaint>-->
+<!--      </div>-->
 
       <div [hidden]="addNewComplaintService.isLodgeComplaintMode">
         <!--all complaints table-->

@@ -35,8 +35,6 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
     this.addNewComplaintService.isLodgeComplaintModeSubjectBoolean.subscribe(
       value => {
         value ? this.lodgeBtnMargin = 86 : this.lodgeBtnMargin = 94;
-        console.log(value);
-        console.log(this.lodgeBtnMargin);
       });
   }
 

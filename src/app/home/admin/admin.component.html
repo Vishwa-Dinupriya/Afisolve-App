@@ -23,6 +23,25 @@
         <div mat-line>Users</div>
       </mat-list-option>
 
+      <div class="list-group list-group-flush rounded-0 ml-4 sub-menu "
+           [hidden]="activeRoute !== 'UsersComponent'">
+        <mat-divider></mat-divider>
+
+        <mat-list-option routerLink="./users/new-user"
+                         [selected]="childRoute === 'new-user'"
+                         [class.selected]="childRoute === 'new-user'">
+          <mat-icon mat-list-icon>person_add</mat-icon>
+          <div mat-line>New User</div>
+        </mat-list-option>
+
+        <mat-list-option routerLink="./users/all-users"
+                         [selected]="childRoute === 'all-users'"
+                         [class.selected]="childRoute === 'all-users'">
+          <mat-icon mat-list-icon>group</mat-icon>
+          <div mat-line>Users</div>
+        </mat-list-option>
+      </div>
+
       <mat-list-option routerLink="./products"
                        [selected]="activeRoute === 'ProductsComponent'"
                        [class.selected]="activeRoute === 'ProductsComponent'">

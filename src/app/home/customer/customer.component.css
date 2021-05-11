@@ -1,0 +1,19 @@
+.selected {
+  background: #76b900 !important;
+  font-weight: bold;
+}
+
+.sub-menu {
+  transition: height 300ms;
+  overflow: hidden;
+}
+
+.active {
+  background-color: purple!important;
+}
+
+/*.mat-nav-list .mat-list-item:focus,*/
+/*.mat-action-list .mat-list-item:focus,*/
+/*.mat-list-option:focus {*/
+/*  background: #b90000 !important;*/
+/*}*/

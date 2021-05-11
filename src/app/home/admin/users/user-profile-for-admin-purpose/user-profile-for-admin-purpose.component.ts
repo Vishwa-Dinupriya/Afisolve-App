@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Inject, Input, OnChanges, OnInit, Renderer2} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormGroup, FormBuilder, Validators, AbstractControl, FormControl, FormGroupDirective, NgForm} from '@angular/forms';
 import {checkPasswords} from 'src/app/authentication/shared/password.validator';
 import {AuthenticationService} from 'src/app/authentication/authentication.service';
@@ -27,9 +27,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './user-profile-for-admin-purpose.component.html',
   styleUrls: ['./user-profile-for-admin-purpose.component.css']
 })
-export class UserProfileForAdminPurposeComponent implements OnChanges {
-
-  @Input() userEmailChild: string;
+export class UserProfileForAdminPurposeComponent implements OnInit {
 
   USER_GENERAL_DATA: IUserGeneral;
 
@@ -52,12 +50,15 @@ export class UserProfileForAdminPurposeComponent implements OnChanges {
   currentProfilePicture;
   newProfilePicture;
 
+  userEmailChild: string;
+
   matcher = new MyErrorStateMatcher();
 
   constructor(
     private fb1: FormBuilder,
     private authenticationService: AuthenticationService,
     private router: Router,
+    private route: ActivatedRoute,
     private http1: HttpClient,
     public dialog: MatDialog,
     public usersService1: UsersService,
@@ -65,10 +66,14 @@ export class UserProfileForAdminPurposeComponent implements OnChanges {
   ) {
   }
 
-  ngOnChanges(): void {
-    // console.log('ngOnChanges');
+  ngOnInit(): void {
+    console.log('ngOnChanges');
     this.tabIndex = '1';
     this.formBuildFunction();
+    this.route.params.subscribe(params => {
+      this.userEmailChild = params.username;
+      console.log(this.userEmailChild);
+    });
     this.getAndSetValues();
   }
 

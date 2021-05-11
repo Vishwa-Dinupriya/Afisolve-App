@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit, ViewChild, Input} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
@@ -53,13 +53,14 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private router: Router,
+              private route: ActivatedRoute,
               private http1: HttpClient,
               public dialog: MatDialog,
               public complaintService: ComplaintsService) {
   }
 
   ngOnInit(): void {
-
+    this.route.params.subscribe(params => console.log(params));
   }
 
   ngAfterViewInit(): void {
