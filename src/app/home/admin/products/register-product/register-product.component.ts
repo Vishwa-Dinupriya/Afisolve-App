@@ -14,7 +14,6 @@ export class RegisterProductComponent implements OnInit {
   @ViewChild('myForm') myForm;
 
   productRegistrationForm: FormGroup;
-  developerIDList;
   developerList;
   selectedDevelopers: string [] = [];
 
@@ -35,7 +34,9 @@ export class RegisterProductComponent implements OnInit {
     });
     this.http1.post<any>(`http://localhost:3000/admin/get-all-developers`, {}).subscribe(
       response => {
-        this.developerList = response.data.map(value => value.userEmail);
+        // console.log(JSON.stringify(response));
+        // this.developerList = response.data.map(value => value.userEmail);
+        this.developerList = response.data;
       }, error => {
         console.log(error);
       }
