@@ -11,3 +11,8 @@
 .mat-tab-header-cell {
   color: #4B9FE1;
 }
+.color {
+  color: white;
+  font-weight: bold;
+  background-color: red;
+}
