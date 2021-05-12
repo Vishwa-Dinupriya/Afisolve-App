@@ -33,7 +33,7 @@ export interface IComplaintDetailsAdmin {
   templateUrl: './complaint-profile.component.html',
   styleUrls: ['./complaint-profile.component.css']
 })
-export class ComplaintProfileComponent implements OnInit, AfterViewInit, OnChanges {
+export class ComplaintProfileComponent implements AfterViewInit, OnChanges {
   @Input() complaintIdChild: number;
   @Input() subComplaintIdChild: number;
   @Input() requestFrom: string;
@@ -42,7 +42,7 @@ export class ComplaintProfileComponent implements OnInit, AfterViewInit, OnChang
   tabIndex;
   ComplaintIdAvailable;
 
-  imageAttachments;
+  imageAttachments = [];
 
   constructor(private router: Router,
               private http1: HttpClient,
@@ -52,8 +52,10 @@ export class ComplaintProfileComponent implements OnInit, AfterViewInit, OnChang
   }
 
   ngOnChanges(): void {
-    this.tabIndex = 0;
+    // console.log('ngOnChanges');
+    this.tabIndex = 1;
     if (this.complaintIdChild) {
+      this.tabIndex = 0;
       this.ComplaintIdAvailable = true;
       this.http1.post<any>(`http://localhost:3000/` + this.requestFrom + `/get-selected-complaint-details`, {
         complaintID: this.complaintIdChild,
@@ -63,7 +65,6 @@ export class ComplaintProfileComponent implements OnInit, AfterViewInit, OnChang
           response => {
             this.COMPLAINT_DETAILS_DATA = response.data;
             this.imageAttachments = response.images;
-            // console.log(this.imageAttachments);
           },
           error => {
             console.log(error);
@@ -74,28 +75,32 @@ export class ComplaintProfileComponent implements OnInit, AfterViewInit, OnChang
     }
   }
 
-  ngOnInit(): void {
-    this.tabIndex = 1;
-    if (!this.complaintIdChild) {
-      this.ComplaintIdAvailable = false;
-    }
-  }
-
   ngAfterViewInit(): void {
-
+    // console.log('ngAfterViewInit');
   }
 
-  public backToAllComplaintsAdmin(): void {
+  public backToAllComplaints(): void {
     this.complaintService.changeProfileModeBooleanSubjectValue(false);
-    this.complaintService.changeComplaintIdParentNumberSubjectValue(null);
-    this.complaintService.changeSubComplaintIdParentNumberSubjectValue(null);
+    // this.complaintService.changeComplaintIdParentNumberSubjectValue(null);
+    // this.complaintService.changeSubComplaintIdParentNumberSubjectValue(null);
+
+    this.complaintCustomerService.changeIsComplaintProfileModeSubjectBooleanValue(false);
+    // this.complaintCustomerService.changeComplaintIdParentSubjectNumberValue(null);
+    // this.complaintCustomerService.changeSubComplaintIdParentNumberSubjectValue(null);
   }
 
-  public backToAllComplaintsCustomer(): void {
-    this.complaintCustomerService.changeIsComplaintProfileModeSubjectBooleanValue(false);
-    this.complaintCustomerService.changeComplaintIdParentSubjectNumberValue(null);
-    this.complaintCustomerService.changeSubComplaintIdParentNumberSubjectValue(null);
-  }
+  // public backToAllComplaintsAdmin(): void {
+  //   this.complaintService.changeProfileModeBooleanSubjectValue(false);
+  //   this.complaintService.changeComplaintIdParentNumberSubjectValue(null);
+  //   this.complaintService.changeSubComplaintIdParentNumberSubjectValue(null);
+  //
+  // }
+  //
+  // public backToAllComplaintsCustomer(): void {
+  //   this.complaintCustomerService.changeIsComplaintProfileModeSubjectBooleanValue(false);
+  //   this.complaintCustomerService.changeComplaintIdParentSubjectNumberValue(null);
+  //   this.complaintCustomerService.changeSubComplaintIdParentNumberSubjectValue(null);
+  // }
 
   removeSelectedImage(index: number): void {
     this.imageAttachments[index] = null;

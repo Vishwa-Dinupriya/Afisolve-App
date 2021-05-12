@@ -101,7 +101,7 @@ import { CompletedComplaintsComponent } from './home/customer/complaints-custome
 import { ClosedComplaintsComponent } from './home/customer/complaints-customer/closed-complaints/closed-complaints.component';
 import { ReviewDialogBoxComponent } from './home/customer/complaints-customer/completed-complaints/review-dialog-box/review-dialog-box.component';
 import { LodgeSubComplaintComponent } from './home/customer/complaints-customer/completed-complaints/lodge-sub-complaint/lodge-sub-complaint.component';
-import { UserProfileForAdminPurposeComponent } from './home/admin/users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
+import { UserProfileForAdminPurposeComponent } from './home/admin/users/all-users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
 
 import { CropAndUploadPictureComponent } from './shared/crop-and-upload-picture/crop-and-upload-picture.component';
 import { DialogBoxSelectPictureComponent } from './shared/dialog-box-select-picture/dialog-box-select-picture.component';
@@ -115,6 +115,9 @@ import { AccoorcomplaintProfileCurrentComponent } from './home/accountCoordinato
 import { AccoorproductsComponent } from './home/accountCoordinator/accoorproducts/accoorproducts.component';
 import { DevtasksProfileComponent } from './home/developer/devtasks/devtasks-profile/devtasks-profile.component';
 import { UpdateDevtaskStatusComponent } from './home/developer/devtasks/update-devtask-status/update-devtask-status.component';
+import { ForgetPasswordDialogBoxComponent } from './authentication/login/forget-password-dialog-box/forget-password-dialog-box.component';
+import { AllUsersComponent } from './home/admin/users/all-users/all-users.component';
+import { AllProductsComponent } from './home/admin/products/all-products/all-products.component';
 
 
 
@@ -199,6 +202,9 @@ import { UpdateDevtaskStatusComponent } from './home/developer/devtasks/update-d
     AccoorproductsComponent,
     DevtasksProfileComponent,
     UpdateDevtaskStatusComponent,
+    ForgetPasswordDialogBoxComponent,
+    AllUsersComponent,
+    AllProductsComponent,
 
 
   ],

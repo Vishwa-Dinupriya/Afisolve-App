@@ -93,7 +93,9 @@ text-transform: none;">Password</label>
                   type="submit" [disabled]="!loginForm.valid">Sign In
                 </button>
                 <!--      {{loginForm.valid}}-->
-
+                <a (click)="clickForgetPassword()" matTooltip="Click to reset password">
+                  Forget Password?
+                </a>
                 <p style="margin-top: 20px">Forgot Your Password?</p>
               </div>
 
@@ -102,7 +104,7 @@ text-transform: none;">Password</label>
           </div>
         </div>
 
-      </div>
+
 
 
 

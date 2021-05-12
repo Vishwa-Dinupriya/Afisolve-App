@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 
 @Injectable({
@@ -26,9 +26,11 @@ export class ComplaintsCustomerService {
   changeIsComplaintProfileModeSubjectBooleanValue(newIsProfileModeValue: boolean): void {
     this.isComplaintProfileModeSubjectBoolean.next(newIsProfileModeValue);
   }
+
   changeIsCommentSectionModeSubjectBooleanValue(newIsCommentSectionMode: boolean): void {
     this.isCommentSectionModeSubjectBoolean.next(newIsCommentSectionMode);
   }
+
   changeComplaintIdParentSubjectNumberValue(newUserEmailParentValue: number): void {
     this.complaintIdParentSubjectNumber.next(newUserEmailParentValue);
   }

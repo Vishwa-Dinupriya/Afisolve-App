@@ -13,13 +13,14 @@ export class ComplaintsService {
   //  accessing variable value is change through this subject type object.when we change value of this instantly change
   // variable value because in the  constructor we subscribe to this subject type object and we assign object's value to
   // variable value. so whenever subject type object values change then variable(profileModeValue) value also change.
-  private profileModeBooleanSubject: Subject<boolean> = new Subject<boolean>(); // subject type object
+  private profileModeBooleanSubject: Subject<boolean> = new Subject<boolean>();
   private complaintIdParentNumberSubject: Subject<number> = new Subject<number>();
   private subComplaintIdParentNumberSubject: Subject<number> = new Subject<number>();
 
   constructor() {
-    // assign latest profileModeBooleanSubject value to profileModeValue variable
-    this.profileModeBooleanSubject.subscribe(value => this.profileModeValue = value); // subscribe to subject
+    // first subscribe then auto run whenever change. because of that always assign latest profileModeBooleanSubject value
+    // to profileModeValue variable
+    this.profileModeBooleanSubject.subscribe(value => this.profileModeValue = value);
     this.complaintIdParentNumberSubject.subscribe(value => this.complaintIdParentValue = value);
     this.subComplaintIdParentNumberSubject.subscribe(value => this.subComplaintIdParentValue = value);
   }

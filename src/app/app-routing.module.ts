@@ -64,12 +64,14 @@ import {CompletedComplaintsComponent} from './home/customer/complaints-customer/
 import {ClosedComplaintsComponent} from './home/customer/complaints-customer/closed-complaints/closed-complaints.component';
 
 
-
 import {UpdateComplaintStatusComponent} from './home/accountCoordinator/accoorcomplaints/update-complaint-status/update-complaint-status.component';
 import {AccoorcomplaintProfileCurrentComponent} from './home/accountCoordinator/accoorcomplaints/accoorcomplaint-profile-current/accoorcomplaint-profile-current.component';
 import {AccoorproductsComponent} from './home/accountCoordinator/accoorproducts/accoorproducts.component';
 import {DevtasksProfileComponent} from './home/developer/devtasks/devtasks-profile/devtasks-profile.component';
 import {UpdateDevtaskStatusComponent} from './home/developer/devtasks/update-devtask-status/update-devtask-status.component';
+import {AllUsersComponent} from './home/admin/users/all-users/all-users.component';
+import {UserProfileForAdminPurposeComponent} from './home/admin/users/all-users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
+import {AllProductsComponent} from './home/admin/products/all-products/all-products.component';
 
 
 const routes: Routes = [
@@ -116,22 +118,29 @@ const routes: Routes = [
             {
               path: 'complaints',
               component: ComplaintsCustomerComponent,
-            },
-            {
-              path: 'pending-complaints',
-              component: PendingComplaintsComponent,
-            },
-            {
-              path: 'in-progress-complaints',
-              component: InProgressComplaintsComponent,
-            },
-            {
-              path: 'completed-complaints',
-              component: CompletedComplaintsComponent,
-            },
-            {
-              path: 'past-complaints',
-              component: ClosedComplaintsComponent,
+              children: [
+                {
+                  path: 'pending-complaints',
+                  component: PendingComplaintsComponent,
+                },
+                {
+                  path: '',
+                  redirectTo: 'pending-complaints',
+                  pathMatch: 'full'
+                },
+                {
+                  path: 'in-progress-complaints',
+                  component: InProgressComplaintsComponent,
+                },
+                {
+                  path: 'completed-complaints',
+                  component: CompletedComplaintsComponent,
+                },
+                {
+                  path: 'past-complaints',
+                  component: ClosedComplaintsComponent,
+                }
+              ]
             },
             {
               path: 'purchases',
@@ -216,8 +225,17 @@ const routes: Routes = [
               component: UsersComponent,
               children: [
                 {
-                  path: 'user-profile',
-                  component: UserProfileComponent
+                  path: '',
+                  redirectTo: 'all-users',
+                  pathMatch: 'full'
+                },
+                {
+                  path: 'all-users',
+                  component: AllUsersComponent
+                },
+                {
+                  path: 'new-user',
+                  component: SignupComponent
                 }
               ]
             },
@@ -225,6 +243,15 @@ const routes: Routes = [
               path: 'products',
               component: ProductsComponent,
               children: [
+                {
+                  path: '',
+                  redirectTo: 'all-products',
+                  pathMatch: 'full'
+                },
+                {
+                  path: 'all-products',
+                  component: AllProductsComponent
+                },
                 {
                   path: 'register-product',
                   component: RegisterProductComponent
@@ -258,7 +285,7 @@ const routes: Routes = [
                   path: 'caction',
                   component: CactionComponent
                 }
-               ]
+              ]
             },
             {
               path: 'cviewreports',

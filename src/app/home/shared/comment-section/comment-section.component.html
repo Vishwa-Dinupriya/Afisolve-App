@@ -1,9 +1,7 @@
-<mat-card class="mr-4 ml-4 mt-4 mb-4 shadow">
-  <mat-card-header>
-    <mat-card-title>
-      Comment Section
-<!--      <h4><i>complaint ID:{{complaintIdInput}}</i> </h4>-->
-    </mat-card-title>
+<mat-card style="padding: 0!important; margin-left: 1%; margin-right: 1%" class="mat-typography">
+  <mat-card-header class="pt-3 pl-2">
+    <mat-card-title>Comment Section</mat-card-title>
+    <mat-card-subtitle> complaint ID:{{complaintIdInput}}</mat-card-subtitle>
     <button mat-icon-button style=" float: right; margin-top: -1%; margin-left: 80%;"
             (click)="whenClose()">
       <mat-icon>close</mat-icon>
@@ -11,8 +9,8 @@
   </mat-card-header>
   <mat-divider></mat-divider>
 
-  <mat-card-content class="mb-0" >
-    <mat-grid-list cols="1" rows="13" rowHeight="41px">
+  <mat-card-content>
+    <mat-grid-list cols="1" rows="13" rowHeight="42.7px">
 
       <mat-grid-tile [colspan]="1" [rowspan]="12" style="">
         <div style=" height:100%; width: 100%; ">
@@ -31,7 +29,7 @@
                     <p [hidden]="comment.IsImage"
                        style="margin: 1%; max-width:100%; word-wrap: break-word;">{{ comment.content }}</p>
                     <img class="m-1" [hidden]="!comment.IsImage" width="80%" height="80%"
-                         style="border-radius:10%; float: left "
+                         style="border-radius:10%; float: left; max-width: fit-content; "
                          [src]=" 'data:image/png;base64,' +comment.content">
                   </div>
                 </div>
@@ -42,7 +40,7 @@
                     <p [hidden]="comment.IsImage"
                        style="max-width:100%; word-wrap: break-word;">{{ comment.content }}</p>
                     <img class="m-1" [hidden]="!comment.IsImage" width="80%" height="80%"
-                         style="border-radius:10%; float: right"
+                         style="border-radius: 20px; float: right; max-width: fit-content;"
                          [src]=" 'data:image/png;base64,' +comment.content">
                   </div>
                 </div>
@@ -57,37 +55,53 @@
                class="d-flex justify-content-center w-100">
             <mat-spinner style="margin-top: 18%;"></mat-spinner>
           </div>
-          <div style="overflow-x: scroll; max-height:100%;  width: 100%; ">
-            <div *ngFor="let image of imageAttachments; let i = index"
-                 style="float:left; margin-right: 5px; max-width: 20%;max-height: 100%;">
-              <button style="  border: 0px;" type="button" mat-stroked-button color=""
-                      (click)="openDialog(i)" matTooltip="Click to change a selected image">
+
+          <!--          <div style="overflow-x: scroll; max-height:100%;  width: 100%; ">-->
+          <!--            <div *ngFor="let image of imageAttachments; let i = index"-->
+          <!--                 style="float:left; margin-right: 5px; max-width: 20%;max-height: 100%;">-->
+          <!--              <button style="  border: 0px;" type="button" mat-stroked-button color=""-->
+          <!--                      (click)="openDialog(i)" matTooltip="Click to change a selected image">-->
+          <!--                <mat-icon [hidden]="this.imageAttachments[i]">add_photo_alternate</mat-icon>-->
+          <!--                <img class="m-1" [hidden]="!this.imageAttachments[i]" width="95%" height="95%"-->
+          <!--                     style="border-radius:10% "-->
+          <!--                     [src]="this.imageAttachments[i]">-->
+          <!--              </button>-->
+          <!--              <button mat-button (click)="removeSelectedImage(i)" style="margin-left: 30%;" matTooltip="Click to remove this image">-->
+          <!--                Remove-->
+          <!--              </button>-->
+          <!--            </div>-->
+          <!--          </div>-->
+
+          <div class="row p-2 border rounded">
+            <div *ngFor="let image of imageAttachments; let i = index" class="m-1 image-container">
+              <button (click)="removeSelectedImage(i)" type="button" class="close" aria-label="Close"
+                      style="position: absolute; top: 5px; right: 5px; z-index: 2">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <a (click)="openDialog(i)" matTooltip="Click to change a selected image">
                 <mat-icon [hidden]="this.imageAttachments[i]">add_photo_alternate</mat-icon>
-                <img class="m-1" [hidden]="!this.imageAttachments[i]" width="95%" height="95%"
-                     style="border-radius:10% "
-                     [src]="this.imageAttachments[i]">
-              </button>
-              <button mat-button (click)="removeSelectedImage(i)" style="margin-left: 30%;" matTooltip="Click to remove this image">
-                Remove
-              </button>
+                <img [src]="this.imageAttachments[i]" [hidden]="!this.imageAttachments[i]" class="image"/>
+              </a>
             </div>
           </div>
         </div>
       </mat-grid-tile>
 
       <mat-grid-tile [colspan]="1" [rowspan]="1" class="border-top">
-        <button mat-button class="border" style="margin-left: -92px; margin-right: 11px; width: 83px; height: 32px;"
-                (click)="openDialog(-1)"
-                matTooltip="Click to add new image">
-          <span class="material-icons"> add_photo_alternate </span>
-        </button>
+        <div [matTooltip]="imageAttachments.length<=6 ?'Click to add new image' : 'only 7 photos can select at once'">
+          <button mat-button class="border" style="margin-left: -92px; margin-right: 11px; width: 83px; height: 32px;"
+                  (click)="openDialog(-1)"
+                  [disabled]="imageAttachments.length>6">
+            <span class="material-icons"> add_photo_alternate </span>
+          </button>
+        </div>
 
-        <input style=" margin-top: 1px; height: 35px; width: 83%; margin-right: -40px;" matInput class="border"
-               type="text" #textC  [(ngModel)]="textComment" name="textComment">
+        <input style=" margin-top: 1px; height: 35px; width: 79%; margin-right: -40px;" matInput class="border"
+               type="text" #textC [(ngModel)]="textComment" name="textComment" (keydown.enter)="clickSend(textC.value)">
         <button [disabled]="!imageAttachments.length && textC.value.trim()==='' "
                 style=" margin-right:-100px; margin-left:0px; height: 32px;" class="btn btn-primary float-right ml-5"
                 (click)="clickSend(textC.value)">
-          <div style="margin-top: -3px;">send</div>
+          <div style="margin-top: -3px;">Send</div>
         </button>
       </mat-grid-tile>
 

@@ -1,97 +1,110 @@
-<script src="signup.component.ts"></script>
-<div class="container-fluid">
+<mat-card style="padding: 0!important; margin-left: 1%; margin-right: 1%">
+  <mat-card-header class="pt-3 pl-2">
+    <mat-card-title >Create New User</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <hr>
+    <script src="signup.component.ts"></script>
+    <div class="container-fluid">
 
-  <form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()" class="mat-typography" #myForm="ngForm">
+      <form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()" class="mat-typography" #myForm="ngForm">
 
-    <div class="row mb-4" >
-      <div class="col-4" style ="margin-left: 33%;">
-        <button  type="button" mat-stroked-button color="" (click)="openDialog()" matTooltip="Click to select a profile picture">
-          <img class="m-1" [hidden]="!this.profilePicture" style="border-radius:45%" width="80%" height="80%" [src]="this.profilePicture" />
-          <span></span>
-          <img class="m-1" [hidden]="this.profilePicture" style="border-radius:45%" width="80%" height="80%" src="../../../../assets/img/default-profile-picture.png">
-          </button>
-      </div>
-    </div>
-    <!-------------------------------------------------------------------------------------------------------------->
-    <div class="row">
-      <mat-form-field class="col-6" appearance="outline">
-        <mat-label>First Name</mat-label>
-        <input  type="text" matInput formControlName="firstName" placeholder="Nimal">
-        <mat-error *ngIf="firstName.touched && firstName.errors?.required">This field is required</mat-error>
-        <mat-error *ngIf="firstName.touched && !firstName.errors?.required && firstName.invalid">Invalid Input
-        </mat-error>
-      </mat-form-field>
-      <!-------------------------------------------------------------------------->
-      <mat-form-field  class="col-6" appearance="outline">
-        <mat-label>Last Name</mat-label>
-        <input type="text" matInput formControlName="lastName" placeholder="Nimal">
-        <mat-error *ngIf="lastName.touched && lastName.errors?.required">This field is required</mat-error>
-        <mat-error *ngIf="lastName.touched && !lastName.errors?.required && lastName.invalid">Invalid Input</mat-error>
-      </mat-form-field>
+        <div class="row mb-4" >
+          <div class="col-4" style ="margin-left: 33%;">
+            <button  type="button" mat-stroked-button color="" (click)="openDialog()" matTooltip="Click to select a profile picture">
+              <img class="m-1" [hidden]="!this.profilePicture" style="border-radius:45%" width="80%" height="80%" [src]="this.profilePicture" />
+              <span></span>
+              <img class="m-1" [hidden]="this.profilePicture" style="border-radius:45%" width="80%" height="80%" src="../../../../assets/img/default-profile-picture.png">
+            </button>
+          </div>
+        </div>
+        <!-------------------------------------------------------------------------------------------------------------->
+        <div class="row">
+          <mat-form-field class="col-6" appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input  type="text" matInput formControlName="firstName" placeholder="John">
+            <mat-error *ngIf="firstName.touched && firstName.errors?.required">This field is required</mat-error>
+            <mat-error *ngIf="firstName.touched && !firstName.errors?.required && firstName.invalid">First name needs at least 3 characters
+            </mat-error>
+          </mat-form-field>
+          <!-------------------------------------------------------------------------->
+          <mat-form-field  class="col-6" appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input type="text" matInput formControlName="lastName" placeholder="Smith">
+            <mat-error *ngIf="lastName.touched && lastName.errors?.required">This field is required</mat-error>
+            <mat-error *ngIf="lastName.touched && !lastName.errors?.required && lastName.invalid">Last name needs at least 3 characters</mat-error>
+          </mat-form-field>
+
+        </div>
+        <!-------------------------------------------------------------------------------------------------------------->
+        <div class="row">
+          <mat-form-field  class="col-12" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input type="text" matInput formControlName="email" placeholder="abc@mail.com">
+            <mat-error *ngIf="email.touched && email.errors?.required">This field is required</mat-error>
+            <mat-error *ngIf="email.touched && !email.errors?.required && email.errors?.email">Invalid Email</mat-error>
+          </mat-form-field>
+        </div>
+        <!-------------------------------------------------------------------------------------------------------------->
+        <div class="row" formGroupName="passwordGroup">
+          <mat-form-field class="col-6" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="New password" formControlName="password" required [type]="hidePassword ? 'password' : 'text'">
+            <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="userRegistrationForm.hasError('required', 'passwordGroup')">Please enter your newpassword</mat-error>
+          </mat-form-field>
+          <!------------------------------------------------------------------------->
+          <mat-form-field class="col-6" appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input  matInput placeholder="Confirm password" formControlName="confirmPassword" [errorStateMatcher]="matcher" [type]="hideConfirmPassword ? 'password' : 'text'">
+            <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+              <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="userRegistrationForm.hasError('notSame','passwordGroup')">
+              Passwords do not match
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!--------------------------------------------------------------------------------------------------------------->
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="roles" multiple="true" (valueChange)="toSelectedRoles($event)" >
+              <mat-option *ngFor="let role of roleList; let i = index"
+                          [disabled]="(i==0 && nonCustomerRoleSelected) || (i!=0 && customerRoleSelected)"
+                          [value]="i">{{role}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        <!-------------------------------------------------------------------------------------------------------------->
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-12" [hidden]="selectedRoles.length==0">
+            <mat-label>Default Role</mat-label>
+            <mat-select formControlName="defaultRole" multiple="false" >
+              <mat-option *ngFor="let roleId of selectedRoles; let i = index" [value]="roleId">{{roleList[roleId]}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-------------------------------------------------------------------------------------------------------------->
+        <div class="row">
+          <mat-form-field  class="col-12" appearance="outline">
+            <mat-label>Contact Number</mat-label>
+            <input type="number" matInput formControlName="contactNumber" placeholder="07*-*******">
+          </mat-form-field>
+        </div>
+        <!-------------------------------------------------------------------------------------------------------------->
+        <div style="display: flex">
+<!--          <button class="btn btn-primary" type="button" [hidden]="false" (click)="onCancel()">Cancel</button>-->
+          <button class="btn btn-primary" type="submit" style="margin-left: 86%; width: 8%;" [disabled]="!userRegistrationForm.valid">Register</button>
+        </div>
+
+      </form>
 
     </div>
-    <!-------------------------------------------------------------------------------------------------------------->
-    <div class="row">
-      <mat-form-field  class="col-12" appearance="outline">
-        <mat-label>Email</mat-label>
-        <input type="text" matInput formControlName="email" placeholder="abc@d.com">
-        <mat-error *ngIf="email.touched && email.errors?.required">This field is required</mat-error>
-        <mat-error *ngIf="email.touched && !email.errors?.required && email.errors?.email">Invalid Email</mat-error>
-      </mat-form-field>
-    </div>
-    <!-------------------------------------------------------------------------------------------------------------->
-    <div class="row" formGroupName="passwordGroup">
-      <mat-form-field class="col-6" appearance="outline">
-        <mat-label>Password</mat-label>
-        <input matInput placeholder="New password" formControlName="password" required [type]="hidePassword ? 'password' : 'text'">
-        <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-        <mat-error *ngIf="userRegistrationForm.hasError('required', 'passwordGroup')">Please enter your newpassword</mat-error>
-      </mat-form-field>
-      <!------------------------------------------------------------------------->
-      <mat-form-field class="col-6" appearance="outline">
-        <mat-label>Confirm Password</mat-label>
-        <input  matInput placeholder="Confirm password" formControlName="confirmPassword" [errorStateMatcher]="matcher" [type]="hideConfirmPassword ? 'password' : 'text'">
-        <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
-          <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-        <mat-error *ngIf="userRegistrationForm.hasError('notSame','passwordGroup')">
-          Passwords do not match
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <!--------------------------------------------------------------------------------------------------------------->
-    <div class="row">
-      <mat-form-field appearance="outline" class="col-12">
-        <mat-label>Role</mat-label>
-        <mat-select formControlName="roles" multiple="true" (valueChange)="toSelectedRoles($event)" >
-          <mat-option *ngFor="let role of roleList; let i = index" [value]="i">{{role}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+  </mat-card-content>
+</mat-card>
 
-    </div>
-    <!-------------------------------------------------------------------------------------------------------------->
-    <div class="row">
-      <mat-form-field appearance="outline" class="col-12" [hidden]="selectedRoles.length==0">
-        <mat-label>Default Role</mat-label>
-        <mat-select formControlName="defaultRole" multiple="false" >
-          <mat-option *ngFor="let roleId of selectedRoles; let i = index" [value]="roleId">{{roleList[roleId]}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <!-------------------------------------------------------------------------------------------------------------->
-    <div class="row">
-      <mat-form-field  class="col-12" appearance="outline">
-        <mat-label>Contact Number</mat-label>
-        <input type="number" matInput formControlName="contactNumber" placeholder="07*-*******">
-      </mat-form-field>
-    </div>
-    <!-------------------------------------------------------------------------------------------------------------->
-
-    <button class="btn btn-primary" type="submit" style="margin-left: 93%; width: 7%;" [disabled]="!userRegistrationForm.valid">Done</button>
-
-  </form>
-
-</div>
 

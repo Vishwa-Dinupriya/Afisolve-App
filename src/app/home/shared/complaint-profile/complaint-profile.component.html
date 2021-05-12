@@ -1,24 +1,44 @@
+<mat-card>
+  <mat-card-header>
+    <div class="row ">
+      <div class="col-10" style="padding-left: 0px">
+        <mat-card-title>Complaint Details</mat-card-title>
+        <mat-card-subtitle *ngIf="COMPLAINT_DETAILS_DATA">
+          Complaint ID: {{ COMPLAINT_DETAILS_DATA.complaintID + ' - ' + COMPLAINT_DETAILS_DATA.subComplaintID }}
+        </mat-card-subtitle>
+      </div>
 
-<div [hidden]="false">
-  <mat-tab-group animationDuration="1000ms" [selectedIndex]="tabIndex">
-    <mat-tab label="General Details">
-      <div >
+      <div class="col-2">
+        <button mat-icon-button
+                style="margin-left: 35px; margin-top: -10px"
+                (click)="this.backToAllComplaints()"
+                [hidden]="complaintCustomerService.isCommentSectionMode">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div>
+      <div>
 
         <mat-list *ngIf="!!COMPLAINT_DETAILS_DATA">
 
           <mat-list-item>
-            <div class=" w-25">complaintID: </div>
-            <div class="text-secondary w-75">
+            <div class=" w-50">complaintID:</div>
+            <div class="text-secondary w-50">
               <span *ngIf="!COMPLAINT_DETAILS_DATA.complaintID; else complaintIDBlock"><i> Not Available</i></span>
               <ng-template #complaintIDBlock>
-                <span> {{ COMPLAINT_DETAILS_DATA.complaintID+' - '+COMPLAINT_DETAILS_DATA.subComplaintID }} <br/></span>
+                <span> {{ COMPLAINT_DETAILS_DATA.complaintID + ' - ' + COMPLAINT_DETAILS_DATA.subComplaintID }}
+                  <br/></span>
               </ng-template>
             </div>
           </mat-list-item>
 
           <mat-list-item>
-            <div class=" w-25">Sub ComplaintID: </div>
-            <div class="text-secondary w-75">
+            <div class=" w-50">Sub ComplaintID:</div>
+            <div class="text-secondary w-50">
               <span *ngIf="!COMPLAINT_DETAILS_DATA.subComplaintID==null; else subComplaintIDBlock"><i> Not Available</i></span>
               <ng-template #subComplaintIDBlock>
                 <span> {{ COMPLAINT_DETAILS_DATA.subComplaintID }} <br/></span>
@@ -27,8 +47,8 @@
           </mat-list-item>
 
           <mat-list-item>
-            <div class=" w-25">Complaint Status: </div>
-            <div class=" text-secondary w-75">
+            <div class=" w-50">Complaint Status:</div>
+            <div class=" text-secondary w-50">
               <span *ngIf="!COMPLAINT_DETAILS_DATA.statusName; else statusNameBlock"><i> Not Available</i></span>
               <ng-template #statusNameBlock>
                 <span> {{ COMPLAINT_DETAILS_DATA.statusName }} <br/></span>
@@ -37,8 +57,8 @@
           </mat-list-item>
 
           <mat-list-item>
-            <div class=" w-25">product ID: </div>
-            <div class=" text-secondary w-75">
+            <div class=" w-50">product ID:</div>
+            <div class=" text-secondary w-50">
               <span *ngIf="!COMPLAINT_DETAILS_DATA.productID; else productIDBlock"><i> Not Available</i></span>
               <ng-template #productIDBlock>
                 <span> {{ COMPLAINT_DETAILS_DATA.productID }} <br/></span>
@@ -47,8 +67,8 @@
           </mat-list-item>
 
           <mat-list-item>
-            <div class=" w-25">Product Name:</div>
-            <div class=" text-secondary w-75">
+            <div class=" w-50">Product Name:</div>
+            <div class=" text-secondary w-50">
               <span *ngIf="!COMPLAINT_DETAILS_DATA.productName; else productNameBlock"><i> Not Available</i></span>
               <ng-template #productNameBlock>
                 <span> {{ COMPLAINT_DETAILS_DATA.productName }} <br/></span>
@@ -57,8 +77,8 @@
           </mat-list-item>
 
           <mat-list-item>
-            <div class=" w-25">Customer Email:</div>
-            <div class=" text-secondary w-75">
+            <div class=" w-50">Customer Email:</div>
+            <div class=" text-secondary w-50">
               <span *ngIf="!COMPLAINT_DETAILS_DATA.customerEmail; else customerEmailBlock"><i> Not Available</i></span>
               <ng-template #customerEmailBlock>
                 <span> {{ COMPLAINT_DETAILS_DATA.customerEmail }} <br/></span>
@@ -67,17 +87,20 @@
           </mat-list-item>
 
           <mat-list-item>
-            <div class=" w-25">Customer Name:</div>
-            <div class=" text-secondary w-75">
-              <span *ngIf="!COMPLAINT_DETAILS_DATA.customerFirstName; else customerNameBlock"><i> Not Available</i></span>
+            <div class=" w-50">Customer Name:</div>
+            <div class=" text-secondary w-50">
+              <span
+                *ngIf="!COMPLAINT_DETAILS_DATA.customerFirstName; else customerNameBlock"><i> Not Available</i></span>
               <ng-template #customerNameBlock>
-                <span> {{ COMPLAINT_DETAILS_DATA.customerFirstName+' '+ COMPLAINT_DETAILS_DATA.customerLastName }} <br/></span>
+                <span> {{ COMPLAINT_DETAILS_DATA.customerFirstName + ' ' + COMPLAINT_DETAILS_DATA.customerLastName }}
+                  <br/></span>
               </ng-template>
             </div>
           </mat-list-item>
+
           <mat-list-item>
-            <div class=" w-25">Account Coordinator Email:</div>
-            <div class=" text-secondary w-75">
+            <div class=" w-50">Account Coordinator Email:</div>
+            <div class=" text-secondary w-50">
               <span *ngIf="!COMPLAINT_DETAILS_DATA.accountCoordinatorEmail; else accountCoordinatorEmaileBlock"><i> Not Available</i></span>
               <ng-template #accountCoordinatorEmaileBlock>
                 <span> {{ COMPLAINT_DETAILS_DATA.accountCoordinatorEmail }} <br/></span>
@@ -86,19 +109,21 @@
           </mat-list-item>
 
           <mat-list-item>
-            <div class=" w-25">Account Coordinator Name:</div>
-            <div class=" text-secondary w-75">
+            <div class=" w-50">Account Coordinator Name:</div>
+            <div class=" text-secondary w-50">
               <span *ngIf="!COMPLAINT_DETAILS_DATA.accountCoordinatorFirstName; else accountCoordinatorNameBlock"><i> Not Available</i></span>
               <ng-template #accountCoordinatorNameBlock>
-                <span> {{ COMPLAINT_DETAILS_DATA.accountCoordinatorFirstName+' '+ COMPLAINT_DETAILS_DATA.accountCoordinatorLastName }} <br/></span>
+                <span> {{ COMPLAINT_DETAILS_DATA.accountCoordinatorFirstName + ' ' + COMPLAINT_DETAILS_DATA.accountCoordinatorLastName }}
+                  <br/></span>
               </ng-template>
             </div>
           </mat-list-item>
 
           <mat-list-item>
-            <div class=" w-25">Project Manager Email:</div>
-            <div class=" text-secondary w-75">
-              <span *ngIf="!COMPLAINT_DETAILS_DATA.projectManagerEmail; else projectManagerEmailBlock"><i> Not Available</i></span>
+            <div class=" w-50">Project Manager Email:</div>
+            <div class=" text-secondary w-50">
+              <span
+                *ngIf="!COMPLAINT_DETAILS_DATA.projectManagerEmail; else projectManagerEmailBlock"><i> Not Available</i></span>
               <ng-template #projectManagerEmailBlock>
                 <span> {{ COMPLAINT_DETAILS_DATA.projectManagerEmail }} <br/></span>
               </ng-template>
@@ -106,17 +131,18 @@
           </mat-list-item>
 
           <mat-list-item>
-            <div class=" w-25">Project Manager Name:</div>
-            <div class=" text-secondary w-75">
+            <div class=" w-50">Project Manager Name:</div>
+            <div class=" text-secondary w-50">
               <span *ngIf="!COMPLAINT_DETAILS_DATA.projectManagerFirstName; else projectManagerNameBlock"><i> Not Available</i></span>
               <ng-template #projectManagerNameBlock>
-                <span> {{ COMPLAINT_DETAILS_DATA.projectManagerFirstName + ' ' + COMPLAINT_DETAILS_DATA.accountCoordinatorLastName  }} <br/></span>
+                <span> {{ COMPLAINT_DETAILS_DATA.projectManagerFirstName + ' ' + COMPLAINT_DETAILS_DATA.accountCoordinatorLastName  }}
+                  <br/></span>
               </ng-template>
             </div>
           </mat-list-item>
 
           <mat-list-item>
-            <div class=" w-25">Submit At: </div>
+            <div class=" w-50">Submit At:</div>
             <div class=" text-secondary w-75">
               <span *ngIf="!COMPLAINT_DETAILS_DATA.submittedDate; else submittedDateBlock"><i> Not Available</i></span>
               <ng-template #submittedDateBlock>
@@ -126,8 +152,8 @@
           </mat-list-item>
 
           <mat-list-item>
-            <div class=" w-25">Starting Progress At: </div>
-            <div class=" text-secondary w-75">
+            <div class=" w-50">Starting Progress At:</div>
+            <div class=" text-secondary w-50">
               <span *ngIf="!COMPLAINT_DETAILS_DATA.wipStartDate; else wipStartDateBlock"><i> Not Available</i></span>
               <ng-template #wipStartDateBlock>
                 <span> {{ COMPLAINT_DETAILS_DATA.wipStartDate }} <br/></span>
@@ -142,30 +168,20 @@
       <div [hidden]="ComplaintIdAvailable">
         <i> Requested Complaint Id is null</i>
       </div>
-    </mat-tab>
-    <mat-tab label="Image Attachments" >
-      <p [hidden]="imageAttachments===null"><i>No any image attachment</i></p>
+    </div>
+    <mat-divider style="margin-top: 3%"></mat-divider>
+    <div>
+      <mat-card-header style="padding-top: 5%">
+        <mat-card-title>Image Attachments</mat-card-title>
+      </mat-card-header>
+      <p *ngIf="imageAttachments.length===0"><i>No any image attachment with this complaint</i></p>
       <div style="overflow: hidden;">
         <div *ngFor="let image of imageAttachments; let i = index"
              style="float:left; margin-right: 10px; max-width: 20%;max-height: 20%;">
-            <img class="m-1" [hidden]="!this.imageAttachments[i]" width="95%" height="95%" style="border-radius:10% "
-                 [src]=" 'data:image/png;base64,' +this.imageAttachments[i]">
+          <img class="m-1" [hidden]="!this.imageAttachments[i]" width="95%" height="95%" style="border-radius:10% "
+               [src]=" 'data:image/png;base64,' +this.imageAttachments[i]">
         </div>
       </div>
-    </mat-tab>
-  </mat-tab-group>
-  <button class="btn btn-primary" style="margin-left: 86%" (click)="backToAllComplaintsAdmin()" [hidden]="!complaintService.profileModeValue && requestFrom!=='admin' ">
-    <div style="display: flex">
-    <mat-icon>arrow_back_ios</mat-icon>
-    All Complains
     </div>
-  </button>
-
-  <button class="btn btn-primary" style="margin-left: 86%" (click)="backToAllComplaintsCustomer()" [hidden]="!complaintCustomerService.isComplaintProfileMode && requestFrom!=='customer'">
-    <div style="display: flex">
-      <mat-icon>arrow_back_ios</mat-icon>
-      All Complains
-    </div>
-  </button>
-</div>
-
+  </mat-card-content>
+</mat-card>

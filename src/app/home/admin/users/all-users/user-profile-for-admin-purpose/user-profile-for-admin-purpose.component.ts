@@ -1,17 +1,17 @@
 import {AfterViewInit, Component, Inject, Input, OnChanges, OnInit, Renderer2} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormGroup, FormBuilder, Validators, AbstractControl, FormControl, FormGroupDirective, NgForm} from '@angular/forms';
 import {checkPasswords} from 'src/app/authentication/shared/password.validator';
 import {AuthenticationService} from 'src/app/authentication/authentication.service';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
-import {UsersService} from '../users.service';
-import {IUserGeneral} from '../../../shared/user-profile/user-profile.component';
-import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
-import {DialogBoxSelectPictureComponent} from '../../../../shared/dialog-box-select-picture/dialog-box-select-picture.component';
-import {OtpDialogBoxComponent} from '../../../../shared/otp-dialog-box/otp-dialog-box.component';
-import {OtpService} from '../../../../shared/otp-service/otp.service';
+import {UsersService} from '../../users.service';
+import {IUserGeneral} from '../../../../shared/user-profile/user-profile.component';
+import {DialogBoxComponent} from '../../../../../shared/dialog-box/dialog-box.component';
+import {DialogBoxSelectPictureComponent} from '../../../../../shared/dialog-box-select-picture/dialog-box-select-picture.component';
+import {OtpDialogBoxComponent} from '../../../../../shared/otp-dialog-box/otp-dialog-box.component';
+import {OtpService} from '../../../../../shared/otp-service/otp.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -29,8 +29,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
 
-  @Input() userEmailChild: string;
-
   USER_GENERAL_DATA: IUserGeneral;
 
   hidePassword = true;
@@ -38,16 +36,20 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
   edit = false;
   haveChanges = false;
   userRegistrationForm: FormGroup;
-  tabIndex;
   oldEmail;
-
+  name;
   userRegistrationFormCopy;
 
   roleList: string[] = ['Customer', 'Account-Coordinator', 'Developer', 'Project-Manager', 'CEO', 'Admin'];
   selectedRoles: number [] = [];
 
+  customerRoleSelected;
+  nonCustomerRoleSelected;
+
   currentProfilePicture;
   newProfilePicture;
+
+  @Input() userEmailChild: string;
 
   matcher = new MyErrorStateMatcher();
 
@@ -55,6 +57,7 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
     private fb1: FormBuilder,
     private authenticationService: AuthenticationService,
     private router: Router,
+    private route: ActivatedRoute,
     private http1: HttpClient,
     public dialog: MatDialog,
     public usersService1: UsersService,
@@ -62,14 +65,18 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
   ) {
   }
 
-  ngOnInit(): void {
-    this.formBuildFunction();
+  ngOnChanges(): void {
+    // this.userEmailChild = this.usersService1.userEmailParent;
+    this.getAndSetValues();
   }
 
-  ngOnChanges(): void {
-    if (this.userRegistrationForm) {
-      this.tabIndex = '1';
-      this.formBuildFunction();
+  ngOnInit(): void {
+    this.formBuildFunction();
+    // this.route.params.subscribe(params => {
+    //   this.userEmailChild = params.username;
+    //   console.log(this.userEmailChild);
+    // });
+    if (this.userEmailChild) {
       this.getAndSetValues();
     }
   }
@@ -168,9 +175,22 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
   toSelectedRoles(value): void {
     this.selectedRoles = value;
 
+    if (this.selectedRoles.length !== 0) {
+      if (this.selectedRoles.includes(0)) {
+        this.nonCustomerRoleSelected = false;
+        this.customerRoleSelected = true;
+      } else {
+        this.nonCustomerRoleSelected = true;
+        this.customerRoleSelected = false;
+      }
+    } else {
+      this.nonCustomerRoleSelected = false;
+      this.customerRoleSelected = false;
+    }
+
     if (!this.selectedRoles.includes(this.defaultRole.value)) {
       this.defaultRole.reset();
-      console.log('hasError ' + this.userRegistrationForm.hasError('required', 'defaultRole'));
+      // console.log('hasError ' + this.userRegistrationForm.hasError('required', 'defaultRole'));
       this.defaultRole.markAsTouched();
     }
 
@@ -248,11 +268,20 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
             this.contactNumber.setValue(response.contactNumber);
             this.currentProfilePicture = 'data:image/png;base64,' + response.profilePhoto;
 
+            this.name = response.firstname + ' ' + response.lastname;
+
             this.createFormCopy();
             this.subscribeToFormValChange();
 
             this.USER_GENERAL_DATA = response.generalData[0];
-            // this.dataSource = new MatTableDataSource<IUserGeneral>(this.USER_GENERAL_DATA);
+
+            if (this.roles.value.includes(0)) {
+              this.nonCustomerRoleSelected = false;
+              this.customerRoleSelected = true;
+            } else {
+              this.nonCustomerRoleSelected = true;
+              this.customerRoleSelected = false;
+            }
           },
           error => {
             console.log(error);
@@ -324,11 +353,6 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
 
   capitalize(value: string): string {
     return value.charAt(0).toUpperCase() + value.slice(1);
-  }
-
-  public backToAllUsers(): void {
-    this.usersService1.changeIsProfileModeSubjectBooleanValue(false);
-    this.usersService1.changeUserEmailParentSubjectStringValue(null);
   }
 
   openDialog(): void {

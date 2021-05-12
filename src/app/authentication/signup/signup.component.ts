@@ -36,6 +36,9 @@ export class SignupComponent implements OnInit {
   roleList: string[] = ['Customer', 'Account Coordinator', 'Developer', 'Project Manager', 'CEO', 'Admin'];
   selectedRoles: number [] = [];
 
+  customerRoleSelected;
+  nonCustomerRoleSelected;
+
   matcher = new MyErrorStateMatcher();
 
   constructor(
@@ -43,7 +46,7 @@ export class SignupComponent implements OnInit {
     private fb1: FormBuilder,
     private authenticationService: AuthenticationService,
     private dialog: MatDialog,
-    public userService: UsersService,
+    public usersService: UsersService,
     private otpService: OtpService) {
   }
 
@@ -87,20 +90,32 @@ export class SignupComponent implements OnInit {
   }
 
   toSelectedRoles(value): void {
-    console.log(value);
+    // console.log(value);
     this.selectedRoles = value;
+    if (this.selectedRoles.length !== 0) {
+      if (this.selectedRoles.includes(0)) {
+        this.nonCustomerRoleSelected = false;
+        this.customerRoleSelected = true;
+      } else {
+        this.nonCustomerRoleSelected = true;
+        this.customerRoleSelected = false;
+      }
+    } else {
+      this.nonCustomerRoleSelected = false;
+      this.customerRoleSelected = false;
+    }
   }
 
   onSubmit(): void {
     this.http1.post<any>(`http://localhost:3000/authentication/sendOtpToEmail`, {userEnteredEmail: this.email.value})
       .subscribe(
-      response => {
-        console.log(response.otpID);
-        this.otpService.changeOtpIDSubjectNumberValue(response.otpID);
-      }, error => {
-        console.log(error);
-      }
-    );
+        response => {
+          console.log(response.otpID);
+          this.otpService.changeOtpIDSubjectNumberValue(response.otpID);
+        }, error => {
+          console.log(error);
+        }
+      );
     const dialogRef1 = this.dialog.open(OtpDialogBoxComponent, {
       data: {
         title: 'Enter OTP: !',
@@ -129,7 +144,7 @@ export class SignupComponent implements OnInit {
                   title: 'Success!',
                   message: 'Register new user successfully ',
                   name: ' ',
-                  button1: 'Back to All users',
+                  button1: '',
                   button2: 'Ok'
                 }
               });
@@ -140,7 +155,6 @@ export class SignupComponent implements OnInit {
                 if (result2 === true) {
 
                 } else {
-                  this.userService.ChangeCreateUserModeBooleanSubjectValue(false);
                 }
               });
             },
@@ -191,6 +205,10 @@ export class SignupComponent implements OnInit {
       this.profilePicture = picture;
     });
 
+  }
+
+  onCancel(): void {
+    this.userRegistrationForm.reset();
   }
 
 }

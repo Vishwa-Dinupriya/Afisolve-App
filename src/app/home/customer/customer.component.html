@@ -1,4 +1,4 @@
-<mat-drawer-container style="min-height: 100%">
+<mat-drawer-container style="height: 100%!important;">
   <mat-drawer mode="side" [opened]="homeService.drawer" style="width: 250px">
     <mat-selection-list [multiple]="false">
 
@@ -11,55 +11,52 @@
 
       <mat-list-option routerLink="./lodge-new-complaint"
                        [selected]="activeRoute === 'AddNewComplaintComponent'"
-                       [class.selected]="activeRoute === 'AddNewComplaintComponent'">
+                       [class.selected]="activeRoute === 'AddNewComplaintComponent'"
+                       (click)="addNewComplaintService.changeIsLodgeComplaintModeSubjectBooleanValue(false)">
         <mat-icon mat-list-icon>add</mat-icon>
         <div mat-line>Add new Complaint</div>
       </mat-list-option>
 
-      <mat-list-option (click)="collapseComplaints = !collapseComplaints"
-                       [selected]=!collapseComplaints
-                       [class.selected]=!collapseComplaints>
+      <mat-list-option routerLink="./complaints"
+                       [selected]="activeRoute === 'ComplaintsCustomerComponent'"
+                       [class.selected]="activeRoute === 'ComplaintsCustomerComponent'">
         <mat-icon mat-list-icon>assignment</mat-icon>
         <div mat-line>Complaints</div>
       </mat-list-option>
 
-      <mat-list-option [hidden]=collapseComplaints>
+      <div class="list-group list-group-flush rounded-0 ml-4 sub-menu"
+           [hidden]="activeRoute !== 'ComplaintsCustomerComponent'">
+        <mat-divider></mat-divider>
 
-        <mat-selection-list [multiple]="false">
-          <mat-list-option routerLink="./pending-complaints"
-                           (click)="resetComplaintProfileMode()"
-                           [selected]="activeRoute === 'PendingComplaintsComponent'"
-                           [class.selected]="activeRoute === 'PendingComplaintsComponent'">
-            <mat-icon mat-list-icon>pending_actions</mat-icon>
-            <div mat-line>Pending</div>
-          </mat-list-option>
+        <mat-list-option routerLink="./complaints/pending-complaints"
+                         [selected]="childRoute === 'pending-complaints' "
+                         [class.selected]="childRoute === 'pending-complaints' ">
+          <mat-icon mat-list-icon>pending_actions</mat-icon>
+          <div mat-line>Pending</div>
+        </mat-list-option>
 
-          <mat-list-option routerLink="./in-progress-complaints"
-                           (click)="resetComplaintProfileMode()"
-                           [selected]="activeRoute === 'InProgressComplaintsComponent'"
-                           [class.selected]="activeRoute === 'InProgressComplaintsComponent'">
-            <mat-icon mat-list-icon>published_with_changes</mat-icon>
-            <div mat-line>In Progress</div>
-          </mat-list-option>
+        <mat-list-option routerLink="./complaints/in-progress-complaints"
+                         [selected]="childRoute === 'in-progress-complaints' "
+                         [class.selected]="childRoute === 'in-progress-complaints' ">
+          <mat-icon mat-list-icon>published_with_changes</mat-icon>
+          <div mat-line>In-Progress</div>
+        </mat-list-option>
 
-          <mat-list-option routerLink="./completed-complaints"
-                           (click)="resetComplaintProfileMode()"
-                           [selected]="activeRoute === 'CompletedComplaintsComponent'"
-                           [class.selected]="activeRoute === 'CompletedComplaintsComponent'">
-            <mat-icon mat-list-icon>event_available</mat-icon>
-            <div mat-line>Completed</div>
-          </mat-list-option>
+        <mat-list-option routerLink="./complaints/completed-complaints"
+                         [selected]="childRoute === 'completed-complaints' "
+                         [class.selected]="childRoute === 'completed-complaints' ">
+          <mat-icon mat-list-icon>event_available</mat-icon>
+          <div mat-line>Completed</div>
+        </mat-list-option>
 
-          <mat-list-option routerLink="./past-complaints"
-                           (click)="resetComplaintProfileMode()"
-                           [selected]="activeRoute === 'ClosedComplaintsComponent'"
-                           [class.selected]="activeRoute === 'ClosedComplaintsComponent'">
-            <mat-icon mat-list-icon>manage_search</mat-icon>
-            <div mat-line>Past</div>
-          </mat-list-option>
-        </mat-selection-list>
+        <mat-list-option routerLink="./complaints/past-complaints"
+                         [selected]="childRoute === 'past-complaints' "
+                         [class.selected]="childRoute === 'past-complaints' ">
+          <mat-icon mat-list-icon>manage_search</mat-icon>
+          <div mat-line>Closed</div>
+        </mat-list-option>
 
-      </mat-list-option>
+      </div>
 
       <mat-list-option routerLink="./purchases"
                        [selected]="activeRoute === 'ProductsCustomerComponent'"
@@ -74,7 +71,7 @@
   <mat-drawer-content class="">
 
     <router-outlet (activate)="getRoute($event)">
-      <!--dashboard-customer,complaints-customer,purchases-customer, -->
+      <!--dashboard-customer,add-new-complaint,complaints-customer,purchases-customer, -->
     </router-outlet>
 
   </mat-drawer-content>
