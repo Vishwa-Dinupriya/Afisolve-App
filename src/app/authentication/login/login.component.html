@@ -1,48 +1,161 @@
-<mat-drawer-container style="min-height:93%" >
-<!--  <button class="btn btn-secondary" type="button" [routerLink]="['/' + '../signup']">Signup</button>-->
-  <div align="center">
-    <img src="../../../assets/img/afisolve_logo.png" height="60px" style="margin-top: 10px">
-  </div>
-  <div >
-  <h1 align="center" style="padding-top: 20px;font-size: 20px; alignment: center">Welcome to Afisolve! Lets Start</h1>
-  <form [formGroup]="loginForm" (ngSubmit)="onLogin()" style="padding-left: 430px">
-    {{loginForm.value | json}}
+<mat-drawer-container style="min-height:90% ;background-color: lavender ">
+  <!--  <button class="btn btn-secondary" type="button" [routerLink]="['/' + '../signup']">Signup</button>-->
+  <!--  ---------------------------------------CARD START-->
+  <div class="card " style="margin: 6% 20% 10%;box-shadow: 2px 4px 8px 6px rgba(0, 0, 0, 0.23);">
+    <div class="row">
 
-    <div class="form-group" style="width: 500px;alignment: center;">
-      <label>Email</label>
-      <input align="center" formControlName="email"
-             type="text"
-             class="form-control"
-             [class.is-invalid]="loginForm.get('email').invalid && loginForm.get('email').touched">
-      <div *ngIf="email.invalid && email.touched">
-        <small *ngIf="email.errors?.required" class="text-danger">email is required</small>
-        <small *ngIf="email.errors?.minlength" class="text-danger">email must be at least 3 characters</small>
-        <small *ngIf="email.errors?.forbiddenName" class="text-danger">{{email.errors?.forbiddenName.value}}
-          Email not allowed</small>
+<!--  -------------------------------------  CARD LEFT SIDE-->
+
+      <div class="col-sm-5"
+          style="border-right: 1px solid black;
+    height: 5%;
+    margin-top: 2%;" >
+        <div align="left">
+          <img src="../../../assets/img/afisolve_logo.png" height="60px" style="margin-top: 51px;margin-left: 10%;">
+          <h1 align="left"
+              style="padding-top: 20px;font-size: 20px;margin-left: 10%;color: #00030a; font-weight: bold;alignment: center">Welcome to
+            'afiSolve' !
+          </h1>
+          <p style="font-size: medium;margin-left: 10%;color: #00030a">Feel the timely, responsive service and <br>the passion for excellence</p>
+
+
+          <a href="http://www.afisol.com/"  style="margin-top: 40%;font-size: small;
+    margin-left: 10%;display: inline-block; color: #000411">
+            <img src="../../../assets/img/external-link.png" style="width: 3%">
+
+            &nbsp;Visit Our Official Website
+          </a>
+
+
+        </div>
       </div>
+
+<!--  ---------------------------------------CARD RIGHT SIDE-->
+
+      <div class="col-sm-7"
+           style="padding-bottom: 4%;padding-top: 4%;">
+
+        <div align="center">
+          <h1 align="center" style="padding-top: 20px;
+    font-size: 20px;
+    font-family: ui-monospace;
+    font-weight: revert;
+    font-size: xx-large;
+    margin-bottom: 9%;">Login</h1>
+          <div>
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+              <!--    {{loginForm.value | json}}-->
+
+              <div class="form-group" style="width: 75%;alignment: center;">
+                <label style="font-family: ui-monospace;
+font-size: 17px;
+letter-spacing: -0.1px;
+word-spacing: 0.4px;
+color: #000000;
+font-weight: bold;
+text-decoration: none;
+font-style: normal;
+font-variant: normal;
+text-transform: none;">E-mail</label>
+                <input align="center" formControlName="email"
+                       type="text"
+                       style="border-radius: 34px;"
+                       class="form-control"
+                       [class.is-invalid]="loginForm.get('email').invalid && loginForm.get('email').touched">
+                <div *ngIf="email.invalid && email.touched">
+                  <small *ngIf="email.errors?.required" class="text-danger">email is required</small>
+                  <small *ngIf="email.errors?.minlength" class="text-danger">email must be at least 3 characters</small>
+                  <small *ngIf="email.errors?.forbiddenName" class="text-danger">{{email.errors?.forbiddenName.value}}
+                    Email not allowed</small>
+                </div>
+              </div>
+
+              <div class="form-group" style="width: 75%">
+                <label style="font-family: ui-monospace;
+font-size: 17px;
+letter-spacing: -0.1px;
+word-spacing: 0.4px;
+color: #000000;
+font-weight: bold;
+text-decoration: none;
+font-style: normal;
+font-variant: normal;
+text-transform: none;">Password</label>
+                <input formControlName="password"
+                       type="password"
+                       style="border-radius: 34px;"
+                       class="form-control">
+              </div>
+
+              <div style="padding-top: 10px;">
+                <button
+                  style="width: 50%;color: #f6f7fa;height: 35px;border-radius: 34px;alignment: center;background-image: linear-gradient(0deg, rgba(8, 8, 8, 1) 0%, rgba(162, 14, 6, 1) 88%);"
+                  type="submit" [disabled]="!loginForm.valid">Sign In
+                </button>
+                <!--      {{loginForm.valid}}-->
+
+                <p style="margin-top: 20px">Forgot Your Password?</p>
+              </div>
+
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+
+
     </div>
-
-    <div class="form-group" style="width: 500px">
-      <label>Password</label>
-      <input formControlName="password"
-             type="password"
-             class="form-control">
-    </div>
-
-    <div style="padding-left: 50px;padding-top: 10px;">
-      <button style="width: 400px;" class="btn btn-danger" type="submit" [disabled]="!loginForm.valid">Sign In</button>
-      {{loginForm.valid}}
-    </div>
-
-
-  </form>
 
   </div>
 
-  </mat-drawer-container>
+<!--  -------------------------------------CARD END-->
 
-<footer
-  style="position:fixed;left: 0;bottom:0;width: 100%;background-color: black;text-align: center;height: 50px;color:gray;">
-  <p style="padding-top: 10px">afisolve &#169; 2020 &nbsp;&nbsp; | &nbsp;&nbsp; Community Guideline &nbsp;&nbsp; | &nbsp;&nbsp;
-    User Agreementt</p>
-</footer>
+  <div>
+    <footer
+      style="position:fixed;left: 0;bottom:0;width: 100%;height: 100px;background-color: black;text-align: center;color:gray;font-size: smaller">
+      <div class="row">
+        <div class="col-sm">
+          GET IN TOUCH WITH US<br>
+          Address: No 85/1/1,
+          Thimbirigasyaya Road,
+          Colombo 05.
+          Sri Lanka.<br>
+          Telephone: +94 117 711 717
+          Mobile: +94 777 177 647<br>
+          E-mail: info@afisol.com
+        </div>
+        <div class="col-sm">
+          EXPERIENCED INDUSTRIES<br>
+          Food & Beverages | Automobile
+          Hotel & Restaurants | Engineering
+          | Healthcare
+          | Travel & Tourism
+          | Construction
+          | Education
+          <p style="padding-top: 10px">afisolve &#169; 2020 &nbsp;&nbsp; | &nbsp;&nbsp; Community Guideline &nbsp;&nbsp;
+            | &nbsp;&nbsp;
+            User Agreement</p>
+        </div>
+        <div class="col-sm">
+
+          OUR EXPERTISE<br>
+          ASP.NET
+          | C# | Ajax
+          | MySQL | Access
+          | PHP | <br>HTML
+          | Wordpress | Joomla
+          | Javascript | JQuery
+
+
+        </div>
+      </div>
+
+    </footer>
+  </div>
+
+</mat-drawer-container>
+
+
+

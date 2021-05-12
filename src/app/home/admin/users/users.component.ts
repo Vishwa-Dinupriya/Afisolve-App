@@ -34,6 +34,7 @@ export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['userEmail', 'password', 'firstName', 'lastName', 'contactNumber', 'details', 'update', 'delete'];
 
   dataSource: MatTableDataSource<IUser>;
+
   USERS_DATA: IUser[];
 
   usersTabs: ITabUsers[] = [
