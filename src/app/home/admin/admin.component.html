@@ -57,15 +57,19 @@
         <mat-list-option routerLink="./products/all-products"
                          [selected]="childRoute === 'all-products'"
                          [class.selected]="childRoute === 'all-products'">
-          <mat-icon mat-list-icon>recent_actors</mat-icon>
-          <div mat-line>View Users</div>
+          <mat-icon mat-list-icon>
+            view_list
+          </mat-icon>
+          <div mat-line>View Products</div>
         </mat-list-option>
 
         <mat-list-option routerLink="./products/register-product"
                          [selected]="childRoute === 'register-product'"
                          [class.selected]="childRoute === 'register-product'">
-          <mat-icon mat-list-icon>person_add</mat-icon>
-          <div mat-line>New User</div>
+          <mat-icon mat-list-icon>
+            add_business
+          </mat-icon>
+          <div mat-line>New Product</div>
         </mat-list-option>
       </div>
       <mat-list-option routerLink="./feedbacks"
