@@ -120,49 +120,49 @@
 
         <!--Task Id Column -->
         <ng-container matColumnDef="taskID">
-          <th mat-header-cell *matHeaderCellDef>Task Id</th>
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef>Task Id</th>
           <td mat-cell *matCellDef="let element"> {{element.taskID}} </td>
         </ng-container>
 
         <!-- Complaint ID Column -->
         <ng-container matColumnDef="complaintID">
-          <th mat-header-cell *matHeaderCellDef> Complaint ID</th>
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Complaint ID</th>
           <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
         </ng-container>
 
         <!-- Sub complaint ID Column-->
         <ng-container matColumnDef="subComplaintID">
-          <th mat-header-cell *matHeaderCellDef> Sub-Complaint ID</th>
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Sub-Complaint ID</th>
           <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
         </ng-container>
 
         <!--Assigned date Column -->
         <ng-container matColumnDef="assignDate">
-          <th mat-header-cell *matHeaderCellDef> Assigned Date</th>
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Assigned Date</th>
           <td mat-cell *matCellDef="let element"> {{element.assignDate}} </td>
         </ng-container>
 
         <!--Deadline Column-->
         <ng-container matColumnDef="deadline">
-          <th mat-header-cell *matHeaderCellDef> Deadline</th>
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Deadline</th>
           <td mat-cell *matCellDef="let element"> {{element.deadline}} </td>
         </ng-container>
 
         <!-- Developer Name Column-->
         <ng-container matColumnDef="DevName">
-          <th mat-header-cell *matHeaderCellDef> Developer Name</th>
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Developer Name</th>
           <td mat-cell *matCellDef="let element"> {{element.DevName}} </td>
         </ng-container>
 
         <!-- Developer Email Column-->
         <ng-container matColumnDef="developerEmail">
-          <th mat-header-cell *matHeaderCellDef> Developer Email</th>
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Developer Email</th>
           <td mat-cell *matCellDef="let element"> {{element.developerEmail}} </td>
         </ng-container>
 
         <!-- Details button Column -->
         <ng-container matColumnDef="details">
-          <th mat-header-cell *matHeaderCellDef> Go To</th>
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Go To</th>
           <td mat-cell *matCellDef="let element">
             <button mat-icon-button color="primary" (click)="redirectToDetails(element.taskID)">
               <mat-icon class="mat-18">description</mat-icon>
