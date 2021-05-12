@@ -68,9 +68,10 @@ export class PendingComplaintsComponent implements OnInit, AfterViewInit {
     this.complaintsCustomerService.changeIsComplaintProfileModeSubjectBooleanValue(true);
   }
 
-  redirectToCommentSection(complaintID: number): void {
+  redirectToCommentSection(complaintID: number, subComplaintID: number): void {
     this.complaintIdToCommentSection = complaintID;
     this.complaintsCustomerService.changeIsCommentSectionModeSubjectBooleanValue(true);
+    this.redirectToDetails(complaintID, subComplaintID);
   }
 
   applyFilter(event): void {

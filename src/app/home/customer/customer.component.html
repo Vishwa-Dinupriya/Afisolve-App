@@ -1,4 +1,4 @@
-<mat-drawer-container style="min-height: 100%">
+<mat-drawer-container style="height: 100%!important;">
   <mat-drawer mode="side" [opened]="homeService.drawer" style="width: 250px">
     <mat-selection-list [multiple]="false">
 
@@ -25,30 +25,40 @@
       </mat-list-option>
 
       <div class="list-group list-group-flush rounded-0 ml-4 sub-menu"
-           [style.height]="activeRoute === 'ComplaintsCustomerComponent' ? (50 * 4) + 'px' : 0">
+           [hidden]="activeRoute !== 'ComplaintsCustomerComponent'">
+        <mat-divider></mat-divider>
 
-        <a routerLink="./complaints/pending-complaints"
-           [ngClass]="childRoute !== 'pending-complaints' ? ['list-group-item', 'list-group-item-action'] : ['list-group-item', 'list-group-item-action', 'active']">
-          Pending
-        </a>
-        <a routerLink="./complaints/in-progress-complaints"
-           [ngClass]="childRoute !== 'in-progress-complaints' ? ['list-group-item', 'list-group-item-action'] : ['list-group-item', 'list-group-item-action', 'active']">
-          In Progress
-        </a>
+        <mat-list-option routerLink="./complaints/pending-complaints"
+                         [selected]="childRoute === 'pending-complaints' "
+                         [class.selected]="childRoute === 'pending-complaints' ">
+          <mat-icon mat-list-icon>pending_actions</mat-icon>
+          <div mat-line>Pending</div>
+        </mat-list-option>
 
-        <a routerLink="./complaints/completed-complaints"
-           [ngClass]="childRoute !== 'completed-complaints' ? ['list-group-item', 'list-group-item-action'] : ['list-group-item', 'list-group-item-action', 'active']">
-          Completed
-        </a>
-        <a routerLink="./complaints/past-complaints"
-           [ngClass]="childRoute !== 'past-complaints' ? ['list-group-item', 'list-group-item-action'] : ['list-group-item', 'list-group-item-action', 'active']">
-          Closed
-        </a>
+        <mat-list-option routerLink="./complaints/in-progress-complaints"
+                         [selected]="childRoute === 'in-progress-complaints' "
+                         [class.selected]="childRoute === 'in-progress-complaints' ">
+          <mat-icon mat-list-icon>published_with_changes</mat-icon>
+          <div mat-line>In-Progress</div>
+        </mat-list-option>
+
+        <mat-list-option routerLink="./complaints/completed-complaints"
+                         [selected]="childRoute === 'completed-complaints' "
+                         [class.selected]="childRoute === 'completed-complaints' ">
+          <mat-icon mat-list-icon>event_available</mat-icon>
+          <div mat-line>Completed</div>
+        </mat-list-option>
+
+        <mat-list-option routerLink="./complaints/past-complaints"
+                         [selected]="childRoute === 'past-complaints' "
+                         [class.selected]="childRoute === 'past-complaints' ">
+          <mat-icon mat-list-icon>manage_search</mat-icon>
+          <div mat-line>Closed</div>
+        </mat-list-option>
 
       </div>
 
       <mat-list-option routerLink="./purchases"
-                       (click)="resetProductContent()"
                        [selected]="activeRoute === 'ProductsCustomerComponent'"
                        [class.selected]="activeRoute === 'ProductsCustomerComponent'">
         <mat-icon mat-list-icon>shopping_cart</mat-icon>

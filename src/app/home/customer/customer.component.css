@@ -1,6 +1,11 @@
 .selected {
-  background: #76b900 !important;
+  background: #b8b8b8 !important;
   font-weight: bold;
+}
+
+.not-selected {
+  background-color: white;
+  color: black;
 }
 
 .sub-menu {
@@ -9,11 +14,5 @@
 }
 
 .active {
-  background-color: purple!important;
+  background-color: #d57f86 !important;
 }
-
-/*.mat-nav-list .mat-list-item:focus,*/
-/*.mat-action-list .mat-list-item:focus,*/
-/*.mat-list-option:focus {*/
-/*  background: #b90000 !important;*/
-/*}*/

@@ -1,0 +1,85 @@
+
+<mat-sidenav-container  class="h-100">
+  <mat-sidenav [opened]="productService.isProductProfileMode"  mode="side" position="end" style="width: 375px">
+    <app-product-profile [productIDChild] = this.productService.productID></app-product-profile>
+  </mat-sidenav>
+
+  <mat-card style="padding: 0!important; margin-left: 1%; margin-right: 1%">
+
+    <mat-card-header class="pt-3 pl-2">
+      <mat-card-title>
+        Products
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
+
+          <!-- productID Column -->
+          <ng-container matColumnDef="productID">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Id</th>
+            <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+          </ng-container>
+
+          <!-- productName Column -->
+          <ng-container matColumnDef="productName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+          </ng-container>
+
+          <!-- category Column -->
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Category</th>
+            <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+          </ng-container>
+
+          <!-- customer email Column-->
+          <ng-container matColumnDef="customerEmail">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer</th>
+            <td mat-cell *matCellDef="let element"> {{element.customerEmail}} </td>
+          </ng-container>
+
+          <!-- project manager email Column-->
+          <ng-container matColumnDef="projectManagerEmail">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Manager</th>
+            <td mat-cell *matCellDef="let element"> {{element.projectManagerEmail}} </td>
+          </ng-container>
+
+          <!-- account coordinator email Column-->
+          <ng-container matColumnDef="accountCoordinatorEmail">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Coordinator</th>
+            <td mat-cell *matCellDef="let element"> {{element.accountCoordinatorEmail}} </td>
+          </ng-container>
+
+          <!-- Details Column -->
+          <ng-container matColumnDef="details">
+            <th mat-header-cell *matHeaderCellDef> Details</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="primary" (click)="redirectToDetails(element.productID)">
+                <mat-icon class="mat-18">reorder</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <!-- Delete Column -->
+          <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> Delete</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="warn" (click)="redirectToDelete(element.productID, element.productName)">
+                <mat-icon class="mat-18">delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <!-------------------------------------------------------------------------------------------->
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <mat-paginator [length]="5" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</mat-sidenav-container>

@@ -1,9 +1,7 @@
-<mat-card class="mr-4 ml-4 mt-4 mb-4 shadow">
-  <mat-card-header>
-    <mat-card-title>
-      Comment Section
-      <!--      <h4><i>complaint ID:{{complaintIdInput}}</i> </h4>-->
-    </mat-card-title>
+<mat-card style="padding: 0!important; margin-left: 1%; margin-right: 1%">
+  <mat-card-header class="pt-3 pl-2">
+    <mat-card-title>Comment Section</mat-card-title>
+    <mat-card-subtitle> complaint ID:{{complaintIdInput}}</mat-card-subtitle>
     <button mat-icon-button style=" float: right; margin-top: -1%; margin-left: 80%;"
             (click)="whenClose()">
       <mat-icon>close</mat-icon>
@@ -11,8 +9,8 @@
   </mat-card-header>
   <mat-divider></mat-divider>
 
-  <mat-card-content class="mb-0">
-    <mat-grid-list cols="1" rows="13" rowHeight="41px">
+  <mat-card-content>
+    <mat-grid-list cols="1" rows="13" rowHeight="42.7px">
 
       <mat-grid-tile [colspan]="1" [rowspan]="12" style="">
         <div style=" height:100%; width: 100%; ">
@@ -98,7 +96,7 @@
           </button>
         </div>
 
-        <input style=" margin-top: 1px; height: 35px; width: 83%; margin-right: -40px;" matInput class="border"
+        <input style=" margin-top: 1px; height: 35px; width: 79%; margin-right: -40px;" matInput class="border"
                type="text" #textC [(ngModel)]="textComment" name="textComment" (keydown.enter)="clickSend(textC.value)">
         <button [disabled]="!imageAttachments.length && textC.value.trim()==='' "
                 style=" margin-right:-100px; margin-left:0px; height: 32px;" class="btn btn-primary float-right ml-5"

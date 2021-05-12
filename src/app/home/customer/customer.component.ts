@@ -47,7 +47,4 @@ export class CustomerComponent implements OnInit {
     this.complaintsCustomerService.changeIsComplaintProfileModeSubjectBooleanValue(false);
   }
 
-  resetProductContent(): void {
-    this.addNewComplaintService.changeIsLodgeComplaintModeSubjectBooleanValue(false);
-  }
 }

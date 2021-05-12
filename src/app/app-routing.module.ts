@@ -70,7 +70,8 @@ import {AccoorproductsComponent} from './home/accountCoordinator/accoorproducts/
 import {DevtasksProfileComponent} from './home/developer/devtasks/devtasks-profile/devtasks-profile.component';
 import {UpdateDevtaskStatusComponent} from './home/developer/devtasks/update-devtask-status/update-devtask-status.component';
 import {AllUsersComponent} from './home/admin/users/all-users/all-users.component';
-import {UserProfileForAdminPurposeComponent} from './home/admin/users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
+import {UserProfileForAdminPurposeComponent} from './home/admin/users/all-users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
+import {AllProductsComponent} from './home/admin/products/all-products/all-products.component';
 
 
 const routes: Routes = [
@@ -242,6 +243,15 @@ const routes: Routes = [
               path: 'products',
               component: ProductsComponent,
               children: [
+                {
+                  path: '',
+                  redirectTo: 'all-products',
+                  pathMatch: 'full'
+                },
+                {
+                  path: 'all-products',
+                  component: AllProductsComponent
+                },
                 {
                   path: 'register-product',
                   component: RegisterProductComponent

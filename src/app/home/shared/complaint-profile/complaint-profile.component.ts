@@ -81,12 +81,12 @@ export class ComplaintProfileComponent implements AfterViewInit, OnChanges {
 
   public backToAllComplaints(): void {
     this.complaintService.changeProfileModeBooleanSubjectValue(false);
-    this.complaintService.changeComplaintIdParentNumberSubjectValue(null);
-    this.complaintService.changeSubComplaintIdParentNumberSubjectValue(null);
+    // this.complaintService.changeComplaintIdParentNumberSubjectValue(null);
+    // this.complaintService.changeSubComplaintIdParentNumberSubjectValue(null);
 
     this.complaintCustomerService.changeIsComplaintProfileModeSubjectBooleanValue(false);
-    this.complaintCustomerService.changeComplaintIdParentSubjectNumberValue(null);
-    this.complaintCustomerService.changeSubComplaintIdParentNumberSubjectValue(null);
+    // this.complaintCustomerService.changeComplaintIdParentSubjectNumberValue(null);
+    // this.complaintCustomerService.changeSubComplaintIdParentNumberSubjectValue(null);
   }
 
   // public backToAllComplaintsAdmin(): void {

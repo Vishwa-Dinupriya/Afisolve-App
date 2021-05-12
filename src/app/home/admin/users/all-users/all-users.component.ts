@@ -35,7 +35,6 @@ export class AllUsersComponent implements OnInit {
 
   dataSource: MatTableDataSource<IUser>;
   USERS_DATA: IUser[];
-  userEmailParent;
 
   usersTabs: ITabUsers[] = [
     {roleID: 6, roleName: 'All'},
@@ -57,7 +56,6 @@ export class AllUsersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.usersService.ChangeCreateUserModeBooleanSubjectValue(false);
     this.getData();
   }
 
@@ -87,9 +85,8 @@ export class AllUsersComponent implements OnInit {
 
   public redirectToDetails(id: string): void {
     // this.router.navigate(['../user-profile', {username: id}], {relativeTo: this.route});
-    this.userEmailParent = id;
+    this.usersService.changeUserEmailParentSubjectStringValue(id);
     this.usersService.changeIsProfileModeSubjectBooleanValue(true);
-
   }
 
 

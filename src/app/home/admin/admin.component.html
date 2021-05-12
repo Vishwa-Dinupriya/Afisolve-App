@@ -31,9 +31,7 @@
         <mat-list-option routerLink="./users/all-users"
                          [selected]="childRoute === 'all-users'"
                          [class.selected]="childRoute === 'all-users'">
-          <mat-icon mat-list-icon>
-            recent_actors
-          </mat-icon>
+          <mat-icon mat-list-icon>recent_actors</mat-icon>
           <div mat-line>View Users</div>
         </mat-list-option>
 
@@ -52,6 +50,24 @@
         <div mat-line>Products</div>
       </mat-list-option>
 
+      <div class="list-group list-group-flush rounded-0 ml-4 sub-menu "
+           [hidden]="activeRoute !== 'ProductsComponent'">
+        <mat-divider></mat-divider>
+
+        <mat-list-option routerLink="./products/all-products"
+                         [selected]="childRoute === 'all-products'"
+                         [class.selected]="childRoute === 'all-products'">
+          <mat-icon mat-list-icon>recent_actors</mat-icon>
+          <div mat-line>View Users</div>
+        </mat-list-option>
+
+        <mat-list-option routerLink="./products/register-product"
+                         [selected]="childRoute === 'register-product'"
+                         [class.selected]="childRoute === 'register-product'">
+          <mat-icon mat-list-icon>person_add</mat-icon>
+          <div mat-line>New User</div>
+        </mat-list-option>
+      </div>
       <mat-list-option routerLink="./feedbacks"
                        [selected]="activeRoute === 'FeedbacksComponent'"
                        [class.selected]="activeRoute === 'FeedbacksComponent'">
