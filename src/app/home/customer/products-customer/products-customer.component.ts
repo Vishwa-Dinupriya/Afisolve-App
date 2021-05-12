@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {IProduct} from '../../admin/products/products.component';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {AddNewComplaintService} from '../add-new-complaint/add-new-complaint.service';
+import {IProduct} from '../../admin/products/all-products/all-products.component';
 
 @Component({
   selector: 'app-purchases-customer',
