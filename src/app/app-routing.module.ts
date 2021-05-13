@@ -169,15 +169,19 @@ const routes: Routes = [
           canActivate: [AuthenticationGuard],
           children: [
             {
-              path: 'cdashboard',
+              path: '',
               component: CdashboardComponent
             },
             {
-              path: 'clate',
+              path: 'dashboard',
+              component: CdashboardComponent
+            },
+            {
+              path: 'late-complaint-information',
               component: ClateComponent,
             },
             {
-              path: 'cviewreports',
+              path: 'view-complaints',
               component: CviewreportsComponent
             },
           ]
@@ -193,7 +197,11 @@ const routes: Routes = [
           canActivate: [AuthenticationGuard],
           children: [
             {
-              path: 'pdashboard',
+              path: '',
+              component: PdashboardComponent
+            },
+            {
+              path: 'dashboard',
               component: PdashboardComponent
             },
             {
@@ -201,7 +209,7 @@ const routes: Routes = [
               component: LateComplaintInformationComponent
             },
             {
-              path: 'view-reports',
+              path: 'view-complaints',
               component: ViewReportsComponent
             },
           ]
