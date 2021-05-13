@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-dialog-content class="mat-typography">
+
+  <img style="width: 20%; margin-left: 2%; margin-bottom: 2%; border-radius: 50%;" [src]="data.image" />
+
+  <p> {{data.message +'\''+ data.name +'\''}}</p>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false">{{data.button1}}</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{data.button2}}</button>
+</mat-dialog-actions>

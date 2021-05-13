@@ -1,164 +1,169 @@
-<div [hidden]="false">
-  <mat-tab-group animationDuration="1000ms" [selectedIndex]="tabIndex">
-    <mat-tab label="General Details">
-      <div>
+<mat-card>
+  <mat-card-header>
+    <div class="row " >
+      <div class="col-10" style="padding-left: 0px">
+        <mat-card-title>Product Details</mat-card-title>
+        <mat-card-subtitle *ngIf="PRODUCT_DETAILS_DATA">
+           Name: {{ PRODUCT_DETAILS_DATA.productName +'   ID: '+ PRODUCT_DETAILS_DATA.productID}}
+        </mat-card-subtitle>
+      </div>
 
-        <mat-list *ngIf="!!PRODUCT_DETAILS_DATA">
+      <div class="col-2" >
+        <button mat-icon-button
+                style="margin-left: 40px; margin-top: -10px"
+                (click)="productService.ChangeProductProfileModeBooleanSubjectValue(false)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-header>
 
-          <mat-list-item>
-            <div class=" w-25">product ID:</div>
-            <div class="text-secondary w-75">
-              <span *ngIf="!PRODUCT_DETAILS_DATA.productID; else productIDBlock"><i> Not Available</i></span>
-              <ng-template #productIDBlock>
+  <mat-card-content>
+    <div>
+      <mat-list *ngIf="!!PRODUCT_DETAILS_DATA">
+
+        <mat-list-item>
+          <div class=" w-50">product ID:</div>
+          <div class="text-secondary w-50">
+            <span *ngIf="!PRODUCT_DETAILS_DATA.productID; else productIDBlock"><i> Not Available</i></span>
+            <ng-template #productIDBlock>
                 <span> {{ PRODUCT_DETAILS_DATA.productID }}
                   <br/></span>
-              </ng-template>
-            </div>
-          </mat-list-item>
+            </ng-template>
+          </div>
+        </mat-list-item>
 
-          <mat-list-item>
-            <div class=" w-25">product Name:</div>
-            <div class=" text-secondary w-75">
-              <span *ngIf="!PRODUCT_DETAILS_DATA.productName; else productNameBlock"><i> Not Available</i></span>
-              <ng-template #productNameBlock>
-                <span> {{ PRODUCT_DETAILS_DATA.productName }} <br/></span>
-              </ng-template>
-            </div>
-          </mat-list-item>
+        <mat-list-item>
+          <div class=" w-50">product Name:</div>
+          <div class=" text-secondary w-50">
+            <span *ngIf="!PRODUCT_DETAILS_DATA.productName; else productNameBlock"><i> Not Available</i></span>
+            <ng-template #productNameBlock>
+              <span> {{ PRODUCT_DETAILS_DATA.productName }} <br/></span>
+            </ng-template>
+          </div>
+        </mat-list-item>
 
-          <mat-list-item>
-            <div class=" w-25">Category:</div>
-            <div class=" text-secondary w-75">
-              <span *ngIf="!PRODUCT_DETAILS_DATA.category; else categoryBlock"><i> Not Available</i></span>
-              <ng-template #categoryBlock>
-                <span> {{ PRODUCT_DETAILS_DATA.category }} <br/></span>
-              </ng-template>
-            </div>
-          </mat-list-item>
+        <mat-list-item>
+          <div class=" w-50">Category:</div>
+          <div class=" text-secondary w-50">
+            <span *ngIf="!PRODUCT_DETAILS_DATA.category; else categoryBlock"><i> Not Available</i></span>
+            <ng-template #categoryBlock>
+              <span> {{ PRODUCT_DETAILS_DATA.category }} <br/></span>
+            </ng-template>
+          </div>
+        </mat-list-item>
 
-          <mat-list-item>
-            <div class=" w-25">Customer Email:</div>
-            <div class=" text-secondary w-75">
-              <span *ngIf="!PRODUCT_DETAILS_DATA.customerEmail; else customerEmailBlock"><i> Not Available</i></span>
-              <ng-template #customerEmailBlock>
-                <span> {{ PRODUCT_DETAILS_DATA.customerEmail }} <br/></span>
-              </ng-template>
-            </div>
-          </mat-list-item>
+        <mat-list-item>
+          <div class=" w-50">Customer Email:</div>
+          <div class=" text-secondary w-50">
+            <span *ngIf="!PRODUCT_DETAILS_DATA.customerEmail; else customerEmailBlock"><i> Not Available</i></span>
+            <ng-template #customerEmailBlock>
+              <span> {{ PRODUCT_DETAILS_DATA.customerEmail }} <br/></span>
+            </ng-template>
+          </div>
+        </mat-list-item>
 
-          <mat-list-item>
-            <div class=" w-25">Customer Name:</div>
-            <div class=" text-secondary w-75">
-              <span *ngIf="!PRODUCT_DETAILS_DATA.customerFirstName; else customerNameBlock"><i> Not Available</i></span>
-              <ng-template #customerNameBlock>
+        <mat-list-item>
+          <div class=" w-50">Customer Name:</div>
+          <div class=" text-secondary w-50">
+            <span *ngIf="!PRODUCT_DETAILS_DATA.customerFirstName; else customerNameBlock"><i> Not Available</i></span>
+            <ng-template #customerNameBlock>
                 <span> {{ PRODUCT_DETAILS_DATA.customerFirstName + ' ' + PRODUCT_DETAILS_DATA.customerLastName }}
                   <br/></span>
-              </ng-template>
-            </div>
-          </mat-list-item>
+            </ng-template>
+          </div>
+        </mat-list-item>
 
-          <mat-list-item>
-            <div class=" w-25">Account Coordinator Email:</div>
-            <div class=" text-secondary w-75">
-              <span *ngIf="!PRODUCT_DETAILS_DATA.accountCoordinatorEmail; else accountCoordinatorEmailBlock"><i> Not Available</i></span>
-              <ng-template #accountCoordinatorEmailBlock>
-                <span> {{ PRODUCT_DETAILS_DATA.accountCoordinatorEmail }} <br/></span>
-              </ng-template>
-            </div>
-          </mat-list-item>
+        <mat-list-item>
+          <div class=" w-50">Account Coordinator Email:</div>
+          <div class=" text-secondary w-50">
+            <span *ngIf="!PRODUCT_DETAILS_DATA.accountCoordinatorEmail; else accountCoordinatorEmailBlock"><i> Not Available</i></span>
+            <ng-template #accountCoordinatorEmailBlock>
+              <span> {{ PRODUCT_DETAILS_DATA.accountCoordinatorEmail }} <br/></span>
+            </ng-template>
+          </div>
+        </mat-list-item>
 
-          <mat-list-item>
-            <div class=" w-25">Account Coordinator Name:</div>
-            <div class=" text-secondary w-75">
-              <span *ngIf="!PRODUCT_DETAILS_DATA.accountCoordinatorFirstName; else accountCoordinatorNameBlock"><i> Not Available</i></span>
-              <ng-template #accountCoordinatorNameBlock>
+        <mat-list-item>
+          <div class=" w-50">Account Coordinator Name:</div>
+          <div class=" text-secondary w-50">
+            <span *ngIf="!PRODUCT_DETAILS_DATA.accountCoordinatorFirstName; else accountCoordinatorNameBlock"><i> Not Available</i></span>
+            <ng-template #accountCoordinatorNameBlock>
                 <span> {{ PRODUCT_DETAILS_DATA.accountCoordinatorFirstName + ' ' + PRODUCT_DETAILS_DATA.accountCoordinatorLastName }}
                   <br/></span>
-              </ng-template>
-            </div>
-          </mat-list-item>
+            </ng-template>
+          </div>
+        </mat-list-item>
 
-          <mat-list-item>
-            <div class=" w-25">Project Manager Email:</div>
-            <div class=" text-secondary w-75">
+        <mat-list-item>
+          <div class=" w-50">Project Manager Email:</div>
+          <div class=" text-secondary w-50">
               <span
                 *ngIf="!PRODUCT_DETAILS_DATA.projectManagerEmail; else projectManagerEmailBlock"><i> Not Available</i></span>
-              <ng-template #projectManagerEmailBlock>
-                <span> {{ PRODUCT_DETAILS_DATA.projectManagerEmail }} <br/></span>
-              </ng-template>
-            </div>
-          </mat-list-item>
+            <ng-template #projectManagerEmailBlock>
+              <span> {{ PRODUCT_DETAILS_DATA.projectManagerEmail }} <br/></span>
+            </ng-template>
+          </div>
+        </mat-list-item>
 
-          <mat-list-item>
-            <div class=" w-25">Project Manager Name:</div>
-            <div class=" text-secondary w-75">
-              <span *ngIf="!PRODUCT_DETAILS_DATA.projectManagerFirstName; else projectManagerNameBlock"><i> Not Available</i></span>
-              <ng-template #projectManagerNameBlock>
+        <mat-list-item>
+          <div class=" w-50">Project Manager Name:</div>
+          <div class=" text-secondary w-50">
+            <span *ngIf="!PRODUCT_DETAILS_DATA.projectManagerFirstName; else projectManagerNameBlock"><i> Not Available</i></span>
+            <ng-template #projectManagerNameBlock>
                 <span> {{ PRODUCT_DETAILS_DATA.projectManagerFirstName + ' ' + PRODUCT_DETAILS_DATA.accountCoordinatorLastName  }}
                   <br/></span>
-              </ng-template>
-            </div>
-          </mat-list-item>
+            </ng-template>
+          </div>
+        </mat-list-item>
 
-          <mat-list-item>
-            <div class=" w-25">Created At:</div>
-            <div class=" text-secondary w-75">
-              <span *ngIf="!PRODUCT_DETAILS_DATA.createdAt; else createdAtBlock"><i> Not Available</i></span>
-              <ng-template #createdAtBlock>
+        <mat-list-item>
+          <div class=" w-50">Created At:</div>
+          <div class=" text-secondary w-50">
+            <span *ngIf="!PRODUCT_DETAILS_DATA.createdAt; else createdAtBlock"><i> Not Available</i></span>
+            <ng-template #createdAtBlock>
                 <span> {{ PRODUCT_DETAILS_DATA.createdAt}}
                   <br/></span>
-              </ng-template>
-            </div>
-          </mat-list-item>
+            </ng-template>
+          </div>
+        </mat-list-item>
 
-          <mat-list-item>
-            <div class=" w-25">created By:</div>
-            <div class=" text-secondary w-75">
-              <span *ngIf="!PRODUCT_DETAILS_DATA.createdBy; else createdByBlock"><i> Not Available</i></span>
-              <ng-template #createdByBlock>
+        <mat-list-item>
+          <div class=" w-50">created By:</div>
+          <div class=" text-secondary w-50">
+            <span *ngIf="!PRODUCT_DETAILS_DATA.createdBy; else createdByBlock"><i> Not Available</i></span>
+            <ng-template #createdByBlock>
                 <span> {{ PRODUCT_DETAILS_DATA.createdBy}}
                   <br/></span>
-              </ng-template>
-            </div>
-          </mat-list-item>
+            </ng-template>
+          </div>
+        </mat-list-item>
 
-          <mat-list-item>
-            <div class=" w-25">modified At:</div>
-            <div class=" text-secondary w-75">
-              <span *ngIf="!PRODUCT_DETAILS_DATA.modifiedAt; else modifiedAtBlock"><i> Not Available</i></span>
-              <ng-template #modifiedAtBlock>
+        <mat-list-item>
+          <div class=" w-50">modified At:</div>
+          <div class=" text-secondary w-50">
+            <span *ngIf="!PRODUCT_DETAILS_DATA.modifiedAt; else modifiedAtBlock"><i> Not Available</i></span>
+            <ng-template #modifiedAtBlock>
                 <span> {{ PRODUCT_DETAILS_DATA.modifiedAt}}
                   <br/></span>
-              </ng-template>
-            </div>
-          </mat-list-item>
+            </ng-template>
+          </div>
+        </mat-list-item>
 
-          <mat-list-item>
-            <div class=" w-25">modified By:</div>
-            <div class=" text-secondary w-75">
-              <span *ngIf="!PRODUCT_DETAILS_DATA.modifiedBy; else modifiedByBlock"><i> Not Available</i></span>
-              <ng-template #modifiedByBlock>
+        <mat-list-item>
+          <div class=" w-50">modified By:</div>
+          <div class=" text-secondary w-50">
+            <span *ngIf="!PRODUCT_DETAILS_DATA.modifiedBy; else modifiedByBlock"><i> Not Available</i></span>
+            <ng-template #modifiedByBlock>
                 <span> {{ PRODUCT_DETAILS_DATA.modifiedBy}}
                   <br/></span>
-              </ng-template>
-            </div>
-          </mat-list-item>
+            </ng-template>
+          </div>
+        </mat-list-item>
 
-        </mat-list>
-      </div>
-
-      <div [hidden]="productIdAvailable">
-        <i> Requested Product Id is null</i>
-      </div>
-
-      <button class="btn btn-primary" (click)="backToAllProducts()" [hidden]="!productService.isProductProfileMode">
-        <mat-icon>arrow_back_ios</mat-icon>
-        All Products
-      </button>
-    </mat-tab>
-
-    <mat-tab label="Change Product Details">
-      <i>Further improvements :-) </i>
-    </mat-tab>
-  </mat-tab-group>
-</div>
+      </mat-list>
+    </div>
+    <mat-divider></mat-divider>
+    <div></div>
+  </mat-card-content>
+</mat-card>

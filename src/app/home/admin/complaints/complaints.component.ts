@@ -1,14 +1,20 @@
 import {AfterViewInit, Component, OnInit, ViewChild, Input} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
+import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 import {ComplaintsService} from './complaints.service';
 import {IComplaintWithSubsElement} from '../../shared/complaintElementWithSubsInterface/interface-complaint-with-subs.service';
+
+export interface ITabComplaints {
+  statusID: number;
+  statusName: string;
+  dataSource?: MatTableDataSource<IComplaintWithSubsElement>;
+}
 
 @Component({
   selector: 'app-complaint',
@@ -30,6 +36,13 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<IComplaintWithSubsElement>;
   COMPLAINS_DATA: IComplaintWithSubsElement[];
 
+  complaintsTabs: ITabComplaints[] = [
+    {statusID: 4, statusName: 'All'},
+    {statusID: 0, statusName: 'Pending'},
+    {statusID: 1, statusName: 'Inprogress'},
+    {statusID: 2, statusName: 'Completed'},
+    {statusID: 3, statusName: 'Closed'}];
+
   profileMode = false;
 
   complaintIdParent: string;
@@ -40,22 +53,27 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private router: Router,
+              private route: ActivatedRoute,
               private http1: HttpClient,
               public dialog: MatDialog,
               public complaintService: ComplaintsService) {
   }
 
   ngOnInit(): void {
-
+    this.route.params.subscribe(params => console.log(params));
   }
 
   ngAfterViewInit(): void {
     this.http1.post<any>(`http://localhost:3000/admin/get-all-complaints`, {}).subscribe(
       response => {
+        // console.log(response.data);
         this.COMPLAINS_DATA = response.data;
-        this.dataSource = new MatTableDataSource<IComplaintWithSubsElement>(this.COMPLAINS_DATA);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.complaintsTabs.forEach(tab => {
+          tab.dataSource = new MatTableDataSource<IComplaintWithSubsElement>(this.COMPLAINS_DATA.filter(
+            complaint => tab.statusID === 4 ? true : complaint.status === tab.statusID));
+          tab.dataSource.sort = this.sort;
+          tab.dataSource.paginator = this.paginator;
+        });
       }, error => {
         console.log(error);
       }
@@ -110,5 +128,9 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
+  // public backToAllComplaintsAdmin(): void {
+  //   this.complaintService.changeProfileModeBooleanSubjectValue(false);
+  //   this.complaintService.changeComplaintIdParentNumberSubjectValue(null);
+  //   this.complaintService.changeSubComplaintIdParentNumberSubjectValue(null);
+  // }
 }

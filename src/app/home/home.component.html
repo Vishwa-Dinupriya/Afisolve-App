@@ -1,4 +1,4 @@
-<div class="h-100">
+ <div class="h-100">
   <script src="../app-routing.module.ts"></script>
 
   <div>
@@ -39,7 +39,8 @@
 
         <button mat-icon-button [matMenuTriggerFor]="dropDownUser">
           <mat-icon>
-            <img *ngIf="this.profilePicture"  [src]=this.profilePicture  alt="" width="120%" height="120%" class="d-inline-block align-top border" style="border-radius: 80% ">
+            <img *ngIf="this.profilePicture" [src]=this.profilePicture alt="" width="120%" height="120%"
+                 class="d-inline-block align-top border" style=" border-radius: 50%; height: 150%; width: 150%; margin-top: -6px; ">
           </mat-icon>
         </button>
       </mat-toolbar-row>
@@ -84,8 +85,9 @@
     <!------------------------------------------------------------------------------------------------------>
 
     <mat-menu #dropDownUser="matMenu">
-      <button mat-menu-item style="width: 200px"  (click)="goToUserProfile()">
-        <mat-icon><img [hidden]="!this.profilePicture" [src]=this.profilePicture  alt="" width="120%" height="120%" class="d-inline-block align-top border" style="border-radius: 80% ">
+      <button mat-menu-item style="width: 200px" (click)="goToUserProfile()">
+        <mat-icon><img [hidden]="!this.profilePicture" [src]=this.profilePicture alt="" width="120%" height="120%"
+                       class="d-inline-block align-top border" style=" margin-top: -6px; margin-left: -6px; width: 150%; height: 150%;border-radius: 80%; ">
         </mat-icon>
         <span>Profile</span>
       </button>
@@ -100,7 +102,7 @@
 
   <!------------------------------------------------------------------------------------------------------>
 
-  <div [hidden]="homeService.userProfileMode" style="height:92%">
+  <div [hidden]="homeService.userProfileMode" style="height:93%">
     <router-outlet>
       <!--  customer
             project manager

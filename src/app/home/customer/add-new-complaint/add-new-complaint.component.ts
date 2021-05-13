@@ -1,13 +1,14 @@
 import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
+import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
 import {AddNewComplaintService} from './add-new-complaint.service';
-import {DialogBoxSelectPictureComponent} from '../../shared/dialog-box-select-picture/dialog-box-select-picture.component';
+import {DialogBoxSelectPictureComponent} from '../../../shared/dialog-box-select-picture/dialog-box-select-picture.component';
 import {environment} from '../../../../environments/environment';
+import {ComplaintsCustomerService} from '../complaints-customer/complaints-customer.service';
 
 @Component({
   selector: 'app-add-new-complaint',
@@ -22,17 +23,23 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
   productNameList;
 
   imageAttachments = [];
+  lodgeBtnMargin: number;
 
   constructor(
     private fb1: FormBuilder,
     private router: Router,
     private http1: HttpClient,
     public dialog: MatDialog,
-    public addNewComplaintService: AddNewComplaintService
+    public addNewComplaintService: AddNewComplaintService,
   ) {
+    this.addNewComplaintService.isLodgeComplaintModeSubjectBoolean.subscribe(
+      value => {
+        value ? this.lodgeBtnMargin = 86 : this.lodgeBtnMargin = 94;
+      });
   }
 
   ngOnInit(): void {
+    this.lodgeBtnMargin = 94;
     this.formBuildFunction();
     this.http1.post<any>(`http://localhost:3000/customer/get-all-products`, {}).subscribe(
       response => {

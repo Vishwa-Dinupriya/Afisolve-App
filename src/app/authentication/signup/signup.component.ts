@@ -3,12 +3,12 @@ import {FormGroup, FormBuilder, Validators, AbstractControl, FormControl, FormGr
 import {checkPasswords} from '../shared/password.validator';
 import {AuthenticationService} from '../authentication.service';
 import {ErrorStateMatcher} from '@angular/material/core';
-import {DialogBoxComponent} from '../../home/shared/dialog-box/dialog-box.component';
+import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {UsersService} from '../../home/admin/users/users.service';
-import {SignupService} from './signup.service';
 import {HttpClient} from '@angular/common/http';
-import {OtpDialogBoxComponent} from '../shared/otp-dialog-box/otp-dialog-box.component';
+import {OtpDialogBoxComponent} from '../../shared/otp-dialog-box/otp-dialog-box.component';
+import {OtpService} from '../../shared/otp-service/otp.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -36,6 +36,9 @@ export class SignupComponent implements OnInit {
   roleList: string[] = ['Customer', 'Account Coordinator', 'Developer', 'Project Manager', 'CEO', 'Admin'];
   selectedRoles: number [] = [];
 
+  customerRoleSelected;
+  nonCustomerRoleSelected;
+
   matcher = new MyErrorStateMatcher();
 
   constructor(
@@ -43,8 +46,8 @@ export class SignupComponent implements OnInit {
     private fb1: FormBuilder,
     private authenticationService: AuthenticationService,
     private dialog: MatDialog,
-    public userService: UsersService,
-    private signUpService: SignupService) {
+    public usersService: UsersService,
+    private otpService: OtpService) {
   }
 
   ngOnInit(): void {
@@ -87,21 +90,32 @@ export class SignupComponent implements OnInit {
   }
 
   toSelectedRoles(value): void {
-    console.log(value);
+    // console.log(value);
     this.selectedRoles = value;
+    if (this.selectedRoles.length !== 0) {
+      if (this.selectedRoles.includes(0)) {
+        this.nonCustomerRoleSelected = false;
+        this.customerRoleSelected = true;
+      } else {
+        this.nonCustomerRoleSelected = true;
+        this.customerRoleSelected = false;
+      }
+    } else {
+      this.nonCustomerRoleSelected = false;
+      this.customerRoleSelected = false;
+    }
   }
 
   onSubmit(): void {
-    this.http1.post<any>(`http://localhost:3000/authentication/sendOtpToEmail`,
-      {
-        userEnteredEmail: this.email.value
-      }).subscribe(
-      response => {
-        console.log(response);
-      }, error => {
-        console.log(error);
-      }
-    );
+    this.http1.post<any>(`http://localhost:3000/authentication/sendOtpToEmail`, {userEnteredEmail: this.email.value})
+      .subscribe(
+        response => {
+          console.log(response.otpID);
+          this.otpService.changeOtpIDSubjectNumberValue(response.otpID);
+        }, error => {
+          console.log(error);
+        }
+      );
     const dialogRef1 = this.dialog.open(OtpDialogBoxComponent, {
       data: {
         title: 'Enter OTP: !',
@@ -120,7 +134,7 @@ export class SignupComponent implements OnInit {
         registrationForm.profilePicture = this.profilePicture;
 
         // user-data and otp send to back end
-        this.authenticationService.signup(registrationForm, this.signUpService.otp)
+        this.authenticationService.signup(registrationForm, this.otpService.otp, this.otpService.otpID)
           .subscribe(
             response => {
               console.log('Success!(frontend)', response);
@@ -130,7 +144,7 @@ export class SignupComponent implements OnInit {
                   title: 'Success!',
                   message: 'Register new user successfully ',
                   name: ' ',
-                  button1: 'Back to All users',
+                  button1: '',
                   button2: 'Ok'
                 }
               });
@@ -141,11 +155,31 @@ export class SignupComponent implements OnInit {
                 if (result2 === true) {
 
                 } else {
-                  this.userService.ChangeCreateUserModeBooleanSubjectValue(false);
                 }
               });
             },
-            error => console.error('Error!(frontend)', error)
+            error => {
+              console.error('Error!(frontend)', error);
+              const dialogRef3 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  image: '',
+                  title: 'Failed!',
+                  message: error,
+                  name: ' ',
+                  button1: '',
+                  button2: 'Retry'
+                }
+              });
+
+              dialogRef3.afterClosed().subscribe(result3 => {
+                console.log(`Dialog result: ${result3}`);
+                if (result3 === true) {
+
+                } else {
+
+                }
+              });
+            }
           );
       } else {
         console.log(`Dialog result: ${result1}`);
@@ -153,58 +187,6 @@ export class SignupComponent implements OnInit {
       }
     });
   }
-
-  // onSubmit(): void {
-  //   const dialogRef1 = this.dialog.open(DialogBoxComponent, {
-  //     data: {
-  //       title: 'Confirm!',
-  //       message: 'Are you sure to add this new user? ',
-  //       name: ' ',
-  //       button1: 'Cancel',
-  //       button2: 'Done'
-  //     }
-  //   });
-  //
-  //   dialogRef1.afterClosed().subscribe(result1 => {
-  //     if (result1 === true) {
-  //       const registrationForm = this.userRegistrationForm.value;
-  //       registrationForm.firstName = this.capitalize(this.firstName.value);
-  //       registrationForm.lastName = this.capitalize(this.lastName.value);
-  //       registrationForm.profilePicture = this.profilePicture;
-  //
-  //       this.authenticationService.signup(registrationForm)
-  //         .subscribe(
-  //           response => {
-  //             console.log('Success!(frontend)', response);
-  //             const dialogRef2 = this.dialog.open(DialogBoxComponent, {
-  //               data: {
-  //                 image: 'data:image/png;base64,' + response.image,
-  //                 title: 'Success!',
-  //                 message: 'Register new user successfully ',
-  //                 name: ' ',
-  //                 button1: 'Back to All users',
-  //                 button2: 'Ok'
-  //               }
-  //             });
-  //
-  //             dialogRef2.afterClosed().subscribe(result2 => {
-  //               console.log(`Dialog result: ${result2}`);
-  //               this.myForm.resetForm();
-  //               if (result2 === true) {
-  //
-  //               } else {
-  //                 this.userService.ChangeCreateUserModeBooleanSubjectValue(false);
-  //               }
-  //             });
-  //           },
-  //           error => console.error('Error!(frontend)', error)
-  //         );
-  //     } else {
-  //       console.log(`Dialog result: ${result1}`);
-  //
-  //     }
-  //   });
-  // }
 
   capitalize(value: string): string {
     return value.charAt(0).toUpperCase() + value.slice(1);
@@ -223,6 +205,10 @@ export class SignupComponent implements OnInit {
       this.profilePicture = picture;
     });
 
+  }
+
+  onCancel(): void {
+    this.userRegistrationForm.reset();
   }
 
 }
@@ -251,4 +237,3 @@ export class ProfilePictureDialogComponent implements OnInit {
 
 
 }
-

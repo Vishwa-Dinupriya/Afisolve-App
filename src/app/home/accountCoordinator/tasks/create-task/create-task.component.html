@@ -1,0 +1,52 @@
+<div class="container-fluid">
+
+  <form [formGroup]="createTaskForm" (ngSubmit)="onSubmit()" #myForm="ngForm"> <!---->
+
+    <div class="row">
+
+      <mat-form-field class="col-auto" appearance="outline">
+        <mat-label>Complaint ID</mat-label>
+        <input type="text" matInput formControlName="complaintID" placeholder="Complaint ID">
+      </mat-form-field>
+
+      <mat-form-field class="col-auto" appearance="outline">
+        <mat-label>Sub Complaint ID</mat-label>
+        <input type="text" matInput formControlName="subComplaintID" placeholder="Sub Complaint ID">
+      </mat-form-field>
+
+    </div>
+
+
+    <div class="row">
+
+      <mat-form-field class="col-auto" appearance="outline">
+        <mat-label>Deadline</mat-label>
+        <input type="datetime-local" matInput formControlName="deadline" placeholder="Deadline">
+      </mat-form-field>
+
+    </div>
+
+    <div class="row">
+
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="task_description" placeholder="Deascription"></textarea>
+      </mat-form-field>
+
+    </div>
+
+    <div class="row">
+
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Developer Email</mat-label>
+        <input type="text" matInput formControlName="developerEmail" placeholder="Developer Email">
+      </mat-form-field>
+
+    </div>
+
+
+    <button class="btn btn-primary" type="submit" [disabled]="!createTaskForm.valid">Create</button>
+
+
+  </form>
+</div>

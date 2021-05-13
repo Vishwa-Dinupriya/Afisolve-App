@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../product.service';
 import {HttpClient} from '@angular/common/http';
-import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
+import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
 import {MatDialog} from '@angular/material/dialog';
 
 @Component({
@@ -25,9 +25,9 @@ export class RegisterProductComponent implements OnInit {
     this.productRegistrationForm = this.fb1.group({
       productName: ['', [Validators.required]],
       productCategory: ['', [Validators.required]],
-      customerEmail: ['testCustomer1@gmail.com', [Validators.required]],
-      projectManagerEmail: ['test1@gmail.com', [Validators.required]],
-      accountCoordinatorEmail: ['test1@gmail.com', [Validators.required]],
+      customerEmail: ['', [Validators.required]],
+      projectManagerEmail: ['', [Validators.required]],
+      accountCoordinatorEmail: ['', [Validators.required]],
     });
   }
 
@@ -60,7 +60,7 @@ export class RegisterProductComponent implements OnInit {
               });
 
               dialogRef2.afterClosed().subscribe(result2 => {
-                console.log(`Dialog result: ${result}`);
+                console.log(`Dialog result: ${result2}`);
                 this.myForm.resetForm();
                 if (result2 === true) {
 
@@ -69,11 +69,35 @@ export class RegisterProductComponent implements OnInit {
                 }
               });
             },
-            error => console.error('Error!(frontend)', error)
+            error => {
+              const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  title: 'Error!',
+                  message: error,
+                  name: ' ',
+                  button1: 'Reset',
+                  button2: 'Try again'
+                }
+              });
+
+              dialogRef2.afterClosed().subscribe(result2 => {
+                console.log(`Dialog result: ${result2}`);
+                if (result2 === true) {
+                } else {
+                  this.myForm.resetForm();
+                }
+              });
+              console.error('Error!(frontend)', error);
+            }
           );
       } else {
         this.productService.ChangeCreateProductModeBooleanSubjectValue(false);
       }
     });
+  }
+
+  onCancel(): void {
+    this.productRegistrationForm.reset();
+    this.productService.ChangeCreateProductModeBooleanSubjectValue(false);
   }
 }

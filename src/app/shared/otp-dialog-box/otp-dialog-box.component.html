@@ -1,0 +1,18 @@
+
+  <h2 mat-dialog-title>{{data.title}}</h2>
+  <mat-dialog-content class="mat-typography h-auto">
+
+    <div>
+      <p>{{data.message}}</p>
+    </div>
+    <div>
+      <input matInput placeholder="Enter that 8-digit otp number" #otp>
+    </div>
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false" matTooltip="back">{{data.button1}}</button>
+    <button mat-button [mat-dialog-close]="true" matTooltip="new user will register" cdkFocusInitial
+           [disabled]="otp.value == 0"  (click)="sendOtpToServiceFile(otp.value)">{{data.button2}}</button>
+  </mat-dialog-actions>
+
