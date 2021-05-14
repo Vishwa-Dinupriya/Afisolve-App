@@ -25,6 +25,8 @@ export class CdashboardComponent implements OnInit, AfterViewInit {
 
   cl: string;
  dataSourceFeed: any;
+ closs: any;
+allll: any;
   constructor(private router: Router,
               private http1: HttpClient) { }
   private dataSourceUsersmonth: any;
@@ -76,12 +78,8 @@ export class CdashboardComponent implements OnInit, AfterViewInit {
   dataSourceClosed: any;
 
   ngOnInit(): void {
-    this.getmonthCount();
     this.getfullcount();
-    this.getpendingcount();
-    this.getfinishcount();
-    this.getworkingcount();
-    this.getClosedCount();
+    this.getmonthCount();
     this.getlatecount();
     this.getFeedbackCount();
 
@@ -192,7 +190,7 @@ export class CdashboardComponent implements OnInit, AfterViewInit {
             datasets: [{
               label: ' ',
               // tslint:disable-next-line:max-line-length
-              data: [(this.dataSourceUsers1[0].count - this.dataSourceUsersmonth[4].num - this.dataSourceUsersmonth[3].num - this.dataSourceUsersmonth[2].num - this.dataSourceUsersmonth[1].num),( this.dataSourceUsers1[0].count - this.dataSourceUsersmonth[4].num - this.dataSourceUsersmonth[3].num - this.dataSourceUsersmonth[2].num), ( this.dataSourceUsers1[0].count - this.dataSourceUsersmonth[4].num - this.dataSourceUsersmonth[3].num), ( this.dataSourceUsers1[0].count - this.dataSourceUsersmonth[4].num ), this.dataSourceUsers1[0].count],
+              data: [(this.allll - this.dataSourceUsersmonth[4].num - this.dataSourceUsersmonth[3].num - this.dataSourceUsersmonth[2].num - this.dataSourceUsersmonth[1].num), ( this.allll - this.dataSourceUsersmonth[4].num - this.dataSourceUsersmonth[3].num - this.dataSourceUsersmonth[2].num), ( this.allll - this.dataSourceUsersmonth[4].num - this.dataSourceUsersmonth[3].num), ( this.allll - this.dataSourceUsersmonth[4].num ), this.allll],
               backgroundColor: [
                 '',
               ],
@@ -254,76 +252,25 @@ export class CdashboardComponent implements OnInit, AfterViewInit {
       response => {
         this.dataSourceUsers1 = response.data;
         console.log(this.dataSourceUsers1);
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
-  getfinishcount() {
-    this.http1.get<any>(`http://localhost:3000/ceo/get-finish-count`, {}).subscribe(
-      response => {
-        this.dataSourcefinish = response.data;
-        this.datfi = this.dataSourcefinish[0].count;
-        const a = this.dataSourceUsers1[0].count;
-        const iop = (this.datfi / a) * 100 ;
-        this.b = iop.toFixed(2);
-        console.log(this.b);
+        this.allll = this.dataSourceUsers1.alll;
+        this.datpe = this.dataSourceUsers1.pen;
+        this.datawo = this.dataSourceUsers1.work;
+        this.datfi = this.dataSourceUsers1.fin;
+        this.closs = this.dataSourceUsers1.clos;
 
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
-  getworkingcount() {
-    this.http1.get<any>(`http://localhost:3000/ceo/get-working-count`, {}).subscribe(
-      response => {
-        this.dataSourceworking = response.data;
-        console.log(this.dataSourceworking[0].count);
-        this.datawo = this.dataSourceworking[0].count;
-        const a = this.dataSourceUsers1[0].count;
-        const plok =  (this.datawo / a) * 100 ;
-        this.wc = plok.toFixed(2);
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
-  getpendingcount() {
-    this.http1.get<any>(`http://localhost:3000/ceo/get-pending-count`, {}).subscribe(
-      response => {
-        this.dataSourcepending = response.data;
-        console.log(this.dataSourcepending);
-        this.datpe = this.dataSourcepending[0].count;
-        const a = this.dataSourceUsers1[0].count;
-        const nbv = (this.datpe / a) * 100 ;
-        this.pe = nbv.toFixed(2);
-
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
-  getlatecount() {
-    this.http1.get<any>(`http://localhost:3000/ceo/get-late-count`, {}).subscribe(
-      response => {
-        this.dataSourcelate = response.data;
-        const tet1 = this.dataSourcelate[0].count;
-        console.log(tet1);
-        console.log(this.datawo);
-
-    // ..........................chart eka
+        // ..........................chart eka
         var myChart = new Chart('myChart1', {
           type: 'doughnut',
           data: {
-            labels: ['Finish', 'Working-Progress', 'Pending', 'Closed'],
+            labels: ['Completed', 'Working-Progress', 'Pending', 'Closed'],
             datasets: [{
               label: ' ',
-              data: [this.datfi , this.datawo, this.datpe, this.dataSourceClosed[0].count],
+              data: [this.datfi , this.datawo, this.datpe, this.closs],
               backgroundColor: [
                 '#358731',
                 '#fc0341',
                 '#20b5e3',
-               '#8f0b9c'
+                '#8f0b9c'
 
                 // 'rgba(255, 128, 0, 1)',
                 // 'rgba(102, 0, 102, 0.8)'
@@ -347,33 +294,24 @@ export class CdashboardComponent implements OnInit, AfterViewInit {
       }
     );
   }
-
-
-  // tslint:disable-next-line:typedef
-  getClosedCount(){
-    this.http1.post<any>(`http://localhost:3000/ceo/get-closed-complaints-countceo`, {}).subscribe(
+  getlatecount() {
+    this.http1.get<any>(`http://localhost:3000/ceo/get-late-count`, {}).subscribe(
       response => {
-        this.dataSourceClosed = response.data;
-        const a = this.dataSourceUsers1[0].count;
-       // console.log(this.dataSourcetot[0].count - this.dataSourceClosed[0].count);
-        const ghn = ( this.dataSourceClosed[0].count / a) * 100 ;
-        this.cl = ghn.toFixed(2);
-        // const bnm = 3.1234;
-        // const ghn = bnm.toFixed(1);
-        // console.log(ghn);
+        this.dataSourcelate = response.data;
+        const tet1 = this.dataSourcelate[0].count;
+        console.log(tet1);
+        console.log(this.datawo);
       }, error => {
         console.log(error);
       }
     );
   }
-
-
   getFeedbackCount(){
     this.http1.get<any>(`http://localhost:3000/admin/get-feedback-count`, {}).subscribe(
       response => {
         this.dataSourceFeed = response.data;
         // for (let i = 0; i < 5; i++){
-        console.log(this.dataSourceFeed[1].num);
+        console.log(this.dataSourceFeed.sat1);
 
 
         // }
@@ -388,19 +326,19 @@ export class CdashboardComponent implements OnInit, AfterViewInit {
             datasets: [{
               label: ' ',
               // tslint:disable-next-line:max-line-length
-              data: [this.dataSourceFeed[0].num , this.dataSourceFeed[1].num, this.dataSourceFeed[2].num, this.dataSourceFeed[3].num, this.dataSourceFeed[4].num],
+              data: [this.dataSourceFeed.sat5 , this.dataSourceFeed.sat4, this.dataSourceFeed.sat3, this.dataSourceFeed.sat2, this.dataSourceFeed.sat1],
               backgroundColor: [
                 '#20b5e3',
                 '#fc0341',
                 '#358731',
-                '#8f0b9c',
+                '#4d523e',
                 '#e36120'
               ],
               borderColor: [
                 '#20b5e3',
                 '#ed3453',
                 '#358731',
-                '#8f0b9c',
+                '#4d523e',
                 '#e36120'
               ],
               borderWidth: 1
@@ -410,8 +348,6 @@ export class CdashboardComponent implements OnInit, AfterViewInit {
 
           }
         });
-
-
 
       }, error => {
         console.log(error);

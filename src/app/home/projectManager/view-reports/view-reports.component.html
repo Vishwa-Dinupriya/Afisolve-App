@@ -101,7 +101,8 @@
 <mat-card-title>Details of the Complaint</mat-card-title>
   </mat-card-header>
     <mat-list>
-      <mat-list-item >
+
+      <mat-list-item>
         <mat-divider></mat-divider>
         <div class=" w-75">Product ID</div>
         <div class="text-secondary w-25">
@@ -124,11 +125,16 @@
           {{scid}}
         </div>
       </mat-list-item>
+
       <mat-list-item>
         <mat-divider></mat-divider>
         <div class=" w-75">Description </div>
         <div class="text-secondary w-25">
-          {{did}}
+          <span *ngIf="!did; else customerNameBlock"><i> Not Available</i></span>
+          <ng-template #customerNameBlock>
+                <span> {{did}}
+                  <br/></span>
+          </ng-template>
         </div>
       </mat-list-item>
       <mat-list-item>
@@ -146,6 +152,43 @@
           {{ststid}}
         </div>
       </mat-list-item>
+
+      <mat-list-item>
+        <mat-divider></mat-divider>
+        <div class=" w-75">Last Pending Date</div>
+        <div class="text-secondary w-25">
+          <span *ngIf="!pendate; else customerNameBlock"><i> Not Available</i></span>
+          <ng-template #customerNameBlock>
+                <span> {{pendate | date}}
+                  <br/></span>
+          </ng-template>
+        </div>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-divider></mat-divider>
+        <div class=" w-75">Working Progress Start Date</div>
+        <div class="text-secondary w-25">
+          <span *ngIf="!work; else customerNameBlock"><i> Not Available</i></span>
+          <ng-template #customerNameBlock>
+                <span> {{work | date}}
+                  <br/></span>
+          </ng-template>
+        </div>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-divider></mat-divider>
+        <div class=" w-75">Completed Date</div>
+        <div class="text-secondary w-25">
+          <span *ngIf="!findate; else customerNameBlock"><i> Not Available</i></span>
+          <ng-template #customerNameBlock>
+                <span>{{findate | date}}
+                  <br/></span>
+          </ng-template>
+        </div>
+      </mat-list-item>
+
 
       <mat-list-item>
         <mat-divider></mat-divider>

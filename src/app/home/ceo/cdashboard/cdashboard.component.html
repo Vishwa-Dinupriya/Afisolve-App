@@ -2,35 +2,35 @@
 
   <mat-grid-tile [colspan]="1" [rowspan]="1" >
     <mat-card  style="background-color: #e36120">
-      <mat-card-title class="class1" *ngFor="let full of dataSourceUsers1">{{full.count}}</mat-card-title>
+      <mat-card-title class="class1" >{{allll}}</mat-card-title>
       <h4 class="words">Total Complaints</h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="1" [rowspan]="1" >
     <mat-card  style="background-color: #358731">
-      <mat-card-title class="class1" *ngFor="let fin of dataSourcefinish">{{fin.count}}</mat-card-title>
-     <h4 class="words">Finish Complaints</h4>
+      <mat-card-title class="class1" >{{datpe}}</mat-card-title>
+     <h4 class="words">Pending Complaints</h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="1" [rowspan]="1" >
     <mat-card  style="background-color: #fc0341">
-        <mat-card-title class="class1" *ngFor="let wor of dataSourceworking">{{wor.count}}</mat-card-title>
+        <mat-card-title class="class1" >{{datawo}}</mat-card-title>
       <h4 class="words">Working Progress </h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="1" [rowspan]="1">
     <mat-card  style="background-color: #20b5e3">
-        <mat-card-title class="class1" *ngFor="let pen of dataSourcepending">{{pen.count}}</mat-card-title>
-      <h4 class="words">Pending Complaints</h4>
+        <mat-card-title class="class1" >{{datfi}}</mat-card-title>
+      <h4 class="words">Completed Complaints</h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="1" [rowspan]="1">
     <mat-card  style="background-color:#8f0b9c ">
-      <mat-card-title class="class1" *ngFor="let full of dataSourceClosed">{{full.count}}</mat-card-title>
+      <mat-card-title class="class1" >{{closs}}</mat-card-title>
       <h4 class="words">Closed Complaints</h4>
     </mat-card>
   </mat-grid-tile>

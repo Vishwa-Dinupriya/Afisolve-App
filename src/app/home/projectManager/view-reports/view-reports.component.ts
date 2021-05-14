@@ -24,13 +24,15 @@ export interface IComplaint {
 })
 
 export class ViewReportsComponent implements OnInit , AfterViewInit {
- scid: any;
+  scid: any;
 pid: any;
 did: any;
 ssid: any;
 ststid: any;
 acid: any;
-
+pendate: any;
+findate: any;
+work: any;
 
 
   constructor(private router: Router,
@@ -55,7 +57,7 @@ acid: any;
   checkboxesDataList = [
     {
       id: 'C001',
-      label: 'Finish',
+      label: 'Completed',
       isChecked: false
     },
     {
@@ -124,7 +126,7 @@ acid: any;
   changeSelection() {
     this.fetchSelectedItems();
     // tslint:disable-next-line:triple-equals max-line-length
-    if ((this.selectedItemsList[0].label == 'Finish') && (this.selectedItemsList[1].label == 'Working Progress') && (this.selectedItemsList[2].label == 'Pending')){
+    if ((this.selectedItemsList[0].label == 'Completed') && (this.selectedItemsList[1].label == 'Working Progress') && (this.selectedItemsList[2].label == 'Pending')){
       this.selectedAll = true;
       this.giveall();
     } else {
@@ -143,7 +145,7 @@ acid: any;
   // tslint:disable-next-line:typedef
   getAl1(){
     // tslint:disable-next-line:triple-equals
-    if ( (this.selectedItemsList[0].label == 'Finish') && (this.selectedItemsList[1].label == 'Working Progress')  ){
+    if ( (this.selectedItemsList[0].label == 'Completed') && (this.selectedItemsList[1].label == 'Working Progress')  ){
       this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-fw`, {}).subscribe(
         response => {
           this.COMPLAINS_DATA = response.data;
@@ -160,7 +162,7 @@ acid: any;
   // tslint:disable-next-line:typedef
   getAl2(){
     // tslint:disable-next-line:triple-equals
-    if ( (this.selectedItemsList[0].label == 'Finish') && (this.selectedItemsList[1].label == 'Pending')  ){
+    if ( (this.selectedItemsList[0].label == 'Completed') && (this.selectedItemsList[1].label == 'Pending')  ){
       this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-pf`, {}).subscribe(
         response => {
           this.COMPLAINS_DATA = response.data;
@@ -194,7 +196,7 @@ acid: any;
   // tslint:disable-next-line:typedef
   getAl4(){
     // tslint:disable-next-line:triple-equals
-    if ( (this.selectedItemsList[0].label == 'Finish') ){
+    if ( (this.selectedItemsList[0].label == 'Completed') ){
       this.http1.get<any>(`http://localhost:3000/projectManager/get-complaint-de`, {}).subscribe(
         response => {
           this.COMPLAINS_DATA = response.data;
@@ -256,7 +258,9 @@ acid: any;
   }
 
   getID(row) {
+    this.mattabgroup.selectedIndex = 1;
     this.hid2 = false;
+    console.log(row);
     this.selectData = row; // click krana row eka mokadd kyla thyna eka
     console.log(this.selectData.description);
     this.cid = this.selectData.complaintID;
@@ -265,6 +269,9 @@ acid: any;
     this.did = this.selectData.description;
     this.ssid = this.selectData.statusName;
     this.ststid = this.selectData.submittedDate;
+    this.pendate = this.selectData.lastDateOfPending;
+    this.work = this.selectData.wipStartDate;
+    this.findate = this.selectData.finishedDate;
     this.acid = this.selectData.firstName + ' ' + this.selectData.lastName;
   }
 

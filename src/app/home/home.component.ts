@@ -26,6 +26,10 @@ export class HomeComponent implements OnInit {
   userEmail;
   roles;
   currentRole;
+  dataSourceNotifications: any;
+  hidd: number;
+  tim: any;
+  selectedvalue: string[];
 
   @HostListener('window:resize', ['$event'])
   onResize(event?): void {
@@ -62,6 +66,11 @@ export class HomeComponent implements OnInit {
         console.log(error);
       }
     );
+    this.homeService.refreshNeededformsg$
+      .subscribe(() => {
+        this.getNotification();
+      });
+    this.getNotification();
   }
 
   toggleDrawer(): void { // toggle button
@@ -96,6 +105,32 @@ export class HomeComponent implements OnInit {
   goToUserProfile(): void {
     this.homeService.changeUserProfileModeBooleanSubject(true);
     this.homeService.changeUserEmailStringSubjectValue(localStorage.getItem('userEmail'));
+  }
+
+  getNotification(): void{
+    console.log(this.currentRole);
+    this.http1.get<any>(`http://localhost:3000/home/get-reminder-notification`, {}).subscribe(
+      response => {
+        this.dataSourceNotifications = response.data;
+        this.hidd = this.dataSourceNotifications.length;
+
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  readAlert(selectedvalue: string[]): void{
+    console.log(selectedvalue);
+    this.tim = 'submittedtime:6789';
+    console.log(this.tim);
+    this.homeService.changeReadStatus(selectedvalue)
+      .subscribe(
+        response => {
+          console.log('Success!(frontend)', response);
+        },
+        error => console.error('Error!(frontend)', error)
+      );
   }
 
 }

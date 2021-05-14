@@ -42,7 +42,10 @@ export class AllProductsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-
+    this.productService.refreshNeededForAcName$
+      .subscribe(() => {
+        this.ngAfterViewInit();
+      });
   }
 
   ngAfterViewInit(): void {

@@ -21,18 +21,14 @@ export class DashboardComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   firstm: string;
-  firstmmm: string;
   secondm: string;
-  secondmmm: string;
   thirdm: string;
-  thirdmmm: string;
-  fourthm: string;
-  fourthmmm: string;
   fifthm: string;
-  fifthmmm: string;
   dataSourceUsersmonth: any;
   dataSourceUsersmonthusers: any;
   dataSourceFeed: any;
+  alllll: number;
+  close: number;
 
   constructor(private router: Router,
               private http1: HttpClient) {
@@ -42,7 +38,6 @@ export class DashboardComponent implements OnInit {
     this.getActiveUsers();
     this.getUsersCount();
     this.getComplaintCount();
-    this.getClosedCount();
     this.getActiveUsersCount();
     this.getmonthCount();
     this.getmonthCountUser();
@@ -56,7 +51,6 @@ export class DashboardComponent implements OnInit {
     this.http1.post<any>(`http://localhost:3000/admin/get-active-users`, {}).subscribe(
       response => {
         this.dataSourceUsers = response.data;
-      //  console.log(this.dataSourceUsers[0].lastName);
       }, error => {
         console.log(error);
       }
@@ -69,7 +63,6 @@ export class DashboardComponent implements OnInit {
     this.http1.post<any>(`http://localhost:3000/admin/get-all-user-count`, {}).subscribe(
       response => {
         this.dataSourceUsers1 = response.data;
-      //  console.log(this.dataSourceUsers1);
       }, error => {
         console.log(error);
       }
@@ -82,44 +75,26 @@ export class DashboardComponent implements OnInit {
     this.http1.post<any>(`http://localhost:3000/admin/get-active-user-count`, {}).subscribe(
       response => {
         this.dataSourceActive = response.data;
-       // console.log(this.dataSourceActive);
       }, error => {
         console.log(error);
       }
     );
   }
 
-  // tslint:disable-next-line:typedef
-  getComplaintCount(){
-    this.http1.post<any>(`http://localhost:3000/admin/get-all-complaints-count`, {}).subscribe(
-      response => {
-        this.dataSourcetot = response.data;
-        // console.log(this.dataSourcetot);
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
+ getComplaintCount(){
+  this.http1.post<any>(`http://localhost:3000/admin/get-all-complaints-count`, {}).subscribe(
+    response => {
+      this.dataSourcetot = response.data;
+      this.alllll = this.dataSourcetot.alll;
+      this.close = this.dataSourcetot.clos;
 
-
-  // tslint:disable-next-line:typedef
-  getClosedCount(){
-    this.http1.post<any>(`http://localhost:3000/admin/get-closed-complaints-count`, {}).subscribe(
-      response => {
-        this.dataSourceClosed = response.data;
-        console.log(this.dataSourceClosed[0].count);
-        console.log(this.dataSourcetot[0].count - this.dataSourceClosed[0].count);
-
-
-        // ..........................chart eka
-        // tslint:disable-next-line:prefer-const
         let myChart = new Chart('myChart1', {
           type: 'doughnut',
           data: {
             labels: ['Closed Complaints', 'Non-Closed Complaints'],
             datasets: [{
               label: ' ',
-              data: [this.dataSourceClosed[0].count , (this.dataSourcetot[0].count - this.dataSourceClosed[0].count)],
+              data: [this.dataSourcetot.clos , (this.dataSourcetot.alll - this.dataSourcetot.clos)],
               backgroundColor: [
                 '#20b5e3',
                 '#fc0341'
@@ -157,17 +132,11 @@ export class DashboardComponent implements OnInit {
     this.http1.get<any>(`http://localhost:3000/admin/get-month-count`, {}).subscribe(
       response => {
         this.dataSourceUsersmonth = response.data;
-       // console.log(this.dataSourceUsersmonth[4].num);
-       // console.log(this.dataSourceUsersmonth[3].num);
-       // console.log(this.dataSourceUsersmonth[2].num);
         this.firstm = this.dataSourceUsersmonth[0].num;
         this.secondm = this.dataSourceUsersmonth[1].num;
         this.thirdm = this.dataSourceUsersmonth[2].num;
 
 
-
-        // ..........................chart eka
-        // tslint:disable-next-line:prefer-const
         let myChart = new Chart('myChart3', {
           type: 'line',
           data: {
@@ -238,11 +207,6 @@ export class DashboardComponent implements OnInit {
     this.http1.get<any>(`http://localhost:3000/admin/get-month-count-users`, {}).subscribe(
       response => {
         this.dataSourceUsersmonthusers = response.data;
-       //  console.log(this.dataSourceUsersmonth[4].num);
-      //  console.log(this.dataSourceUsersmonth[3].num);
-      //  console.log(this.dataSourceUsersmonth[2].num);
-      //  console.log(this.dataSourceUsersmonthusers[1].num);
-      //  console.log(this.dataSourceUsersmonthusers[0].num);
 
         const f = this.dataSourceUsers1[0].count;
 
@@ -322,7 +286,7 @@ export class DashboardComponent implements OnInit {
       response => {
         this.dataSourceFeed = response.data;
         // for (let i = 0; i < 5; i++){
-        console.log(this.dataSourceFeed[1].num);
+        console.log(this.dataSourceFeed.sat1);
 
 
         // }
@@ -337,7 +301,7 @@ export class DashboardComponent implements OnInit {
             datasets: [{
               label: ' ',
               // tslint:disable-next-line:max-line-length
-              data: [this.dataSourceFeed[0].num , this.dataSourceFeed[1].num, this.dataSourceFeed[2].num, this.dataSourceFeed[3].num, this.dataSourceFeed[4].num],
+              data: [this.dataSourceFeed.sat5 , this.dataSourceFeed.sat4, this.dataSourceFeed.sat3, this.dataSourceFeed.sat2, this.dataSourceFeed.sat1],
               backgroundColor: [
                 '#20b5e3',
                 '#fc0341',

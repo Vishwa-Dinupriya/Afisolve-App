@@ -2,35 +2,35 @@
 
   <mat-grid-tile [colspan]="1" [rowspan]="1" >
     <mat-card  style="background-color: #D8E6FF">
-      <mat-card-title class="class1" *ngFor="let full of dataSourceUsers1">{{full.count}}</mat-card-title>
+      <mat-card-title class="class1" >{{allll}}</mat-card-title>
       <h4 class="words">Total Complaints</h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="1" [rowspan]="1" >
     <mat-card  style="background-color: #9DC2FF">
-      <mat-card-title class="class1" *ngFor="let fin of dataSourcepending">{{fin.count}}</mat-card-title>
+      <mat-card-title class="class1" >{{penn}}</mat-card-title>
       <h4 class="words">Pending Complaints</h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="1" [rowspan]="1" >
     <mat-card  style="background-color:#4F91FF">
-      <mat-card-title class="class1" *ngFor="let wor of dataSourceworking">{{wor.count}}</mat-card-title>
+      <mat-card-title class="class1" >{{wor}}</mat-card-title>
       <h4 class="words">Working Progress </h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="1" [rowspan]="1">
     <mat-card  style="background-color: #2264D1">
-      <mat-card-title class="class1" *ngFor="let pen of dataSourcefinish">{{pen.count}}</mat-card-title>
-      <h4 class="words">Finish Complaints</h4>
+      <mat-card-title class="class1" >{{finn}}</mat-card-title>
+      <h4 class="words">Completed Complaints</h4>
     </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="1" [rowspan]="1">
     <mat-card  style="background-color:#133774">
-      <mat-card-title class="class1" *ngFor="let full of dataSourceClosed">{{full.count}}</mat-card-title>
+      <mat-card-title class="class1" >{{closs}}</mat-card-title>
       <h4 class="words">Closed Complaints</h4>
     </mat-card>
   </mat-grid-tile>
@@ -78,13 +78,13 @@
           <mat-divider></mat-divider>
           <div class=" w-75">Working Progress Complaints</div>
           <div class="text-secondary w-25">
-            {{wc}}%</div>
+            {{wr}}%</div>
         </mat-list-item>
         <mat-list-item>
           <mat-divider></mat-divider>
-          <div class=" w-75">Finish Complaints- </div>
+          <div class=" w-75">Completed Complaints- </div>
           <div class="text-secondary w-25">
-            {{b}}%</div>
+            {{fn}}%</div>
         </mat-list-item>
         <mat-list-item>
           <mat-divider></mat-divider>

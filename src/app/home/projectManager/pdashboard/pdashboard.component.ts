@@ -23,7 +23,10 @@ export interface IComplaint{
 })
 export class PdashboardComponent implements OnInit, AfterViewInit {
 
-  cl: string;
+  cl: any;
+  pe: any;
+  fn: any;
+  wr: any;
   constructor(private router: Router,
               private http1: HttpClient) { }
   private dataSourceUsersmonth: any;
@@ -55,32 +58,25 @@ export class PdashboardComponent implements OnInit, AfterViewInit {
 
   // tslint:disable-next-line:typedef
   firstm: string;
-  firstmmm: string;
   secondm: string;
-  secondmmm: string;
   thirdm: string;
-  thirdmmm: string;
   fourthm: string;
-  fourthmmm: string;
   fifthm: string;
-  fifthmmm: string;
-
-  // tslint:disable-next-line:typedef
+// tslint:disable-next-line:typedef
   wc: string;
+  allll: any;
+  penn: any;
+  wor: any;
+  closs: any;
+  finn: any;
 
   // tslint:disable-next-line:typedef
-  pe: string;
-
-  // tslint:disable-next-line:typedef
+// tslint:disable-next-line:typedef
   dataSourceClosed: any;
 
   ngOnInit(): void {
     this.getmonthCount();
     this.getfullcount();
-    this.getpendingcount();
-    this.getfinishcount();
-    this.getworkingcount();
-    this.getClosedCount();
     this.getlatecount();
 
   }
@@ -196,55 +192,55 @@ export class PdashboardComponent implements OnInit, AfterViewInit {
       response => {
         this.dataSourceUsers1 = response.data;
         console.log(this.dataSourceUsers1);
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
-  getfinishcount() {
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-finish-count`, {}).subscribe(
-      response => {
-        this.dataSourcefinish = response.data;
-        this.datfi = this.dataSourcefinish[0].count;
-        const a = this.dataSourceUsers1[0].count;
-        const iop = (this.datfi / a) * 100 ;
-        this.b = iop.toFixed(2);
-        console.log(this.b);
+        // ganan tika
+        this.allll = this.dataSourceUsers1.alll;
+        this.penn = this.dataSourceUsers1.pen;
+        this.wor = this.dataSourceUsers1.work;
+        this.finn = this.dataSourceUsers1.fin;
+        this.closs = this.dataSourceUsers1.clos;
+        const a = (this.penn / this.allll) * 100;
+        this.pe = a.toFixed(2);
+        const b = (this.closs / this.allll) * 100;
+        this.cl = b.toFixed(2);
+        const c = (this.wor / this.allll) * 100;
+        this.wr = c.toFixed(2);
+        const d = (this.finn / this.allll) * 100;
+        this.fn = d.toFixed(2);
+        // ..........................chart eka
+        // tslint:disable-next-line:prefer-const
+        var myChart = new Chart('myChart1', {
+          type: 'doughnut',
+          data: {
+            labels: ['Pending', 'Working-Progress', 'Completed', 'Closed'],
+            datasets: [{
+              label: ' ',
+              data: [this.dataSourceUsers1.pen, this.dataSourceUsers1.work, this.dataSourceUsers1.fin, this.dataSourceUsers1.clos],
+              backgroundColor: [
+                '#9DC2FF',
+                '#4F91FF',
+                '#2264D1',
+                '#133774',
+              ],
+              borderColor: [
+                '#9DC2FF',
+                '#4F91FF',
+                '#2264D1',
+                '#133774',
 
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
-  getworkingcount() {
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-working-count`, {}).subscribe(
-      response => {
-        this.dataSourceworking = response.data;
-        console.log(this.dataSourceworking[0].count);
-        this.datawo = this.dataSourceworking[0].count;
-        const a = this.dataSourceUsers1[0].count;
-        const plok =  (this.datawo / a) * 100 ;
-        this.wc = plok.toFixed(2);
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
-  getpendingcount() {
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-pending-count`, {}).subscribe(
-      response => {
-        this.dataSourcepending = response.data;
-        console.log(this.dataSourcepending);
-        this.datpe = this.dataSourcepending[0].count;
-        const a = this.dataSourceUsers1[0].count;
-        const nbv = (this.datpe / a) * 100 ;
-        this.pe = nbv.toFixed(2);
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
 
+          }
+        });
       }, error => {
         console.log(error);
       }
     );
   }
+
   getlatecount() {
     this.http1.get<any>(`http://localhost:3000/projectManager/get-late-count`, {}).subscribe(
       response => {
@@ -252,88 +248,9 @@ export class PdashboardComponent implements OnInit, AfterViewInit {
         const tet1 = this.dataSourcelate[0].count;
         console.log(tet1);
         console.log(this.datawo);
-
-        // ..........................chart eka
-        // tslint:disable-next-line:prefer-const
-        var myChart = new Chart('myChart1', {
-          type: 'doughnut',
-          data: {
-            labels: ['Pending', 'Working-Progress', 'Finish', 'Closed'],
-            datasets: [{
-              label: ' ',
-              data: [this.datpe , this.datawo, this.datfi, this.dataSourceClosed[0].count],
-              backgroundColor: [
-                '#9DC2FF',
-                '#4F91FF',
-                '#2264D1',
-                '#133774',
-              ],
-              borderColor: [
-                '#9DC2FF',
-                '#4F91FF',
-                '#2264D1',
-                '#133774',
-
-              ],
-              borderWidth: 1
-            }]
-          },
-          options: {
-
-          }
-        });
-
-
-// .................. chart 1 eka iwary
-// 2weni chart eka
-        var myChart = new Chart('myChart2', {
-          type: 'bar',
-          data: {
-            labels: ['late', 'not late ', 'mon'],
-            datasets: [{
-              label: 'Complaints',
-              data: [tet1 , this.datawo + this.datpe - tet1, this.firstm],
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)'
-              ],
-              borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
-              ],
-              borderWidth: 1
-            }]
-          },
-          options: {
-          }
-        });
-// ................ 2 weni chart ekt iwaryi....
       }, error => {
         console.log(error);
       }
     );
   }
-
-
-  // tslint:disable-next-line:typedef
-  getClosedCount(){
-    this.http1.post<any>(`http://localhost:3000/projectManager/get-closed-complaints-countpm`, {}).subscribe(
-      response => {
-        this.dataSourceClosed = response.data;
-        const a = this.dataSourceUsers1[0].count;
-        // console.log(this.dataSourcetot[0].count - this.dataSourceClosed[0].count);
-        const ghn = ( this.dataSourceClosed[0].count / a) * 100 ;
-        this.cl = ghn.toFixed(2);
-      }, error => {
-        console.log(error);
-      }
-    );
-
-
-  }
-
-
-
 }

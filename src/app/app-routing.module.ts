@@ -35,8 +35,6 @@ import {DevtasksComponent} from './home/developer/devtasks/devtasks.component';
 
 import {LateComplaintInformationComponent} from './home/projectManager/late-complaint-information/late-complaint-information.component';
 import {ViewReportsComponent} from './home/projectManager/view-reports/view-reports.component';
-import {ProfileComponent} from './home/projectManager/profile/profile.component';
-import {ActionComponent} from './home/projectManager/late-complaint-information/action/action.component';
 
 import {TestComponent} from './home/admin/test/test.component';
 import {UserProfileComponent} from './home/shared/user-profile/user-profile.component';
@@ -50,8 +48,6 @@ import {CdashboardComponent} from './home/ceo/cdashboard/cdashboard.component';
 import {ClateComponent} from './home/ceo/clate/clate.component';
 import {CviewreportsComponent} from './home/ceo/cviewreports/cviewreports.component';
 import {PdashboardComponent} from './home/projectManager/pdashboard/pdashboard.component';
-import {CactionComponent} from './home/ceo/clate/caction/caction.component';
-import {ChatComponent} from './home/ceo/chat/chat.component';
 
 
 import {DashboardCustomerComponent} from './home/customer/dashboard-customer/dashboard-customer.component';
@@ -274,26 +270,20 @@ const routes: Routes = [
           canActivate: [AuthenticationGuard],
           children: [
             {
-              path: 'cdashboard',
+              path: '',
               component: CdashboardComponent
             },
             {
-              path: 'clate',
-              component: ClateComponent,
-              children: [
-                {
-                  path: 'caction',
-                  component: CactionComponent
-                }
-              ]
+              path: 'dashboard',
+              component: CdashboardComponent
             },
             {
-              path: 'cviewreports',
+              path: 'late-complaint-information',
+              component: ClateComponent
+            },
+            {
+              path: 'view-complaints',
               component: CviewreportsComponent
-            },
-            {
-              path: 'chat',
-              component: ChatComponent
             },
           ]
         },
@@ -332,27 +322,21 @@ const routes: Routes = [
           canActivate: [AuthenticationGuard],
           children: [
             {
-              path: 'pdashboard',
+              path: '',
+              component: PdashboardComponent
+            },
+            {
+              path: 'dashboard',
               component: PdashboardComponent
             },
             {
               path: 'late-complaint-information',
-              component: LateComplaintInformationComponent,
-              children: [
-                {
-                  path: 'action',
-                  component: ActionComponent
-                },
-              ]
+              component: LateComplaintInformationComponent
             },
             {
-              path: 'view-reports',
-              component: ViewReportsComponent
-            },
-            {
-              path: 'profile',
-              component: ProfileComponent
-            },
+              path: 'view-complaints',
+              component: ViewReportsComponent,
+            }
           ]
         },
       ]

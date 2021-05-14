@@ -183,6 +183,7 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
      if (result.value) {
        Swal.fire(
          'Successfully send a Reminder..!',
+         'Email and notification send to the Account Coordinator.',
          'success'
        );
        // send a reminder to database..................

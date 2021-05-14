@@ -79,7 +79,12 @@
           <div class=" text-secondary w-50">
             <span *ngIf="!PRODUCT_DETAILS_DATA.accountCoordinatorEmail; else accountCoordinatorEmailBlock"><i> Not Available</i></span>
             <ng-template #accountCoordinatorEmailBlock>
+              <div [hidden]="isHiddenAc">
               <span> {{ PRODUCT_DETAILS_DATA.accountCoordinatorEmail }} <br/></span>
+              </div>
+              <div [hidden]="!isHiddenAc">
+               <span>Not Available</span>
+              </div>
             </ng-template>
           </div>
         </mat-list-item>
@@ -89,11 +94,26 @@
           <div class=" text-secondary w-50">
             <span *ngIf="!PRODUCT_DETAILS_DATA.accountCoordinatorFirstName; else accountCoordinatorNameBlock"><i> Not Available</i></span>
             <ng-template #accountCoordinatorNameBlock>
-                <span> {{ PRODUCT_DETAILS_DATA.accountCoordinatorFirstName + ' ' + PRODUCT_DETAILS_DATA.accountCoordinatorLastName }}
-                  <br/></span>
+              <div [hidden]="isHiddenAc">
+                <span style="display: inline-block"> {{ PRODUCT_DETAILS_DATA.accountCoordinatorFirstName + ' ' + PRODUCT_DETAILS_DATA.accountCoordinatorLastName }}
+                </span>
+                <button mat-icon-button color="accent" (click)="editAc()"><mat-icon class="mat-18">edit</mat-icon></button>
+              </div>
+              <div [hidden]="!isHiddenAc">
+                <mat-form-field>
+                  <mat-label>New Account Coordinator</mat-label>
+                  <mat-select [(ngModel)]="selectedValue">
+                    <mat-option *ngFor="let food of accData" [value]="food" >
+                      {{food.firstName}} {{food.lastName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <button (click)="submitNewAc()">Save</button> <button (click)="cancel()">Cancel</button>
+              </div>
             </ng-template>
           </div>
         </mat-list-item>
+        <br/>
 
         <mat-list-item>
           <div class=" w-50">Project Manager Email:</div>
@@ -101,7 +121,12 @@
               <span
                 *ngIf="!PRODUCT_DETAILS_DATA.projectManagerEmail; else projectManagerEmailBlock"><i> Not Available</i></span>
             <ng-template #projectManagerEmailBlock>
+              <div [hidden]="isHiddenPm">
               <span> {{ PRODUCT_DETAILS_DATA.projectManagerEmail }} <br/></span>
+              </div>
+              <div [hidden]="!isHiddenPm">
+                <span>Not Available</span>
+              </div>
             </ng-template>
           </div>
         </mat-list-item>
@@ -111,11 +136,26 @@
           <div class=" text-secondary w-50">
             <span *ngIf="!PRODUCT_DETAILS_DATA.projectManagerFirstName; else projectManagerNameBlock"><i> Not Available</i></span>
             <ng-template #projectManagerNameBlock>
-                <span> {{ PRODUCT_DETAILS_DATA.projectManagerFirstName + ' ' + PRODUCT_DETAILS_DATA.accountCoordinatorLastName  }}
-                  <br/></span>
+              <div [hidden]="isHiddenPm">
+                <span style="display: inline-block"> {{ PRODUCT_DETAILS_DATA.projectManagerFirstName + ' ' + PRODUCT_DETAILS_DATA.projectManagerLastName  }}
+                  </span>
+                <button mat-icon-button color="accent" (click)="editPm()"><mat-icon class="mat-18">edit</mat-icon></button>
+              </div>
+              <div [hidden]="!isHiddenPm">
+                <mat-form-field>
+                  <mat-label>Choose new Project Manager</mat-label>
+                  <mat-select [(ngModel)]="selectedValue1">
+                    <mat-option *ngFor="let food of pmData" [value]="food" >
+                      {{food.firstName}} {{food.lastName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <button (click)="submitNewPm()">Save</button> <button (click)="cancel()">Cancel</button>
+              </div>
             </ng-template>
           </div>
         </mat-list-item>
+        <br>
 
         <mat-list-item>
           <div class=" w-50">Created At:</div>
