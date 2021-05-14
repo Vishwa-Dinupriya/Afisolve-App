@@ -30,7 +30,7 @@ export interface ITabComplaints {
 })
 export class ComplaintsComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplayOuterTable = ['complaintID', 'description', 'submittedDate', 'productID', 'details', 'subComplaints'];
+  columnsToDisplayOuterTable = ['complaintID', 'description', 'submittedDate', 'productID', 'details', 'delete', 'subComplaints'];
   columnsToDisplayInnerTable = ['subComplaintID', 'description', 'submittedDate', 'details'];
 
   dataSource: MatTableDataSource<IComplaintWithSubsElement>;
@@ -39,7 +39,7 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
   complaintsTabs: ITabComplaints[] = [
     {statusID: 4, statusName: 'All'},
     {statusID: 0, statusName: 'Pending'},
-    {statusID: 1, statusName: 'Inprogress'},
+    {statusID: 1, statusName: 'In-Progress'},
     {statusID: 2, statusName: 'Completed'},
     {statusID: 3, statusName: 'Closed'}];
 
@@ -66,7 +66,7 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.http1.post<any>(`http://localhost:3000/admin/get-all-complaints`, {}).subscribe(
       response => {
-        // console.log(response.data);
+        console.log(response.data);
         this.COMPLAINS_DATA = response.data;
         this.complaintsTabs.forEach(tab => {
           tab.dataSource = new MatTableDataSource<IComplaintWithSubsElement>(this.COMPLAINS_DATA.filter(
@@ -92,35 +92,66 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
     this.complaintService.changeProfileModeBooleanSubjectValue(true);
   }
 
-  public redirectToUpdate(id: string): void {
-    console.log(id);
-  }
 
-  public redirectToDelete(id: string): void {
-    console.log(id);
+  public redirectToDelete(complaintID: number, subComplaintID: number): void {
+    console.log(complaintID);
     const dialogRef = this.dialog.open(DialogBoxComponent, {
       data: {
         title: 'Are you sure?',
-        message: 'Are you want to delete ',
-        name: id,
+        message: 'Are you want to delete this complaint with ',
+        name: 'complaint ID:' + complaintID ,
         button1: 'Cancel',
-        button2: 'delete'
+        button2: 'Delete'
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         console.log(`Dialog result: ${result}`);
-        this.http1.post<any>(`http://localhost:3000/admin/delete-selected-complaint`, {selectedUserEmail: id})
+        this.http1.post<any>(`http://localhost:3000/admin/delete-selected-complaint`, {complaintID})
           .subscribe(
             response => {
-              console.log(response);
-              console.log('delete successfully!' + id);
+              // console.log(response);
+              // console.log('delete successfully!' + complaintID + '-' + subComplaintID);
+              const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  title: 'Success!',
+                  message: 'Complaint successfully Deleted! ',
+                  name: ' ',
+                  button1: '',
+                  button2: 'Ok'
+                }
+              });
+              dialogRef2.afterClosed().subscribe(result2 => {
+                // console.log(`Dialog result: ${result}`);
+                if (result2 === true) {
+                  this.ngAfterViewInit();
+                } else {
+
+                }
+              });
               this.ngAfterViewInit();
             },
             error => {
-              console.log(error);
-              console.log('error! delete not success! ' + id);
+              // console.log(error);
+              // console.log('error! delete not success! ' + complaintID + '-' + subComplaintID);
+              const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  title: 'Failed!',
+                  message: 'Something went wrong! ',
+                  name: ' ',
+                  button1: '',
+                  button2: 'Retry'
+                }
+              });
+              dialogRef2.afterClosed().subscribe(result2 => {
+                // console.log(`Dialog result: ${result}`);
+                if (result2 === true) {
+
+                } else {
+
+                }
+              });
               this.ngAfterViewInit();
             });
       } else {
@@ -128,9 +159,5 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  // public backToAllComplaintsAdmin(): void {
-  //   this.complaintService.changeProfileModeBooleanSubjectValue(false);
-  //   this.complaintService.changeComplaintIdParentNumberSubjectValue(null);
-  //   this.complaintService.changeSubComplaintIdParentNumberSubjectValue(null);
-  // }
+
 }
