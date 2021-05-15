@@ -115,7 +115,7 @@ export class AllProductsComponent implements OnInit, AfterViewInit {
                   message: error,
                   name: '',
                   button1: '',
-                  button2: 'Retyr'
+                  button2: 'Retry'
                 }
               });
               this.ngAfterViewInit();
