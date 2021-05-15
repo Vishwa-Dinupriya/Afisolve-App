@@ -17,6 +17,8 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(catchError(err => {
       if (err.status === 0) {
         return throwError('Network connection failure (from error interceptor)');
+      } else if (err.status === 408) {
+        this.router.navigate(['', {timeout: true}]);
       } else if (err.status === 401) {
         this.router.navigate(['/']);
         return throwError('Invalid token (from error interceptor)');
