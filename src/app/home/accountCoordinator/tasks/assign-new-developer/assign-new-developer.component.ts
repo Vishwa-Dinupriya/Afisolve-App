@@ -1,34 +1,37 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AccoorcomplaintsService} from '../accoorcomplaints.service';
 import {HttpClient} from '@angular/common/http';
-import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 import {MatDialog} from '@angular/material/dialog';
+import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
+import {TaskService} from '../task.service';
 
 @Component({
-  selector: 'app-add-complaint',
-  templateUrl: './add-complaint.component.html',
-  styleUrls: ['./add-complaint.component.css']
+  selector: 'app-assign-new-developer',
+  templateUrl: './assign-new-developer.component.html',
+  styleUrls: ['./assign-new-developer.component.css']
 })
-export class AddComplaintComponent implements OnInit {
+export class AssignNewDeveloperComponent implements OnInit {
   @ViewChild('myForm') myForm;
-  addComplaintForm: FormGroup;
-  constructor(private fb1: FormBuilder,
-              private accoorcomplaintsService: AccoorcomplaintsService,
-              private http1: HttpClient,
-              private dialog: MatDialog) { }
+  updateDeveloperForm: FormGroup;
+  constructor(
+    private fb1: FormBuilder,
+    private taskService: TaskService,
+    private http1: HttpClient,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
-    this.addComplaintForm = this.fb1.group({
-        productID: ['', [Validators.required]],
-        description: ['', [Validators.minLength(5), Validators.required]],
-  });
+    this.updateDeveloperForm = this.fb1.group({
+      taskID: ['', [Validators.required]],
+      developerEmail: ['', [Validators.email, Validators.required]],
+      deadline: ['', [Validators.required]],
+    });
   }
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
       data: {
         title: 'Confirm form submission!',
-        message: 'Do you want to add this complaint ? ',
+        message: 'Do you want to update developer ? ',
         name: ' ',
         button1: 'No',
         button2: 'Yes'
@@ -36,14 +39,14 @@ export class AddComplaintComponent implements OnInit {
     });
     dialogRef1.afterClosed().subscribe(result => {
       if (result === true) {
-        console.log(this.addComplaintForm.value);
-        this.accoorcomplaintsService.addcomplaint(this.addComplaintForm.value)
+        console.log(this.updateDeveloperForm.value);
+        this.taskService.updateDeveloper(this.updateDeveloperForm.value)
           .subscribe(
             response => {
               const dialogRef2 = this.dialog.open(DialogBoxComponent, {
                 data: {
                   title: 'Success!',
-                  message: 'You have successfully added a complaint',
+                  message: 'You have successfully updated developer',
                   name: ' ',
                   button1: 'Back to complaints',
                   button2: 'Ok'
@@ -56,7 +59,7 @@ export class AddComplaintComponent implements OnInit {
                 if (result2 === true) {
 
                 } else {
-                  this.accoorcomplaintsService.ChangeAddComplaintModeBooleanSubjectValue(false);
+                  this.taskService.ChangeCreateTaskModeBooleanSubjectValue(true);
                 }
               });
             },
@@ -72,10 +75,9 @@ export class AddComplaintComponent implements OnInit {
               }); }
           );
       } else {
-        this.accoorcomplaintsService.ChangeAddComplaintModeBooleanSubjectValue(false);
+        this.taskService.ChangeCreateTaskModeBooleanSubjectValue(true);
       }
     });
   }
 
 }
-

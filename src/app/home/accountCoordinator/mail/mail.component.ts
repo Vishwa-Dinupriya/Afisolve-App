@@ -25,9 +25,9 @@ export class MailComponent implements OnInit {
 
   ngOnInit(): void {
     this.MailForm = this.fb1.group({
-      subject: ['', [Validators.required]],
+      subject: ['', [Validators.minLength(5), Validators.required]],
       recMail: ['', [Validators.email, Validators.required]],
-      message: ['', [Validators.required]],
+      message: ['', [Validators.minLength(5), Validators.required]],
     });
   }
   onSubmit(): void {

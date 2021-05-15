@@ -116,6 +116,7 @@ import { AccoorproductsComponent } from './home/accountCoordinator/accoorproduct
 import { DevtasksProfileComponent } from './home/developer/devtasks/devtasks-profile/devtasks-profile.component';
 import { UpdateDevtaskStatusComponent } from './home/developer/devtasks/update-devtask-status/update-devtask-status.component';
 import { DevMailComponent } from './home/developer/dev-mail/dev-mail.component';
+import { AssignNewDeveloperComponent } from './home/accountCoordinator/tasks/assign-new-developer/assign-new-developer.component';
 
 
 
@@ -201,6 +202,7 @@ import { DevMailComponent } from './home/developer/dev-mail/dev-mail.component';
     DevtasksProfileComponent,
     UpdateDevtaskStatusComponent,
     DevMailComponent,
+    AssignNewDeveloperComponent,
 
 
   ],

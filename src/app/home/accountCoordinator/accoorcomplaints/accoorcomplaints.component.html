@@ -105,7 +105,7 @@
         <input matInput placeholder="Ex.Comp ID" (keyup)="applyFilterOverdue($event)">
       </mat-form-field>
 
-      <table mat-table [dataSource]="dataSource3" class="w-100">
+      <table mat-table [dataSource]="dataSourceOverdue" class="w-100">
 
         <!-- Id Column -->
         <ng-container matColumnDef="complaintID">

@@ -27,8 +27,8 @@ export class CreateTaskComponent implements OnInit {
       complaintID: ['', [Validators.required]],
       subComplaintID: ['', [Validators.required]],
       deadline: ['', [Validators.required]],
-      task_description: ['', [Validators.required]],
-     developerEmail: ['', [Validators.required]],
+      task_description: ['', [Validators.minLength(5), Validators.required]],
+     developerEmail: ['', [Validators.email, Validators.required]],
      // developerID: ['', [Validators.required]],
     });
     /*this.http1.post<any>(`environment.accountCoordinatorApiUrl + //get-DeveloperNameList`, {}).subscribe(

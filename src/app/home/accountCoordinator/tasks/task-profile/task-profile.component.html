@@ -41,6 +41,64 @@
       <i> Requested Task Id is null</i>
     </div>
   </mat-tab>
+<!--
+  <mat-tab label="Edit Task">
+    <div>
+      <mat-card>
+      <form [formGroup]="editTaskForm" (ngSubmit)="saveChangesDialog()" class="mat-typography">
+
+
+
+         <div class="row">
+            <mat-form-field class="col-auto" appearance="outline">
+              <mat-label>Developer Email</mat-label>
+              <input [readonly]="!edit" matInput placeholder="pat@example.com" formControlName="developerEmail"
+                     [required]="edit">
+              <mat-error *ngIf="developerEmail.touched && developerEmail.errors?.required">You must enter a value</mat-error>
+              <mat-error *ngIf="developerEmail.touched && !developerEmail.errors?.required && developerEmail.errors?.developerEmail">Not a valid email
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row">
+          <mat-form-field class="col-auto" appearance="outline">
+            <mat-label>Deadline</mat-label>
+            <input [readonly]="!edit" type="datetime-local" matInput formControlName="deadline" [required]="edit">
+            <mat-error [hidden]="!edit" *ngIf="deadline.touched && deadline.errors?.required">You must enter a
+              value
+            </mat-error>
+          </mat-form-field>
+          </div>
+
+
+        <div class="row">
+
+          <mat-form-field class="col-12" appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea [readonly]="!edit"  matInput formControlName="description" [required]="edit"></textarea>
+            <mat-error [hidden]="!edit" *ngIf="description.touched && description.errors?.required">You must enter a
+              value
+            </mat-error>
+            <mat-error [hidden]="!edit"
+                       *ngIf="description.touched && !description.errors?.required && !description.errors?.minLength">
+              Enter at least 3 letters
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+
+        <button class="btn btn-primary" type="button" [hidden]="edit" (click)="edit = !edit">Edit Task</button>
+        <button class="btn btn-primary" type="button" [hidden]="!edit" (click)="onCancelEdit()">Cancel</button>
+        <span></span>
+        <button class="btn btn-primary" style="float: right" type="submit"
+                [hidden]="!editTaskForm.valid || !haveChanges">Save
+        </button>
+
+      </form>
+      </mat-card>
+    </div>
+  </mat-tab>
+-->
+
 </mat-tab-group>
 
   <button class="btn btn-primary" (click)="backToAllTasks()" [hidden]="!taskService.isTaskProfileMode">
