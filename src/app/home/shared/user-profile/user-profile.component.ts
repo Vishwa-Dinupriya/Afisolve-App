@@ -118,13 +118,13 @@ export class UserProfileComponent implements OnInit, OnChanges {
   }
 
   toggleDisabled(): void {
-    if (this.edit) {
-      this.roles.disable();
-      this.defaultRole.disable();
-    } else {
-      this.roles.enable();
-      this.defaultRole.enable();
-    }
+    // if (this.edit) {
+    //   this.roles.disable();
+    //   this.defaultRole.disable();
+    // } else {
+    //   this.roles.enable();
+    //   this.defaultRole.enable();
+    // }
     this.edit = !this.edit;
   }
 
