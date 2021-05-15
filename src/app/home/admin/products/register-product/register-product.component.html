@@ -44,6 +44,15 @@
           </mat-form-field>
         </div>
 
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-label>Developer</mat-label>
+            <mat-select formControlName="developers" multiple="true" (valueChange)="toSelectedDevelopers($event)" >
+              <mat-option *ngFor="let developer of developerList; let i = index" [value]="developer.userID">{{developer.userEmail}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
         <div style="display: flex">
 <!--          <button class="btn btn-primary" type="button" [hidden]="false" (click)="onCancel()">Cancel</button>-->
           <button class="btn btn-primary" style=" margin-bottom: 14px; margin-left: 91%; width: 9%;" type="submit" [disabled]="!productRegistrationForm.valid">Register</button>

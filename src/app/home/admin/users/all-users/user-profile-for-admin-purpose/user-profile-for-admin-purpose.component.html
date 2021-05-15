@@ -1,16 +1,16 @@
 <mat-card>
 
-  <mat-card-header >
+  <mat-card-header style="display: block">
 
     <div class="row " >
-      <div class="col-10" style="padding-left: 0px">
+      <div class="col-10" style="padding-left: 5%">
         <mat-card-title>{{ name }}</mat-card-title>
         <mat-card-subtitle>{{ userEmailChild }}</mat-card-subtitle>
       </div>
 
       <div class="col-2" >
         <button mat-icon-button
-                style="margin-left: 54px; margin-top: -10px"
+                style=" margin-top: -10px;padding-left: 5%"
                 (click)="usersService1.changeIsProfileModeSubjectBooleanValue(false)" [routerLink]="['../all-users']">
           <mat-icon>close</mat-icon>
         </button>
