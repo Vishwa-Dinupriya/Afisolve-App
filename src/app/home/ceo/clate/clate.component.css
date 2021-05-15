@@ -1,7 +1,0 @@
-.mat-row:nth-child(even){
-  background-color: #90c1dc;
-}
-
-.mat-row:nth-child(odd){
-  background-color: #1868dc;
-}
