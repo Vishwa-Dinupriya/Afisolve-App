@@ -77,6 +77,16 @@
           </mat-list-item>
 
           <mat-list-item>
+            <div class=" w-50">Description:</div>
+            <div class=" text-secondary w-50">
+              <span *ngIf="!COMPLAINT_DETAILS_DATA.description; else descriptionBlock"><i> Not Available</i></span>
+              <ng-template #descriptionBlock>
+                <span> {{ COMPLAINT_DETAILS_DATA.description }} <br/></span>
+              </ng-template>
+            </div>
+          </mat-list-item>
+
+          <mat-list-item>
             <div class=" w-50">Customer Email:</div>
             <div class=" text-secondary w-50">
               <span *ngIf="!COMPLAINT_DETAILS_DATA.customerEmail; else customerEmailBlock"><i> Not Available</i></span>

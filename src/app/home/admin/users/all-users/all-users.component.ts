@@ -108,13 +108,47 @@ export class AllUsersComponent implements OnInit {
         this.http1.post<any>(`http://localhost:3000/admin/delete-selected-user`, {selectedUserEmail: id})
           .subscribe(
             response => {
-              console.log(response);
-              console.log('delete successfully!' + id);
+              // console.log(response);
+              // console.log('delete successfully!' + id);
+              const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  title: 'Success!',
+                  message: 'User successfully Deleted! ',
+                  name: ' ',
+                  button1: '',
+                  button2: 'Ok'
+                }
+              });
+              dialogRef2.afterClosed().subscribe(result2 => {
+                // console.log(`Dialog result: ${result}`);
+                if (result2 === true) {
+                  this.getData();
+                } else {
+
+                }
+              });
               this.getData();
             },
             error => {
-              console.log(error);
-              console.log('error! delete not success! ' + id);
+              // console.log(error);
+              // console.log('error! delete not success! ' + id);
+              const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  title: 'Failed!',
+                  message: 'Something went wrong! ',
+                  name: ' ',
+                  button1: '',
+                  button2: 'Retry'
+                }
+              });
+              dialogRef2.afterClosed().subscribe(result2 => {
+                // console.log(`Dialog result: ${result}`);
+                if (result2 === true) {
+
+                } else {
+
+                }
+              });
               this.getData();
             });
       } else {

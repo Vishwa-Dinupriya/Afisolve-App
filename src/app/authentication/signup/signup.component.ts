@@ -107,82 +107,100 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.http1.post<any>(`http://localhost:3000/authentication/sendOtpToEmail`, {userEnteredEmail: this.email.value})
-      .subscribe(
-        response => {
-          console.log(response.otpID);
-          this.otpService.changeOtpIDSubjectNumberValue(response.otpID);
-        }, error => {
-          console.log(error);
-        }
-      );
-    const dialogRef1 = this.dialog.open(OtpDialogBoxComponent, {
+    const dialogRef1 = this.dialog.open(DialogBoxComponent, {
       data: {
-        title: 'Enter OTP: !',
-        message: 'We sent an one-time-password(OTP) to your email address. ',
+        title: 'Send OTP',
+        message: 'We will send OTP to verify :' + this.email.value,
         name: ' ',
         button1: 'Cancel',
-        button2: 'Submit'
+        button2: 'Send OTP'
       }
     });
 
     dialogRef1.afterClosed().subscribe(result1 => {
+      // console.log(`Dialog result: ${result3}`);
       if (result1 === true) {
-        const registrationForm = this.userRegistrationForm.value;
-        registrationForm.firstName = this.capitalize(this.firstName.value);
-        registrationForm.lastName = this.capitalize(this.lastName.value);
-        registrationForm.profilePicture = this.profilePicture;
-
-        // user-data and otp send to back end
-        this.authenticationService.signup(registrationForm, this.otpService.otp, this.otpService.otpID)
+        this.http1.post<any>(`http://localhost:3000/authentication/sendOtpToEmail`, {userEnteredEmail: this.email.value})
           .subscribe(
-            response => {
-              console.log('Success!(frontend)', response);
-              const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+            response1 => {
+              console.log(response1.otpID);
+              this.otpService.changeOtpIDSubjectNumberValue(response1.otpID);
+              const dialogRef2 = this.dialog.open(OtpDialogBoxComponent, {
                 data: {
-                  image: 'data:image/png;base64,' + response.image,
-                  title: 'Success!',
-                  message: 'Register new user successfully ',
+                  title: 'Enter OTP: !',
+                  message: 'We sent an one-time-password(OTP) to your email address. ',
                   name: ' ',
-                  button1: '',
-                  button2: 'Ok'
+                  button1: 'Cancel',
+                  button2: 'Register'
                 }
               });
 
               dialogRef2.afterClosed().subscribe(result2 => {
-                console.log(`Dialog result: ${result2}`);
-                this.myForm.resetForm();
                 if (result2 === true) {
+                  const registrationForm = this.userRegistrationForm.value;
+                  registrationForm.firstName = this.capitalize(this.firstName.value);
+                  registrationForm.lastName = this.capitalize(this.lastName.value);
+                  registrationForm.profilePicture = this.profilePicture;
 
+                  // user-data and otp send to back end
+                  this.authenticationService.signup(registrationForm, this.otpService.otp, this.otpService.otpID)
+                    .subscribe(
+                      response2 => {
+                        console.log('Success!(frontend)', response2);
+                        const dialogRef3 = this.dialog.open(DialogBoxComponent, {
+                          data: {
+                            image: 'data:image/png;base64,' + response2.image,
+                            title: 'Success!',
+                            message: 'Register new user successfully ',
+                            name: ' ',
+                            button1: '',
+                            button2: 'Ok'
+                          }
+                        });
+
+                        dialogRef3.afterClosed().subscribe(result3 => {
+                          console.log(`Dialog result: ${result3}`);
+                          this.myForm.resetForm();
+                          if (result3 === true) {
+
+                          } else {
+                          }
+                        });
+                      },
+                      error2 => {
+                        console.error('Error!(frontend)', error2);
+                        const dialogRef3 = this.dialog.open(DialogBoxComponent, {
+                          data: {
+                            image: '',
+                            title: 'Failed!',
+                            message: error2,
+                            name: ' ',
+                            button1: '',
+                            button2: 'Retry'
+                          }
+                        });
+
+                        dialogRef3.afterClosed().subscribe(result3 => {
+                          console.log(`Dialog result: ${result3}`);
+                          if (result3 === true) {
+
+                          } else {
+
+                          }
+                        });
+                      }
+                    );
                 } else {
-                }
-              });
-            },
-            error => {
-              console.error('Error!(frontend)', error);
-              const dialogRef3 = this.dialog.open(DialogBoxComponent, {
-                data: {
-                  image: '',
-                  title: 'Failed!',
-                  message: error,
-                  name: ' ',
-                  button1: '',
-                  button2: 'Retry'
-                }
-              });
-
-              dialogRef3.afterClosed().subscribe(result3 => {
-                console.log(`Dialog result: ${result3}`);
-                if (result3 === true) {
-
-                } else {
+                  console.log(`Dialog result: ${result2}`);
 
                 }
               });
+            }, error1 => {
+              console.log(error1);
             }
           );
+
       } else {
-        console.log(`Dialog result: ${result1}`);
 
       }
     });

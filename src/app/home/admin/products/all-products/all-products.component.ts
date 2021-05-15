@@ -98,11 +98,29 @@ export class AllProductsComponent implements OnInit, AfterViewInit {
             response => {
               console.log(response);
               console.log('delete successfully!' + id);
+              const dialogRef1 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  title: 'Success!',
+                  message: 'Product deleted Successfully!',
+                  name: '',
+                  button1: '',
+                  button2: 'Done'
+                }
+              });
               this.ngAfterViewInit();
             },
             error => {
               console.log(error);
               console.log('error! delete not success! ' + id);
+              const dialogRef1 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  title: 'Failed!',
+                  message: error,
+                  name: '',
+                  button1: '',
+                  button2: 'Retry'
+                }
+              });
               this.ngAfterViewInit();
             });
       } else {

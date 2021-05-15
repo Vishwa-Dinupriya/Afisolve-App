@@ -1,7 +1,7 @@
 <mat-card>
-  <mat-card-header>
+  <mat-card-header style="display: block">
     <div class="row " >
-      <div class="col-10" style="padding-left: 0px">
+      <div class="col-10" style="padding-left: 5%">
         <mat-card-title>Product Details</mat-card-title>
         <mat-card-subtitle *ngIf="PRODUCT_DETAILS_DATA">
            Name: {{ PRODUCT_DETAILS_DATA.productName +'   ID: '+ PRODUCT_DETAILS_DATA.productID}}
@@ -10,7 +10,7 @@
 
       <div class="col-2" >
         <button mat-icon-button
-                style="margin-left: 40px; margin-top: -10px"
+                style=" margin-top: -10px"
                 (click)="productService.ChangeProductProfileModeBooleanSubjectValue(false)">
           <mat-icon>close</mat-icon>
         </button>

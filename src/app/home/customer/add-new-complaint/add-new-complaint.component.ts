@@ -86,7 +86,7 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
       data: {
         title: 'Are you sure?',
-        message: 'Lodge complaint with ' + this.productID + '? ',
+        message: 'Lodge complaint with this product? ',
         name: '',
         button1: 'Cancel',
         button2: 'Save'
@@ -99,7 +99,8 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
 
         this.http1.post<any>(environment.customerApiUrl + `/lodge-complaint`, newComplaint).subscribe(
           response => {
-            console.log(response);
+            // console.log(response);
+            this.imageAttachments = [];
             const dialogRef2 = this.dialog.open(DialogBoxComponent, {
               data: {
                 title: 'Success!',
@@ -110,7 +111,7 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
               }
             });
             dialogRef2.afterClosed().subscribe(result2 => {
-              console.log(`Dialog result: ${result}`);
+              // console.log(`Dialog result: ${result}`);
               this.myForm.resetForm();
               if (result2 === true) {
 
@@ -120,10 +121,27 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
             });
           }, error => {
             console.log(error);
+            const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+              data: {
+                title: 'Failed!',
+                message: 'Something went wrong! ',
+                name: ' ',
+                button1: '',
+                button2: 'Retry'
+              }
+            });
+            dialogRef2.afterClosed().subscribe(result2 => {
+              // console.log(`Dialog result: ${result}`);
+              this.myForm.resetForm();
+              if (result2 === true) {
+
+              } else {
+
+              }
+            });
           }
         );
       } else {
-        console.log(`Dialog result: ${result}`);
       }
     });
   }

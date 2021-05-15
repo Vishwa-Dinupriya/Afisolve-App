@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../product.service';
 import {HttpClient} from '@angular/common/http';
 import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
@@ -14,6 +14,8 @@ export class RegisterProductComponent implements OnInit {
   @ViewChild('myForm') myForm;
 
   productRegistrationForm: FormGroup;
+  developerList;
+  selectedDevelopers: string [] = [];
 
   constructor(private fb1: FormBuilder,
               private productService: ProductService,
@@ -28,10 +30,28 @@ export class RegisterProductComponent implements OnInit {
       customerEmail: ['', [Validators.required]],
       projectManagerEmail: ['', [Validators.required]],
       accountCoordinatorEmail: ['', [Validators.required]],
+      developers: ['', [Validators.required]],
     });
+    this.http1.post<any>(`http://localhost:3000/admin/get-all-developers`, {}).subscribe(
+      response => {
+        // console.log(JSON.stringify(response));
+        // this.developerList = response.data.map(value => value.userEmail);
+        this.developerList = response.data;
+      }, error => {
+        console.log(error);
+      }
+    );
   }
-
-
+  // get developerID(): AbstractControl {
+  //   return this.productRegistrationForm.get('userID');
+  // }
+  get developers(): AbstractControl {
+    return this.productRegistrationForm.get('userID');
+  }
+  toSelectedDevelopers(value): void {
+    console.log(value);
+    this.selectedDevelopers = value;
+  }
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
       data: {
