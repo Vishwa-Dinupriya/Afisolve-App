@@ -31,6 +31,9 @@ export interface ITabUsers {
 })
 export class AllUsersComponent implements OnInit {
 
+  error = '';
+  progress = false;
+
   displayedColumns: string[] = ['userEmail', 'firstName', 'lastName', 'contactNumber', 'createdAt', 'activeStatus', 'details', 'delete'];
 
   dataSource: MatTableDataSource<IUser>;
@@ -61,6 +64,7 @@ export class AllUsersComponent implements OnInit {
 
 
   getData(): void {
+    this.progress = true;
     this.http1.post<any>(`http://localhost:3000/admin/get-all-users-details`, {}).subscribe(
       response => {
         console.log(response.data);
@@ -72,9 +76,10 @@ export class AllUsersComponent implements OnInit {
           tab.dataSource.paginator = this.paginator;
         });
       }, error => {
+        this.error = error;
         console.log(error);
       }
-    );
+    ).add(() => this.progress = false);
   }
 
   applyFilter(event): void {
