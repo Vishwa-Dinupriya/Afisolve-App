@@ -4,6 +4,7 @@ import {ProductService} from '../product.service';
 import {HttpClient} from '@angular/common/http';
 import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
 import {MatDialog} from '@angular/material/dialog';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-register-product',
@@ -20,7 +21,9 @@ export class RegisterProductComponent implements OnInit {
   constructor(private fb1: FormBuilder,
               private productService: ProductService,
               private http1: HttpClient,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -42,16 +45,16 @@ export class RegisterProductComponent implements OnInit {
       }
     );
   }
-  // get developerID(): AbstractControl {
-  //   return this.productRegistrationForm.get('userID');
-  // }
+
   get developers(): AbstractControl {
     return this.productRegistrationForm.get('userID');
   }
+
   toSelectedDevelopers(value): void {
     console.log(value);
     this.selectedDevelopers = value;
   }
+
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
       data: {
@@ -72,7 +75,7 @@ export class RegisterProductComponent implements OnInit {
               const dialogRef2 = this.dialog.open(DialogBoxComponent, {
                 data: {
                   title: 'Success!',
-                  message: 'Product successfully entered ',
+                  message: 'Product successfully registered ',
                   name: ' ',
                   button1: 'Back to All products',
                   button2: 'Ok'
@@ -80,14 +83,24 @@ export class RegisterProductComponent implements OnInit {
               });
 
               dialogRef2.afterClosed().subscribe(result2 => {
-                console.log(`Dialog result: ${result2}`);
-                this.myForm.resetForm();
-                if (result2 === true) {
+                  console.log(`Dialog result: ${result2}`);
+                  this.myForm.resetForm();
+                  if (result2 === true) {
 
-                } else {
-                  this.productService.ChangeCreateProductModeBooleanSubjectValue(false);
+                  } else {
+                    // for further references about navigations(with params or not) by url
+                    // by using this '..' we can goto backward by single step
+
+                    // eg: for with params
+                    // this.router.navigate(['../../complaints', {username: 'abc'}], {relativeTo: this.route} );
+                    // ttp://localhost:4200/home/admin/products/register-product -> http://localhost:4200/home/admin/complaints;username=abc
+
+                    // eg: for with no params
+                    this.router.navigate(['../'], {relativeTo: this.route});
+                    // http://localhost:4200/home/admin/products/register-product -> http://localhost:4200/home/admin/products/
+                  }
                 }
-              });
+              );
             },
             error => {
               const dialogRef2 = this.dialog.open(DialogBoxComponent, {
@@ -95,7 +108,7 @@ export class RegisterProductComponent implements OnInit {
                   title: 'Error!',
                   message: error,
                   name: ' ',
-                  button1: 'Reset',
+                  button1: 'Reset form',
                   button2: 'Try again'
                 }
               });
@@ -111,13 +124,9 @@ export class RegisterProductComponent implements OnInit {
             }
           );
       } else {
-        this.productService.ChangeCreateProductModeBooleanSubjectValue(false);
+        // this.productService.ChangeCreateProductModeBooleanSubjectValue(false);
       }
     });
   }
 
-  onCancel(): void {
-    this.productRegistrationForm.reset();
-    this.productService.ChangeCreateProductModeBooleanSubjectValue(false);
-  }
 }
