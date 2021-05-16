@@ -140,7 +140,7 @@ export class AllUsersComponent implements OnInit {
               const dialogRef2 = this.dialog.open(DialogBoxComponent, {
                 data: {
                   title: 'Failed!',
-                  message: 'Something went wrong! ',
+                  message: error,
                   name: ' ',
                   button1: '',
                   button2: 'Retry'

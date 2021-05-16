@@ -79,7 +79,7 @@ export class AllProductsComponent implements OnInit, AfterViewInit {
   }
 
   public redirectToDelete(id: number, complaintName: string): void {
-    console.log(id);
+    // console.log(id);
     const dialogRef = this.dialog.open(DialogBoxComponent, {
       data: {
         title: 'Are you sure?',
@@ -92,7 +92,7 @@ export class AllProductsComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        console.log(`Dialog result: ${result}`);
+        // console.log(`Dialog result: ${result}`);
         this.http1.post<any>(`http://localhost:3000/admin/delete-selected-product`, {selectedProductID: id})
           .subscribe(
             response => {
