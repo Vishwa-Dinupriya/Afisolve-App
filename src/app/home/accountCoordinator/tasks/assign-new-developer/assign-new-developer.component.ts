@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 import {TaskService} from '../task.service';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-assign-new-developer',
@@ -13,6 +14,8 @@ import {TaskService} from '../task.service';
 export class AssignNewDeveloperComponent implements OnInit {
   @ViewChild('myForm') myForm;
   updateDeveloperForm: FormGroup;
+  taskIDList;
+  developerEmailList;
   constructor(
     private fb1: FormBuilder,
     private taskService: TaskService,
@@ -26,6 +29,20 @@ export class AssignNewDeveloperComponent implements OnInit {
       developerEmail: ['', [Validators.email, Validators.required]],
       deadline: ['', [Validators.required]],
     });
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-Task-All-details', {}).subscribe(
+      response => {
+        this.taskIDList = response.data.map(value => value.taskID);
+      }, error => {
+        console.log(error);
+      }
+    );
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-DeveloperList', {}).subscribe(
+      response => {
+        this.developerEmailList = response.data.map(value => value.developerEmail);
+      }, error => {
+        console.log(error);
+      }
+    );
   }
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {

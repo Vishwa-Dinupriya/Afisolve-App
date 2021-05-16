@@ -4,6 +4,7 @@ import {DevtaskService} from '../devtask.service';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-update-devtask-status',
@@ -13,6 +14,7 @@ import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.componen
 export class UpdateDevtaskStatusComponent implements OnInit {
   @ViewChild('myForm') myForm;
   taskStatusList = ['InProgress', 'Completed'];
+  taskIDList;
 
   updateDevTaskStatusForm: FormGroup;
 
@@ -28,6 +30,13 @@ export class UpdateDevtaskStatusComponent implements OnInit {
       taskID: ['', [Validators.required]],
       task_status: ['', [Validators.required]],
     });
+    this.http1.post<any>(environment.developerApiUrl + '/get-Task-All-details', {}).subscribe(
+      response => {
+        this.taskIDList = response.data.map(value => value.taskID);
+      }, error => {
+        console.log(error);
+      }
+    );
   }
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {

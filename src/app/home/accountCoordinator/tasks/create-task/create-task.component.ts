@@ -13,6 +13,7 @@ import {environment} from '../../../../../environments/environment';
 })
 export class CreateTaskComponent implements OnInit {
   @ViewChild('myForm') myForm;
+  developerEmailList;
 
   createTaskForm: FormGroup;
   // developerNameList;
@@ -28,10 +29,17 @@ export class CreateTaskComponent implements OnInit {
       subComplaintID: ['', [Validators.required]],
       deadline: ['', [Validators.required]],
       task_description: ['', [Validators.minLength(5), Validators.required]],
-     developerEmail: ['', [Validators.email, Validators.required]],
+     developerEmail: ['', [Validators.required]],
      // developerID: ['', [Validators.required]],
     });
-    /*this.http1.post<any>(`environment.accountCoordinatorApiUrl + //get-DeveloperNameList`, {}).subscribe(
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-DeveloperList', {}).subscribe(
+      response => {
+        this.developerEmailList = response.data.map(value => value.developerEmail);
+        }, error => {
+        console.log(error);
+      }
+    );
+    /*this.http1.post<any>(`environment.accountCoordinatorApiUrl + //get-DeveloperList`, {}).subscribe(
       response => {
         this.developerIDList = response.data.map(value => value.developerID);
         this.developerNameList = response.data.map(value => value.developerName);

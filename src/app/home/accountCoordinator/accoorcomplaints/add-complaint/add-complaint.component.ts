@@ -4,6 +4,7 @@ import {AccoorcomplaintsService} from '../accoorcomplaints.service';
 import {HttpClient} from '@angular/common/http';
 import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 import {MatDialog} from '@angular/material/dialog';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-add-complaint',
@@ -13,6 +14,8 @@ import {MatDialog} from '@angular/material/dialog';
 export class AddComplaintComponent implements OnInit {
   @ViewChild('myForm') myForm;
   addComplaintForm: FormGroup;
+  productNameList;
+  productIDList;
   constructor(private fb1: FormBuilder,
               private accoorcomplaintsService: AccoorcomplaintsService,
               private http1: HttpClient,
@@ -23,6 +26,14 @@ export class AddComplaintComponent implements OnInit {
         productID: ['', [Validators.required]],
         description: ['', [Validators.minLength(5), Validators.required]],
   });
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-product-details', {}).subscribe(
+      response => {
+        this.productIDList = response.data.map(value => value.productID);
+        this.productNameList = response.data.map(value => value.productName);
+      }, error => {
+        console.log(error);
+      }
+    );
   }
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {

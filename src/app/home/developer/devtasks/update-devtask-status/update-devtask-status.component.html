@@ -3,10 +3,12 @@
   <form [formGroup]="updateDevTaskStatusForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
 
     <div class="row">
-
-      <mat-form-field class="col-auto" appearance="outline">
-        <mat-label>Task ID</mat-label>
-        <input type="text" matInput formControlName="taskID" placeholder="Task ID">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Select Task</mat-label>
+        <mat-select formControlName="taskID" multiple="false">
+          <mat-option *ngFor="let taskID of taskIDList; let i = index"
+                      [value]="taskIDList[i]">{{taskIDList[i]}}</mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
 
