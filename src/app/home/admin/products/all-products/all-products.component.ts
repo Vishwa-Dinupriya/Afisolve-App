@@ -129,10 +129,5 @@ export class AllProductsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  changeMode(value: boolean): void {
-    this.productService.ChangeCreateProductModeBooleanSubjectValue(!value);
-    this.createProduct = value;
-  }
-
-
 }
+

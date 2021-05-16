@@ -56,7 +56,7 @@ export class SignupComponent implements OnInit {
       lastName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       passwordGroup: this.fb1.group({
-        password: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: [''],
       }, {validators: checkPasswords}),
       roles: ['', [Validators.required]],
