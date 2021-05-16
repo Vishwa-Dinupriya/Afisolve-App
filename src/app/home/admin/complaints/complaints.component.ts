@@ -60,6 +60,9 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    // how can get params by url
+    // this reference to commented example in -> register component> back to all products
+    // http://localhost:4200/home/admin/complaints;username=abc
     this.route.params.subscribe(params => console.log(params));
   }
 
