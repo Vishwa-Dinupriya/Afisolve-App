@@ -71,6 +71,7 @@ import {AccoorproductsComponent} from './home/accountCoordinator/accoorproducts/
 import {DevtasksProfileComponent} from './home/developer/devtasks/devtasks-profile/devtasks-profile.component';
 import {UpdateDevtaskStatusComponent} from './home/developer/devtasks/update-devtask-status/update-devtask-status.component';
 import {DevMailComponent} from './home/developer/dev-mail/dev-mail.component';
+import {AssignNewDeveloperComponent} from './home/accountCoordinator/tasks/assign-new-developer/assign-new-developer.component';
 
 
 const routes: Routes = [
@@ -174,6 +175,10 @@ const routes: Routes = [
                 {
                   path: 'create-task',
                   component: CreateTaskComponent
+                },
+                {
+                  path: 'assign-new-developer',
+                  component: AssignNewDeveloperComponent
                 },
                 {
                   path: 'task-profile',

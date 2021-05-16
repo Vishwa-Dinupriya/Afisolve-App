@@ -10,6 +10,7 @@ import {environment} from '../../../../environments/environment';
 })
 export class TaskService {
   createtaskUrl = environment.accountCoordinatorApiUrl + '/create-task';
+  updateDeveloperUrl = environment.accountCoordinatorApiUrl + '/update-developer';
   createTaskMode: boolean;
   isTaskProfileMode: boolean;
   taskID: number;
@@ -34,5 +35,8 @@ export class TaskService {
   }
   ChangeTaskIDSubjectNumberValue(newValue: number): void {
     this.taskIDSubjectNumber.next(newValue);
+  }
+  updateDeveloper(userData): Observable<any> {
+    return this.http1.post<any>(this.updateDeveloperUrl, userData);
   }
 }

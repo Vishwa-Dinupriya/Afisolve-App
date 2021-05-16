@@ -15,6 +15,12 @@ export interface IAllComp {
   description: string;
   status: string;
 }
+export interface IOverdueComp {
+  complaintID: number;
+  subComplaintID: number;
+  productID: number;
+  description: string;
+}
 export interface IPendingComp {
   complaintID: number;
   subComplaintID: number;
@@ -51,6 +57,10 @@ export class AccoorcomplaintsComponent implements OnInit {
   displayedColumns1: string[] = ['complaintID', 'subComplaintID', 'productID', 'productName', 'statusName', 'submittedDate' , 'details'];
   dataSource1: MatTableDataSource<IAllComp>;
   ALLCOMPLAINTS_DATA: IAllComp[];
+  // Displaying Overdue Complaints
+  displayedColumnsOverdue: string[] = ['complaintID', 'subComplaintID', 'productID', 'productName', 'submittedDate' , 'lastDateOfPending', 'Comment', 'details'];
+  dataSourceOverdue: MatTableDataSource<IOverdueComp>;
+  OVERDUECOMPLAINTS_DATA: IOverdueComp[];
   // Displaying Pending Complaints
   displayedColumns3: string[] = ['complaintID', 'subComplaintID', 'productID', 'productName', 'submittedDate' , 'lastDateOfPending', 'Comment', 'details'];
   dataSource3: MatTableDataSource<IPendingComp>;
@@ -102,6 +112,16 @@ export class AccoorcomplaintsComponent implements OnInit {
         console.log(error);
       }
     ),
+      this.http1.post<any>(environment.accountCoordinatorApiUrl + `/get-overdue-accoorcomplaints-details`, {}).subscribe(
+        response => {
+          this.OVERDUECOMPLAINTS_DATA = response.data;
+          this.dataSourceOverdue = new MatTableDataSource<IOverdueComp>(this.OVERDUECOMPLAINTS_DATA);
+          this.dataSourceOverdue.sort = this.sort;
+          this.dataSourceOverdue.paginator = this.paginator;
+        }, error => {
+          console.log(error);
+        }
+      ),
       this.http1.post<any>(environment.accountCoordinatorApiUrl + `/get-pending-accoorcomplaints-details`, {}).subscribe(
         response => {
           this.PENDINGCOMPLAINTS_DATA = response.data;
@@ -147,6 +167,10 @@ export class AccoorcomplaintsComponent implements OnInit {
   applyFilterAll(event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource1.filter = filterValue.trim().toLowerCase();
+  }
+  applyFilterOverdue(event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceOverdue.filter = filterValue.trim().toLowerCase();
   }
   applyFilterPending(event): void {
     const filterValue = (event.target as HTMLInputElement).value;

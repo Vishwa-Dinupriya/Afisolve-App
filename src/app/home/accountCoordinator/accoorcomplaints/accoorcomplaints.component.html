@@ -95,6 +95,94 @@
       </mat-paginator>
 
     </mat-tab>
+    <!-- Displaying Pending complaints-->
+
+    <mat-tab label="Overdue">
+
+      <!--Filter-->
+      <mat-form-field class="w-75 m-3">
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Ex.Comp ID" (keyup)="applyFilterOverdue($event)">
+      </mat-form-field>
+
+      <table mat-table [dataSource]="dataSourceOverdue" class="w-100">
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="complaintID">
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
+        </ng-container>
+
+        <!-- SubId Column -->
+        <ng-container matColumnDef="subComplaintID">
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Sub_Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
+        </ng-container>
+
+        <!-- ProductID Column-->
+        <ng-container matColumnDef="productID">
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Product_Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+        </ng-container>
+        <!-- ProductName Column-->
+        <ng-container matColumnDef="productName">
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Product Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+        </ng-container>
+
+        <!-- SubmittedDate Column-->
+        <ng-container matColumnDef="submittedDate">
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Submitted Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.submittedDate}} </td>
+        </ng-container>
+
+        <!-- LastPending Column-->
+        <ng-container matColumnDef="lastDateOfPending">
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> DDL for 'Pending'</th>
+          <td mat-cell *matCellDef="let element"> {{element.lastDateOfPending}} </td>
+        </ng-container>
+
+        <!-- StartedWIP Column-->
+        <ng-container matColumnDef="wipStartDate">
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> WIP Started Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.wipStartDate}} </td>
+        </ng-container>
+
+        <!-- Finished Column-->
+        <ng-container matColumnDef="finishedDate">
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Finished Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.finishedDate}} </td>
+        </ng-container>
+
+        <!-- Details button Column -->
+        <ng-container matColumnDef="details">
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Go To</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="redirectToDetails(element.complaintID,element.subComplaintID)">
+              <mat-icon class="mat-18">description</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <!-- Comment-section button Column -->
+        <ng-container matColumnDef="Comment">
+          <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Comments</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary"
+                    (click)="redirectToCommentSection(element.complaintID)">
+              <mat-icon class="mat-18">forum</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsOverdue"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsOverdue;"></tr>
+      </table>
+      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+
+    </mat-tab>
+
 
     <!-- Displaying Pending complaints-->
 

@@ -11,7 +11,7 @@ import {environment} from '../../../../environments/environment';
 export class AccoorcomplaintsService {
   private isCreateTaskModeSubjectBoolean: Subject<boolean> = new Subject<boolean>();
   addcomplaintUrl = environment.accountCoordinatorApiUrl + '/add-complaint';
-  updatecomplaintstatusUrl = environment.accountCoordinatorApiUrl + '/update-common-complaint-status';
+  updatecomplaintstatusUrl = environment.accountCoordinatorApiUrl + '/update-complaint-status';
   updateStatusUrl = environment.accountCoordinatorApiUrl + '/update-selected-acccomplaint-profile-status';
   sendMailUrl = environment.accountCoordinatorApiUrl + '/sendMail';
 

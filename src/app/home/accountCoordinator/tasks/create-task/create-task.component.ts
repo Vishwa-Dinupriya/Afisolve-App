@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TaskService} from '../task.service';
 import {HttpClient} from '@angular/common/http';
 import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 import {MatDialog} from '@angular/material/dialog';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-create-task',
@@ -14,6 +15,8 @@ export class CreateTaskComponent implements OnInit {
   @ViewChild('myForm') myForm;
 
   createTaskForm: FormGroup;
+  // developerNameList;
+ // developerIDList;
   constructor(private fb1: FormBuilder,
               private taskService: TaskService,
               private http1: HttpClient,
@@ -24,10 +27,26 @@ export class CreateTaskComponent implements OnInit {
       complaintID: ['', [Validators.required]],
       subComplaintID: ['', [Validators.required]],
       deadline: ['', [Validators.required]],
-      task_description: ['', [Validators.required]],
-     developerEmail: ['', [Validators.required]],
+      task_description: ['', [Validators.minLength(5), Validators.required]],
+     developerEmail: ['', [Validators.email, Validators.required]],
+     // developerID: ['', [Validators.required]],
     });
+    /*this.http1.post<any>(`environment.accountCoordinatorApiUrl + //get-DeveloperNameList`, {}).subscribe(
+      response => {
+        this.developerIDList = response.data.map(value => value.developerID);
+        this.developerNameList = response.data.map(value => value.developerName);
+      }, error => {
+        console.log(error);
+      }
+    );*/
+    ////
   }
+ /* get developerID(): AbstractControl {
+    return this.createTaskForm.get('developerID');
+  }
+  get developerName(): AbstractControl {
+    return this.createTaskForm.get('developerName');
+  }*/
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
       data: {

@@ -1,0 +1,36 @@
+<div class="container-fluid">
+
+  <form [formGroup]="updateDeveloperForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
+
+    <div class="row">
+
+      <mat-form-field class="col-auto" appearance="outline">
+        <mat-label>task ID</mat-label>
+        <input type="text" matInput formControlName="taskID" placeholder="Enter a valied Task ID">
+      </mat-form-field>
+    </div>
+    <div class="row">
+
+      <mat-form-field class="col-auto" appearance="outline">
+        <mat-label>Developer Email</mat-label>
+        <input type="text" matInput formControlName="developerEmail" placeholder="example@gmail.com">
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+
+      <mat-form-field class="col-auto" appearance="outline">
+        <mat-label>Deadline</mat-label>
+        <input type="datetime-local" matInput formControlName="deadline" placeholder="Deadline">
+      </mat-form-field>
+
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="!updateDeveloperForm.valid">Update</button>
+
+  </form>
+
+</div>
+
+
+
