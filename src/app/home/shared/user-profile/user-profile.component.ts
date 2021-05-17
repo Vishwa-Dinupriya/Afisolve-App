@@ -6,10 +6,12 @@ import {AuthenticationService} from 'src/app/authentication/authentication.servi
 import {ErrorStateMatcher} from '@angular/material/core';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogBoxComponent} from '../dialog-box/dialog-box.component';
+import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 import {UsersService} from '../../admin/users/users.service';
 import {HomeService} from '../../home.service';
-import {DialogBoxSelectPictureComponent} from '../dialog-box-select-picture/dialog-box-select-picture.component';
+import {DialogBoxSelectPictureComponent} from '../../../shared/dialog-box-select-picture/dialog-box-select-picture.component';
+import {OtpService} from '../../../shared/otp-service/otp.service';
+import {OtpDialogBoxComponent} from '../../../shared/otp-dialog-box/otp-dialog-box.component';
 
 export interface IUserGeneral {
   lastLogin: string;
@@ -67,7 +69,8 @@ export class UserProfileComponent implements OnInit, OnChanges {
     public dialog: MatDialog,
     public usersService1: UsersService,
     public homeService: HomeService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private otpService: OtpService
   ) {
   }
 
@@ -76,9 +79,9 @@ export class UserProfileComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    console.log(this.userEmailChild);
+    // console.log(this.userEmailChild);
     if (this.userRegistrationForm) {
-      console.log('form is build');
+      // console.log('form is build');
       this.tabIndex = '1';
       this.formBuildFunction();
       this.getAndSetValues();
@@ -94,8 +97,8 @@ export class UserProfileComponent implements OnInit, OnChanges {
         password: ['', [Validators.required]],
         confirmPassword: ['']
       }, {validators: checkPasswords}),
-      roles: [[''], [Validators.required]],
-      defaultRole: ['', [Validators.required]],
+      roles: [{value: '', disabled: true}, [Validators.required]],
+      defaultRole: [{value: '', disabled: true}, [Validators.required]],
       contactNumber: ['']
     });
   }
@@ -103,13 +106,26 @@ export class UserProfileComponent implements OnInit, OnChanges {
   createFormCopy(): void {
     this.userRegistrationFormCopy = Object.assign({}, this.userRegistrationForm.value);
     this.oldEmail = this.userRegistrationFormCopy.email;
+    this.userRegistrationFormCopy.roles = this.roles.value;
+    this.userRegistrationFormCopy.defaultRole = this.defaultRole.value;
     this.title = this.userRegistrationFormCopy.firstName + ' ' + this.userRegistrationFormCopy.lastName;
     this.subtitle = this.userRegistrationFormCopy.email;
-    console.log('init form copy ');
-    console.log(this.userRegistrationFormCopy);
+    // console.log('init form copy ');
+    // console.log(this.userRegistrationFormCopy);
     this.haveChanges = null;
-    console.log('have changes ? ' + this.haveChanges);
+    // console.log('have changes ? ' + this.haveChanges);
 
+  }
+
+  toggleDisabled(): void {
+    // if (this.edit) {
+    //   this.roles.disable();
+    //   this.defaultRole.disable();
+    // } else {
+    //   this.roles.enable();
+    //   this.defaultRole.enable();
+    // }
+    this.edit = !this.edit;
   }
 
   subscribeToFormValChange(): void {
@@ -183,10 +199,10 @@ export class UserProfileComponent implements OnInit, OnChanges {
   }
 
   onCancelEdit(): void {
-    this.edit = !this.edit;
     this.userRegistrationForm.reset();
     this.userRegistrationForm.setValue(this.userRegistrationFormCopy);
     this.selectedRoles = this.roles.value;
+    this.toggleDisabled();
   }
 
   public saveChangesDialog(): void {
@@ -196,6 +212,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
     const updatedPassword = this.password.value;
 
     if (oldEmail !== updatedEmail || oldPassword !== updatedPassword) {
+      // when admin update only 2 dialog boxes. but here 3 dialog boxes.because we have to inform about re-login
       const dialogRef = this.dialog.open(DialogBoxComponent, {
         data: {
           title: 'Are you sure?',
@@ -208,8 +225,32 @@ export class UserProfileComponent implements OnInit, OnChanges {
       dialogRef.afterClosed().subscribe(result => {
         if (result === true) {
           console.log(`Dialog result: ${result}`);
-          this.onUpdate();
-          this.authService.logout();
+          this.http1.post<any>(`http://localhost:3000/authentication/sendOtpToEmail`, {userEnteredEmail: this.email.value})
+            .subscribe(
+              response => {
+                // console.log(response.otpID);
+                this.otpService.changeOtpIDSubjectNumberValue(response.otpID);
+              }, error => {
+                console.log(error);
+              }
+            );
+          const dialogRef1 = this.dialog.open(OtpDialogBoxComponent, {
+            data: {
+              title: 'Enter OTP: !',
+              message: 'We sent an one-time-password(OTP) to your new email address. ',
+              name: ' ',
+              button1: 'Cancel',
+              button2: 'Submit'
+            }
+          });
+
+          dialogRef1.afterClosed().subscribe(result1 => {
+            if (result1 === true) {
+              this.onUpdate();
+            } else {
+              console.log(`Dialog result: ${result1}`);
+            }
+          });
         } else {
           console.log(`Dialog result: ${result}`);
         }
@@ -270,19 +311,65 @@ export class UserProfileComponent implements OnInit, OnChanges {
     const registrationForm = this.userRegistrationForm.value;
     registrationForm.firstName = this.capitalize(this.firstName.value);
     registrationForm.lastName = this.capitalize(this.lastName.value);
-    this.http1.post<any>('http://localhost:3000/home/update-my-profile-details', {
+    this.http1.post<any>('http://localhost:3000/home/update-own-profile-details', {
       userNewData: this.userRegistrationForm.value,
       emailOld: this.oldEmail,
       newProfilePhoto_: this.newProfilePicture,
+      clientOtp: this.otpService.otp,
+      generatedOtpID: this.otpService.otpID
 
     }).subscribe(
       response => {
         console.log('Update Success!(frontend)', response);
-        this.edit = false;
+        this.toggleDisabled();
         this.getAndSetValues();
+        const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+          data: {
+            image: '',
+            title: 'Success!',
+            message: 'Update Successfully! ',
+            name: ' ',
+            button1: '',
+            button2: 'Ok'
+          }
+        });
+
+        dialogRef2.afterClosed().subscribe(result2 => {
+          console.log(`Dialog result: ${result2}`);
+          if (result2 === true) {
+            // this.usersService1.changeIsProfileModeSubjectBooleanValue(false);
+            if (this.oldEmail !== this.email.value) {
+              this.authService.logout();
+            }
+          } else {
+            // this.usersService1.changeIsProfileModeSubjectBooleanValue(false);
+            if (this.oldEmail !== this.email.value) {
+              this.authService.logout();
+            }
+          }
+        });
       },
       error => {
-        console.error('Update Error!(frontend)', error);
+        console.error('Update Error!', error);
+        const dialogRef3 = this.dialog.open(DialogBoxComponent, {
+          data: {
+            image: '',
+            title: 'Failed!',
+            message: error,
+            name: ' ',
+            button1: '',
+            button2: 'Retry'
+          }
+        });
+
+        dialogRef3.afterClosed().subscribe(result3 => {
+          console.log(`Dialog result: ${result3}`);
+          if (result3 === true) {
+
+          } else {
+
+          }
+        });
       }
     );
   }
@@ -307,7 +394,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
 
     dialogRef.afterClosed().subscribe(picture => {
       this.newProfilePicture = picture;
-      console.log(this.newProfilePicture);
+      // console.log(this.newProfilePicture);
       if (this.newProfilePicture !== '' && this.newProfilePicture !== this.currentProfilePicture) {
         console.log('photos are different');
         this.haveChanges = true;

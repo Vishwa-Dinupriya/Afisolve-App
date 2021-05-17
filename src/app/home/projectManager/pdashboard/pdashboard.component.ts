@@ -21,11 +21,17 @@ export interface IComplaint{
   templateUrl: './pdashboard.component.html',
   styleUrls: ['./pdashboard.component.css']
 })
-export class PdashboardComponent implements OnInit, AfterViewInit  {
+export class PdashboardComponent implements OnInit, AfterViewInit {
 
+  cl: any;
+  pe: any;
+  fn: any;
+  wr: any;
+  constructor(private router: Router,
+              private http1: HttpClient) { }
+  private dataSourceUsersmonth: any;
   displayedColumnsUsers1: string[] = ['productID', 'submittedTime', 'exAcName', 'charac'];
   displayedColumnsComplaints: string[] = ['complainID', 'productID', 'lastDateOfPending'];
-
   // dataSourceUsers1;
 
   dataSourceUsers1;
@@ -33,30 +39,50 @@ export class PdashboardComponent implements OnInit, AfterViewInit  {
   dataSourcepending: any;
   dataSourceworking: any;
   dataSourcefinish: any;
-
   dataSourceComplaints: MatTableDataSource<IComplaint>;
   COMPLAINS_DATA: IComplaint[];
 
+  data4: string[] = ['count'];
+
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
+  // ............................................................Chart eka
+  // tslint:disable-next-line:typedef
   datawo: any;
   datfi: any;
-  datpe: any
+  datpe: any;
 
-  constructor(private router: Router,
-              private http1: HttpClient) { }
+  // tslint:disable-next-line:typedef
+  b: string;
+
+
+  // tslint:disable-next-line:typedef
+  firstm: string;
+  secondm: string;
+  thirdm: string;
+  fourthm: string;
+  fifthm: string;
+// tslint:disable-next-line:typedef
+  wc: string;
+  allll: any;
+  penn: any;
+  wor: any;
+  closs: any;
+  finn: any;
+
+  // tslint:disable-next-line:typedef
+// tslint:disable-next-line:typedef
+  dataSourceClosed: any;
 
   ngOnInit(): void {
+    this.getmonthCount();
     this.getfullcount();
-    this.getpendingcount();
-    this.getfinishcount();
-    this.getworkingcount();
     this.getlatecount();
+
   }
 
   ngAfterViewInit(): void {
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-notaction-details`, {}).subscribe(
+    this.http1.get<any>(`http://localhost:3000/ceo/get-notaction-details`, {}).subscribe(
       response => {
         this.COMPLAINS_DATA = response.data;
         console.log(this.COMPLAINS_DATA);
@@ -79,6 +105,85 @@ export class PdashboardComponent implements OnInit, AfterViewInit  {
     console.log(id);
   }
 
+
+  // ....................................................................
+  getmonthCount(){
+    this.http1.get<any>(`http://localhost:3000/ceo/get-month-count`, {}).subscribe(
+      response => {
+        this.dataSourceUsersmonth = response.data;
+        console.log(this.dataSourceUsersmonth[4].num);
+        console.log(this.dataSourceUsersmonth[3].num);
+        console.log(this.dataSourceUsersmonth[2].num);
+        this.firstm = this.dataSourceUsersmonth[0].num;
+        this.secondm = this.dataSourceUsersmonth[1].num;
+        this.thirdm = this.dataSourceUsersmonth[2].num;
+
+
+
+        // ..........................chart eka
+        // tslint:disable-next-line:prefer-const
+        var myChart = new Chart('myChart3', {
+          type: 'line',
+          data: {
+            // tslint:disable-next-line:max-line-length
+            labels: [this.dataSourceUsersmonth[4].month, this.dataSourceUsersmonth[3].month, this.dataSourceUsersmonth[2].month, this.dataSourceUsersmonth[1].month, this.dataSourceUsersmonth[0].month],
+            datasets: [{
+              label: ' ',
+              // tslint:disable-next-line:max-line-length
+              data: [this.dataSourceUsersmonth[4].num, this.dataSourceUsersmonth[3].num, this.dataSourceUsersmonth[2].num, this.dataSourceUsersmonth[1].num, this.dataSourceUsersmonth[0].num ],
+              backgroundColor: [
+                '',
+              ],
+              fill: false,
+              borderColor: [
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 255, 255, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              xAxes: [{
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'month',
+                  fontColor: '#ffffff',
+                  fontSize: 6
+                },
+                ticks: {
+                  fontColor: '#ffffff',
+                  fontSize: 6
+                }
+              }],
+              yAxes: [{
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Users',
+                  fontColor: '#ffffff',
+                  fontSize: 8
+                },
+                ticks: {
+                  fontColor: '#ffffff',
+                  fontSize: 8
+                }
+              }]
+            }
+          }
+        });
+
+
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
   // ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   // tslint:disable-next-line:typedef
@@ -87,52 +192,55 @@ export class PdashboardComponent implements OnInit, AfterViewInit  {
       response => {
         this.dataSourceUsers1 = response.data;
         console.log(this.dataSourceUsers1);
+        // ganan tika
+        this.allll = this.dataSourceUsers1.alll;
+        this.penn = this.dataSourceUsers1.pen;
+        this.wor = this.dataSourceUsers1.work;
+        this.finn = this.dataSourceUsers1.fin;
+        this.closs = this.dataSourceUsers1.clos;
+        const a = (this.penn / this.allll) * 100;
+        this.pe = a.toFixed(2);
+        const b = (this.closs / this.allll) * 100;
+        this.cl = b.toFixed(2);
+        const c = (this.wor / this.allll) * 100;
+        this.wr = c.toFixed(2);
+        const d = (this.finn / this.allll) * 100;
+        this.fn = d.toFixed(2);
+        // ..........................chart eka
+        // tslint:disable-next-line:prefer-const
+        var myChart = new Chart('myChart1', {
+          type: 'doughnut',
+          data: {
+            labels: ['Pending', 'Working-Progress', 'Completed', 'Closed'],
+            datasets: [{
+              label: ' ',
+              data: [this.dataSourceUsers1.pen, this.dataSourceUsers1.work, this.dataSourceUsers1.fin, this.dataSourceUsers1.clos],
+              backgroundColor: [
+                '#9DC2FF',
+                '#4F91FF',
+                '#2264D1',
+                '#133774',
+              ],
+              borderColor: [
+                '#9DC2FF',
+                '#4F91FF',
+                '#2264D1',
+                '#133774',
+
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+
+          }
+        });
       }, error => {
         console.log(error);
       }
     );
   }
 
-  // tslint:disable-next-line:typedef
-  getfinishcount() {
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-finish-count`, {}).subscribe(
-      response => {
-        this.dataSourcefinish = response.data;
-        console.log(this.dataSourcefinish);
-        this.datfi = this.dataSourcefinish[0].count;
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
-
-  // tslint:disable-next-line:typedef
-  getworkingcount() {
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-working-count`, {}).subscribe(
-      response => {
-        this.dataSourceworking = response.data;
-        console.log(this.dataSourceworking);
-        this.datawo = this.dataSourceworking[0].count;
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
-
-  // tslint:disable-next-line:typedef
-  getpendingcount() {
-    this.http1.get<any>(`http://localhost:3000/projectManager/get-pending-count`, {}).subscribe(
-      response => {
-        this.dataSourcepending = response.data;
-        console.log(this.dataSourcepending);
-        this.datpe = this.dataSourcepending[0].count;
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
-
-  // tslint:disable-next-line:typedef
   getlatecount() {
     this.http1.get<any>(`http://localhost:3000/projectManager/get-late-count`, {}).subscribe(
       response => {
@@ -140,73 +248,9 @@ export class PdashboardComponent implements OnInit, AfterViewInit  {
         const tet1 = this.dataSourcelate[0].count;
         console.log(tet1);
         console.log(this.datawo);
-        // ..........................chart eka
-        // tslint:disable-next-line:prefer-const
-        var myChart = new Chart('myChart1', {
-          type: 'doughnut',
-          data: {
-            labels: ['Finish', 'Working-Progress', 'Pending'],
-            datasets: [{
-              label: ' ',
-              data: [this.datfi , this.datawo, this.datpe],
-              backgroundColor: [
-                'rgba(255,182,149,0.76)',
-                'rgba(255,109,84,0.76)',
-                'rgba(255,7,49,0.76)'
-                // 'rgba(128, 255, 0, 1)',
-                // 'rgba(255, 128, 0, 1)',
-                // 'rgba(102, 0, 102, 0.8)'
-              ],
-              borderColor: [
-                'rgba(128, 255, 0, 1)',
-                'rgba(255, 128, 0, 1)',
-                'rgba(102, 0, 102, 1)'
-              ],
-              borderWidth: 1
-            }]
-          },
-          options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
-            }
-          }
-        });
-
-
-// .................. chart 1 eka iwary
-// 2weni chart eka
-        var myChart = new Chart('myChart2', {
-          type: 'bar',
-          data: {
-            labels: ['late', 'not late '],
-            datasets: [{
-              label: 'Complaints',
-              data: [tet1 , this.datawo + this.datpe - tet1],
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)'
-              ],
-              borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
-              ],
-              borderWidth: 1
-            }]
-          },
-          options: {
-          }
-        });
-// ................ 2 weni chart ekt iwaryi....
       }, error => {
         console.log(error);
       }
     );
   }
-
 }

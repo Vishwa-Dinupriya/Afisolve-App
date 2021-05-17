@@ -1,8 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {SignupService} from '../../signup/signup.service';
-import {toNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_version';
-import {convertValueToOutputAst} from '@angular/compiler/src/output/value_util';
+import {OtpService} from '../../shared/otp-service/otp.service';
 
 @Component({
   selector: 'app-otp-dialog-box',
@@ -11,13 +9,13 @@ import {convertValueToOutputAst} from '@angular/compiler/src/output/value_util';
 })
 export class OtpDialogBoxComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public signupService: SignupService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public otpService: OtpService) {
   }
 
   ngOnInit(): void {
   }
 
   sendOtpToServiceFile(value: string): void {
-    this.signupService.changeOtpValueSubjectNumberValue(Number(value));
+    this.otpService.changeOtpValueSubjectNumberValue(Number(value));
   }
 }

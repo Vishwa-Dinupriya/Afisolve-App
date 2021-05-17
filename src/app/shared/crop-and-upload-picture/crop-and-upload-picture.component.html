@@ -3,7 +3,7 @@
   <div class="card-header m-0 d-flex justify-content-between">
 
     <div class="mt-2 mat-typography">
-      <b><h2>Upload Picture</h2></b>
+      <b><h2>Crop and Upload Picture</h2></b>
     </div>
 
     <div>
@@ -21,8 +21,8 @@
     <img *ngIf="!imageChangedEvent && this.currentPicture"  style="height: 350px; width: 100%"  class="card-image p-0 m-1"
          [src]="this.currentPicture" alt="profile Picture"/>
 
-    <img *ngIf="!imageChangedEvent && !this.currentPicture"  style="height: 350px; width: 100%"  class="card-image p-0 m-1"
-         src="../../../../assets/img/default-profile-picture.png" alt="profile Picture"/>
+    <img *ngIf="!imageChangedEvent && !this.currentPicture" style="height: 350px; width: 100%" class="card-image p-0 m-1"
+         src="../../../assets/img/default-profile-picture.png" alt="profile Picture"/>
 
     <image-cropper *ngIf="imageChangedEvent"
                    [imageChangedEvent]="imageChangedEvent"

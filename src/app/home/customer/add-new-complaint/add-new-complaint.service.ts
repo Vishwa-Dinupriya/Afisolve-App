@@ -10,7 +10,7 @@ export class AddNewComplaintService {
   isLodgeComplaintMode: boolean;
   productIdParent: number;
 
-  private isLodgeComplaintModeSubjectBoolean: Subject<boolean> = new Subject<boolean>();
+  public isLodgeComplaintModeSubjectBoolean: Subject<boolean> = new Subject<boolean>();
   private productIdParentSubjectNumber: Subject<number> = new Subject<number>();
 
   constructor() {

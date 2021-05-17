@@ -9,7 +9,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTabGroup} from '@angular/material/tabs';
 
 export interface IComplaint {
-  complainID: string;
+  complaintID: string;
   description: string;
   finishedDate: string;
   lastDateOfPending: string;
@@ -22,13 +22,12 @@ export interface IComplaint {
 
 export interface IHistory {
   productID: string;
-  submittedTime: any;
-  time: any;
-  preAcName: string;
-  newAcName: string;
+  submittedtime: any;
+  preAcname: string;
+  newAcname: string;
   exAcName: string;
-  charac: string;
-  wAction: string;
+  doneBy: string;
+  action: string;
 
 }
 
@@ -44,13 +43,17 @@ export class ClateComponent implements  AfterViewInit, OnInit {
 
   constructor(private router: Router, private route: ActivatedRoute, private http1: HttpClient, private pastname: PastnameService){ }
   raw: string;
+  accdata;
+  selectedValue: any;
+  message: any;
   // late complaint
-  displayedColumns: string[] = ['complainID', 'productID', 'description', 'submittedDate', 'lastDateOfPending', 'accountCoordinatorName' , 'accountCoordinatorEmail', 'Action', 'history'];
+  displayedColumns: string[] = [ 'productID', 'complaintID', 'description', 'submittedDate', 'lastDateOfPending', 'firstName' , 'userEmail', 'accountCoordinatorID', 'Action', 'history'];
   dataSource1: MatTableDataSource<IComplaint>;
   COMPLAINS_DATA: IComplaint[];
 
   // history table
-  displayedColumnshistory: string[] = ['productID', 'submittedTime', 'preAcName', 'newAcName', 'exAcName', 'charac', 'wAction'];
+  // tslint:disable-next-line:max-line-length
+  displayedColumnshistory: string[] = ['submittedtime', 'preAcName', 'newAcName', 'exAcName', 'doneBy', 'action'];
   dataSourcehistory: MatTableDataSource<IHistory>;
   COMPLAINS_DATA1: IHistory[];
 
@@ -63,10 +66,13 @@ export class ClateComponent implements  AfterViewInit, OnInit {
   // tslint:disable-next-line:typedef
   m: string;
   bbb: any;
-  test: string[] = ['complainID', 'productID', 'description', 'submittedDate', 'lastDateOfPending', 'accountCoordinatorName' , 'accountCoordinatorEmail', 'Action'];
+  test: string[] = ['productID', 'complaintID', 'description', 'submittedDate', 'lastDateOfPending', 'firstName' , 'userEmail', 'Action'];
   filterValue: any;
 
+  hidd;
+
   ngOnInit(): void {
+    this.hidd = true;
     this.pastname.refreshNeeded$
       .subscribe(() => {
         this.ngAfterViewInit();
@@ -75,6 +81,7 @@ export class ClateComponent implements  AfterViewInit, OnInit {
       .subscribe(() => {
         this.ngAfterViewInit();
       });
+    this.getData1();
   }
 
   // tslint:disable-next-line:typedef
@@ -92,9 +99,9 @@ export class ClateComponent implements  AfterViewInit, OnInit {
     this.http1.get<any>(`http://localhost:3000/ceo/get-full-history`, {}).subscribe(
       response => {
         this.COMPLAINS_DATA1 = response.data;
+        console.log(this.COMPLAINS_DATA1);
         this.dataSourcehistory = new MatTableDataSource<IHistory>(this.COMPLAINS_DATA1);
         this.dataSourcehistory.sort = this.sort;
-        this.dataSourcehistory.paginator = this.paginator;
       }, error => {
         console.log(error);
       }
@@ -104,8 +111,14 @@ export class ClateComponent implements  AfterViewInit, OnInit {
 
   applyFilter(): void {
     // const filterValue = (event.target as HTMLInputElement).value;
-    // const filterValue2 = '0002';
-    const filterValue2 = this.filterValue;
+   // const fil1 = '2';
+    const filterValue2 = '000' + this.filterValue;
+    console.log(filterValue2);
+    // // tslint:disable-next-line:prefer-const
+    // var num = new Number(filterValue2);
+    // console.log(num.toString());
+    // const fil = filterValue2.toString();
+    // console.log(filterValue2.toString());
     this.dataSourcehistory.filter = filterValue2.trim().toLowerCase();
   }
 
@@ -118,17 +131,20 @@ export class ClateComponent implements  AfterViewInit, OnInit {
     console.log(history);
     this.filterValue = history;
     this.applyFilter();
+    this.changetab(1);
   }
 
   // ..............................................
   // tslint:disable-next-line:typedef
   onRowClicked(row) {
-    this.test = row; // click krana row eka mokadd kyla thyna eka
-    console.log(this.test);
+    // this.test = row; // click krana row eka mokadd kyla thyna eka
+    // console.log(this.test);
   }
   // main eka
   // tslint:disable-next-line:typedef
-  getAlert(){
+  getAlert(row){
+    this.test = row; // click krana row eka mokadd kyla thyna eka
+    console.log(this.test);
     Swal.fire({
       title: 'Decision..?',
       text: 'What is your decision!',
@@ -152,30 +168,15 @@ export class ClateComponent implements  AfterViewInit, OnInit {
   newAllert(){
     Swal.fire({
       title: 'Are you sure?',
+      text: 'When you change the account Coordinator of the selected product ID, All responsibilities are transfer to the New account coordinator',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: 'rgba(185,179,186,0.52)',
+      confirmButtonColor: 'rgba(255,0,0,0.83)',
       cancelButtonColor: '#000000',
-      confirmButtonText: '<a href = "http://localhost:4200/home/ceo/clate/caction">Yes,Change</a>'
+      confirmButtonText: 'Yes,Change'
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log('Row clicked: ', this.test);
-        // old-acc-name send
-        this.pastname.cpassn(this.test)
-          .subscribe(
-            response => {
-              console.log('Success!(frontend)' + this.test , response);
-            },
-            error => console.error('Error!(frontend)', error)
-          );
-        // history table eke row ekk hadima....
-        this.pastname.cnewhistory(this.test)
-          .subscribe(
-            response => {
-              console.log('Success!(frontend)' + this.test , response);
-            },
-            error => console.error('Error!(frontend)', error)
-          );
+       this.hidd = false;
       }
     });
   }
@@ -195,6 +196,7 @@ export class ClateComponent implements  AfterViewInit, OnInit {
       if (result.value) {
         Swal.fire(
           'Successfully send a Reminder..!',
+          'Email and notification send to the Account Coordinator.',
           'success'
         );
         // send a reminder to database..................
@@ -215,7 +217,83 @@ export class ClateComponent implements  AfterViewInit, OnInit {
   changetab(selectedTabIndex){
     this.mattabgroup.selectedIndex = selectedTabIndex;
   }
+
+
+
+  // account coordinatorlage names
+  getData1(): void {
+    this.http1.get<any>(`http://localhost:3000/ceo/get-account-coordinaters-details`, {}).subscribe(
+      response => {
+        this.accdata = response.data;
+        console.log(this.accdata);
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+
+  giveAlertnew() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Change the Account Coordinator...!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.givenewName();
+        this.hidd = true;
+        Swal.fire(
+          'change saved!',
+          '',
+          'success'
+        );
+      }
+    });
+  }
+
+
+  // tslint:disable-next-line:typedef
+  givenewName() {
+    console.log('Row clicked: ', this.test);
+    console.log(this.selectedValue);
+
+    this.pastname.cnewacname(this.test, this.selectedValue)
+      .subscribe(
+        response => {
+          console.log('Success!(frontend)', response);
+        },
+        error => console.error('Error!(frontend)', error)
+      );
+    this.pastname.cnewhistoryAc(this.test, this.selectedValue)
+      .subscribe(
+        response => {
+          console.log('Success!(frontend)', response);
+        },
+        error => console.error('Error!(frontend)', error)
+      );
+
+  }
 }
 
 
+// css colors
 
+// .mat-row:nth-child(even){
+   // background-color: darkgray;
+// }
+
+// .mat-row:nth-child(odd){
+ //  background-color: ;
+// 'submittedtime',
+//         <ng-container matColumnDef="submittedTime">
+//           <th mat-header-cell *matHeaderCellDef mat-sort-header> Submitted Time</th>
+//           <td mat-cell *matCellDef="let element">{{element.submittedTime}} </td>
+//         </ng-container> }
+
+
+// <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+//  </mat-paginator>

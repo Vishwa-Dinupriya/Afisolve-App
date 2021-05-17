@@ -8,8 +8,10 @@ import {ComplaintsCustomerService} from '../complaints-customer.service';
 import {MatDialog} from '@angular/material/dialog';
 import {ReviewDialogBoxComponent} from './review-dialog-box/review-dialog-box.component';
 import {CompletedComplaintService} from './completed-complaint.service';
-import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
+import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
 import {IComplaintWithSubsElement} from '../../../shared/complaintElementWithSubsInterface/interface-complaint-with-subs.service';
+import {AddNewComplaintComponent} from '../../add-new-complaint/add-new-complaint.component';
+import {AddNewComplaintService} from '../../add-new-complaint/add-new-complaint.service';
 
 @Component({
   selector: 'app-completed-complaints',
@@ -24,7 +26,6 @@ import {IComplaintWithSubsElement} from '../../../shared/complaintElementWithSub
   ],
 })
 export class CompletedComplaintsComponent implements OnInit, AfterViewInit {
-  createComplaintMode: boolean;
 
   complaintStatusID: number | null;
   COMPLAINS_DATA: IComplaintWithSubsElement[];
@@ -39,13 +40,14 @@ export class CompletedComplaintsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private http1: HttpClient,
+    public addNewComplaintService: AddNewComplaintService,
     public complaintsCustomerService: ComplaintsCustomerService,
     public dialog: MatDialog,
     public completedComplaintService: CompletedComplaintService) {
   }
 
   ngOnInit(): void {
-    this.createComplaintMode = false;
+    this.addNewComplaintService.changeIsLodgeComplaintModeSubjectBooleanValue(false);
   }
 
   ngAfterViewInit(): void {

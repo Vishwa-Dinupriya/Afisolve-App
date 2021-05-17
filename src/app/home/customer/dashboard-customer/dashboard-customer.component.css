@@ -1,0 +1,55 @@
+.icon-display {
+  transform: scale(3.5);
+  margin-top: 13%;
+  margin-left: 40%;
+  /*border-color: rgba(18,162,67,0.96);*/
+  /*background-color: #1ec952;*/
+  /*-webkit-text-fill-color: #1ec952;*/
+}
+
+
+.icon-display1 {
+  transform: scale(0.4);
+  border-color: rgba(18,162,67,0.96);
+  background-color: #1ec952;
+  -webkit-text-fill-color: #1ec952;
+}
+
+.text-inside-grid {
+  background-color: #d8dec8;
+  -webkit-text-fill-color: black;
+}
+
+#divChart5{
+  display: block;
+  width: 90%;
+  height: 90%;
+}
+
+#divChart1{
+  display: block;
+  width: 90%;
+  height: 90%;
+}
+
+.class1{
+  margin-top: 18%;
+  text-align: center;
+  font-size: 70px;
+}
+
+.classboxes{
+  width: 250px;
+  height: 100px;
+  padding-top: 25px;
+}
+
+.words{
+  margin-top: 20%;
+  text-align: center;
+}
+
+
+
+
+
