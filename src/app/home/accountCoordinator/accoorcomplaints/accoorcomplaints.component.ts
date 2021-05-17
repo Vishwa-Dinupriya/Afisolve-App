@@ -81,6 +81,8 @@ export class AccoorcomplaintsComponent implements OnInit {
   addComplaint = false;
   selectedComplaintID;
   selectedsubComplaintID;
+  requestedComplaintID;
+  requestedSubComplaintID;
   complainIDParent: string;
   complaintIdToCommentSection;
   // subComplaintIdToCommentSection;
@@ -98,6 +100,7 @@ export class AccoorcomplaintsComponent implements OnInit {
   ngOnInit(): void {
     this.accoorcomplaintService.ChangeAddComplaintModeBooleanSubjectValue(false);
     this.accoorcomplaintService.ChangeComplaintProfileModeBooleanSubjectValue(false);
+    this.accoorcomplaintService.ChangeComplaintStatusModeBooleanSubjectValue(false);
     this.accoorcomplaintService.changeIsCommentSectionModeSubjectBooleanValue(false);
   }
   // tslint:disable-next-line:use-lifecycle-interface
@@ -194,6 +197,12 @@ export class AccoorcomplaintsComponent implements OnInit {
     this.selectedComplaintID = id;
     this.selectedsubComplaintID = subid;
     this.accoorcomplaintService.ChangeComplaintProfileModeBooleanSubjectValue(true);
+  }
+  public redirectToStatus(id: number, subid: number): void {
+    console.log(id, subid);
+    this.requestedComplaintID = id;
+    this.requestedSubComplaintID = subid;
+    this.accoorcomplaintService.ChangeComplaintStatusModeBooleanSubjectValue(true);
   }
   public redirectToCommentSection(complaintID: number): void {
     this.complaintIdToCommentSection = complaintID;
