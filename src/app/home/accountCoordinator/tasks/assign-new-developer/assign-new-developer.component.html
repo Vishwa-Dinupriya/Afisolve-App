@@ -2,18 +2,32 @@
 
   <form [formGroup]="updateDeveloperForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
 
-    <div class="row">
+  <!--  <div class="row">
 
       <mat-form-field class="col-auto" appearance="outline">
         <mat-label>task ID</mat-label>
         <input type="text" matInput formControlName="taskID" placeholder="Enter a valied Task ID">
       </mat-form-field>
     </div>
+-->
     <div class="row">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Select Task</mat-label>
+        <mat-select formControlName="taskID" multiple="false">
+          <mat-option *ngFor="let taskID of taskIDList; let i = index"
+                      [value]="taskIDList[i]">{{taskIDList[i]}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-      <mat-form-field class="col-auto" appearance="outline">
-        <mat-label>Developer Email</mat-label>
-        <input type="text" matInput formControlName="developerEmail" placeholder="example@gmail.com">
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Select Developer Email</mat-label>
+        <mat-select formControlName="developerEmail" multiple="false">
+          <mat-option *ngFor="let developerEmail of developerEmailList; let i = index"
+                      [value]="developerEmailList[i]">{{developerEmailList[i]}}</mat-option>
+        </mat-select>
+        <mat-error>Please select a developer</mat-error>
       </mat-form-field>
     </div>
 

@@ -2,12 +2,23 @@
 <div class="container-fluid">
 
   <form [formGroup]="addComplaintForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
-
+<!--
     <div class="row">
 
       <mat-form-field class="col-auto" appearance="outline">
         <mat-label>Product ID</mat-label>
         <input type="text" matInput formControlName="productID" placeholder="Enter a valied product ID">
+      </mat-form-field>
+    </div>
+-->
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Select Product</mat-label>
+        <mat-select formControlName="productID" multiple="false">
+          <mat-option *ngFor="let productID of productIDList; let i = index"
+                      [value]="productIDList[i]">{{productNameList[i]}}</mat-option>
+        </mat-select>
+        <mat-error>Please select a product</mat-error>
       </mat-form-field>
     </div>
 
