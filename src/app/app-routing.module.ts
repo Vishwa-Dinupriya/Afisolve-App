@@ -72,6 +72,9 @@ import {AssignNewDeveloperComponent} from './home/accountCoordinator/tasks/assig
 import {AllUsersComponent} from './home/admin/users/all-users/all-users.component';
 import {UserProfileForAdminPurposeComponent} from './home/admin/users/all-users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
 import {AllProductsComponent} from './home/admin/products/all-products/all-products.component';
+import {MailToCustomerComponent} from './home/accountCoordinator/mail/mail-to-customer/mail-to-customer.component';
+import {MailToDeveloperComponent} from './home/accountCoordinator/mail/mail-to-developer/mail-to-developer.component';
+import {MailToAccountCoComponent} from './home/developer/dev-mail/mail-to-account-co/mail-to-account-co.component';
 
 
 
@@ -200,7 +203,16 @@ const routes: Routes = [
             },
             {
               path: 'mail',
-              component: MailComponent
+              component: MailComponent,
+              children: [
+                {
+                  path: 'mail-to-customer',
+                  component: MailToCustomerComponent
+                },
+                {
+                  path: 'mail-to-developer',
+                  component: MailToDeveloperComponent
+                }]
             },
             {
               path: 'accoorproducts',
@@ -330,6 +342,11 @@ const routes: Routes = [
             {
               path: 'devmail',
               component: DevMailComponent,
+              children: [
+                {
+                  path: 'mail-to-account-co',
+                  component: MailToAccountCoComponent
+                }]
             }
           ]
         },

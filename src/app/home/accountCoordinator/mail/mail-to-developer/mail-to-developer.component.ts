@@ -1,34 +1,35 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AccoorcomplaintsService} from '../../accoorcomplaints/accoorcomplaints.service';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
-import {TaskService} from '../task.service';
 import {environment} from '../../../../../environments/environment';
+import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
 
 @Component({
-  selector: 'app-assign-new-developer',
-  templateUrl: './assign-new-developer.component.html',
-  styleUrls: ['./assign-new-developer.component.css']
+  selector: 'app-mail-to-developer',
+  templateUrl: './mail-to-developer.component.html',
+  styleUrls: ['./mail-to-developer.component.css']
 })
-export class AssignNewDeveloperComponent implements OnInit {
+export class MailToDeveloperComponent implements OnInit {
   @ViewChild('myForm') myForm;
-  updateDeveloperForm: FormGroup;
-  taskIDList;
+  sendMailToDeveloperForm: FormGroup;
   developerEmailList;
   developerNameList;
+  taskIDList;
+  devSubjectList = ['Overdue Task', 'New Task', 'Urgent Task' , 'Issue related to Task'];
   constructor(
     private fb1: FormBuilder,
-    private taskService: TaskService,
+    private accoorcomplaintsService: AccoorcomplaintsService,
     private http1: HttpClient,
     private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    this.updateDeveloperForm = this.fb1.group({
-      taskID: ['', [Validators.required]],
-      developerEmail: ['', [Validators.email, Validators.required]],
-      deadline: ['', [Validators.required]],
+    this.sendMailToDeveloperForm = this.fb1.group({
+      devSubject: ['', [Validators.required]],
+      developerEmail: ['', [Validators.required]],
+      taskID: ['', [Validators.required]]
     });
     this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-Task-All-details', {}).subscribe(
       response => {
@@ -49,8 +50,8 @@ export class AssignNewDeveloperComponent implements OnInit {
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
       data: {
-        title: 'Confirm form submission!',
-        message: 'Do you want to update developer ? ',
+        title: 'Confirm!',
+        message: 'Do you want to send this mail to developer ? ',
         name: ' ',
         button1: 'No',
         button2: 'Yes'
@@ -58,16 +59,15 @@ export class AssignNewDeveloperComponent implements OnInit {
     });
     dialogRef1.afterClosed().subscribe(result => {
       if (result === true) {
-        console.log(this.updateDeveloperForm.value);
-        this.taskService.updateDeveloper(this.updateDeveloperForm.value)
+        console.log(this.sendMailToDeveloperForm.value);
+        this.accoorcomplaintsService.sendMailtoDeveloper(this.sendMailToDeveloperForm.value)
           .subscribe(
             response => {
               const dialogRef2 = this.dialog.open(DialogBoxComponent, {
                 data: {
                   title: 'Success!',
-                  message: 'You have successfully updated developer',
+                  message: 'You have successfully sent the mail',
                   name: ' ',
-                  button1: 'Back to complaints',
                   button2: 'Ok'
                 }
               });
@@ -75,28 +75,9 @@ export class AssignNewDeveloperComponent implements OnInit {
               dialogRef2.afterClosed().subscribe(result2 => {
                 console.log(`Dialog result: ${result}`);
                 this.myForm.resetForm();
-                if (result2 === true) {
-
-                } else {
-                  this.taskService.ChangeCreateTaskModeBooleanSubjectValue(true);
-                }
               });
             },
-            error => {console.error('Error!(frontend)', error);
-                      const dialogRef2 = this.dialog.open(DialogBoxComponent, {
-                data: {
-                  title: 'Failed! Please try again.',
-                  message: 'Please make sure the details you entered are valied. ',
-                  name: ' ',
-                  button1: '',
-                  button2: 'Ok'
-                }
-              }); }
+            error => console.error('Error!(frontend)', error)
           );
-      } else {
-        this.taskService.ChangeCreateTaskModeBooleanSubjectValue(true);
-      }
-    });
-  }
-
-}
+      }});
+  }}

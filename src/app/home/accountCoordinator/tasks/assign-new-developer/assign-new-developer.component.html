@@ -22,10 +22,10 @@
 
     <div class="row">
       <mat-form-field appearance="outline" class="col-auto">
-        <mat-label>Select Developer Email</mat-label>
+        <mat-label>Select Developer</mat-label>
         <mat-select formControlName="developerEmail" multiple="false">
           <mat-option *ngFor="let developerEmail of developerEmailList; let i = index"
-                      [value]="developerEmailList[i]">{{developerEmailList[i]}}</mat-option>
+                      [value]="developerEmailList[i]">{{developerNameList[i]}}</mat-option>
         </mat-select>
         <mat-error>Please select a developer</mat-error>
       </mat-form-field>

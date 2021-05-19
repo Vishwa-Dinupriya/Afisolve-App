@@ -58,9 +58,9 @@ export class MailComponent implements OnInit {
               dialogRef2.afterClosed().subscribe(result2 => {
                 console.log(`Dialog result: ${result}`);
                 this.myForm.resetForm();
-               });
+              });
             },
             error => console.error('Error!(frontend)', error)
-            );
+          );
       }});
   }}

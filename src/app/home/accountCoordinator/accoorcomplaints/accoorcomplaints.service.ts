@@ -14,6 +14,9 @@ export class AccoorcomplaintsService {
   updatecomplaintstatusUrl = environment.accountCoordinatorApiUrl + '/update-complaint-status';
   updateStatusUrl = environment.accountCoordinatorApiUrl + '/update-selected-acccomplaint-profile-status';
   sendMailUrl = environment.accountCoordinatorApiUrl + '/sendMail';
+  sendMailtoCustomerUrl = environment.accountCoordinatorApiUrl + '/sendMailtoCustomer';
+  sendMailtoDeveloperUrl = environment.accountCoordinatorApiUrl + '/sendMailtoDeveloper';
+  sendMailtoAccountCoUrl = environment.developerApiUrl + '/sendMailtoAccountCoo';
 
   addComplaintMode: boolean;
   isComplaintProfileMode: boolean;
@@ -62,5 +65,14 @@ export class AccoorcomplaintsService {
   }
   sendMail(userData): Observable<any> {
     return this.http1.post<any>(this.sendMailUrl, userData);
+  }
+  sendMailtoCustomer(userData): Observable<any> {
+    return this.http1.post<any>(this.sendMailtoCustomerUrl, userData);
+  }
+  sendMailtoDeveloper(userData): Observable<any> {
+    return this.http1.post<any>(this.sendMailtoDeveloperUrl, userData);
+  }
+  sendMailtoAccountCo(userData): Observable<any> {
+    return this.http1.post<any>(this.sendMailtoAccountCoUrl, userData);
   }
 }

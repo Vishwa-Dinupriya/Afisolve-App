@@ -1,5 +1,17 @@
 <mat-card class="mr-5 ml-5 mt-5 mb-4 shadow">
-<div class="container-fluid">
+
+  <mat-tab-group animationDuration="1000ms">
+
+    <mat-tab label="Generate Mail To Customer">
+      <app-mail-to-customer></app-mail-to-customer>
+    </mat-tab>
+    <mat-tab label="Generate Mail To Developer">
+      <app-mail-to-developer></app-mail-to-developer>
+    </mat-tab>
+    <mat-tab label="Create Mail">
+
+      <mat-card class="mr-5 ml-5 mt-5 mb-4 shadow">
+        <mat-card-title style="text-align: center">Create a Mail</mat-card-title>
 
   <form [formGroup]="MailForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
 
@@ -28,8 +40,12 @@
 
   </form>
 
-</div>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
 </mat-card>
+
+
 
 
 

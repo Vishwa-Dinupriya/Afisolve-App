@@ -14,6 +14,7 @@ import {environment} from '../../../../../environments/environment';
 export class CreateTaskComponent implements OnInit {
   @ViewChild('myForm') myForm;
   developerEmailList;
+  developerNameList;
 
   createTaskForm: FormGroup;
   // developerNameList;
@@ -35,6 +36,7 @@ export class CreateTaskComponent implements OnInit {
     this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-DeveloperList', {}).subscribe(
       response => {
         this.developerEmailList = response.data.map(value => value.developerEmail);
+        this.developerNameList = response.data.map(value => value.developerName);
         }, error => {
         console.log(error);
       }

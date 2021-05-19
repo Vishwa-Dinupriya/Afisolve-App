@@ -1,0 +1,36 @@
+<mat-card class="mr-5 ml-5 mt-5 mb-4 shadow">
+  <mat-card-title>Send a Mail to Account Coordinator</mat-card-title>
+  <form [formGroup]="sendMailToAcccoorForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Select Account Coordinator</mat-label>
+        <mat-select formControlName="accoorEmail" multiple="false">
+          <mat-option *ngFor="let accoorEmail of accoorEmailList; let i = index"
+                      [value]="accoorEmailList[i]">{{accoorNameList[i]}}</mat-option>
+        </mat-select>
+        <mat-error>Please select a Account Coordinator</mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Task ID</mat-label>
+        <mat-select  formControlName="taskID" multiple="false">
+          <mat-option *ngFor="let taskID of taskIDList; let i = index" [value]="taskIDList[i]">{{taskIDList[i]}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Subject</mat-label>
+        <mat-select  formControlName="Subject" multiple="false">
+          <mat-option *ngFor="let Subject of SubjectList; let i = index" [value]="SubjectList[i]">{{SubjectList[i]}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="!sendMailToAcccoorForm.valid">Send</button>
+  </form>
+</mat-card>

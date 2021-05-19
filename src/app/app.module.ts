@@ -118,6 +118,9 @@ import { ForgetPasswordDialogBoxComponent } from './authentication/login/forget-
 import { AllUsersComponent } from './home/admin/users/all-users/all-users.component';
 import { AllProductsComponent } from './home/admin/products/all-products/all-products.component';
 import {NgxPrintModule} from 'ngx-print';
+import { MailToCustomerComponent } from './home/accountCoordinator/mail/mail-to-customer/mail-to-customer.component';
+import { MailToDeveloperComponent } from './home/accountCoordinator/mail/mail-to-developer/mail-to-developer.component';
+import { MailToAccountCoComponent } from './home/developer/dev-mail/mail-to-account-co/mail-to-account-co.component';
 
 
 
@@ -206,6 +209,9 @@ import {NgxPrintModule} from 'ngx-print';
     ForgetPasswordDialogBoxComponent,
     AllUsersComponent,
     AllProductsComponent,
+    MailToCustomerComponent,
+    MailToDeveloperComponent,
+    MailToAccountCoComponent,
 
 
   ],
