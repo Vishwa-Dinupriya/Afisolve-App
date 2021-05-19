@@ -27,9 +27,10 @@
         </div>
         <!-------------------------------------------------------------------------------------------------------------->
 
-        <div>
+        <div >
           <button class="mb-lg-5 border h-100 " style="width: 30%;" type="button" mat-stroked-button color=""
                   (click)="openDialog(-1)"
+                  [disabled]="imageAttachments.length>6"
                   matTooltip="Click to add new image">
             <mat-icon>add_photo_alternate</mat-icon>
             <span> Add Images</span>
@@ -37,19 +38,33 @@
         </div>
 
         <div style="overflow: hidden;">
-          <div *ngFor="let image of imageAttachments; let i = index"
-               style="float:left; margin-right: 5px; max-width: 20%;max-height: 20%;">
-            <button style="  border: 0px;" type="button" mat-stroked-button color=""
-                    (click)="openDialog(i)" matTooltip="Click to change a selected image">
-              <mat-icon [hidden]="this.imageAttachments[i]">add_photo_alternate</mat-icon>
-              <img class="m-1" [hidden]="!this.imageAttachments[i]" width="95%" height="95%" style="border-radius:10% "
-                   [src]="this.imageAttachments[i]">
-            </button>
-            <button mat-button (click)="removeSelectedImage(i)" class="ml-5" matTooltip="Click to remove this image">
-              Remove
-            </button>
+<!--          <div *ngFor="let image of imageAttachments; let i = index"-->
+<!--               style="float:left; margin-right: 5px; max-width: 20%;max-height: 20%;">-->
+<!--            <button style="  border: 0px;" type="button" mat-stroked-button color=""-->
+<!--                    (click)="openDialog(i)" matTooltip="Click to change a selected image">-->
+<!--              <mat-icon [hidden]="this.imageAttachments[i]">add_photo_alternate</mat-icon>-->
+<!--              <img class="m-1" [hidden]="!this.imageAttachments[i]" width="95%" height="95%" style="border-radius:10% "-->
+<!--                   [src]="this.imageAttachments[i]">-->
+<!--            </button>-->
+<!--            <button mat-button (click)="removeSelectedImage(i)" class="ml-5" matTooltip="Click to remove this image">-->
+<!--              Remove-->
+<!--            </button>-->
+<!--          </div>-->
+
+          <div class="row p-2 border rounded" [hidden]="!imageAttachments.length">
+            <div *ngFor="let image of imageAttachments; let i = index" class="m-1 image-container">
+              <button (click)="removeSelectedImage(i)" type="button" class="close" aria-label="Close"
+                      style="position: absolute; top: 5px; right: 5px; z-index: 2">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <a (click)="openDialog(i)" matTooltip="Click to change a selected image">
+                <mat-icon [hidden]="this.imageAttachments[i]">add_photo_alternate</mat-icon>
+                <img [src]="this.imageAttachments[i]" [hidden]="!this.imageAttachments[i]" class="image"/>
+              </a>
+            </div>
           </div>
         </div>
+
         <!-------------------------------------------------------------------------------------------------------------->
 
         <div class="row">

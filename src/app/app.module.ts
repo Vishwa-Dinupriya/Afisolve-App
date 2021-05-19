@@ -114,6 +114,8 @@ import { ForgetPasswordDialogBoxComponent } from './authentication/login/forget-
 import { AllUsersComponent } from './home/admin/users/all-users/all-users.component';
 import { AllProductsComponent } from './home/admin/products/all-products/all-products.component';
 import {NgxPrintModule} from 'ngx-print';
+import { SessionTimeOutDialogBoxComponent } from './authentication/shared/session-time-out-dialog-box/session-time-out-dialog-box.component';
+import { LoginErrorDialogBoxComponent } from './authentication/login/login-error-dialog-box/login-error-dialog-box.component';
 
 
 
@@ -197,6 +199,8 @@ import {NgxPrintModule} from 'ngx-print';
     ForgetPasswordDialogBoxComponent,
     AllUsersComponent,
     AllProductsComponent,
+    SessionTimeOutDialogBoxComponent,
+    LoginErrorDialogBoxComponent,
 
 
   ],

@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit {
   }
 
   getNotification(): void{
-    console.log(this.currentRole);
+    // console.log(this.currentRole);
     this.http1.get<any>(`http://localhost:3000/home/get-reminder-notification`, {}).subscribe(
       response => {
         this.dataSourceNotifications = response.data;

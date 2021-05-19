@@ -91,7 +91,11 @@
         </mat-icon>
         <span>Profile</span>
       </button>
-
+      <button mat-menu-item class="btn btn-secondary" type="button" *ngIf="authenticationService.isLoggedIn()"
+              (click)="authenticationService.logout()">
+        <mat-icon>login</mat-icon>
+        <span>Change Password</span>
+      </button>
       <button mat-menu-item class="btn btn-secondary" type="button" *ngIf="authenticationService.isLoggedIn()"
               (click)="authenticationService.logout()">
         <mat-icon>login</mat-icon>

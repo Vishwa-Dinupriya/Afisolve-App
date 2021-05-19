@@ -67,7 +67,7 @@ export class AllUsersComponent implements OnInit {
     this.progress = true;
     this.http1.post<any>(`http://localhost:3000/admin/get-all-users-details`, {}).subscribe(
       response => {
-        console.log(response.data);
+        // console.log(response.data);
         this.USERS_DATA = response.data;
         this.usersTabs.forEach(tab => {
           tab.dataSource = new MatTableDataSource<IUser>(this.USERS_DATA.filter(

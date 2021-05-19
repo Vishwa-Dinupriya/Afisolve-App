@@ -41,7 +41,7 @@ export class ForgetPasswordDialogBoxComponent implements OnInit {
     this.forgetPasswordForm2 = this.fb1.group({
       otp: ['', [Validators.required, Validators.minLength(8)]],
       passwordGroup: this.fb1.group({
-        password: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: [''],
       }, {validators: checkPasswords})
     });
