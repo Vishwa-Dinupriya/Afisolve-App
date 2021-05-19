@@ -1,5 +1,6 @@
 <mat-card class="mr-5 ml-5 mt-5 mb-4 shadow">
-  <mat-card-title>Send a Mail to Customer</mat-card-title>
+  <mat-card-title style="text-align: center">Mail to Customer</mat-card-title>
+  <br>
   <form [formGroup]="sendMailToCustomerForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
     <div class="row">
       <mat-form-field appearance="outline" class="col-auto">
@@ -11,18 +12,14 @@
         <mat-error>Please select a customer</mat-error>
       </mat-form-field>
 
-    </div>
 
-    <div class="row">
       <mat-form-field appearance="outline" class="col-auto">
         <mat-label>Complaint ID</mat-label>
         <mat-select  formControlName="complaintID" multiple="false">
           <mat-option *ngFor="let complaintID of compIDList; let i = index" [value]="compIDList[i]">{{compIDList[i]}}</mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
 
-    <div class="row">
       <mat-form-field appearance="outline" class="col-auto">
         <mat-label>Subject</mat-label>
         <mat-select  formControlName="cusSubject" multiple="false">

@@ -1,5 +1,6 @@
 <mat-card class="mr-5 ml-5 mt-5 mb-4 shadow">
-  <mat-card-title>Send a Mail to Developer</mat-card-title>
+  <mat-card-title style="text-align: center">Send a Mail to Developer</mat-card-title>
+  <br>
   <form [formGroup]="sendMailToDeveloperForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
     <div class="row">
       <mat-form-field appearance="outline" class="col-auto">
@@ -11,18 +12,14 @@
         <mat-error>Please select a developer</mat-error>
       </mat-form-field>
 
-    </div>
 
-    <div class="row">
       <mat-form-field appearance="outline" class="col-auto">
         <mat-label>Task ID</mat-label>
         <mat-select  formControlName="taskID" multiple="false">
           <mat-option *ngFor="let taskID of taskIDList; let i = index" [value]="taskIDList[i]">{{taskIDList[i]}}</mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
 
-    <div class="row">
       <mat-form-field appearance="outline" class="col-auto">
         <mat-label>Subject</mat-label>
         <mat-select  formControlName="devSubject" multiple="false">

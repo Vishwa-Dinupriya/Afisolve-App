@@ -1,15 +1,8 @@
-<div class="container-fluid">
-
+<mat-card>
+  <mat-card-title>Update Developer</mat-card-title>
+  <br>
   <form [formGroup]="updateDeveloperForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
 
-  <!--  <div class="row">
-
-      <mat-form-field class="col-auto" appearance="outline">
-        <mat-label>task ID</mat-label>
-        <input type="text" matInput formControlName="taskID" placeholder="Enter a valied Task ID">
-      </mat-form-field>
-    </div>
--->
     <div class="row">
       <mat-form-field appearance="outline" class="col-auto">
         <mat-label>Select Task</mat-label>
@@ -18,9 +11,7 @@
                       [value]="taskIDList[i]">{{taskIDList[i]}}</mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
 
-    <div class="row">
       <mat-form-field appearance="outline" class="col-auto">
         <mat-label>Select Developer</mat-label>
         <mat-select formControlName="developerEmail" multiple="false">
@@ -29,9 +20,7 @@
         </mat-select>
         <mat-error>Please select a developer</mat-error>
       </mat-form-field>
-    </div>
 
-    <div class="row">
 
       <mat-form-field class="col-auto" appearance="outline">
         <mat-label>Deadline</mat-label>
@@ -44,7 +33,7 @@
 
   </form>
 
-</div>
+</mat-card>
 
 
 

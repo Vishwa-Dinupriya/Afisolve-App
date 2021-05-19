@@ -1,5 +1,7 @@
-<div class="container-fluid">
-
+<mat-card>
+<mat-card style="background-color: #f6f7fa">
+  <mat-card-title style="color: #002fa7">Update Task Status</mat-card-title>
+  <br>
   <form [formGroup]="updateDevTaskStatusForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
 
     <div class="row">
@@ -10,9 +12,7 @@
                       [value]="taskIDList[i]">{{taskIDList[i]}}</mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
 
-    <div class="row">
       <mat-form-field appearance="outline" class="col-auto">
         <mat-label>Status</mat-label>
         <mat-select  formControlName="task_status" multiple="false">
@@ -24,8 +24,8 @@
     <button class="btn btn-primary" type="submit" [disabled]="!updateDevTaskStatusForm.valid">Update</button>
 
   </form>
-
-</div>
+</mat-card>
+</mat-card>
 
 
 

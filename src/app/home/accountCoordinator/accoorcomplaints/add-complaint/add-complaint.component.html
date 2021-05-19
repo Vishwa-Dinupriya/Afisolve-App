@@ -1,6 +1,7 @@
 <!-------------------Add new complaint-------------------------------------->
-<div class="container-fluid">
-
+<mat-card>
+<mat-card-title style="text-align: center">Add Complaint</mat-card-title>
+  <br>
   <form [formGroup]="addComplaintForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
 <!--
     <div class="row">
@@ -35,6 +36,6 @@
 
   </form>
 
-</div>
+</mat-card>
 
 

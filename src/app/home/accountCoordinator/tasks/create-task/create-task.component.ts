@@ -15,6 +15,8 @@ export class CreateTaskComponent implements OnInit {
   @ViewChild('myForm') myForm;
   developerEmailList;
   developerNameList;
+  complaintIDList;
+  subComplaintIDList;
 
   createTaskForm: FormGroup;
   // developerNameList;
@@ -38,6 +40,20 @@ export class CreateTaskComponent implements OnInit {
         this.developerEmailList = response.data.map(value => value.developerEmail);
         this.developerNameList = response.data.map(value => value.developerName);
         }, error => {
+        console.log(error);
+      }
+    );
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-complaintIDlist', {}).subscribe(
+      response => {
+        this.complaintIDList = response.data.map(value => value.complaintID);
+      }, error => {
+        console.log(error);
+      }
+    );
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-subComplaintIDlist', {}).subscribe(
+      response => {
+        this.subComplaintIDList = response.data.map(value => value.subComplaintID);
+      }, error => {
         console.log(error);
       }
     );

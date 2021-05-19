@@ -1,7 +1,8 @@
 <div [hidden]="false">
 <mat-tab-group animationDuration="1000ms" [selectedIndex]="tabIndex">
-
+<mat-card>
   <mat-tab label="General Details">
+    <mat-card style="background-color: #f6f7fa">
     <div>
       <mat-list *ngIf="!!TASK_DETAILS_DATA">
 
@@ -40,6 +41,7 @@
     <div [hidden]="taskIdAvailable">
       <i> Requested Task Id is null</i>
     </div>
+    </mat-card>
   </mat-tab>
 <!--
   <mat-tab label="Edit Task">
@@ -98,7 +100,7 @@
     </div>
   </mat-tab>
 -->
-
+</mat-card>
 </mat-tab-group>
 
   <button class="btn btn-primary" (click)="backToAllTasks()" [hidden]="!taskService.isTaskProfileMode">
