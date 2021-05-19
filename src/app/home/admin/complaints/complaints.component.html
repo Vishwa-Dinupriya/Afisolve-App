@@ -21,7 +21,7 @@
 
             <mat-form-field class="w-75 m-3">
               <mat-label>Filter</mat-label>
-              <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
+              <input matInput placeholder="Any keyword" (keyup)="applyFilter($event , i)">
             </mat-form-field>
 
             <div>
@@ -35,7 +35,7 @@
 
                 <!-- complaintID Column -->
                 <ng-container matColumnDef="complaintID">
-                  <th mat-header-cell *matHeaderCellDef> complaintID</th>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> complaintID</th>
                   <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
                 </ng-container>
 
@@ -47,14 +47,17 @@
 
                 <!-- description Column -->
                 <ng-container matColumnDef="description">
-                  <th mat-header-cell *matHeaderCellDef style="width: 150px"> description</th>
-                  <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                  <!-- <th mat-header-cell *matHeaderCellDef style="width: 150px"> description</th>-->
+                  <th mat-header-cell *matHeaderCellDef style="width: 25%" > description</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{this.complaintService.profileModeValue? (element.description+'').toString().substr(0, 36)+'...' :  element.description.toString().substr(0, 70) }} </td>
                 </ng-container>
 
                 <!-- submittedDate Column -->
                 <ng-container matColumnDef="submittedDate">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> submittedDate</th>
-                  <td mat-cell *matCellDef="let element"> {{element.submittedDate}} </td>
+                  <td mat-cell *matCellDef="let element">
+                    {{this.complaintService.profileModeValue? (element.submittedDate+'').toString().substr(0, 20)+'...' : element.submittedDate}} </td>
                 </ng-container>
 
                 <!-- productID Column -->

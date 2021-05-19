@@ -56,11 +56,11 @@ export class ForgetPasswordDialogBoxComponent implements OnInit {
   }
 
   get password(): AbstractControl {
-    return this.forgetPasswordForm2.get('abc.password');
+    return this.forgetPasswordForm2.get('passwordGroup.password');
   }
 
   get confirmPassword(): AbstractControl {
-    return this.forgetPasswordForm2.get('abc.confirmPassword');
+    return this.forgetPasswordForm2.get('passwordGroup.confirmPassword');
   }
 
   onCancel1(): void {

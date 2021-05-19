@@ -1,4 +1,4 @@
- <div class="h-100">
+<div class="h-100">
   <script src="../app-routing.module.ts"></script>
 
   <div>
@@ -33,14 +33,15 @@
       </span>
         </button>
 
-        <button mat-icon-button [matMenuTriggerFor]= "dropDownNotifications" (click)="getNotification()">
+        <button mat-icon-button [matMenuTriggerFor]="dropDownNotifications" (click)="getNotification()">
           <mat-icon matBadge={{hidd}} matBadgeColor="warn">notifications</mat-icon>
         </button>
 
         <button mat-icon-button [matMenuTriggerFor]="dropDownUser">
           <mat-icon>
             <img *ngIf="this.profilePicture" [src]=this.profilePicture alt="" width="120%" height="120%"
-                 class="d-inline-block align-top border" style=" border-radius: 50%; height: 150%; width: 150%; margin-top: -6px; ">
+                 class="d-inline-block align-top border"
+                 style=" border-radius: 50%; height: 150%; width: 150%; margin-top: -6px; ">
           </mat-icon>
         </button>
       </mat-toolbar-row>
@@ -53,21 +54,27 @@
         <span>{{ role_.roleName }}</span>
       </button>
     </mat-menu>
-       <!---------------------------------------------------------------------->
+    <!---------------------------------------------------------------------->
     <mat-menu #dropDownNotifications="matMenu">
       <div *ngIf="currentRole == 'account-coordinator';  then ac_notification; else non_ac"></div>
       <ng-template #ac_notification>
         <div>
           <div>
-          <mat-list>
-          <div *ngFor="let notfi of dataSourceNotifications">
-            <mat-icon>arrow_right</mat-icon><b>{{notfi.action}}</b> : about product Id-{{notfi.productID}} product, please check your email for more details.
-            <div style="margin-left: 50%; font-size: small">
-              {{notfi.submittedtime | date}} <button mat-icon-button color="warn" (click)="readAlert(notfi)" ><mat-icon>assignment_turned_in</mat-icon>read</button>
-            </div>
-            <mat-divider></mat-divider>
-          </div>
-          </mat-list>
+            <mat-list>
+              <div *ngFor="let notfi of dataSourceNotifications">
+                <mat-icon>arrow_right</mat-icon>
+                <b>{{notfi.action}}</b> : about product Id-{{notfi.productID}} product, please check your email for more
+                details.
+                <div style="margin-left: 50%; font-size: small">
+                  {{notfi.submittedtime | date}}
+                  <button mat-icon-button color="warn" (click)="readAlert(notfi)">
+                    <mat-icon>assignment_turned_in</mat-icon>
+                    read
+                  </button>
+                </div>
+                <mat-divider></mat-divider>
+              </div>
+            </mat-list>
           </div>
         </div>
       </ng-template>
@@ -87,13 +94,14 @@
     <mat-menu #dropDownUser="matMenu">
       <button mat-menu-item style="width: 200px" (click)="goToUserProfile()">
         <mat-icon><img [hidden]="!this.profilePicture" [src]=this.profilePicture alt="" width="120%" height="120%"
-                       class="d-inline-block align-top border" style=" margin-top: -6px; margin-left: -6px; width: 150%; height: 150%;border-radius: 80%; ">
+                       class="d-inline-block align-top border"
+                       style=" margin-top: -6px; margin-left: -6px; width: 150%; height: 150%;border-radius: 80%; ">
         </mat-icon>
         <span>Profile</span>
       </button>
       <button mat-menu-item class="btn btn-secondary" type="button" *ngIf="authenticationService.isLoggedIn()"
-              (click)="authenticationService.logout()">
-        <mat-icon>login</mat-icon>
+              (click)="changePassword()">
+        <mat-icon>vpn_key</mat-icon>
         <span>Change Password</span>
       </button>
       <button mat-menu-item class="btn btn-secondary" type="button" *ngIf="authenticationService.isLoggedIn()"

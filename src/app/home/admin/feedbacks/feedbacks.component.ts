@@ -83,10 +83,10 @@ export class FeedbacksComponent implements OnInit, AfterViewInit {
     }
   }
 
-  applyFilter(event): void {
+  applyFilter(event, tabIndex): void {
     // console.log('event: ' + event);
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.feedbacksTabs[tabIndex].dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   public redirectToDetails(complaintID: number): void {

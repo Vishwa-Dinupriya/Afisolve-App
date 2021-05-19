@@ -36,7 +36,7 @@ export class AllUsersComponent implements OnInit {
 
   displayedColumns: string[] = ['userEmail', 'firstName', 'lastName', 'contactNumber', 'createdAt', 'activeStatus', 'details', 'delete'];
 
-  dataSource: MatTableDataSource<IUser>;
+  // dataSource: MatTableDataSource<IUser>;
   USERS_DATA: IUser[];
 
   usersTabs: ITabUsers[] = [
@@ -82,10 +82,10 @@ export class AllUsersComponent implements OnInit {
     ).add(() => this.progress = false);
   }
 
-  applyFilter(event): void {
+  applyFilter(event, tabIndex): void {
     // console.log('event: ' + event);
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.usersTabs[tabIndex].dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   public redirectToDetails(id: string): void {
