@@ -149,7 +149,8 @@ export class HomeComponent implements OnInit {
         message: 'We sent an one-time-password(OTP) to ',
         name: ' ',
         button1: 'Cancel',
-        button2: 'Done'
+        button2: 'Done',
+        userEmail: localStorage.getItem('userEmail')
       }
     });
 
