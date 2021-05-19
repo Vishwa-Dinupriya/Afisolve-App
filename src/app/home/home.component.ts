@@ -95,6 +95,7 @@ export class HomeComponent implements OnInit {
 
           this.router.navigate([`../home/${response.requestedRole.toLowerCase()}`]);
           this.currentRole = response.requestedRole;
+          this.getNotification();
         },
         error => {
           console.error('Role change Error!(frontend)', error);
@@ -112,6 +113,7 @@ export class HomeComponent implements OnInit {
     this.http1.get<any>(`http://localhost:3000/home/get-reminder-notification`, {}).subscribe(
       response => {
         this.dataSourceNotifications = response.data;
+        console.log(this.dataSourceNotifications);
         this.hidd = this.dataSourceNotifications.length;
 
       }, error => {
