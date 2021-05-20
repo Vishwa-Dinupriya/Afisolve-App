@@ -121,6 +121,9 @@ import {NgxPrintModule} from 'ngx-print';
 import { MailToCustomerComponent } from './home/accountCoordinator/mail/mail-to-customer/mail-to-customer.component';
 import { MailToDeveloperComponent } from './home/accountCoordinator/mail/mail-to-developer/mail-to-developer.component';
 import { MailToAccountCoComponent } from './home/developer/dev-mail/mail-to-account-co/mail-to-account-co.component';
+import { UpdateSelectedDevtaskStatusComponent } from './home/developer/devtasks/update-selected-devtask-status/update-selected-devtask-status.component';
+import { AcdashboardComponent } from './home/accountCoordinator/acdashboard/acdashboard.component';
+import { DevdashboardComponent } from './home/developer/devdashboard/devdashboard.component';
 
 
 
@@ -212,6 +215,9 @@ import { MailToAccountCoComponent } from './home/developer/dev-mail/mail-to-acco
     MailToCustomerComponent,
     MailToDeveloperComponent,
     MailToAccountCoComponent,
+    UpdateSelectedDevtaskStatusComponent,
+    AcdashboardComponent,
+    DevdashboardComponent,
 
 
   ],
