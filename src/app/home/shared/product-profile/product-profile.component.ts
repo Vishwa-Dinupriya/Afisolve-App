@@ -33,8 +33,8 @@ export interface IComplaintProduct {
 export class ProductProfileComponent implements OnInit, OnChanges {
   @Input() productIDChild: number;
 
-  PRODUCT_DETAILS_DATA: IProductDetailsAdmin;
-  COMPLAINTS_PRODUCT_DATA: IComplaintProduct[] = [];
+  PRODUCT_DETAILS_DATA: IProductDetailsAdmin; // undefined
+  COMPLAINTS_PRODUCT_DATA: IComplaintProduct[] = []; // defined
 
   productIdAvailable;
   tabIndex = 1;
@@ -60,8 +60,8 @@ export class ProductProfileComponent implements OnInit, OnChanges {
           response => {
             // console.log(response);
             this.tabIndex = 0;
-            this.PRODUCT_DETAILS_DATA = response.data;
-            this.COMPLAINTS_PRODUCT_DATA = response.data.complaintsDetails;
+            this.PRODUCT_DETAILS_DATA = response.data; // undifined -> defined weno
+            this.COMPLAINTS_PRODUCT_DATA = response.data.complaintsDetails; // defined -> undifined
             // console.log(this.COMPLAINTS_PRODUCT_DATA);
           },
           error => {
