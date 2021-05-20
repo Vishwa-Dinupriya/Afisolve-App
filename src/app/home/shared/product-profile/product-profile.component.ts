@@ -20,6 +20,10 @@ export interface IProductDetailsAdmin {
   projectManagerFirstName: string;
   projectManagerLastName: string;
 }
+export interface IComplaintProduct {
+  complaintID: string;
+  submittedDate: string;
+}
 
 @Component({
   selector: 'app-product-profile',
@@ -28,7 +32,10 @@ export interface IProductDetailsAdmin {
 })
 export class ProductProfileComponent implements OnInit, OnChanges {
   @Input() productIDChild: number;
-  PRODUCT_DETAILS_DATA: IProductDetailsAdmin;
+
+  PRODUCT_DETAILS_DATA: IProductDetailsAdmin; // undefined
+  COMPLAINTS_PRODUCT_DATA: IComplaintProduct[] = []; // defined
+
   productIdAvailable;
   tabIndex = 1;
   isHiddenAc: boolean;
@@ -51,10 +58,11 @@ export class ProductProfileComponent implements OnInit, OnChanges {
       })
         .subscribe(
           response => {
-            console.log(response);
+            // console.log(response);
             this.tabIndex = 0;
-            this.PRODUCT_DETAILS_DATA = response.data;
-            console.log(this.PRODUCT_DETAILS_DATA);
+            this.PRODUCT_DETAILS_DATA = response.data; // undifined -> defined weno
+            this.COMPLAINTS_PRODUCT_DATA = response.data.complaintsDetails; // defined -> undifined
+            // console.log(this.COMPLAINTS_PRODUCT_DATA);
           },
           error => {
             console.log(error);
@@ -82,7 +90,7 @@ export class ProductProfileComponent implements OnInit, OnChanges {
     this.productService.ChangeProductIDSubjectNumberValue(null);
   }
 
-  editAc(): void{
+  editAc(): void {
     this.isHiddenAc = true;
     this.http1.get<any>(`http://localhost:3000/ceo/get-account-coordinaters-details`, {}).subscribe(
       response => {
@@ -107,7 +115,7 @@ export class ProductProfileComponent implements OnInit, OnChanges {
       );
   }
 
-  editPm(): void{
+  editPm(): void {
     this.isHiddenPm = true;
     this.http1.post<any>(`http://localhost:3000/admin/get-project-Manager-List`, {}).subscribe(
       response => {

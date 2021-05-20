@@ -56,7 +56,7 @@ export class SignupComponent implements OnInit {
       lastName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       passwordGroup: this.fb1.group({
-        password: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: [''],
       }, {validators: checkPasswords}),
       roles: ['', [Validators.required]],
@@ -78,11 +78,11 @@ export class SignupComponent implements OnInit {
   }
 
   get password(): AbstractControl {
-    return this.userRegistrationForm.get('abc.password');
+    return this.userRegistrationForm.get('passwordGroup.password');
   }
 
   get confirmPassword(): AbstractControl {
-    return this.userRegistrationForm.get('abc.confirmPassword');
+    return this.userRegistrationForm.get('passwordGroup.confirmPassword');
   }
 
   get roles(): AbstractControl {

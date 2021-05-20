@@ -8,6 +8,12 @@ import {AppService} from '../app.service';
 import {EventEmitter} from 'events';
 import {HomeService} from './home.service';
 import {MatMenu} from '@angular/material/menu';
+import {ForgetPasswordDialogBoxComponent} from '../authentication/login/forget-password-dialog-box/forget-password-dialog-box.component';
+import {DialogBoxComponent} from '../shared/dialog-box/dialog-box.component';
+import {MatDialog} from '@angular/material/dialog';
+import {OtpService} from '../shared/otp-service/otp.service';
+import {ChangePasswordService} from './shared/change-password-dialog-box/change-password.service';
+import {ChangePasswordDialogBoxComponent} from './shared/change-password-dialog-box/change-password-dialog-box.component';
 
 
 @Component({
@@ -44,7 +50,10 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private http1: HttpClient,
     public appService: AppService,
-    public homeService: HomeService
+    public homeService: HomeService,
+    private dialog: MatDialog,
+    private otpService: OtpService,
+    private changePasswordService: ChangePasswordService
   ) {
   }
 
@@ -95,6 +104,7 @@ export class HomeComponent implements OnInit {
 
           this.router.navigate([`../home/${response.requestedRole.toLowerCase()}`]);
           this.currentRole = response.requestedRole;
+          this.getNotification();
         },
         error => {
           console.error('Role change Error!(frontend)', error);
@@ -107,11 +117,12 @@ export class HomeComponent implements OnInit {
     this.homeService.changeUserEmailStringSubjectValue(localStorage.getItem('userEmail'));
   }
 
-  getNotification(): void{
-    console.log(this.currentRole);
+  getNotification(): void {
+    // console.log(this.currentRole);
     this.http1.get<any>(`http://localhost:3000/home/get-reminder-notification`, {}).subscribe(
       response => {
         this.dataSourceNotifications = response.data;
+        console.log(this.dataSourceNotifications);
         this.hidd = this.dataSourceNotifications.length;
 
       }, error => {
@@ -120,7 +131,7 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  readAlert(selectedvalue: string[]): void{
+  readAlert(selectedvalue: string[]): void {
     console.log(selectedvalue);
     this.tim = 'submittedtime:6789';
     console.log(this.tim);
@@ -131,6 +142,79 @@ export class HomeComponent implements OnInit {
         },
         error => console.error('Error!(frontend)', error)
       );
+  }
+
+  changePassword(): void {
+    const dialogRef1 = this.dialog.open(ChangePasswordDialogBoxComponent, {
+      data: {
+        title: 'Change Password!',
+        message: 'We sent an one-time-password(OTP) to ',
+        name: ' ',
+        button1: 'Cancel',
+        button2: 'Done',
+        userEmail: localStorage.getItem('userEmail')
+      }
+    });
+
+    dialogRef1.afterClosed().subscribe(result1 => {
+      if (result1 === true) {
+        // new password and otp send to back end
+        this.authenticationService.changePassword(
+          this.changePasswordService.changePasswordEmail,
+          this.changePasswordService.newPassword,
+          this.otpService.otp,
+          this.otpService.otpID)
+          .subscribe(
+            response => {
+              console.log('Success!(frontend)', response);
+              const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  image: ' ',
+                  title: 'Success!',
+                  message: 'Password Changed Successfully! Please login with new password ',
+                  name: ' ',
+                  button1: '',
+                  button2: 'Ok'
+                }
+              });
+
+              dialogRef2.afterClosed().subscribe(result2 => {
+                console.log(`Dialog result: ${result2}`);
+                if (result2 === true) {
+                  this.authenticationService.logout();
+                } else {
+                  this.authenticationService.logout();
+                }
+              });
+            },
+            error => {
+              console.error('Error!(frontend)', error);
+              const dialogRef3 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  image: '',
+                  title: 'Failed!',
+                  message: error,
+                  name: ' ',
+                  button1: '',
+                  button2: 'Retry'
+                }
+              });
+
+              dialogRef3.afterClosed().subscribe(result3 => {
+                console.log(`Dialog result: ${result3}`);
+                if (result3 === true) {
+
+                } else {
+
+                }
+              });
+            }
+          );
+      } else {
+        console.log(`Dialog result: ${result1}`);
+
+      }
+    });
   }
 
 }

@@ -1,23 +1,22 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {ForgetPasswordService} from '../forget-password.service';
 import {FormGroup, FormBuilder, Validators, AbstractControl} from '@angular/forms';
-import {checkPasswords} from '../../shared/password.validator';
+import {checkPasswords} from '../../../authentication/shared/password.validator';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {OtpService} from '../../../shared/otp-service/otp.service';
-import {MyErrorStateMatcher} from '../../signup/signup.component';
+import {MyErrorStateMatcher} from '../../../authentication/signup/signup.component';
 import {HttpClient} from '@angular/common/http';
+import {ChangePasswordService} from './change-password.service';
 
 @Component({
-  selector: 'app-forget-password-dialog-box',
-  templateUrl: './forget-password-dialog-box.component.html',
-  styleUrls: ['./forget-password-dialog-box.component.css']
+  selector: 'app-change-password-dialog-box',
+  templateUrl: './change-password-dialog-box.component.html',
+  styleUrls: ['./change-password-dialog-box.component.css']
 })
-export class ForgetPasswordDialogBoxComponent implements OnInit {
+export class ChangePasswordDialogBoxComponent implements OnInit {
   @ViewChild('myForm2') myForm2;
 
   otpSent;
 
-  forgetPasswordForm1: FormGroup;
   forgetPasswordForm2: FormGroup;
 
   hidePassword = true;
@@ -27,16 +26,13 @@ export class ForgetPasswordDialogBoxComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               public otpService: OtpService,
-              public forgetPasswordService: ForgetPasswordService,
+              public changePasswordService: ChangePasswordService,
               private fb1: FormBuilder,
               private http1: HttpClient) {
   }
 
   ngOnInit(): void {
     this.otpSent = false;
-    this.forgetPasswordForm1 = this.fb1.group({
-      email: ['', [Validators.required, Validators.email]]
-    });
 
     this.forgetPasswordForm2 = this.fb1.group({
       otp: ['', [Validators.required, Validators.minLength(8)]],
@@ -45,10 +41,6 @@ export class ForgetPasswordDialogBoxComponent implements OnInit {
         confirmPassword: [''],
       }, {validators: checkPasswords})
     });
-  }
-
-  get email(): AbstractControl {
-    return this.forgetPasswordForm1.get('email');
   }
 
   get otp(): AbstractControl {
@@ -63,17 +55,13 @@ export class ForgetPasswordDialogBoxComponent implements OnInit {
     return this.forgetPasswordForm2.get('passwordGroup.confirmPassword');
   }
 
-  onCancel1(): void {
-    this.forgetPasswordForm1.reset();
-  }
-
-  onCancel2(): void {
+  onCancel(): void {
     this.forgetPasswordForm2.reset();
   }
 
   sendOtpToEmailFromServerSide(): void {
-    this.forgetPasswordService.changeForgetPasswordEmailSubjectStringValue(this.email.value);
-    this.http1.post<any>(`http://localhost:3000/authentication/sendOtpToEmail`, {userEnteredEmail: this.email.value})
+    this.changePasswordService.changeForgetPasswordEmailSubjectStringValue(this.data.userEmail);
+    this.http1.post<any>(`http://localhost:3000/authentication/sendOtpToEmail`, {userEnteredEmail: this.data.userEmail})
       .subscribe(
         response => {
           console.log(response.otpID);
@@ -87,7 +75,7 @@ export class ForgetPasswordDialogBoxComponent implements OnInit {
 
   sendOtpAndNewPasswordToServiceFiles(): void {
     this.otpService.changeOtpValueSubjectNumberValue(Number(this.otp.value));
-    this.forgetPasswordService.changeNewPasswordSubjectStringValue(this.password.value);
+    this.changePasswordService.changeNewPasswordSubjectStringValue(this.password.value);
   }
 
 }

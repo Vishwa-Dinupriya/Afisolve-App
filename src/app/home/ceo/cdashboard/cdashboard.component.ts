@@ -21,7 +21,7 @@ export interface IComplaint{
   templateUrl: './cdashboard.component.html',
   styleUrls: ['./cdashboard.component.css']
 })
-export class CdashboardComponent implements OnInit, AfterViewInit {
+export class CdashboardComponent implements OnInit{
 
   cl: string;
  dataSourceFeed: any;
@@ -54,21 +54,7 @@ allll: any;
 
   // tslint:disable-next-line:typedef
    b: string;
-
-
-  // tslint:disable-next-line:typedef
-   firstm: string;
-  firstmmm: string;
-   secondm: string;
-  secondmmm: string;
-   thirdm: string;
-  thirdmmm: string;
-   fourthm: string;
-  fourthmmm: string;
-   fifthm: string;
-  fifthmmm: string;
-
-  // tslint:disable-next-line:typedef
+   // tslint:disable-next-line:typedef
    wc: string;
 
   // tslint:disable-next-line:typedef
@@ -83,20 +69,6 @@ allll: any;
     this.getlatecount();
     this.getFeedbackCount();
 
-  }
-
-  ngAfterViewInit(): void {
-    this.http1.get<any>(`http://localhost:3000/ceo/get-notaction-details`, {}).subscribe(
-      response => {
-        this.COMPLAINS_DATA = response.data;
-        console.log(this.COMPLAINS_DATA);
-        this.dataSourceComplaints = new MatTableDataSource<IComplaint>(this.COMPLAINS_DATA);
-        this.dataSourceComplaints.sort = this.sort;
-        this.dataSourceComplaints.paginator = this.paginator;
-      }, error => {
-        console.log(error);
-      }
-    );
   }
 
   applyFilter(event): void {
@@ -115,26 +87,17 @@ allll: any;
     this.http1.get<any>(`http://localhost:3000/ceo/get-month-count`, {}).subscribe(
       response => {
         this.dataSourceUsersmonth = response.data;
-        console.log(this.dataSourceUsersmonth[4].num);
-        console.log(this.dataSourceUsersmonth[3].num);
-        console.log(this.dataSourceUsersmonth[2].num);
-        this.firstm = this.dataSourceUsersmonth[0].num;
-        this.secondm = this.dataSourceUsersmonth[1].num;
-        this.thirdm = this.dataSourceUsersmonth[2].num;
-
-
-
         // ..........................chart eka
         // tslint:disable-next-line:prefer-const
         var myChart = new Chart('myChart3', {
           type: 'line',
           data: {
             // tslint:disable-next-line:max-line-length
-            labels: [this.dataSourceUsersmonth[4].month, this.dataSourceUsersmonth[3].month, this.dataSourceUsersmonth[2].month, this.dataSourceUsersmonth[1].month, this.dataSourceUsersmonth[0].month],
+            labels: [this.dataSourceUsersmonth.fifthm, this.dataSourceUsersmonth.fourthm, this.dataSourceUsersmonth.thirdm, this.dataSourceUsersmonth.secondm, this.dataSourceUsersmonth.firstm],
             datasets: [{
               label: ' ',
               // tslint:disable-next-line:max-line-length
-              data: [this.dataSourceUsersmonth[4].num, this.dataSourceUsersmonth[3].num, this.dataSourceUsersmonth[2].num, this.dataSourceUsersmonth[1].num, this.dataSourceUsersmonth[0].num ],
+              data: [this.dataSourceUsersmonth.fifth, this.dataSourceUsersmonth.fourth, this.dataSourceUsersmonth.third, this.dataSourceUsersmonth.second, this.dataSourceUsersmonth.first ],
               backgroundColor: [
                 '',
               ],
@@ -186,11 +149,11 @@ allll: any;
           type: 'line',
           data: {
             // tslint:disable-next-line:max-line-length
-            labels: [this.dataSourceUsersmonth[4].month, this.dataSourceUsersmonth[3].month, this.dataSourceUsersmonth[2].month, this.dataSourceUsersmonth[1].month, this.dataSourceUsersmonth[0].month],
+            labels: [this.dataSourceUsersmonth.fifthm, this.dataSourceUsersmonth.fourthm, this.dataSourceUsersmonth.thirdm, this.dataSourceUsersmonth.secondm, this.dataSourceUsersmonth.firstm],
             datasets: [{
               label: ' ',
               // tslint:disable-next-line:max-line-length
-              data: [(this.allll - this.dataSourceUsersmonth[4].num - this.dataSourceUsersmonth[3].num - this.dataSourceUsersmonth[2].num - this.dataSourceUsersmonth[1].num), ( this.allll - this.dataSourceUsersmonth[4].num - this.dataSourceUsersmonth[3].num - this.dataSourceUsersmonth[2].num), ( this.allll - this.dataSourceUsersmonth[4].num - this.dataSourceUsersmonth[3].num), ( this.allll - this.dataSourceUsersmonth[4].num ), this.allll],
+              data: [(this.allll - this.dataSourceUsersmonth.first - this.dataSourceUsersmonth.second - this.dataSourceUsersmonth.third - this.dataSourceUsersmonth.fourth), ( this.allll - this.dataSourceUsersmonth.first - this.dataSourceUsersmonth.second - this.dataSourceUsersmonth.third), ( this.allll - this.dataSourceUsersmonth.first - this.dataSourceUsersmonth.second), ( this.allll - this.dataSourceUsersmonth.first), this.allll],
               backgroundColor: [
                 '',
               ],

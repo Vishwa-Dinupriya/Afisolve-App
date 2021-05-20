@@ -60,13 +60,15 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    // how can get params by url
+    // this reference to commented example in -> register component> back to all products
+    // http://localhost:4200/home/admin/complaints;username=abc
     this.route.params.subscribe(params => console.log(params));
   }
 
   ngAfterViewInit(): void {
     this.http1.post<any>(`http://localhost:3000/admin/get-all-complaints`, {}).subscribe(
       response => {
-        // console.log(response.data);
         this.COMPLAINS_DATA = response.data;
         this.complaintsTabs.forEach(tab => {
           tab.dataSource = new MatTableDataSource<IComplaintWithSubsElement>(this.COMPLAINS_DATA.filter(
@@ -80,10 +82,10 @@ export class ComplaintsComponent implements OnInit, AfterViewInit {
     );
   }
 
-  applyFilter(event): void {
+  applyFilter(event, tabIndex): void {
     // console.log('event: ' + event);
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.complaintsTabs[tabIndex].dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   public redirectToDetails(complaintID: number, subComplaintID: number): void {
