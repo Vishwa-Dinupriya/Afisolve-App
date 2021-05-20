@@ -204,6 +204,22 @@
                [src]=" 'data:image/png;base64,' +this.imageAttachments[i]">
         </div>
       </div>
-    </div>
+    <!--  <button class="btn btn-primary" (click)="backToAllComplaintsAdmin()" [hidden]="!complaintService.profileModeValue && requestFrom!=='admin' ">
+    <mat-icon>arrow_back_ios</mat-icon>
+    All Complains
+  </button>
+
+  <button class="btn btn-primary" (click)="backToAllComplaintsCustomer()" [hidden]="!complaintCustomerService.isComplaintProfileMode && requestFrom!=='customer'">
+    <mat-icon>arrow_back_ios</mat-icon>
+    All Complains
+  </button>
+-->
+  <button class="btn btn-primary" (click)="backToAllComplaintsDeveloper()" [hidden]="!devtaskService.profileModeValue && requestFrom!=='developer' ">
+    <mat-icon>arrow_back_ios</mat-icon>
+    All Complains
+  </button>
+
+</div>
   </mat-card-content>
 </mat-card>
+

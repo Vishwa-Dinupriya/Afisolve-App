@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TaskService} from '../task.service';
 import {HttpClient} from '@angular/common/http';
 import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
 import {MatDialog} from '@angular/material/dialog';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-create-task',
@@ -12,8 +13,14 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class CreateTaskComponent implements OnInit {
   @ViewChild('myForm') myForm;
+  developerEmailList;
+  developerNameList;
+  complaintIDList;
+  subComplaintIDList;
 
   createTaskForm: FormGroup;
+  // developerNameList;
+ // developerIDList;
   constructor(private fb1: FormBuilder,
               private taskService: TaskService,
               private http1: HttpClient,
@@ -24,10 +31,48 @@ export class CreateTaskComponent implements OnInit {
       complaintID: ['', [Validators.required]],
       subComplaintID: ['', [Validators.required]],
       deadline: ['', [Validators.required]],
-      task_description: ['', [Validators.required]],
+      task_description: ['', [Validators.minLength(5), Validators.required]],
      developerEmail: ['', [Validators.required]],
+     // developerID: ['', [Validators.required]],
     });
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-DeveloperList', {}).subscribe(
+      response => {
+        this.developerEmailList = response.data.map(value => value.developerEmail);
+        this.developerNameList = response.data.map(value => value.developerName);
+        }, error => {
+        console.log(error);
+      }
+    );
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-complaintIDlist', {}).subscribe(
+      response => {
+        this.complaintIDList = response.data.map(value => value.complaintID);
+      }, error => {
+        console.log(error);
+      }
+    );
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-subComplaintIDlist', {}).subscribe(
+      response => {
+        this.subComplaintIDList = response.data.map(value => value.subComplaintID);
+      }, error => {
+        console.log(error);
+      }
+    );
+    /*this.http1.post<any>(`environment.accountCoordinatorApiUrl + //get-DeveloperList`, {}).subscribe(
+      response => {
+        this.developerIDList = response.data.map(value => value.developerID);
+        this.developerNameList = response.data.map(value => value.developerName);
+      }, error => {
+        console.log(error);
+      }
+    );*/
+    ////
   }
+ /* get developerID(): AbstractControl {
+    return this.createTaskForm.get('developerID');
+  }
+  get developerName(): AbstractControl {
+    return this.createTaskForm.get('developerName');
+  }*/
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
       data: {
@@ -65,7 +110,16 @@ export class CreateTaskComponent implements OnInit {
                 }
               });
             },
-            error => console.error('Error!(frontend)', error)
+            error => {console.error('Error!(frontend)', error);
+                      const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  title: 'Failed! Please try again.',
+                  message: 'Please make sure the details you entered are valied. ',
+                  name: ' ',
+                  button1: '',
+                  button2: 'Ok'
+                }
+              }); }
           );
       } else {
         this.taskService.ChangeCreateTaskModeBooleanSubjectValue(false);

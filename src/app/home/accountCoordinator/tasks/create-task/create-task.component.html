@@ -1,23 +1,40 @@
-<div class="container-fluid">
+<mat-card>
+<mat-card-title style="text-align: center">Create Task</mat-card-title>
+<br>
 
-  <form [formGroup]="createTaskForm" (ngSubmit)="onSubmit()" #myForm="ngForm"> <!---->
+  <form [formGroup]="createTaskForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
 
     <div class="row">
-
-      <mat-form-field class="col-auto" appearance="outline">
-        <mat-label>Complaint ID</mat-label>
-        <input type="text" matInput formControlName="complaintID" placeholder="Complaint ID">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Select Complaint ID</mat-label>
+        <mat-select formControlName="complaintID" multiple="false">
+          <mat-option *ngFor="let complaintID of complaintIDList; let i = index"
+                      [value]="complaintIDList[i]">{{complaintIDList[i]}}</mat-option>
+        </mat-select>
+        <mat-error>Please select a Complaint ID</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="col-auto" appearance="outline">
-        <mat-label>Sub Complaint ID</mat-label>
-        <input type="text" matInput formControlName="subComplaintID" placeholder="Sub Complaint ID">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Select Sub Complaint ID</mat-label>
+        <mat-select formControlName="subComplaintID" multiple="false">
+          <mat-option *ngFor="let subComplaintID of subComplaintIDList; let i = index"
+                      [value]="subComplaintIDList[i]">{{subComplaintIDList[i]}}</mat-option>
+        </mat-select>
+        <mat-error>Please select a Sub Complaint ID</mat-error>
       </mat-form-field>
 
     </div>
 
-
     <div class="row">
+        <mat-form-field appearance="outline" class="col-auto">
+          <mat-label>Select Developer</mat-label>
+          <mat-select formControlName="developerEmail" multiple="false">
+            <mat-option *ngFor="let developerEmail of developerEmailList; let i = index"
+                        [value]="developerEmailList[i]">{{developerNameList[i]}}</mat-option>
+          </mat-select>
+          <mat-error>Please select a developer</mat-error>
+        </mat-form-field>
+
 
       <mat-form-field class="col-auto" appearance="outline">
         <mat-label>Deadline</mat-label>
@@ -30,23 +47,90 @@
 
       <mat-form-field class="col-12" appearance="outline">
         <mat-label>Description</mat-label>
-        <textarea matInput formControlName="task_description" placeholder="Deascription"></textarea>
+        <textarea matInput formControlName="task_description" placeholder="Enter a description of minimum 5 characters"></textarea>
       </mat-form-field>
 
     </div>
 
-    <div class="row">
 
-      <mat-form-field class="col-12" appearance="outline">
-        <mat-label>Developer Email</mat-label>
-        <input type="text" matInput formControlName="developerEmail" placeholder="Developer Email">
-      </mat-form-field>
-
-    </div>
 
 
     <button class="btn btn-primary" type="submit" [disabled]="!createTaskForm.valid">Create</button>
 
 
   </form>
-</div>
+  </mat-card>
+
+
+<!--
+<mat-card class="m-5 shadow" style="height: 80%">
+  <mat-card-title>Create Task</mat-card-title>
+  <hr>
+  <div class="h-auto">
+    <form [formGroup]="createTaskForm" (ngSubmit)="saveChangesDialog()" class="mat-typography" #myForm="ngForm">
+      <div class="row">
+
+        <mat-form-field class="col-auto" appearance="outline">
+          <mat-label>Complaint ID</mat-label>
+          <input type="text" matInput formControlName="complaintID" [required]="true" placeholder="Complaint ID">
+        </mat-form-field>
+
+        <mat-form-field class="col-auto" appearance="outline">
+          <mat-label>Sub Complaint ID</mat-label>
+          <input type="text" matInput formControlName="subComplaintID" [required]="true" placeholder="Sub Complaint ID">
+        </mat-form-field>
+
+      </div>
+
+      <div class="row">
+        <mat-form-field appearance="outline" class="col-auto">
+          <mat-label>Select Developer Email</mat-label>
+          <mat-select formControlName="developerEmail" multiple="false">
+            <mat-option *ngFor="let developerEmail of developerEmailList; let i = index"
+                        [value]="developerEmailList[i]">{{developerEmailList[i]}}</mat-option>
+          </mat-select>
+          <mat-error>Please select a developer</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-xl-12 h-auto " appearance="outline">
+          <mat-label>Issue/Description</mat-label>
+          <textarea type="text" matInput formControlName="description" [required]="true"></textarea>
+        </mat-form-field>
+
+      </div>
+
+      <div>
+        <button class="mb-lg-5 border h-100 " style="width: 30%;" type="button" mat-stroked-button color=""
+                (click)="openDialog(-1)"
+                matTooltip="Click to add new image">
+          <mat-icon>add_photo_alternate</mat-icon>
+          <span> Add Images</span>
+        </button>
+      </div>
+
+      <div style="overflow: hidden;">
+        <div *ngFor="let image of imageAttachments; let i = index"
+             style="float:left; margin-right: 5px; max-width: 20%;max-height: 20%;">
+          <button style="  border: 0px;" type="button" mat-stroked-button color=""
+                  (click)="openDialog(i)" matTooltip="Click to change a selected image">
+            <mat-icon [hidden]="this.imageAttachments[i]">add_photo_alternate</mat-icon>
+            <img class="m-1" [hidden]="!this.imageAttachments[i]" width="95%" height="95%" style="border-radius:10% "
+                 [src]="this.imageAttachments[i]">
+          </button>
+          <button mat-button (click)="removeSelectedImage(i)" class="ml-5" matTooltip="Click to remove this image">
+            Remove
+          </button>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" [hidden]="!reqProductID" (click)="onCancelEdit()">Cancel</button>
+      <span></span>
+      <button class="btn btn-primary" style="margin-left: 92%" type="submit"
+              [disabled]="!addComplaintForm.valid">Save
+      </button>
+    </form>
+  </div>
+</mat-card>
+-->

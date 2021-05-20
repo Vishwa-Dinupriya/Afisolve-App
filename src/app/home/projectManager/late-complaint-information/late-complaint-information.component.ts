@@ -152,6 +152,7 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
       }
     });
   }
+  // tslint:disable-next-line:typedef
   newAllert(){
     Swal.fire({
       title: 'Are you sure?',
@@ -218,6 +219,7 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
   }
 
 
+  // tslint:disable-next-line:typedef
   giveAlertnew() {
     Swal.fire({
       title: 'Are you sure?',

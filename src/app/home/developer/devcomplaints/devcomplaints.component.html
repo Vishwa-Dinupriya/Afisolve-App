@@ -1,4 +1,5 @@
 <mat-card class="m-5 shadow">
+  <div [hidden]="devtaskService.profileModeValue">
   <mat-tab-group animationDuration="1000ms">
 
     <mat-tab label="Complaint Details">
@@ -23,22 +24,39 @@
           <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
         </ng-container>
 
+        <!-- ProductID Column-->
+        <ng-container matColumnDef="productID">
+          <th mat-header-cell *matHeaderCellDef> Product_Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+        </ng-container>
+
+        <!-- ProductName Column-->
+        <ng-container matColumnDef="productName">
+          <th mat-header-cell *matHeaderCellDef> Product Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+        </ng-container>
+
         <!-- SubmittedDate Column-->
         <ng-container matColumnDef="submittedDate">
           <th mat-header-cell *matHeaderCellDef> Submitted Date</th>
           <td mat-cell *matCellDef="let element"> {{element.submittedDate}} </td>
         </ng-container>
 
-        <!-- Description Column -->
-        <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef> Description</th>
-          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-        </ng-container>
-
         <!-- Status Column -->
         <ng-container matColumnDef="statusName">
           <th mat-header-cell *matHeaderCellDef> Status</th>
           <td mat-cell *matCellDef="let element"> {{element.statusName}} </td>
+        </ng-container>
+
+        <!-- Details button Column -->
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef> Details</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary"
+                    (click)="redirectToDetails(element.complaintID,element.subComplaintID)">
+              <mat-icon class="mat-18">reorder</mat-icon>
+            </button>
+          </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedComp"></tr>
@@ -51,5 +69,12 @@
     </mat-tab>
 
   </mat-tab-group>
+</div>
+  <!--complaint profile-->
+  <div [hidden]="!devtaskService.profileModeValue">
+    <app-complaint-profile [complaintIdChild]="devtaskService.complaintIdParentValue"
+                           [subComplaintIdChild]="devtaskService.subComplaintIdParentValue"
+                           [requestFrom]="'developer'"></app-complaint-profile>
+  </div>
 </mat-card>
 
