@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AccoorcomplaintsService} from '../accoorcomplaints/accoorcomplaints.service';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogBoxComponent} from '../../shared/dialog-box/dialog-box.component';
+import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 
 @Component({
   selector: 'app-mail',
@@ -58,9 +58,9 @@ export class MailComponent implements OnInit {
               dialogRef2.afterClosed().subscribe(result2 => {
                 console.log(`Dialog result: ${result}`);
                 this.myForm.resetForm();
-               });
+              });
             },
             error => console.error('Error!(frontend)', error)
-            );
+          );
       }});
   }}

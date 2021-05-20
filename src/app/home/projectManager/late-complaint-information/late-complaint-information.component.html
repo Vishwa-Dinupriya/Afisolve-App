@@ -1,103 +1,127 @@
+<div [hidden]="hidd">
+  <div class="new" align="center">
+    <h4><b>Select the new Account Coordinator</b></h4>
 
-<div class="new" align="center">
-  <router-outlet></router-outlet>
-  <hr>
+    <mat-form-field>
+      <mat-label>New Account Coordinator</mat-label>
+      <mat-select [(ngModel)]="selectedValue">
+        <mat-option *ngFor="let food of accdata" [value]="food" >
+          {{food.firstName}} {{food.lastName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+
+    <section>
+      <div class="example-button-row">
+        <button mat-raised-button color="primary" (click)="giveAlertnew()">Save</button>
+      </div>
+    </section>
+    <hr>
+  </div>
 </div>
-<mat-tab-group animationDuration="2000ms">
-  <mat-tab label="Late complaint">
-  <mat-card class="m-5 shadow" style="height: 80%; background-color: rgba(149,255,156,0.76)">
-    <div>
-  <table mat-table [dataSource]="dataSource1" matSort class="mat-elevation-z8 w-100" style="background-color: rgba(85,255,113,0.76)">
 
-    <!-- Complain ID column -->
-    <ng-container matColumnDef="complainID">
-      <th mat-header-cell *matHeaderCellDef> Complain ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.complainID}} </td>
-    </ng-container>
-
-    <!-- Product ID column -->
-    <ng-container matColumnDef="productID">
-      <th mat-header-cell *matHeaderCellDef> Product ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
-    </ng-container>
-
-    <!-- Description Column -->
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef> Description </th>
-      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-    </ng-container>
+<div>
+    <mat-tab-group animationDuration="500ms">
+      <mat-tab label="Late complaint">
+        <mat-card class="m-5 shadow" style="height: 80%">
+          <div>
+            <table mat-table [dataSource]="dataSource1" matSort class="mat-elevation-z8 w-100">
 
 
+              <!-- Product ID column -->
+              <ng-container matColumnDef="productID">
+                <th mat-header-cell *matHeaderCellDef> Product ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+              </ng-container>
 
-    <!-- SubmittedDate Column -->
-    <ng-container matColumnDef="submittedDate">
-      <th mat-header-cell *matHeaderCellDef> Submitted Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.submittedDate | date}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="lastDateOfPending">
-      <th mat-header-cell *matHeaderCellDef> Deadline Date </th>
-      <td mat-cell *matCellDef="let element">{{element.lastDateOfPending | date}}</td>
-    </ng-container>
-
-    <!--  test Column-->
-    <ng-container matColumnDef="accountCoordinatorName">
-      <th mat-header-cell *matHeaderCellDef> Account Coordinator Name </th>
-      <td mat-cell *matCellDef="let element">{{element.accountCoordinatorName}}</td>
-    </ng-container>
+              <!-- Complain ID column -->
+              <ng-container matColumnDef="complaintID">
+                <th mat-header-cell *matHeaderCellDef> Complain ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
+              </ng-container>
 
 
-    <!--  test Column-->
-    <ng-container matColumnDef="accountCoordinatorEmail">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element"></td>
-    </ng-container>
+              <!-- Description Column -->
+              <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef> Description </th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+              </ng-container>
 
-    <!--  Action Column-->
-    <ng-container matColumnDef="Action">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
-      <td mat-cell *matCellDef="let element"> <button mat-raised-button color="accent" (click)="getAlert()">get Action</button>  </td>
-    </ng-container>
 
-    <!--  History Column-->
-    <ng-container matColumnDef="history">
-      <th mat-header-cell *matHeaderCellDef>History</th>
-      <td mat-cell *matCellDef="let element"><button mat-raised-button color="warn" (click)="getproductID(element.productID)" (dblclick)="changetab(1)">History</button>  </td>
-    </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row class="mat-row1" *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></tr>
+              <!-- SubmittedDate Column -->
+              <ng-container matColumnDef="submittedDate">
+                <th mat-header-cell *matHeaderCellDef> Submitted Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.submittedDate | date}} </td>
+              </ng-container>
 
-      </table>
-      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" style="background-color: rgba(85,255,113,0.76)">
-      </mat-paginator>
-    </div>
-  </mat-card>
-  </mat-tab>
+              <ng-container matColumnDef="lastDateOfPending">
+                <th mat-header-cell *matHeaderCellDef> Deadline Date </th>
+                <td mat-cell *matCellDef="let element">{{element.lastDateOfPending | date}}</td>
+              </ng-container>
+
+              <!--  test Column-->
+              <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef> Account Coordinator Name </th>
+                <td mat-cell *matCellDef="let element">Mr. {{element.firstName}} {{element.lastName}}</td>
+              </ng-container>
+
+              <!--  test Column-->
+              <ng-container matColumnDef="userEmail">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element"></td>
+              </ng-container>
+
+
+              <!--  test Column-->
+              <ng-container matColumnDef="accountCoordinatorID">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element"></td>
+              </ng-container>
+
+              <!--  Action Column-->
+              <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef>Action</th>
+                <td mat-cell *matCellDef="let element"> <button mat-raised-button color="accent" (click)="getAlert(element)" [disabled]="!hidd">get Action</button>  </td>
+              </ng-container>
+
+              <!--  History Column-->
+              <ng-container matColumnDef="history">
+                <th mat-header-cell *matHeaderCellDef>History</th>
+                <td mat-cell *matCellDef="let element"><button mat-raised-button color="warn" (click)="getproductID(element.productID)" >History</button>  </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            </table>
+            <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+          </div>
+        </mat-card>
+      </mat-tab>
 
 
 
   //.....................................................................
 
   <mat-tab label="History">
-    <mat-card class="m-5 shadow" style="height: 80%; background-color: rgba(255,225,178,0.76)">
+    <mat-card class="m-5 shadow" style="height: 80%">
 
 
-
+      <div>
+        <mat-card-title><u>Search Results for Product ID - {{filterValue}}</u></mat-card-title>
+      </div>
+      <br>
 
     <div>
-      <table mat-table [dataSource]="dataSourcehistory" matSort class="mat-elevation-z8 w-100" style="background-color: rgba(255,192,21,0.76)">
+      <table mat-table [dataSource]="dataSourcehistory" matSort class="mat-elevation-z8 w-100">
 
-
-        <ng-container matColumnDef="productID">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Product ID</th>
-          <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
-        </ng-container>
-
-
-        <ng-container matColumnDef="submittedTime">
+        <ng-container matColumnDef="submittedtime">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Submitted Time</th>
-          <td mat-cell *matCellDef="let element">{{element.submittedTime}} </td>
+          <td mat-cell *matCellDef="let element">{{element.submittedtime| date}} </td>
         </ng-container>
 
 
@@ -119,15 +143,15 @@
         </ng-container>
 
 
-        <ng-container matColumnDef="charac">
+        <ng-container matColumnDef="doneBy">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Person </th>
-          <td mat-cell *matCellDef="let element"> {{element.charac}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.doneBy}} </td>
         </ng-container>
 
 
-        <ng-container matColumnDef="wAction">
+        <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
-          <td mat-cell *matCellDef="let element"> {{element.wAction}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.action}} </td>
         </ng-container>
 
         <!-------------------------------------------------------------------------------------------->
@@ -135,8 +159,6 @@
         <tr mat-row class="mat-row2" *matRowDef="let row; columns: displayedColumnshistory;"></tr>
 
       </table>
-      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" style="background-color: rgba(255,192,21,0.76)">
-      </mat-paginator>
     </div>
       <button mat-raised-button color="primary" (click)="changetab(0)">back</button>
   </mat-card>
@@ -145,7 +167,7 @@
   </mat-tab>
 </mat-tab-group>
 
-
+</div>
 
 
 

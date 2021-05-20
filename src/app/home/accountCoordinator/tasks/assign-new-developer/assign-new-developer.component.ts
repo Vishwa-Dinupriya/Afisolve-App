@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
+import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
 import {TaskService} from '../task.service';
 import {environment} from '../../../../../environments/environment';
 
@@ -16,6 +16,7 @@ export class AssignNewDeveloperComponent implements OnInit {
   updateDeveloperForm: FormGroup;
   taskIDList;
   developerEmailList;
+  developerNameList;
   constructor(
     private fb1: FormBuilder,
     private taskService: TaskService,
@@ -39,6 +40,7 @@ export class AssignNewDeveloperComponent implements OnInit {
     this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-DeveloperList', {}).subscribe(
       response => {
         this.developerEmailList = response.data.map(value => value.developerEmail);
+        this.developerNameList = response.data.map(value => value.developerName);
       }, error => {
         console.log(error);
       }

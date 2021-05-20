@@ -1,3 +1,5 @@
+<mat-tab-group animationDuration="2000ms">
+  <mat-tab label="View Complaints">
 <mat-grid-list cols="7" rowHeight="700px">
   <mat-grid-tile [colspan]=6 [rowspan]=1>
     <mat-card class="m-5 shadow"  style="width: 1000px; height: 600px" >
@@ -12,21 +14,21 @@
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
 
           <!--  complaintID Column-->
-          <ng-container matColumnDef="complainID">
+          <ng-container matColumnDef="productID">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Product ID</th>
+            <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+          </ng-container>
+
+          <!--  complaintID Column-->
+          <ng-container matColumnDef="complaintID">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Complain ID</th>
-            <td mat-cell *matCellDef="let element"> {{element.complainID}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
           </ng-container>
 
           <!--  productID Column-->
           <ng-container matColumnDef="subComplaintID">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Sub Complaint ID</th>
             <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
-          </ng-container>
-
-          <!--  productID Column-->
-          <ng-container matColumnDef="productID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Product ID</th>
-            <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
           </ng-container>
 
           <!-- Description Column -->
@@ -36,9 +38,9 @@
           </ng-container>
 
           <!-- Status Column -->
-          <ng-container matColumnDef="status">
+          <ng-container matColumnDef="statusName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
-            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.statusName}} </td>
           </ng-container>
 
           <!-- SubmittedDate Column -->
@@ -48,9 +50,15 @@
           </ng-container>
 
           <!-- SubmittedDate Column -->
-          <ng-container matColumnDef="accountCoordinatorName">
+          <ng-container matColumnDef="firstName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Coordinator Name</th>
-            <td mat-cell *matCellDef="let element"> {{element.accountCoordinatorName}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.firstName}} {{element.lastName}}</td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="print">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Get Details</th>
+            <td mat-cell *matCellDef="let element"><button (click)="getID(element)" (dblclick)="changetab(1)" ><mat-icon color="primary">reorder</mat-icon></button></td>
           </ng-container>
 
 
@@ -85,3 +93,126 @@
 </span>
   </mat-grid-tile>
 </mat-grid-list>
+</mat-tab>
+
+<mat-tab label="Details" [disabled]="hid2">
+  <mat-card style="margin-top: 8%; margin-left: 10%; width: 60%">
+    <div id="print-me" [hidden]="hid2">
+      <mat-card-header>
+        <mat-card-title>Details of the Complaint</mat-card-title>
+      </mat-card-header>
+      <mat-list>
+
+        <mat-list-item>
+          <mat-divider></mat-divider>
+          <div class=" w-75">Product ID</div>
+          <div class="text-secondary w-25">
+            {{pid}}
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <mat-divider></mat-divider>
+          <div class=" w-75">Complaint ID</div>
+          <div class="text-secondary w-25">
+            {{cid}}
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <mat-divider></mat-divider>
+          <div class=" w-75">Sub Complaint ID</div>
+          <div class="text-secondary w-25">
+            {{scid}}
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <mat-divider></mat-divider>
+          <div class=" w-75">Description </div>
+          <div class="text-secondary w-25">
+            <span *ngIf="!did; else customerNameBlock"><i> Not Available</i></span>
+            <ng-template #customerNameBlock>
+                <span> {{did}}
+                  <br/></span>
+            </ng-template>
+          </div>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-divider></mat-divider>
+          <div class=" w-75">Status</div>
+          <div class="text-secondary w-25">
+            {{ssid}}
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <mat-divider></mat-divider>
+          <div class=" w-75">Submitted Date</div>
+          <div class="text-secondary w-25">
+            {{ststid}}
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <mat-divider></mat-divider>
+          <div class=" w-75">Last Pending Date</div>
+          <div class="text-secondary w-25">
+            <span *ngIf="!pendate; else customerNameBlock"><i> Not Available</i></span>
+            <ng-template #customerNameBlock>
+                <span> {{pendate | date}}
+                  <br/></span>
+            </ng-template>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <mat-divider></mat-divider>
+          <div class=" w-75">Working Progress Start Date</div>
+          <div class="text-secondary w-25">
+            <span *ngIf="!work; else customerNameBlock"><i> Not Available</i></span>
+            <ng-template #customerNameBlock>
+                <span> {{work | date}}
+                  <br/></span>
+            </ng-template>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <mat-divider></mat-divider>
+          <div class=" w-75">Completed Date</div>
+          <div class="text-secondary w-25">
+            <span *ngIf="!findate; else customerNameBlock"><i> Not Available</i></span>
+            <ng-template #customerNameBlock>
+                <span>{{findate | date}}
+                  <br/></span>
+            </ng-template>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <mat-divider></mat-divider>
+          <div class=" w-75">Account Coordinator Name</div>
+          <div class="text-secondary w-25">
+            {{acid}}
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <mat-divider></mat-divider>
+          <div class=" w-75">Project Manager Name</div>
+          <div class="text-secondary w-25">
+            {{pm}}
+          </div>
+        </mat-list-item>
+
+      </mat-list>
+      <br>
+    </div>
+    <button mat-raised-button color="primary" (click)="changetab(0)"><mat-icon>keyboard_backspace</mat-icon></button>
+    <button mat-raised-button color="warn" style="margin-left: 80%" printSectionId="print-me" [useExistingCss]="true" ngxPrint>Print</button>
+  </mat-card>
+
+</mat-tab>
+</mat-tab-group>
+

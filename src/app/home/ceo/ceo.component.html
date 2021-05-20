@@ -2,28 +2,22 @@
   <mat-drawer mode="side" opened style="width: 200px">
     <mat-selection-list [multiple]="false">
 
-      <mat-list-option routerLink="./cdashboard" [selected]="activeRoute === 'CdashboardComponent'"
+      <mat-list-option routerLink="./dashboard" [selected]="activeRoute === 'CdashboardComponent'"
                        [class.selected]="activeRoute === 'CdashboardComponent'">
         <mat-icon mat-list-icon>dashboard</mat-icon>
         <div mat-line>Dashboard</div>
       </mat-list-option>
 
-      <mat-list-option routerLink="./clate" [selected]="activeRoute === 'ClateComponent'"
+      <mat-list-option routerLink="./late-complaint-information" [selected]="activeRoute === 'ClateComponent'"
                        [class.selected]="activeRoute === 'ClateComponent'">
         <mat-icon mat-list-icon>assignment</mat-icon>
         <div mat-line>Late Complaint Information</div>
       </mat-list-option>
 
-      <mat-list-option routerLink="./cviewreports" [selected]="activeRoute === 'CviewreportsComponent'"
+      <mat-list-option routerLink="./view-complaints" [selected]="activeRoute === 'CviewreportsComponent'"
                        [class.selected]="activeRoute === 'CviewreportsComponent'">
         <mat-icon mat-list-icon>group</mat-icon>
-        <div mat-line>View Reports</div>
-      </mat-list-option>
-
-      <mat-list-option routerLink="./chat" [selected]="activeRoute === 'ChatComponent'"
-                       [class.selected]="activeRoute === 'ChatComponent'">
-        <mat-icon mat-list-icon>group</mat-icon>
-        <div mat-line>Chat</div>
+        <div mat-line>View Complaints</div>
       </mat-list-option>
 
     </mat-selection-list>

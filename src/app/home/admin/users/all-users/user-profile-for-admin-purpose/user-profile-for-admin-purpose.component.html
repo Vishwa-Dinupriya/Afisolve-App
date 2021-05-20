@@ -1,0 +1,219 @@
+<mat-card>
+
+  <mat-card-header style="display: block">
+
+    <div class="row " >
+      <div class="col-10" style="padding-left: 5%">
+        <mat-card-title>{{ name }}</mat-card-title>
+        <mat-card-subtitle>{{ userEmailChild }}</mat-card-subtitle>
+      </div>
+
+      <div class="col-2" >
+        <button mat-icon-button
+                style=" margin-top: -10px;padding-left: 5%"
+                (click)="usersService1.changeIsProfileModeSubjectBooleanValue(false)" [routerLink]="['../all-users']">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+
+  </mat-card-header>
+
+  <mat-card-content>
+    <!--Personal Details-->
+    <div>
+      <!--profile picture-->
+      <div>
+        <button [disabled]="!edit" class="mb-lg-5 " style="border: 0px" type="button" mat-stroked-button color=""
+                (click)="openDialog()" matTooltip="Click to select a profile picture">
+          <img class="m-1" [hidden]="!this.newProfilePicture" style="border-radius:50%" width="80%" height="80%"
+               [src]="this.newProfilePicture"/>
+          <span></span>
+          <img class="m-1" [hidden]="this.newProfilePicture" style="border-radius:50%" width="80%" height="80%"
+               [src]="this.currentProfilePicture">
+        </button>
+      </div>
+
+      <!--form-->
+      <div>
+        <form [formGroup]="userRegistrationForm" (ngSubmit)="saveChangesDialog()" class="mat-typography">
+
+          <div class="row">
+            <!--------------------------------------------------------------------------------------------------------->
+            <mat-form-field class="col-6" appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input [readonly]="!edit" type="text" matInput formControlName="firstName" [required]="edit">
+              <mat-error [hidden]="!edit" *ngIf="firstName.touched && firstName.errors?.required">You must enter a
+                value
+              </mat-error>
+              <mat-error [hidden]="!edit"
+                         *ngIf="firstName.touched && !firstName.errors?.required && !firstName.errors?.minLength">
+                Enter at least 3 letters
+              </mat-error>
+            </mat-form-field>
+            <!-------------------------------------------------------------------------->
+            <mat-form-field class="col-6" appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input [readonly]="!edit" type="text" matInput formControlName="lastName" [required]="edit">
+              <mat-error [hidden]="!edit" *ngIf="lastName.touched && lastName.errors?.required">You must enter a
+                value
+              </mat-error>
+              <mat-error [hidden]="!edit"
+                         *ngIf="lastName.touched && !lastName.errors?.required && !lastName.errors?.minLength">Enter
+                at least 3 letters
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+          <!-------------------------------------------------------------------------------------------------------------->
+          <div class="row">
+            <mat-form-field class="col-12" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input [readonly]="!edit" matInput placeholder="pat@example.com" [formControl]="email"
+                     [required]="edit">
+              <mat-error *ngIf="email.touched && email.errors?.required">You must enter a value</mat-error>
+              <mat-error *ngIf="email.touched && !email.errors?.required && email.errors?.email">Not a valid email
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!-------------------------------------------------------------------------------------------------------------->
+          <div class="row" formGroupName="passwordGroup">
+            <mat-form-field class="col-6" appearance="outline">
+              <mat-label>Password</mat-label>
+              <input [readonly]="!edit" matInput placeholder="New password" formControlName="password"
+                     [type]="hidePassword ? 'password' : 'text'" [required]="edit">
+              <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                      [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="userRegistrationForm.hasError('required', 'passwordGroup')">Please enter your new
+                password
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-6" appearance="outline">
+              <mat-label>Confirm Password</mat-label>
+              <input [readonly]="!edit " matInput placeholder="Confirm password" formControlName="confirmPassword"
+                     [errorStateMatcher]="matcher" [type]="hideConfirmPassword ? 'password' : 'text'"
+                     [required]="edit">
+              <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+                      [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+                <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="userRegistrationForm.hasError('notSame','passwordGroup')">
+                Passwords do not match
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+          <!-------------------------------------------------------------------------------------------------------------->
+          <div class="row">
+            <mat-form-field appearance="outline" class="col-12">
+              <mat-label>Role</mat-label>
+              <mat-select formControlName="roles" multiple="true"
+                          (valueChange)="toSelectedRoles($event)">
+                <mat-option *ngFor="let role of roleList; let i = index"
+                            [disabled]="(i==0 && nonCustomerRoleSelected) || (i!=0 && customerRoleSelected)"
+                            [value]="i">{{role}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-------------------------------------------------------------------------------------------------------------->
+          <div class="row">
+            <mat-form-field appearance="outline" class="col-12">
+              <mat-label>Default Role</mat-label>
+              <mat-select formControlName="defaultRole" multiple="false">
+                <mat-option *ngFor="let roleId of selectedRoles; let i = index"
+                            [value]="roleId">{{roleList[roleId]}}</mat-option>
+              </mat-select>
+              <mat-error>Please select default role</mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-------------------------------------------------------------------------------------------------------------->
+          <div class="row">
+            <mat-form-field class="col-12" appearance="outline">
+              <mat-label>Contact Number</mat-label>
+              <input [readonly]="!edit" type="text" matInput formControlName="contactNumber"
+                     placeholder="07*-*******">
+            </mat-form-field>
+          </div>
+          <!-------------------------------------------------------------------------------------------------------------->
+
+          <button class="btn btn-primary" type="button" [hidden]="edit" (click)="toggleDisabled()">Edit Profile</button>
+          <button class="btn btn-primary" type="button" [hidden]="!edit" (click)="onCancelEdit()">Cancel</button>
+          <span></span>
+          <button class="btn btn-primary" style="float: right" type="submit"
+                  [hidden]="!(userRegistrationForm.valid && haveChanges) || !edit">Save
+          </button>
+
+        </form>
+      </div>
+    </div>
+
+    <mat-divider style="margin-top: 3%"></mat-divider>
+
+    <!--General Details-->
+   <div>
+     <mat-card-header style="padding-top: 5%">
+       <mat-card-title>General Details</mat-card-title>
+     </mat-card-header>
+     <mat-list *ngIf="!!USER_GENERAL_DATA">
+
+       <mat-list-item>
+         <div class=" w-50">Last Login</div>
+         <div class="text-secondary w-50">
+           <span *ngIf="!USER_GENERAL_DATA.lastLogin; else lastLoginBlock"><i> Not Available</i></span>
+           <ng-template #lastLoginBlock>
+             <span> {{ USER_GENERAL_DATA.lastLogin }} <br/></span>
+           </ng-template>
+         </div>
+       </mat-list-item>
+
+       <mat-list-item>
+         <div class=" w-50">Created By</div>
+         <div class=" text-secondary w-50">
+           <span *ngIf="!USER_GENERAL_DATA.createdBy; else createdByBlock"><i> Not Available</i></span>
+           <ng-template #createdByBlock>
+             <span> {{ USER_GENERAL_DATA.createdBy }} <br/></span>
+           </ng-template>
+         </div>
+       </mat-list-item>
+
+       <mat-list-item>
+         <div class=" w-50">Created At</div>
+         <div class=" text-secondary w-50">
+           <span *ngIf="!USER_GENERAL_DATA.createdAt; else createdAtBlock"><i> Not Available</i></span>
+           <ng-template #createdAtBlock>
+             <span> {{ USER_GENERAL_DATA.createdAt }} <br/></span>
+           </ng-template>
+         </div>
+       </mat-list-item>
+
+       <mat-list-item>
+         <div class=" w-50">Modified By</div>
+         <div class=" text-secondary w-50">
+           <span *ngIf="!USER_GENERAL_DATA.modifiedBy; else modifiedByBlock"><i> Not Available</i></span>
+           <ng-template #modifiedByBlock>
+             <span> {{ USER_GENERAL_DATA.modifiedBy }} <br/></span>
+           </ng-template>
+         </div>
+       </mat-list-item>
+
+       <mat-list-item>
+         <div class=" w-50">Modified At</div>
+         <div class=" text-secondary w-50">
+           <span *ngIf="!USER_GENERAL_DATA.modifiedAt; else modifiedAtBlock"><i> Not Available</i></span>
+           <ng-template #modifiedAtBlock>
+             <span> {{ USER_GENERAL_DATA.modifiedAt }} <br/></span>
+           </ng-template>
+         </div>
+       </mat-list-item>
+
+     </mat-list>
+   </div>
+
+  </mat-card-content>
+
+</mat-card>
+

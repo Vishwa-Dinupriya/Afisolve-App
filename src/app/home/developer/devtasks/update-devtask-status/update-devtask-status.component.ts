@@ -3,8 +3,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DevtaskService} from '../devtask.service';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
 import {environment} from '../../../../../environments/environment';
+import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
+
 
 @Component({
   selector: 'app-update-devtask-status',
@@ -71,7 +72,7 @@ export class UpdateDevtaskStatusComponent implements OnInit {
                 }});
             },
             error => {console.error('Error!(frontend)', error);
-              const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+                      const dialogRef2 = this.dialog.open(DialogBoxComponent, {
                 data: {
                   title: 'Failed! Please try again.',
                   message: 'Please make sure the details you entered are valied. ',

@@ -10,7 +10,7 @@ import {MatTabGroup} from '@angular/material/tabs';
 import {environment} from '../../../../environments/environment';
 
 export interface IComplaint {
-  complainID: string;
+  complaintID: string;
   description: string;
   finishedDate: string;
   lastDateOfPending: string;
@@ -22,14 +22,12 @@ export interface IComplaint {
 }
 
 export interface IHistory {
-  productID: string;
-  submittedTime: any;
-  time: any;
+  submittedtime: any;
   preAcName: string;
   newAcName: string;
   exAcName: string;
-  charac: string;
-  wAction: string;
+  doneBy: string;
+  action: string;
 
 }
 @Component({
@@ -39,15 +37,17 @@ export interface IHistory {
 })
 export class LateComplaintInformationComponent implements AfterViewInit, OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private http1: HttpClient, private pastname: PastnameService){ }
+  selectedValue: string;
+  accdata;
 
   raw: string;
   // late complaint table
-  displayedColumns: string[] = ['complainID', 'productID', 'description', 'submittedDate', 'lastDateOfPending', 'accountCoordinatorName' , 'accountCoordinatorEmail', 'Action', 'history'];
+  displayedColumns: string[] = ['productID', 'complaintID', 'description', 'submittedDate', 'lastDateOfPending', 'firstName' , 'userEmail', 'accountCoordinatorID', 'Action', 'history'];
   dataSource1: MatTableDataSource<IComplaint>;
   COMPLAINS_DATA: IComplaint[];
 
   // history table
-  displayedColumnshistory: string[] = ['productID', 'submittedTime', 'preAcName', 'newAcName', 'exAcName', 'charac', 'wAction'];
+  displayedColumnshistory: string[] = ['submittedtime', 'preAcName', 'newAcName', 'exAcName', 'doneBy', 'action'];
   dataSourcehistory: MatTableDataSource<IHistory>;
   COMPLAINS_DATA1: IHistory[];
 
@@ -55,16 +55,22 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatTabGroup) mattabgroup: MatTabGroup;
 
+  hidd;
   // tslint:disable-next-line:typedef
    raew: string;
   // tslint:disable-next-line:typedef
    m: string;
    bbb: any;
    // apahu gnna data array eka
-   test: string[] = ['complainID', 'productID', 'description', 'submittedDate', 'lastDateOfPending', 'accountCoordinatorName' , 'Action'];
+   test: string[] = ['productID', 'complaintID', 'description', 'submittedDate', 'lastDateOfPending', 'accountCoordinatorName' , 'Action'];
   filterValue: any;
 
+
+  //////////////////////////////////////////////
+  // wenas karna seen eka
+  // tslint:disable-next-line:typedef
   ngOnInit(): void {
+    this.hidd = true;
     // tslint:disable-next-line:no-unused-expression
     this.pastname.refreshNeeded$
       .subscribe(() => {
@@ -74,6 +80,7 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
       .subscribe(() => {
         this.ngAfterViewInit();
       });
+    this.getData1();
   }
 
   // tslint:disable-next-line:typedef
@@ -84,6 +91,7 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
         this.dataSource1 = new MatTableDataSource<IComplaint>(this.COMPLAINS_DATA);
         this.dataSource1.sort = this.sort;
         this.dataSource1.paginator = this.paginator;
+        console.log(this.COMPLAINS_DATA);
       }, error => {
         console.log(error);
       }
@@ -93,7 +101,6 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
         this.COMPLAINS_DATA1 = response.data;
         this.dataSourcehistory = new MatTableDataSource<IHistory>(this.COMPLAINS_DATA1);
         this.dataSourcehistory.sort = this.sort;
-        this.dataSourcehistory.paginator = this.paginator;
       }, error => {
         console.log(error);
       }
@@ -104,8 +111,11 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
   applyFilter(): void {
     // const filterValue = (event.target as HTMLInputElement).value;
     // const filterValue2 = '0002';
-   const filterValue2 = this.filterValue;
-   this.dataSourcehistory.filter = filterValue2.trim().toLowerCase();
+    const filterValue2 = '000' + this.filterValue;
+    console.log(filterValue2);
+  // const filterValue2 = this.filterValue;
+    this.dataSourcehistory.filter = filterValue2.trim().toLowerCase();
+
   }
 
   // history gnna oona row eka
@@ -114,17 +124,19 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
     console.log(history);
     this.filterValue = history;
     this.applyFilter();
+    this.changetab(1);
   }
   // tslint:disable-next-line:typedef
-  onRowClicked(row) {
-    this.test = row; // click krana row eka mokadd kyla thyna eka
-  }
+  // onRowClicked(row) {
+    // this.test = row; // click krana row eka mokadd kyla thyna eka
+  // }
 
   // -------------------------------Alert tika-------------------------------
 
   // main eka
   // tslint:disable-next-line:typedef
-  getAlert(){
+  getAlert(row){
+    this.test = row;
     Swal.fire({
       title: 'Decision..?',
       text: 'What is your decision!',
@@ -140,38 +152,19 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
       }
     });
   }
-
-
-  //////////////////////////////////////////////
-  // wenas karna seen eka
   // tslint:disable-next-line:typedef
   newAllert(){
     Swal.fire({
       title: 'Are you sure?',
+      text: 'When you change the account Coordinator of the selected product ID, All responsibilities are transfer to the New account coordinator',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: 'rgba(185,179,186,0.52)',
+      confirmButtonColor: 'rgba(255,0,0,0.83)',
       cancelButtonColor: '#000000',
-      confirmButtonText: '<a href = "http://localhost:4200/home/project-manager/late-complaint-information/action">Yes,Change</a>'
+      confirmButtonText: 'Yes,Change'
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log('Row clicked: ', this.test);
-       // old-acc-name send
-        this.pastname.passn(this.test)
-          .subscribe(
-            response => {
-              console.log('Success!(frontend)' + this.test , response);
-            },
-            error => console.error('Error!(frontend)', error)
-          );
-       // history table eke row ekk hadima....
-        this.pastname.newhistory(this.test)
-          .subscribe(
-            response => {
-              console.log('Success!(frontend)' + this.test , response);
-            },
-            error => console.error('Error!(frontend)', error)
-          );
+        this.hidd = false;
       }
     });
   }
@@ -191,6 +184,7 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
      if (result.value) {
        Swal.fire(
          'Successfully send a Reminder..!',
+         'Email and notification send to the Account Coordinator.',
          'success'
        );
        // send a reminder to database..................
@@ -211,4 +205,66 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
   changetab(selectedTabIndex){
     this.mattabgroup.selectedIndex = selectedTabIndex;
   }
+
+  // account coordinatorlage names
+  getData1(): void {
+    this.http1.get<any>(`http://localhost:3000/ceo/get-account-coordinaters-details`, {}).subscribe(
+      response => {
+        this.accdata = response.data;
+        console.log(this.accdata);
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+
+  // tslint:disable-next-line:typedef
+  giveAlertnew() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Change the Account Coordinator!..'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.givenewName();
+        this.hidd = true;
+        Swal.fire(
+          'change saved!',
+          '',
+          'success'
+        );
+      }
+    });
+  }
+
+
+  // tslint:disable-next-line:typedef
+  givenewName() {
+    console.log('Row clicked: ', this.test);
+    console.log(this.selectedValue);
+
+    this.pastname.newacname(this.test, this.selectedValue)
+      .subscribe(
+        response => {
+          console.log('Success!(frontend)', response);
+        },
+        error => console.error('Error!(frontend)', error)
+      );
+    this.pastname.newhistoryAc(this.test, this.selectedValue)
+      .subscribe(
+        response => {
+          console.log('Success!(frontend)', response);
+        },
+        error => console.error('Error!(frontend)', error)
+      );
+  }
 }
+// <ng-container matColumnDef="productID">
+//           <th mat-header-cell *matHeaderCellDef mat-sort-header> Product ID</th>
+//           <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+//         </ng-container>

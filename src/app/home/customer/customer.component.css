@@ -1,0 +1,18 @@
+.selected {
+  background: #b8b8b8 !important;
+  font-weight: bold;
+}
+
+.not-selected {
+  background-color: white;
+  color: black;
+}
+
+.sub-menu {
+  transition: height 300ms;
+  overflow: hidden;
+}
+
+.active {
+  background-color: #d57f86 !important;
+}

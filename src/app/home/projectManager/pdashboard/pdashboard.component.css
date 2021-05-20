@@ -1,15 +1,23 @@
-#divChart1{
+#divChart3{
   display: block;
   padding-top: 100px;
-  width: 700px;
-  height: 500px;
+  width: 600px;
+  height: 400px;
+  background-color: #0C2146;
 }
 
 #divChart2{
   display: block;
   padding-top: 100px;
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
+}
+
+#divChart1{
+  display: block;
+  padding-top: 50px;
+  width: 400px;
+  height: 300px;
 }
 
 .class1{
@@ -26,3 +34,5 @@
 .words{
   text-align: center;
 }
+
+

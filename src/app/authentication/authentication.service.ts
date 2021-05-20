@@ -10,18 +10,23 @@ export class AuthenticationService {
 
   signupUrl = 'http://localhost:3000/authentication/register';
   loginUrl = 'http://localhost:3000/authentication/login';
+  forgetPasswordUrl = 'http://localhost:3000/authentication/forget-password';
   roleChangeUrl = 'http://localhost:3000/authentication/role-change';
 
   constructor(private http1: HttpClient,
               private router: Router) {
   }
 
-  signup(userData, otp): Observable<any> {
-    return this.http1.post<any>(this.signupUrl, {userData, otp});
+  signup(userData, otp, otpID): Observable<any> {
+    return this.http1.post<any>(this.signupUrl, {userData, otp, otpID});
   }
 
   login(userData): Observable<any> {
     return this.http1.post<any>(this.loginUrl, userData);
+  }
+
+  forgetPassword(forgetPasswordEmail, newPassword, otp, otpID): Observable<any> {
+    return this.http1.post<any>(this.forgetPasswordUrl, {forgetPasswordEmail, newPassword, otp, otpID});
   }
 
   isLoggedIn(): boolean {
@@ -35,6 +40,7 @@ export class AuthenticationService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('userEmail');
+    localStorage.removeItem('userID');
     this.router.navigate(['/login']);
   }
 

@@ -50,8 +50,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 
 import { LateComplaintInformationComponent } from './home/projectManager/late-complaint-information/late-complaint-information.component';
 import { ViewReportsComponent } from './home/projectManager/view-reports/view-reports.component';
-import { ProfileComponent } from './home/projectManager/profile/profile.component';
-import { ActionComponent } from './home/projectManager/late-complaint-information/action/action.component';
 
 import {ImageCropperModule} from 'ngx-image-cropper';
 import {TestComponent} from './home/admin/test/test.component';
@@ -70,7 +68,7 @@ import {ComplaintProfileComponent} from './home/shared/complaint-profile/complai
 import {ProductProfileComponent} from './home/shared/product-profile/product-profile.component';
 import {FeedbackProfileComponent} from './home/shared/feedback-profile/feedback-profile.component';
 
-import { DialogBoxComponent } from './home/shared/dialog-box/dialog-box.component';
+import { DialogBoxComponent } from './shared/dialog-box/dialog-box.component';
 import { DevtasksComponent } from './home/developer/devtasks/devtasks.component';
 import { DevcomplaintsComponent } from './home/developer/devcomplaints/devcomplaints.component';
 import { DevproductsComponent } from './home/developer/devproducts/devproducts.component';
@@ -82,9 +80,6 @@ import { CdashboardComponent } from './home/ceo/cdashboard/cdashboard.component'
 import { ClateComponent } from './home/ceo/clate/clate.component';
 import { CviewreportsComponent } from './home/ceo/cviewreports/cviewreports.component';
 import { PdashboardComponent } from './home/projectManager/pdashboard/pdashboard.component';
-import { CactionComponent } from './home/ceo/clate/caction/caction.component';
-import { ChatComponent } from './home/ceo/chat/chat.component';
-
 
 
 
@@ -101,12 +96,12 @@ import { CompletedComplaintsComponent } from './home/customer/complaints-custome
 import { ClosedComplaintsComponent } from './home/customer/complaints-customer/closed-complaints/closed-complaints.component';
 import { ReviewDialogBoxComponent } from './home/customer/complaints-customer/completed-complaints/review-dialog-box/review-dialog-box.component';
 import { LodgeSubComplaintComponent } from './home/customer/complaints-customer/completed-complaints/lodge-sub-complaint/lodge-sub-complaint.component';
-import { UserProfileForAdminPurposeComponent } from './home/admin/users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
+import { UserProfileForAdminPurposeComponent } from './home/admin/users/all-users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
 
-import { UploadPictureComponent } from './home/shared/upload-picture/upload-picture.component';
-import { DialogBoxSelectPictureComponent } from './home/shared/dialog-box-select-picture/dialog-box-select-picture.component';
+import { CropAndUploadPictureComponent } from './shared/crop-and-upload-picture/crop-and-upload-picture.component';
+import { DialogBoxSelectPictureComponent } from './shared/dialog-box-select-picture/dialog-box-select-picture.component';
 import { CommentSectionComponent } from './home/shared/comment-section/comment-section.component';
-import { OtpDialogBoxComponent } from './authentication/shared/otp-dialog-box/otp-dialog-box.component';
+import { OtpDialogBoxComponent } from './shared/otp-dialog-box/otp-dialog-box.component';
 
 
 
@@ -115,8 +110,18 @@ import { AccoorcomplaintProfileCurrentComponent } from './home/accountCoordinato
 import { AccoorproductsComponent } from './home/accountCoordinator/accoorproducts/accoorproducts.component';
 import { DevtasksProfileComponent } from './home/developer/devtasks/devtasks-profile/devtasks-profile.component';
 import { UpdateDevtaskStatusComponent } from './home/developer/devtasks/update-devtask-status/update-devtask-status.component';
+
 import { DevMailComponent } from './home/developer/dev-mail/dev-mail.component';
 import { AssignNewDeveloperComponent } from './home/accountCoordinator/tasks/assign-new-developer/assign-new-developer.component';
+
+import { ForgetPasswordDialogBoxComponent } from './authentication/login/forget-password-dialog-box/forget-password-dialog-box.component';
+import { AllUsersComponent } from './home/admin/users/all-users/all-users.component';
+import { AllProductsComponent } from './home/admin/products/all-products/all-products.component';
+import {NgxPrintModule} from 'ngx-print';
+import { MailToCustomerComponent } from './home/accountCoordinator/mail/mail-to-customer/mail-to-customer.component';
+import { MailToDeveloperComponent } from './home/accountCoordinator/mail/mail-to-developer/mail-to-developer.component';
+import { MailToAccountCoComponent } from './home/developer/dev-mail/mail-to-account-co/mail-to-account-co.component';
+
 
 
 
@@ -154,8 +159,6 @@ import { AssignNewDeveloperComponent } from './home/accountCoordinator/tasks/ass
 
     LateComplaintInformationComponent,
     ViewReportsComponent,
-    ProfileComponent,
-    ActionComponent,
 
     TestComponent,
     UserProfileComponent,
@@ -167,8 +170,6 @@ import { AssignNewDeveloperComponent } from './home/accountCoordinator/tasks/ass
     ClateComponent,
     CviewreportsComponent,
     PdashboardComponent,
-    CactionComponent,
-    ChatComponent,
 
     DialogBoxComponent,
     DevtasksComponent,
@@ -190,7 +191,7 @@ import { AssignNewDeveloperComponent } from './home/accountCoordinator/tasks/ass
     LodgeSubComplaintComponent,
     UserProfileForAdminPurposeComponent,
 
-    UploadPictureComponent,
+    CropAndUploadPictureComponent,
     DialogBoxSelectPictureComponent,
     CommentSectionComponent,
     OtpDialogBoxComponent,
@@ -201,8 +202,16 @@ import { AssignNewDeveloperComponent } from './home/accountCoordinator/tasks/ass
     AccoorproductsComponent,
     DevtasksProfileComponent,
     UpdateDevtaskStatusComponent,
+
     DevMailComponent,
     AssignNewDeveloperComponent,
+
+    ForgetPasswordDialogBoxComponent,
+    AllUsersComponent,
+    AllProductsComponent,
+    MailToCustomerComponent,
+    MailToDeveloperComponent,
+    MailToAccountCoComponent,
 
 
   ],
@@ -224,7 +233,8 @@ import { AssignNewDeveloperComponent } from './home/accountCoordinator/tasks/ass
     MatBadgeModule,
     MatCheckboxModule,
 
-    MatDialogModule
+    MatDialogModule,
+    NgxPrintModule
 
   ],
   providers: [

@@ -4,16 +4,17 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {Router} from '@angular/router';
+import {MatTabGroup} from '@angular/material/tabs';
 
 
 export interface IComplaint {
-  complainID: string;
+  complaintID: string;
   subComplaintID: string;
   productID: string;
   description: string;
-  status: string;
+  statusName: string;
   submittedDate: string;
-  accountCoordinatorName: string;
+  firstName: string;
 }
 
 @Component({
@@ -22,18 +23,31 @@ export interface IComplaint {
   styleUrls: ['./cviewreports.component.css']
 })
 export class CviewreportsComponent implements OnInit, AfterViewInit {
-
+  scid: any;
+  pid: any;
+  did: any;
+  ssid: any;
+  ststid: any;
+  acid: any;
+  selectData: any;
+  cid: string;
+  hid2: boolean;
+  pm: string;
+  pendate: any;
+  findate: any;
+  work: any;
 
   constructor(private router: Router,
               private http1: HttpClient) { }
 
-  displayedColumns: string[] = ['complainID', 'subComplaintID', 'productID', 'description', 'status', 'submittedDate', 'accountCoordinatorName'];
+  displayedColumns: string[] = ['productID', 'complaintID', 'subComplaintID', 'description', 'statusName', 'submittedDate', 'firstName', 'print'];
 
   dataSource: MatTableDataSource<IComplaint>;
   COMPLAINS_DATA: IComplaint[];
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatTabGroup) mattabgroup: MatTabGroup;
 
   title = 'angular-checkbox-list-demo';
   selectedItemsList = [];
@@ -42,7 +56,7 @@ export class CviewreportsComponent implements OnInit, AfterViewInit {
   checkboxesDataList = [
     {
       id: 'C001',
-      label: 'Finish',
+      label: 'Completed',
       isChecked: false
     },
     {
@@ -61,6 +75,7 @@ export class CviewreportsComponent implements OnInit, AfterViewInit {
   selectedAll: any;
 
   ngOnInit(): void {
+    this.hid2 = true;
     this.fetchSelectedItems();
   }
 
@@ -104,7 +119,7 @@ export class CviewreportsComponent implements OnInit, AfterViewInit {
   changeSelection() {
     this.fetchSelectedItems();
     // tslint:disable-next-line:triple-equals max-line-length
-    if ((this.selectedItemsList[0].label == 'Finish') && (this.selectedItemsList[1].label == 'Working Progress') && (this.selectedItemsList[2].label == 'Pending')){
+    if ((this.selectedItemsList[0].label == 'Completed') && (this.selectedItemsList[1].label == 'Working Progress') && (this.selectedItemsList[2].label == 'Pending')){
       this.selectedAll = true;
       this.giveall();
     } else {
@@ -123,7 +138,7 @@ export class CviewreportsComponent implements OnInit, AfterViewInit {
   // tslint:disable-next-line:typedef
   getAl1(){
     // tslint:disable-next-line:triple-equals
-    if ( (this.selectedItemsList[0].label == 'Finish') && (this.selectedItemsList[1].label == 'Working Progress')  ){
+    if ( (this.selectedItemsList[0].label == 'Completed') && (this.selectedItemsList[1].label == 'Working Progress')  ){
       this.http1.get<any>(`http://localhost:3000/ceo/get-complaint-fw`, {}).subscribe(
         response => {
           this.COMPLAINS_DATA = response.data;
@@ -140,7 +155,7 @@ export class CviewreportsComponent implements OnInit, AfterViewInit {
   // tslint:disable-next-line:typedef
   getAl2(){
     // tslint:disable-next-line:triple-equals
-    if ( (this.selectedItemsList[0].label == 'Finish') && (this.selectedItemsList[1].label == 'Pending')  ){
+    if ( (this.selectedItemsList[0].label == 'Completed') && (this.selectedItemsList[1].label == 'Pending')  ){
       this.http1.get<any>(`http://localhost:3000/ceo/get-complaint-pf`, {}).subscribe(
         response => {
           this.COMPLAINS_DATA = response.data;
@@ -174,7 +189,7 @@ export class CviewreportsComponent implements OnInit, AfterViewInit {
   // tslint:disable-next-line:typedef
   getAl4(){
     // tslint:disable-next-line:triple-equals
-    if ( (this.selectedItemsList[0].label == 'Finish') ){
+    if ( (this.selectedItemsList[0].label == 'Completed') ){
       this.http1.get<any>(`http://localhost:3000/ceo/get-complaint-de`, {}).subscribe(
         response => {
           this.COMPLAINS_DATA = response.data;
@@ -234,6 +249,35 @@ export class CviewreportsComponent implements OnInit, AfterViewInit {
       this.checkboxesDataList[i].isChecked = this.selectedAll;
     }
   }
+
+  // tslint:disable-next-line:typedef
+  getID(row) {
+    this.mattabgroup.selectedIndex = 1;
+    console.log(row);
+    this.hid2 = false;
+    this.selectData = row; // click krana row eka mokadd kyla thyna eka
+    this.cid = this.selectData.complaintID;
+    this.pid = this.selectData.productID;
+    this.scid = this.selectData.subComplaintID;
+    this.did = this.selectData.description;
+    this.ssid = this.selectData.statusName;
+    this.ststid = this.selectData.submittedDate;
+    this.pendate = this.selectData.lastDateOfPending;
+    this.work = this.selectData.wipStartDate;
+    this.findate = this.selectData.finishedDate;
+    this.acid = this.selectData.firstName + ' ' + this.selectData.lastName;
+    this.pm = this.selectData.pfirstName + ' ' + this.selectData.plastName;
+  }
+
+  // tslint:disable-next-line:typedef
+  changetab(selectedTabIndex){
+    this.mattabgroup.selectedIndex = selectedTabIndex;
+    // tslint:disable-next-line:no-conditional-assignment triple-equals
+    if (selectedTabIndex == 0){
+      this.hid2 = true;
+    }
+  }
+
 
 
 }

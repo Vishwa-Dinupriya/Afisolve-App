@@ -16,7 +16,7 @@ export class ReviewDialogBoxComponent implements OnInit {
   @Input() color = 'accent';
   @Output() ratingUpdated = new EventEmitter();
 
-  ratingArr = [];
+   ratingArr = [];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               public completedComplaintService: CompletedComplaintService) {

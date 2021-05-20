@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TaskService} from '../task.service';
 import {HttpClient} from '@angular/common/http';
-import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
+import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
 import {MatDialog} from '@angular/material/dialog';
 import {environment} from '../../../../../environments/environment';
 
@@ -14,6 +14,9 @@ import {environment} from '../../../../../environments/environment';
 export class CreateTaskComponent implements OnInit {
   @ViewChild('myForm') myForm;
   developerEmailList;
+  developerNameList;
+  complaintIDList;
+  subComplaintIDList;
 
   createTaskForm: FormGroup;
   // developerNameList;
@@ -35,7 +38,22 @@ export class CreateTaskComponent implements OnInit {
     this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-DeveloperList', {}).subscribe(
       response => {
         this.developerEmailList = response.data.map(value => value.developerEmail);
+        this.developerNameList = response.data.map(value => value.developerName);
         }, error => {
+        console.log(error);
+      }
+    );
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-complaintIDlist', {}).subscribe(
+      response => {
+        this.complaintIDList = response.data.map(value => value.complaintID);
+      }, error => {
+        console.log(error);
+      }
+    );
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-subComplaintIDlist', {}).subscribe(
+      response => {
+        this.subComplaintIDList = response.data.map(value => value.subComplaintID);
+      }, error => {
         console.log(error);
       }
     );
