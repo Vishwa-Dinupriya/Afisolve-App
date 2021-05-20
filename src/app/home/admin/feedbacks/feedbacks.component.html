@@ -49,7 +49,8 @@
                 <!-- feedback description Column -->
                 <ng-container matColumnDef="description">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Feedback</th>
-                  <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                  <td mat-cell *matCellDef="let element">
+                    {{this.feedbacksService.profileModeValue? (element.description+'').toString().substr(0, 36)+'...' :  element.description.toString().substr(0, 110) }} </td>
                 </ng-container>
 
                 <!-- Details Column -->
