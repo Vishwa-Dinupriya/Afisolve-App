@@ -69,6 +69,8 @@ export class InProgressComplaintsComponent implements OnInit, AfterViewInit {
 
   redirectToCommentSection(complaintID: number): void {
     this.complaintIdToCommentSection = complaintID;
+    this.complaintsCustomerService.changeComplaintIdParentSubjectNumberValue(complaintID);
+    this.complaintsCustomerService.changeSubComplaintIdParentNumberSubjectValue(0);
     this.complaintsCustomerService.changeIsCommentSectionModeSubjectBooleanValue(true);
   }
 
