@@ -132,20 +132,15 @@ export class DashboardComponent implements OnInit {
     this.http1.get<any>(`http://localhost:3000/admin/get-month-count`, {}).subscribe(
       response => {
         this.dataSourceUsersmonth = response.data;
-        this.firstm = this.dataSourceUsersmonth[0].num;
-        this.secondm = this.dataSourceUsersmonth[1].num;
-        this.thirdm = this.dataSourceUsersmonth[2].num;
-
-
         let myChart = new Chart('myChart3', {
           type: 'line',
           data: {
             // tslint:disable-next-line:max-line-length
-            labels: [this.dataSourceUsersmonth[4].month, this.dataSourceUsersmonth[3].month, this.dataSourceUsersmonth[2].month, this.dataSourceUsersmonth[1].month, this.dataSourceUsersmonth[0].month],
+            labels: [this.dataSourceUsersmonth.fifthm, this.dataSourceUsersmonth.fourthm, this.dataSourceUsersmonth.thirdm, this.dataSourceUsersmonth.secondm, this.dataSourceUsersmonth.firstm],
             datasets: [{
               label: ' ',
               // tslint:disable-next-line:max-line-length
-              data: [this.dataSourceUsersmonth[4].num, this.dataSourceUsersmonth[3].num, this.dataSourceUsersmonth[2].num, this.dataSourceUsersmonth[1].num, this.dataSourceUsersmonth[0].num ],
+              data: [this.dataSourceUsersmonth.fifth, this.dataSourceUsersmonth.fourth, this.dataSourceUsersmonth.third, this.dataSourceUsersmonth.second, this.dataSourceUsersmonth.first],
               backgroundColor: [
                 '',
               ],
@@ -221,11 +216,11 @@ export class DashboardComponent implements OnInit {
           type: 'line',
           data: {
             // tslint:disable-next-line:max-line-length
-            labels: [this.dataSourceUsersmonthusers[4].month, this.dataSourceUsersmonthusers[3].month, this.dataSourceUsersmonthusers[2].month, this.dataSourceUsersmonthusers[1].month, this.dataSourceUsersmonthusers[0].month],
+            labels: [this.dataSourceUsersmonthusers.fifthm, this.dataSourceUsersmonthusers.fourthm, this.dataSourceUsersmonthusers.thirdm, this.dataSourceUsersmonthusers.secondm, this.dataSourceUsersmonthusers.firstm],
             datasets: [{
               label: '',
               // tslint:disable-next-line:max-line-length
-              data: [(f - this.dataSourceUsersmonthusers[4].num - this.dataSourceUsersmonthusers[3].num - this.dataSourceUsersmonthusers[2].num - this.dataSourceUsersmonthusers[1].num), (f - this.dataSourceUsersmonthusers[4].num - this.dataSourceUsersmonthusers[3].num - this.dataSourceUsersmonthusers[2].num), (f - this.dataSourceUsersmonthusers[4].num - this.dataSourceUsersmonthusers[3].num), (f - this.dataSourceUsersmonthusers[4].num), f ],
+              data: [(f - this.dataSourceUsersmonthusers.first - this.dataSourceUsersmonthusers.second - this.dataSourceUsersmonthusers.third - this.dataSourceUsersmonthusers.fourth), ( f - this.dataSourceUsersmonthusers.first - this.dataSourceUsersmonthusers.second - this.dataSourceUsersmonthusers.third), ( f - this.dataSourceUsersmonthusers.first - this.dataSourceUsersmonthusers.second), ( f - this.dataSourceUsersmonthusers.first), f ],
               backgroundColor: [
                 '',
               ],

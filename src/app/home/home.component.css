@@ -1,3 +1,15 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+::ng-deep .my-menu {
+  width: 290px;
+}
+.myCustomHead{position: relative;}
+.myCustomHeading{position: relative; margin-bottom: 10%}
+.myIcon{position:relative;}
+.mySpan{position:absolute;}
+
+
+/*padding-top:4px;*/
+/*padding-top:2px;*/
