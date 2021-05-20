@@ -78,11 +78,11 @@ export class SignupComponent implements OnInit {
   }
 
   get password(): AbstractControl {
-    return this.userRegistrationForm.get('abc.password');
+    return this.userRegistrationForm.get('passwordGroup.password');
   }
 
   get confirmPassword(): AbstractControl {
-    return this.userRegistrationForm.get('abc.confirmPassword');
+    return this.userRegistrationForm.get('passwordGroup.confirmPassword');
   }
 
   get roles(): AbstractControl {
