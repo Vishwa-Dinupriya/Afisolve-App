@@ -75,6 +75,9 @@ import {AllProductsComponent} from './home/admin/products/all-products/all-produ
 import {MailToCustomerComponent} from './home/accountCoordinator/mail/mail-to-customer/mail-to-customer.component';
 import {MailToDeveloperComponent} from './home/accountCoordinator/mail/mail-to-developer/mail-to-developer.component';
 import {MailToAccountCoComponent} from './home/developer/dev-mail/mail-to-account-co/mail-to-account-co.component';
+import {UpdateSelectedDevtaskStatusComponent} from './home/developer/devtasks/update-selected-devtask-status/update-selected-devtask-status.component';
+import {AcdashboardComponent} from './home/accountCoordinator/acdashboard/acdashboard.component';
+import {DevdashboardComponent} from './home/developer/devdashboard/devdashboard.component';
 
 
 
@@ -202,6 +205,10 @@ const routes: Routes = [
               component: AllocationComponent
             },
             {
+              path: 'acdashboard',
+              component: AcdashboardComponent
+            },
+            {
               path: 'mail',
               component: MailComponent,
               children: [
@@ -324,6 +331,10 @@ const routes: Routes = [
                 {
                   path: 'update-devtask-status',
                   component: UpdateDevtaskStatusComponent,
+                },
+                {
+                  path: 'update-selected-devtask-status',
+                  component: UpdateSelectedDevtaskStatusComponent,
                 }
               ]
             },
@@ -338,6 +349,10 @@ const routes: Routes = [
             {
               path: 'devproducts',
               component: DevproductsComponent,
+            },
+            {
+              path: 'devdashboard',
+              component: DevdashboardComponent
             },
             {
               path: 'devmail',

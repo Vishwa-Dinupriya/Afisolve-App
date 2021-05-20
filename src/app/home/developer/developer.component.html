@@ -2,6 +2,14 @@
   <mat-drawer mode="side" opened style="width: 230px">
     <mat-selection-list [multiple]="false" >
 
+      <!--Complaints Navigation-->
+      <mat-list-option routerLink="devdashboard"
+                       [selected]="activeRoute === 'DevdashboardComponent'"
+                       [class.selected]="activeRoute === 'DevdashboardComponent'">
+        <mat-icon mat-list-icon>dashboard</mat-icon>
+        <div mat-line>Dashboard</div>
+      </mat-list-option>
+
       <mat-list-option routerLink="devtasks"
                        [selected]="activeRoute === 'DevTasksComponent'"
                        [class.selected]="activeRoute === 'DevTasksComponent'">
