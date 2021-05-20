@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, Inject, Input, OnChanges, OnInit, Renderer2} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormGroup, FormBuilder, Validators, AbstractControl, FormControl, FormGroupDirective, NgForm} from '@angular/forms';
-import {checkPasswords} from 'src/app/authentication/shared/password.validator';
 import {AuthenticationService} from 'src/app/authentication/authentication.service';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {HttpClient} from '@angular/common/http';
@@ -43,8 +42,6 @@ export class UserProfileComponent implements OnInit, OnChanges {
 
   title;
   subtitle;
-  hidePassword = true;
-  hideConfirmPassword = true;
   edit = false;
   haveChanges = false;
   userRegistrationForm: FormGroup;
@@ -79,9 +76,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    // console.log(this.userEmailChild);
     if (this.userRegistrationForm) {
-      // console.log('form is build');
       this.tabIndex = '1';
       this.formBuildFunction();
       this.getAndSetValues();
@@ -93,10 +88,6 @@ export class UserProfileComponent implements OnInit, OnChanges {
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      passwordGroup: this.fb1.group({
-        password: ['', [Validators.required]],
-        confirmPassword: ['']
-      }, {validators: checkPasswords}),
       roles: [{value: '', disabled: true}, [Validators.required]],
       defaultRole: [{value: '', disabled: true}, [Validators.required]],
       contactNumber: ['']
@@ -110,43 +101,38 @@ export class UserProfileComponent implements OnInit, OnChanges {
     this.userRegistrationFormCopy.defaultRole = this.defaultRole.value;
     this.title = this.userRegistrationFormCopy.firstName + ' ' + this.userRegistrationFormCopy.lastName;
     this.subtitle = this.userRegistrationFormCopy.email;
-    // console.log('init form copy ');
-    // console.log(this.userRegistrationFormCopy);
     this.haveChanges = null;
-    // console.log('have changes ? ' + this.haveChanges);
 
   }
 
   toggleDisabled(): void {
-    // if (this.edit) {
-    //   this.roles.disable();
-    //   this.defaultRole.disable();
-    // } else {
-    //   this.roles.enable();
-    //   this.defaultRole.enable();
-    // }
+    if (this.edit) {
+      // this.roles.disable();
+      this.defaultRole.disable();
+    } else {
+      // this.roles.enable();
+      this.defaultRole.enable();
+    }
     this.edit = !this.edit;
   }
 
   subscribeToFormValChange(): void {
 
     if (this.userRegistrationFormCopy) {
-
       this.userRegistrationForm.valueChanges.subscribe(value => {
         if (this.userRegistrationFormCopy.firstName !== value.firstName ||
           this.userRegistrationFormCopy.lastName !== value.lastName ||
           this.userRegistrationFormCopy.email !== value.email ||
-          this.userRegistrationFormCopy.passwordGroup.password !== value.passwordGroup.password ||
           JSON.stringify(this.userRegistrationFormCopy.roles) !== JSON.stringify(value.roles) ||
           this.userRegistrationFormCopy.defaultRole !== value.defaultRole ||
           this.userRegistrationFormCopy.contactNumber !== value.contactNumber) {
           this.haveChanges = true;
-          console.log('have changes? ' + this.haveChanges);
+          // console.log('have changes? ' + this.haveChanges);
         } else {
           this.haveChanges = false;
-          console.log('have changes? ' + this.haveChanges);
+          // console.log('have changes? ' + this.haveChanges);
         }
-        console.log('valid ? ' + this.userRegistrationForm.valid);
+        // console.log('valid ? ' + this.userRegistrationForm.valid);
       });
     }
   }
@@ -161,14 +147,6 @@ export class UserProfileComponent implements OnInit, OnChanges {
 
   get email(): AbstractControl {
     return this.userRegistrationForm.get('email');
-  }
-
-  get password(): AbstractControl {
-    return this.userRegistrationForm.get('passwordGroup.password');
-  }
-
-  get confirmPassword(): AbstractControl {
-    return this.userRegistrationForm.get('passwordGroup.confirmPassword');
   }
 
   get roles(): AbstractControl {
@@ -192,7 +170,6 @@ export class UserProfileComponent implements OnInit, OnChanges {
 
     if (!this.selectedRoles.includes(this.defaultRole.value)) {
       this.defaultRole.reset();
-      console.log('hasError ' + this.userRegistrationForm.hasError('required', 'defaultRole'));
       this.defaultRole.markAsTouched();
     }
 
@@ -208,15 +185,13 @@ export class UserProfileComponent implements OnInit, OnChanges {
   public saveChangesDialog(): void {
     const oldEmail = this.userRegistrationFormCopy.email;
     const updatedEmail = this.email.value;
-    const oldPassword = this.userRegistrationFormCopy.passwordGroup.password;
-    const updatedPassword = this.password.value;
 
-    if (oldEmail !== updatedEmail || oldPassword !== updatedPassword) {
+    if (oldEmail !== updatedEmail) {
       // when admin update only 2 dialog boxes. but here 3 dialog boxes.because we have to inform about re-login
       const dialogRef = this.dialog.open(DialogBoxComponent, {
         data: {
           title: 'Are you sure?',
-          message: 'Save changes with ' + this.oldEmail + '? ' + 'Note: when you gonna update username or password, you have to re-login with new login credentials',
+          message: 'Save changes with ' + this.oldEmail + '? ' + 'Note: when you gonna update username , you have to re-login with new login credentials',
           name: '',
           button1: 'Cancel',
           button2: 'Continue'
@@ -285,8 +260,6 @@ export class UserProfileComponent implements OnInit, OnChanges {
             this.firstName.setValue(response.firstname);
             this.lastName.setValue(response.lastname);
             this.email.setValue(response.userEmail);
-            this.password.setValue(response.password);
-            this.confirmPassword.setValue(response.password);
             this.roles.setValue(response.roles.map(value => value.roleID));
             this.selectedRoles = response.roles.map(value => value.roleID);
             this.defaultRole.setValue(response.defaultRoleID);
@@ -308,11 +281,13 @@ export class UserProfileComponent implements OnInit, OnChanges {
   }
 
   onUpdate(): void {
+    console.log(this.userRegistrationFormCopy);
     const registrationForm = this.userRegistrationForm.value;
     registrationForm.firstName = this.capitalize(this.firstName.value);
     registrationForm.lastName = this.capitalize(this.lastName.value);
     this.http1.post<any>('http://localhost:3000/home/update-own-profile-details', {
       userNewData: this.userRegistrationForm.value,
+      roles: this.userRegistrationFormCopy.roles,
       emailOld: this.oldEmail,
       newProfilePhoto_: this.newProfilePicture,
       clientOtp: this.otpService.otp,

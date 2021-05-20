@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<h3 mat-dialog-title>Username : {{userEmail}}</h3>
+
+  <mat-dialog-content class="mat-typography h-auto" style="display: contents">
+    <p> {{data.message}}</p>
+    <div>
+      <form [formGroup]="reActivateSessionForm" class="mat-typography" style="display: contents">
+
+        <!-------------------------------------------------------------------------------------------------------------->
+        <div class="row">
+          <mat-form-field class="col-12" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Password" formControlName="password" required
+                   [type]="hidePassword ? 'password' : 'text'">
+            <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="password.touched && password.errors?.required">Please enter your password</mat-error>
+            <mat-error *ngIf="password.touched && !password.errors?.required && password.invalid">password needs at least 6 characters</mat-error>
+          </mat-form-field>
+        </div>
+        <!--------------------------------------------------------------------------------------------------------------->
+        <mat-dialog-actions align="end">
+          <div style="display: flex">
+            <button mat-button [mat-dialog-close]="false" type="button" [hidden]="false">Logout
+            </button>
+            <button mat-button type="button" [disabled]="!reActivateSessionForm.valid" (click)="reActivateSession()">ReActivate
+            </button>
+          </div>
+        </mat-dialog-actions>
+
+      </form>
+    </div>
+
+  </mat-dialog-content>
+
