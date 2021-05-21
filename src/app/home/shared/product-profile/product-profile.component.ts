@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {ProductService} from '../../admin/products/product.service';
 import {HttpClient} from '@angular/common/http';
+import {FormControl} from '@angular/forms';
 
 export interface IProductDetailsAdmin {
   accountCoordinatorEmail: string;
@@ -19,6 +20,7 @@ export interface IProductDetailsAdmin {
   projectManagerEmail: string;
   projectManagerFirstName: string;
   projectManagerLastName: string;
+  dev: any;
 }
 export interface IComplaintProduct {
   complaintID: string;
@@ -46,6 +48,12 @@ export class ProductProfileComponent implements OnInit, OnChanges {
   isHiddenPm: boolean;
   pmData: any;
 
+  selected = [];
+  newSelected: any;
+  toppings: FormControl;
+  ddData: any;
+  isHiddenDD: boolean;
+  isOpen = false;
   constructor(private http1: HttpClient,
               public productService: ProductService) {
   }
@@ -62,7 +70,12 @@ export class ProductProfileComponent implements OnInit, OnChanges {
             this.tabIndex = 0;
             this.PRODUCT_DETAILS_DATA = response.data; // undifined -> defined weno
             this.COMPLAINTS_PRODUCT_DATA = response.data.complaintsDetails; // defined -> undifined
-            // console.log(this.COMPLAINTS_PRODUCT_DATA);
+            this.selected = [];
+            for (let i = 0; i < response.data.dev.length; i++){
+              this.selected[i] = response.data.dev[i].devID;
+            }
+            // this.selected = [response.data.dev[0].devID, response.data.dev[1].devID];
+            this.toppings = new FormControl(this.selected);
           },
           error => {
             console.log(error);
@@ -79,6 +92,7 @@ export class ProductProfileComponent implements OnInit, OnChanges {
     }
     this.isHiddenAc = false;
     this.isHiddenPm = false;
+    this.isHiddenDD = false;
     this.productService.refreshNeededForAcName$
       .subscribe(() => {
         this.ngOnChanges();
@@ -143,5 +157,22 @@ export class ProductProfileComponent implements OnInit, OnChanges {
   cancel(): void {
     this.isHiddenAc = false;
     this.isHiddenPm = false;
+    this.isHiddenDD = false;
+  }
+
+  editDev(): void{
+    this.isHiddenDD = true;
+    this.http1.post<any>(`http://localhost:3000/admin/get-developer-List`, {}).subscribe(
+      response => {
+        this.ddData = response.data;
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  submitNewDev(): void {
+    this.isHiddenDD = false;
+    console.log(this.newSelected);
   }
 }
