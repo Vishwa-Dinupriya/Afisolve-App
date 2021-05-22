@@ -20,6 +20,7 @@ export interface IProductDetailsAdmin {
   projectManagerFirstName: string;
   projectManagerLastName: string;
 }
+
 export interface IComplaintProduct {
   complaintID: string;
   submittedDate: string;
@@ -40,8 +41,8 @@ export class ProductProfileComponent implements OnInit, OnChanges {
   tabIndex = 1;
   isHiddenAc: boolean;
   accData: any;
-  selectedValue: any;
-  selectedValue1: any;
+  selectedNewAccountCoordinator: any;
+  selectedNewProjectManager: any;
   a: number;
   isHiddenPm: boolean;
   pmData: any;
@@ -104,9 +105,10 @@ export class ProductProfileComponent implements OnInit, OnChanges {
 
   submitNewAc(): void {
     this.isHiddenAc = false;
-    console.log(this.selectedValue);
+    console.log(this.selectedNewAccountCoordinator);
     console.log(this.PRODUCT_DETAILS_DATA.productID);
-    this.productService.newAc(this.PRODUCT_DETAILS_DATA.productID, this.selectedValue, this.PRODUCT_DETAILS_DATA.accountCoordinatorEmail)
+    this.productService
+      .newAc(this.PRODUCT_DETAILS_DATA.productID, this.selectedNewAccountCoordinator)
       .subscribe(
         response => {
           console.log('Success!(frontend)', response);
@@ -127,11 +129,12 @@ export class ProductProfileComponent implements OnInit, OnChanges {
     );
   }
 
-  submitNewPm(test, selectedValue, maill): void {
+  submitNewPm(): void {
     this.isHiddenPm = false;
-    console.log(this.selectedValue1);
+    console.log(this.selectedNewProjectManager);
     console.log(this.PRODUCT_DETAILS_DATA.productID);
-    this.productService.newPm(this.PRODUCT_DETAILS_DATA.productID, this.selectedValue1, this.PRODUCT_DETAILS_DATA.projectManagerEmail)
+    this.productService
+      .newPm(this.PRODUCT_DETAILS_DATA.productID, this.selectedNewProjectManager)
       .subscribe(
         response => {
           console.log('Success!(frontend)', response);

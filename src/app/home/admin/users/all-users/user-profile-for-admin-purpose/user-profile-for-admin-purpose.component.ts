@@ -92,10 +92,6 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      passwordGroup: this.fb1.group({
-        password: ['', [Validators.required]],
-        confirmPassword: ['']
-      }, {validators: checkPasswords}),
       roles: [{value: '', disabled: true}, [Validators.required]], // this assigned value is only valid for in initiate form
       defaultRole: [{value: '', disabled: true}, [Validators.required]],
       contactNumber: ['']
@@ -131,7 +127,6 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
         if (this.userRegistrationFormCopy.firstName !== value.firstName ||
           this.userRegistrationFormCopy.lastName !== value.lastName ||
           this.userRegistrationFormCopy.email !== value.email ||
-          this.userRegistrationFormCopy.passwordGroup.password !== value.passwordGroup.password ||
           JSON.stringify(this.userRegistrationFormCopy.roles) !== JSON.stringify(value.roles) ||
           this.userRegistrationFormCopy.defaultRole !== value.defaultRole ||
           this.userRegistrationFormCopy.contactNumber !== value.contactNumber) {
@@ -156,14 +151,6 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
 
   get email(): AbstractControl {
     return this.userRegistrationForm.get('email');
-  }
-
-  get password(): AbstractControl {
-    return this.userRegistrationForm.get('passwordGroup.password');
-  }
-
-  get confirmPassword(): AbstractControl {
-    return this.userRegistrationForm.get('passwordGroup.confirmPassword');
   }
 
   get roles(): AbstractControl {
@@ -211,30 +198,47 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
 
   public saveChangesDialog(): void {
     if (this.userRegistrationFormCopy.email !== this.email.value) {
-      this.http1.post<any>(`http://localhost:3000/authentication/sendOtpToEmail`, {userEnteredEmail: this.email.value})
-        .subscribe(
-          response => {
-            console.log(response.otpID);
-            this.otpService.changeOtpIDSubjectNumberValue(response.otpID);
-          }, error => {
-            console.log(error);
-          }
-        );
-      const dialogRef1 = this.dialog.open(OtpDialogBoxComponent, {
+      const dialogRef = this.dialog.open(DialogBoxComponent, {
         data: {
-          title: 'Enter OTP: !',
-          message: 'We sent an one-time-password(OTP) to your new email address. ',
-          name: ' ',
+          title: 'Verify Email',
+          subtitle: 'We need to verify user\'s new email ',
+          name: this.email.value,
+          message: 'Click next then OTP will send to : ' ,
+          message2:  'Then you can submit user\'s updated details',
           button1: 'Cancel',
-          button2: 'Submit'
+          button2: 'Next',
         }
       });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === true) {
+          this.http1.post<any>(`http://localhost:3000/authentication/sendOtpToEmail`, {userEnteredEmail: this.email.value})
+            .subscribe(
+              response => {
+                console.log(response.otpID);
+                this.otpService.changeOtpIDSubjectNumberValue(response.otpID);
+              }, error => {
+                console.log(error);
+              }
+            );
+          const dialogRef1 = this.dialog.open(OtpDialogBoxComponent, {
+            data: {
+              title: 'Enter OTP: !',
+              message: 'We sent an one-time-password(OTP) to your new email address : ' + this.email.value,
+              name: ' ',
+              button1: 'Cancel',
+              button2: 'Submit'
+            }
+          });
 
-      dialogRef1.afterClosed().subscribe(result1 => {
-        if (result1 === true) {
-          this.onUpdate();
+          dialogRef1.afterClosed().subscribe(result1 => {
+            if (result1 === true) {
+              this.onUpdate();
+            } else {
+              console.log(`Dialog result: ${result1}`);
+            }
+          });
         } else {
-          console.log(`Dialog result: ${result1}`);
+
         }
       });
     } else {
@@ -266,8 +270,6 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
             this.firstName.setValue(response.firstname);
             this.lastName.setValue(response.lastname);
             this.email.setValue(response.userEmail);
-            this.password.setValue(response.password);
-            this.confirmPassword.setValue(response.password);
             this.roles.setValue(response.roles.map(value => value.roleID));
             this.selectedRoles = response.roles.map(value => value.roleID);
             this.defaultRole.setValue(response.defaultRoleID);

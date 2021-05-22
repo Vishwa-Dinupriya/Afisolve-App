@@ -51,6 +51,8 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
 
   ngOnChanges(): void {
     if (this.complaintIdInput) {
+      console.log(this.complaintIdInput);
+      console.log((this.senderRole));
       this.currentUserID = localStorage.getItem('userID');
       this.getComments(this.complaintIdInput);
       this.setTimer();

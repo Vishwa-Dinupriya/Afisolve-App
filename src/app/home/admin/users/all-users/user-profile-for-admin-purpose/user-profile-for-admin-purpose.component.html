@@ -77,36 +77,6 @@
             </mat-form-field>
           </div>
           <!-------------------------------------------------------------------------------------------------------------->
-          <div class="row" formGroupName="passwordGroup">
-            <mat-form-field class="col-6" appearance="outline">
-              <mat-label>Password</mat-label>
-              <input [readonly]="!edit" matInput placeholder="New password" formControlName="password"
-                     [type]="hidePassword ? 'password' : 'text'" [required]="edit">
-              <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
-                      [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-              </button>
-              <mat-error *ngIf="userRegistrationForm.hasError('required', 'passwordGroup')">Please enter your new
-                password
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field class="col-6" appearance="outline">
-              <mat-label>Confirm Password</mat-label>
-              <input [readonly]="!edit " matInput placeholder="Confirm password" formControlName="confirmPassword"
-                     [errorStateMatcher]="matcher" [type]="hideConfirmPassword ? 'password' : 'text'"
-                     [required]="edit">
-              <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
-                      [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
-                <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-              </button>
-              <mat-error *ngIf="userRegistrationForm.hasError('notSame','passwordGroup')">
-                Passwords do not match
-              </mat-error>
-            </mat-form-field>
-
-          </div>
-          <!-------------------------------------------------------------------------------------------------------------->
           <div class="row">
             <mat-form-field appearance="outline" class="col-12">
               <mat-label>Role</mat-label>
