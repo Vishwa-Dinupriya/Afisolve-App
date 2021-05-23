@@ -55,6 +55,9 @@ export class HomeComponent implements OnInit {
     private otpService: OtpService,
     private changePasswordService: ChangePasswordService
   ) {
+    this.authenticationService.refreshNeededForSessionTomeOutSubject$.subscribe(() => {
+      this.ngOnInit();
+    });
   }
 
   ngOnInit(): void {
@@ -75,6 +78,7 @@ export class HomeComponent implements OnInit {
         console.log(error);
       }
     );
+
     this.homeService.refreshNeededformsg$
       .subscribe(() => {
         this.getNotification();
@@ -150,7 +154,7 @@ export class HomeComponent implements OnInit {
         title: 'Change Password!',
         message: 'We need to verify it\'s you ',
         descriptionLine1: 'Click next then we will send OTP(one-time-password) to your email',
-        descriptionLine2:  'Then you can create new password.',
+        descriptionLine2: 'Then you can create new password.',
         button1: 'Cancel',
         button2: 'Done',
         userEmail: localStorage.getItem('userEmail')
