@@ -30,7 +30,7 @@
           <mat-label>Select Developer</mat-label>
           <mat-select formControlName="developerEmail" multiple="false">
             <mat-option *ngFor="let developerEmail of developerEmailList; let i = index"
-                        [value]="developerEmailList[i]">{{developerNameList[i]}}</mat-option>
+                        [value]="developerEmailList[i]">{{developerNameList[i]}} - {{developerEmailList[i]}}</mat-option>
           </mat-select>
           <mat-error>Please select a developer</mat-error>
         </mat-form-field>
@@ -39,6 +39,7 @@
       <mat-form-field class="col-auto" appearance="outline">
         <mat-label>Deadline</mat-label>
         <input type="datetime-local" matInput formControlName="deadline" placeholder="Deadline">
+        <mat-error>Please select deadline</mat-error>
       </mat-form-field>
 
     </div>
@@ -47,7 +48,8 @@
 
       <mat-form-field class="col-12" appearance="outline">
         <mat-label>Description</mat-label>
-        <textarea matInput formControlName="task_description" placeholder="Enter a description of minimum 5 characters"></textarea>
+        <textarea matInput formControlName="task_description" placeholder="Enter a description of minimum 10 characters"></textarea>
+        <mat-error>Please enter a description of minimum 10 characters</mat-error>
       </mat-form-field>
 
     </div>

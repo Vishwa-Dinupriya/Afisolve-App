@@ -69,7 +69,7 @@ export class AllProductsComponent implements OnInit, AfterViewInit {
   }
 
   public redirectToDetails(id: number): void {
-    console.log(id);
+    // console.log(id);
     this.productService.ChangeProductIDSubjectNumberValue(id);
     this.productService.ChangeProductProfileModeBooleanSubjectValue(true);
   }

@@ -20,7 +20,7 @@
       <div >
         <mat-form-field class="w-75 m-3">
           <mat-label>Filter</mat-label>
-          <input matInput placeholder="Ex.first user" (keyup)="applyFilter($event)">
+          <input matInput placeholder="Any keyword" (keyup)="applyFilter($event)">
         </mat-form-field>
         <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
 

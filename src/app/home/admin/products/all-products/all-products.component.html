@@ -13,11 +13,17 @@
     </mat-card-header>
 
     <mat-card-content>
+
+      <mat-form-field class="w-75 m-3">
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Any keyword" (keyup)="applyFilter($event)">
+      </mat-form-field>
+
       <div>
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
 
           <!-- productID Column -->
-          <ng-container matColumnDef="productID">
+          <ng-container matColumnDef="productID" >
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Id</th>
             <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
           </ng-container>
@@ -31,25 +37,29 @@
           <!-- category Column -->
           <ng-container matColumnDef="category">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Category</th>
-            <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+            <td mat-cell *matCellDef="let element">
+              {{this.productService.isProductProfileMode?(element.category+'').toString().substr(0, 6)+'...':element.category}} </td>
           </ng-container>
 
           <!-- customer email Column-->
           <ng-container matColumnDef="customerEmail">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer</th>
-            <td mat-cell *matCellDef="let element"> {{element.customerEmail}} </td>
+            <td mat-cell *matCellDef="let element">
+              {{this.productService.isProductProfileMode?(element.customerEmail+'').toString().substr(0, 14)+'...':element.customerEmail}} </td>
           </ng-container>
 
           <!-- project manager email Column-->
           <ng-container matColumnDef="projectManagerEmail">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Manager</th>
-            <td mat-cell *matCellDef="let element"> {{element.projectManagerEmail}} </td>
+            <td mat-cell *matCellDef="let element">
+              {{this.productService.isProductProfileMode?(element.projectManagerEmail+'').toString().substr(0, 14)+'...':element.projectManagerEmail}} </td>
           </ng-container>
 
           <!-- account coordinator email Column-->
           <ng-container matColumnDef="accountCoordinatorEmail">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Coordinator</th>
-            <td mat-cell *matCellDef="let element"> {{element.accountCoordinatorEmail}} </td>
+            <td mat-cell *matCellDef="let element">
+              {{this.productService.isProductProfileMode?(element.accountCoordinatorEmail+'').toString().substr(0, 14)+'...':element.accountCoordinatorEmail}} </td>
           </ng-container>
 
           <!-- Details Column -->

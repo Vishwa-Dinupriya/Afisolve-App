@@ -77,16 +77,6 @@
           </mat-list-item>
 
           <mat-list-item>
-            <div class=" w-50">Description:</div>
-            <div class=" text-secondary w-50">
-              <span *ngIf="!FEEDBACK_DETAILS_DATA.description; else descriptionBlock"><i> Not Available</i></span>
-              <ng-template #descriptionBlock>
-                <span> {{ FEEDBACK_DETAILS_DATA.description }} <br/></span>
-              </ng-template>
-            </div>
-          </mat-list-item>
-
-          <mat-list-item>
             <div class=" w-50">Customer Email:</div>
             <div class=" text-secondary w-50">
               <span *ngIf="!FEEDBACK_DETAILS_DATA.customerEmail; else customerEmailBlock"><i> Not Available</i></span>
@@ -171,7 +161,32 @@
             </div>
           </mat-list-item>
 
+<!--          <mat-list-item>-->
+<!--          <div class="row">-->
+<!--            <div class=" w-50" style="padding-left: 9%; font-size: initial;">Description:</div>-->
+<!--            <div class=" text-secondary w-50">-->
+<!--              <span *ngIf="!FEEDBACK_DETAILS_DATA.description; else descriptionBlock"><i> Not Available</i></span>-->
+<!--              <ng-template #descriptionBlock>-->
+<!--                <span> {{ FEEDBACK_DETAILS_DATA.description }} <br/></span>-->
+<!--              </ng-template>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          </mat-list-item>-->
+
+          <div>
+            <div style="padding-left: 5%;  padding-top: 3%; font-size: initial;">
+              Description:
+            </div>
+            <div class="text-secondary" style=" padding-left: 5%; padding-top: 3%;">
+              <span *ngIf="!FEEDBACK_DETAILS_DATA.description; else descriptionBlock"><i> Not Available</i></span>
+              <ng-template #descriptionBlock>
+                <span> {{ FEEDBACK_DETAILS_DATA.description }} <br/></span>
+              </ng-template>
+            </div>
+          </div>
+
         </mat-list>
+
       </div>
 
       <div [hidden]="ComplaintIdAvailable">

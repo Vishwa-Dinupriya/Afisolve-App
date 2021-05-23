@@ -19,6 +19,7 @@
   </mat-card-header>
 
   <mat-card-content>
+
     <div>
       <mat-list *ngIf="!!PRODUCT_DETAILS_DATA">
 
@@ -150,7 +151,7 @@
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-                <button (click)="submitNewPm()">Save</button> <button (click)="cancel()">Cancel</button>
+                <button (click)="submitNewPm(1,2,3)">Save</button> <button (click)="cancel()">Cancel</button>
               </div>
             </ng-template>
           </div>
@@ -203,7 +204,45 @@
 
       </mat-list>
     </div>
-    <mat-divider></mat-divider>
-    <div></div>
+
+    <mat-divider style="margin-top: 3%"></mat-divider>
+
+     <!--Complaints Details with this product-->
+    <div>
+      <mat-card-header style="padding-top: 5%">
+        <mat-card-title>Complaints </mat-card-title>
+        <mat-card-subtitle *ngIf="!!COMPLAINTS_PRODUCT_DATA.length">All : {{COMPLAINTS_PRODUCT_DATA.length}} </mat-card-subtitle>
+
+      </mat-card-header>
+      <mat-list *ngIf="!!COMPLAINTS_PRODUCT_DATA">
+
+        <mat-list-item *ngFor="let singleComplaintDetail of COMPLAINTS_PRODUCT_DATA">
+          <div class=" w-25">ID :</div>
+          <div class="text-secondary w-25">
+            <span *ngIf="!singleComplaintDetail.complaintID; else complaintIDBlock"><i> Not Available</i></span>
+            <ng-template #complaintIDBlock>
+              <span> {{ singleComplaintDetail.complaintID }} <br/></span>
+            </ng-template>
+          </div>
+
+          <div class=" w-25">Date : </div>
+          <div class="text-secondary w-75">
+            <span *ngIf="!singleComplaintDetail.submittedDate; else submitDateBlock"><i> Not Available</i></span>
+            <ng-template #submitDateBlock>
+              <span> {{ singleComplaintDetail.submittedDate }} <br/></span>
+            </ng-template>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item *ngIf="!COMPLAINTS_PRODUCT_DATA.length">
+          <div class="text-secondary w-100">
+            <span ><i> Not available any complaint with this product </i></span>
+          </div>
+        </mat-list-item>
+
+
+      </mat-list>
+    </div>
+
   </mat-card-content>
 </mat-card>

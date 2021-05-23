@@ -153,6 +153,44 @@
 
     <mat-divider style="margin-top: 3%"></mat-divider>
 
+    <!--Products Details-->
+    <div>
+      <mat-card-header style="padding-top: 5%">
+        <mat-card-title>Products Details</mat-card-title>
+        <mat-card-subtitle *ngIf="!!PRODUCTS_USER_DATA.length">All : {{PRODUCTS_USER_DATA.length}} </mat-card-subtitle>
+      </mat-card-header>
+      <mat-list *ngIf="!!PRODUCTS_USER_DATA">
+
+        <mat-list-item *ngFor="let singleUerProductDetail of PRODUCTS_USER_DATA">
+          <div class=" w-75">Product ID :</div>
+          <div class="text-secondary w-25">
+            <span *ngIf="!singleUerProductDetail.productID; else productIDBlock"><i> Not Available</i></span>
+            <ng-template #productIDBlock>
+              <span> {{ singleUerProductDetail.productID }} <br/></span>
+            </ng-template>
+          </div>
+
+          <div class=" w-25">As </div>
+          <div class="text-secondary w-75">
+            <span *ngIf="!singleUerProductDetail.roleName; else roleNameBlock"><i> Not Available</i></span>
+            <ng-template #roleNameBlock>
+              <span> {{ singleUerProductDetail.roleName }} <br/></span>
+            </ng-template>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item *ngIf="!PRODUCTS_USER_DATA.length">
+          <div class="text-secondary w-100">
+            <span ><i> Not available any product with this user </i></span>
+          </div>
+        </mat-list-item>
+
+
+      </mat-list>
+    </div>
+
+    <mat-divider style="margin-top: 3%"></mat-divider>
+
     <!--General Details-->
    <div>
      <mat-card-header style="padding-top: 5%">

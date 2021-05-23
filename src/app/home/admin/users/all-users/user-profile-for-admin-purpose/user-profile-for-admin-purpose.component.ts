@@ -13,6 +13,11 @@ import {DialogBoxSelectPictureComponent} from '../../../../../shared/dialog-box-
 import {OtpDialogBoxComponent} from '../../../../../shared/otp-dialog-box/otp-dialog-box.component';
 import {OtpService} from '../../../../../shared/otp-service/otp.service';
 
+export interface IProductUser {
+  productID: string;
+  roleName: string;
+}
+
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
@@ -30,6 +35,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
 
   USER_GENERAL_DATA: IUserGeneral;
+  PRODUCTS_USER_DATA: IProductUser[] = [];
 
   hidePassword = true;
   hideConfirmPassword = true;
@@ -274,6 +280,7 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
             this.subscribeToFormValChange();
 
             this.USER_GENERAL_DATA = response.generalData[0];
+            this.PRODUCTS_USER_DATA = response.productsDetails;
 
             if (this.roles.value.includes(0)) {
               this.nonCustomerRoleSelected = false;
