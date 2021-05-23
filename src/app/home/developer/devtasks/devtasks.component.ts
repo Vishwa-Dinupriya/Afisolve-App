@@ -60,12 +60,12 @@ export class DevtasksComponent implements OnInit {
   dataSourceAll: MatTableDataSource<IAllTask>;
   ALLTASK_DATA: IAllTask[];
   // -------------------------------------------- //
-  displayedColumnsOverdue: string[] = ['taskID', 'productName', 'complaintID', 'productName', 'subComplaintID', 'assignDate', 'deadline',  'details'];
+  displayedColumnsOverdue: string[] = ['taskID', 'productName', 'complaintID', 'subComplaintID', 'assignDate', 'deadline',  'details'];
   dataSourceOverdue: MatTableDataSource<IOverdueTask>;
   OVERDUETASK_DATA: IOverdueTask[];
   // -------------------------------------------- //
   // -------------------------------------------- //
-  displayedColumnsPending: string[] = ['taskID', 'productName', 'complaintID', 'productName', 'subComplaintID', 'assignDate', 'deadline',  'details'];
+  displayedColumnsPending: string[] = ['taskID', 'productName', 'complaintID', 'subComplaintID', 'assignDate', 'deadline',  'details'];
   dataSourcePending: MatTableDataSource<IPendingTask>;
   PENDINGTASK_DATA: IPendingTask[];
   // -------------------------------------------- //

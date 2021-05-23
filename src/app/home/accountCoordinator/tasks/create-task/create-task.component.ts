@@ -19,8 +19,6 @@ export class CreateTaskComponent implements OnInit {
   subComplaintIDList;
 
   createTaskForm: FormGroup;
-  // developerNameList;
- // developerIDList;
   constructor(private fb1: FormBuilder,
               private taskService: TaskService,
               private http1: HttpClient,
@@ -31,7 +29,7 @@ export class CreateTaskComponent implements OnInit {
       complaintID: ['', [Validators.required]],
       subComplaintID: ['', [Validators.required]],
       deadline: ['', [Validators.required]],
-      task_description: ['', [Validators.minLength(5), Validators.required]],
+      task_description: ['', [Validators.minLength(10), Validators.required]],
      developerEmail: ['', [Validators.required]],
      // developerID: ['', [Validators.required]],
     });
@@ -57,27 +55,12 @@ export class CreateTaskComponent implements OnInit {
         console.log(error);
       }
     );
-    /*this.http1.post<any>(`environment.accountCoordinatorApiUrl + //get-DeveloperList`, {}).subscribe(
-      response => {
-        this.developerIDList = response.data.map(value => value.developerID);
-        this.developerNameList = response.data.map(value => value.developerName);
-      }, error => {
-        console.log(error);
-      }
-    );*/
-    ////
   }
- /* get developerID(): AbstractControl {
-    return this.createTaskForm.get('developerID');
-  }
-  get developerName(): AbstractControl {
-    return this.createTaskForm.get('developerName');
-  }*/
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
       data: {
-        title: 'Confirm form submission!',
-        message: 'Do you want to create this task ? ',
+        title: 'Are you sure you want to create this task ?',
+        message: 'Please Confirm! ',
         name: ' ',
         button1: 'No',
         button2: 'Yes'

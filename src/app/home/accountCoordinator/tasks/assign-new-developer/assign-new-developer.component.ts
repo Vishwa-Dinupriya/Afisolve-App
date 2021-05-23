@@ -49,8 +49,8 @@ export class AssignNewDeveloperComponent implements OnInit {
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
       data: {
-        title: 'Confirm form submission!',
-        message: 'Do you want to update developer ? ',
+        title: 'Are you sure you want to update task?',
+        message: 'Please Confirm!',
         name: ' ',
         button1: 'No',
         button2: 'Yes'
@@ -65,9 +65,9 @@ export class AssignNewDeveloperComponent implements OnInit {
               const dialogRef2 = this.dialog.open(DialogBoxComponent, {
                 data: {
                   title: 'Success!',
-                  message: 'You have successfully updated developer',
+                  message: 'You have successfully updated task',
                   name: ' ',
-                  button1: 'Back to complaints',
+                  button1: 'Back to tasks',
                   button2: 'Ok'
                 }
               });

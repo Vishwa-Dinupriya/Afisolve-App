@@ -3,21 +3,13 @@
 <mat-card-title style="text-align: center">Add Complaint</mat-card-title>
   <br>
   <form [formGroup]="addComplaintForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
-<!--
-    <div class="row">
 
-      <mat-form-field class="col-auto" appearance="outline">
-        <mat-label>Product ID</mat-label>
-        <input type="text" matInput formControlName="productID" placeholder="Enter a valied product ID">
-      </mat-form-field>
-    </div>
--->
     <div class="row">
       <mat-form-field appearance="outline" class="col-auto">
         <mat-label>Select Product</mat-label>
         <mat-select formControlName="productID" multiple="false">
           <mat-option *ngFor="let productID of productIDList; let i = index"
-                      [value]="productIDList[i]">{{productNameList[i]}}</mat-option>
+                      [value]="productIDList[i]">{{productIDList[i]}} - {{productNameList[i]}}</mat-option>
         </mat-select>
         <mat-error>Please select a product</mat-error>
       </mat-form-field>
@@ -27,7 +19,8 @@
 
       <mat-form-field class="col-12" appearance="outline">
         <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description"  placeholder="Enter a description of minimum 5 characters"></textarea>
+        <textarea matInput formControlName="description"  placeholder="Enter a description of minimum 10 characters"></textarea>
+        <mat-error>Please enter a description of minimum 10 characters</mat-error>
       </mat-form-field>
 
     </div>

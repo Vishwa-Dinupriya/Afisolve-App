@@ -15,22 +15,28 @@
 
 
           <div class="row">
-            <mat-form-field class="col-auto" appearance="outline">
-              <mat-label>To: (Reciever's Email)</mat-label>
-              <input type="text" matInput formControlName="recMail" placeholder="example@gmail.com">
+            <mat-form-field appearance="outline" class="col-auto">
+              <mat-label>Select User</mat-label>
+              <mat-select formControlName="userEmail" multiple="false">
+                <mat-option *ngFor="let userEmail of userEmailList; let i = index"
+                            [value]="userEmailList[i]">{{userNameList[i]}} - {{userEmailList[i]}}</mat-option>
+              </mat-select>
+              <mat-error>Please select a user</mat-error>
             </mat-form-field>
           </div>
           <div class="row">
             <mat-form-field class="col-12" appearance="outline">
               <mat-label>Subject</mat-label>
-              <input type="text" matInput formControlName="subject" placeholder="Enter a Subject of minimum 5 characters">
+              <input type="text" matInput formControlName="subject" placeholder="Enter a Subject of minimum 10 characters">
+              <mat-error>Please enter subject of minimum 10 characters</mat-error>
             </mat-form-field>
           </div>
 
           <div class="row">
             <mat-form-field class="col-12" appearance="outline">
               <mat-label>Message</mat-label>
-              <textarea matInput formControlName="message" placeholder="Enter a Message of minimum 5 characters"></textarea>
+              <textarea matInput formControlName="message" placeholder="Enter a Message of minimum 10 characters"></textarea>
+              <mat-error>Please enter message of minimum 10 characters</mat-error>
             </mat-form-field>
           </div>
 
