@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event?): void {
-    this.isBigScreen = (window.innerWidth) > 800;
+    this.isBigScreen = (window.innerWidth) > 1000;
     this.homeService.ToggleDrawer(this.isBigScreen);
     this.toggleDrawerBtnValue = this.homeService.drawer;
   }
@@ -63,10 +63,12 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.homeService.changeUserProfileModeBooleanSubject(false);
     this.homeService.changeUserEmailStringSubjectValue(null);
-    this.isBigScreen = (window.innerWidth) > 700; // using this line for toggle-button-> hide or not
+    this.isBigScreen = (window.innerWidth) > 1000; // using this line for toggle-button-> hide or not
     this.homeService.ToggleDrawer(this.isBigScreen);
     this.toggleDrawerBtnValue = this.homeService.drawer;
 
+    // console.log(window.innerWidth);
+    // console.log(this.isBigScreen);
     this.http1.post<any>(`http://localhost:3000/home/user-toolbar-display-details`, {}).subscribe(
       response => {
         this.currentRole = response.selectedRole;

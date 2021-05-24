@@ -114,8 +114,8 @@
         <mat-list-item>
           <div class=" w-50">Project Manager Name:</div>
           <div class=" text-secondary w-50">
-            <span *ngIf="!PRODUCT_DETAILS_DATA.projectManagerFirstName; else projectManagerNameBlock"><i> Not Available</i></span>
-            <ng-template #projectManagerNameBlock>
+            <span *ngIf="!PRODUCT_DETAILS_DATA.projectManagerFirstName; else projectManagerBlock"><i> Not Available</i></span>
+            <ng-template #projectManagerBlock>
                 <span style="display: inline-block"> {{ PRODUCT_DETAILS_DATA.projectManagerFirstName + ' ' + PRODUCT_DETAILS_DATA.projectManagerLastName  }}
                   </span>
             </ng-template>
@@ -175,7 +175,7 @@
           <div [hidden]="!isHiddenAc">
             <mat-form-field>
               <mat-label>Select Account Coordinator</mat-label>
-              <mat-select [(ngModel)]="selectedNewAccountCoordinator">
+              <mat-select [(ngModel)]="selectedAccountCoordinator">
                 <mat-option *ngFor="let acc of accData" [value]="acc" >
                   {{acc.firstName}} {{acc.lastName}} {{ '( '+ acc.userEmail+ ' )'}}
                 </mat-option>
@@ -207,7 +207,41 @@
 
     <mat-divider style="margin-top: 3%"></mat-divider>
 
-     <!--Complaints Details with this product-->
+    <!--Allocations(developers) Details with this product-->
+    <div>
+      <mat-card-header style="padding-top: 5%">
+        <mat-card-title>Allocations </mat-card-title>
+        <mat-card-subtitle *ngIf="!!DEVELOPERS_PRODUCT_DATA.length">All : {{DEVELOPERS_PRODUCT_DATA.length}} </mat-card-subtitle>
+
+      </mat-card-header>
+      <mat-list *ngIf="!!DEVELOPERS_PRODUCT_DATA">
+
+        <mat-list-item *ngFor="let developer of DEVELOPERS_PRODUCT_DATA; let i = index" >
+            <div style="width: 35%!important;">Developer{{' '+(i+1)+' '}}:</div>
+            <div class=" text-secondary" style="width: 65%!important;">
+              <span *ngIf="!developer.firstName; else developerBlock"><i> Not Available</i></span>
+              <ng-template #developerBlock>
+                <span style="display: inline-block"> {{ developer.firstName + ' ' + developer.lastName  }}
+                  </span>
+                <span> {{ developer.userEmail }} </span>
+              </ng-template>
+            </div>
+          <br>
+        </mat-list-item>
+
+        <mat-list-item *ngIf="!DEVELOPERS_PRODUCT_DATA.length">
+          <div class="text-secondary w-100">
+            <span ><i> Not available any allocation with this product </i></span>
+          </div>
+        </mat-list-item>
+
+
+      </mat-list>
+    </div>
+
+    <mat-divider style="margin-top: 3%"></mat-divider>
+
+    <!--Complaints Details with this product-->
     <div>
       <mat-card-header style="padding-top: 5%">
         <mat-card-title>Complaints </mat-card-title>

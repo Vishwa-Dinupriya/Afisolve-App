@@ -75,7 +75,6 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
        this.ngOnChanges();
       }
     });
-    console.log(this.senderRole + ' subscribed from OnInit');
   }
 
   public ngOnDestroy(): void {

@@ -26,6 +26,12 @@ export interface IComplaintProduct {
   submittedDate: string;
 }
 
+export interface IDeveloperProduct {
+  firstName: string;
+  lastName: string;
+  userEmail: string;
+}
+
 @Component({
   selector: 'app-product-profile',
   templateUrl: './product-profile.component.html',
@@ -36,12 +42,13 @@ export class ProductProfileComponent implements OnInit, OnChanges {
 
   PRODUCT_DETAILS_DATA: IProductDetailsAdmin; // undefined
   COMPLAINTS_PRODUCT_DATA: IComplaintProduct[] = []; // defined
+  DEVELOPERS_PRODUCT_DATA: IDeveloperProduct[] = [];
 
   productIdAvailable;
   tabIndex = 1;
   isHiddenAc: boolean;
   accData: any;
-  selectedNewAccountCoordinator: any;
+  selectedAccountCoordinator: any;
   selectedNewProjectManager: any;
   a: number;
   isHiddenPm: boolean;
@@ -63,6 +70,7 @@ export class ProductProfileComponent implements OnInit, OnChanges {
             this.tabIndex = 0;
             this.PRODUCT_DETAILS_DATA = response.data; // undifined -> defined weno
             this.COMPLAINTS_PRODUCT_DATA = response.data.complaintsDetails; // defined -> undifined
+            this.DEVELOPERS_PRODUCT_DATA = response.data.developersDetails;
             // console.log(this.COMPLAINTS_PRODUCT_DATA);
           },
           error => {
@@ -96,7 +104,6 @@ export class ProductProfileComponent implements OnInit, OnChanges {
     this.http1.get<any>(`http://localhost:3000/ceo/get-account-coordinaters-details`, {}).subscribe(
       response => {
         this.accData = response.data;
-        console.log(this.accData);
       }, error => {
         console.log(error);
       }
@@ -105,10 +112,10 @@ export class ProductProfileComponent implements OnInit, OnChanges {
 
   submitNewAc(): void {
     this.isHiddenAc = false;
-    console.log(this.selectedNewAccountCoordinator);
+    console.log(this.selectedAccountCoordinator);
     console.log(this.PRODUCT_DETAILS_DATA.productID);
     this.productService
-      .newAc(this.PRODUCT_DETAILS_DATA.productID, this.selectedNewAccountCoordinator)
+      .newAc(this.PRODUCT_DETAILS_DATA.productID, this.selectedAccountCoordinator)
       .subscribe(
         response => {
           console.log('Success!(frontend)', response);
@@ -122,7 +129,6 @@ export class ProductProfileComponent implements OnInit, OnChanges {
     this.http1.post<any>(`http://localhost:3000/admin/get-project-Manager-List`, {}).subscribe(
       response => {
         this.pmData = response.data;
-        console.log(this.accData);
       }, error => {
         console.log(error);
       }
