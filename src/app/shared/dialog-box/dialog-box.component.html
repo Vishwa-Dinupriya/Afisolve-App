@@ -1,9 +1,10 @@
 <h2 mat-dialog-title style="margin-bottom: 0">{{data.title}}</h2>
+<h3 mat-dialog-title [hidden]="!data.subtitle">{{data.subtitle}} </h3>
 <mat-dialog-content class="mat-typography">
 
-  <img style="width: 20%; margin-left: 2%; margin-bottom: 2%; border-radius: 50%;" [src]="data.image" />
+  <img [hidden]="data.image" style="width: 20%; margin-left: 2%; margin-bottom: 2%; border-radius: 50%;" [src]="data.image" />
 
-  <p> {{data.message +'\''+ data.name +'\''}}</p>
+  <p> {{data.message +'\''+ data.name +'\''}} <br> {{data.message2}}</p>
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">

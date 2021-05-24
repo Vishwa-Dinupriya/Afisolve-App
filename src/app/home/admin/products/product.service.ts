@@ -55,9 +55,9 @@ export class ProductService {
   }
 
   // tslint:disable-next-line:typedef
-  newAc(test, selectedValue, maill): Observable<any>  {
+  newAc(productID, selectedNewAccountCoordinator): Observable<any>  {
     return this.http1
-      .post<any>(this.newAcUrl, {v: test, u: selectedValue, w: maill})
+      .post<any>(this.newAcUrl, { productID,  selectedNewAccountCoordinator})
       .pipe(
          tap(() => {
             this._refreshNeededForAcName$.next();
@@ -66,9 +66,9 @@ export class ProductService {
       );
   }
 
-  newPm(test, selectedValue, maill): Observable<any>  {
+  newPm(productID, selectedNewProjectManager): Observable<any>  {
     return this.http1
-      .post<any>(this.newPmUrl, {v: test, u: selectedValue, w: maill})
+      .post<any>(this.newPmUrl, { productID, selectedNewProjectManager})
       .pipe(
         tap(() => {
             this._refreshNeededForAcName$.next();

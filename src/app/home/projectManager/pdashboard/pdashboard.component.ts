@@ -108,17 +108,10 @@ export class PdashboardComponent implements OnInit, AfterViewInit {
 
   // ....................................................................
   getmonthCount(){
-    this.http1.get<any>(`http://localhost:3000/ceo/get-month-count`, {}).subscribe(
+    this.http1.get<any>(`http://localhost:3000/projectManager/get-month-count`, {}).subscribe(
       response => {
         this.dataSourceUsersmonth = response.data;
-        console.log(this.dataSourceUsersmonth[4].num);
-        console.log(this.dataSourceUsersmonth[3].num);
-        console.log(this.dataSourceUsersmonth[2].num);
-        this.firstm = this.dataSourceUsersmonth[0].num;
-        this.secondm = this.dataSourceUsersmonth[1].num;
-        this.thirdm = this.dataSourceUsersmonth[2].num;
-
-
+        console.log(this.dataSourceUsersmonth);
 
         // ..........................chart eka
         // tslint:disable-next-line:prefer-const
@@ -126,11 +119,11 @@ export class PdashboardComponent implements OnInit, AfterViewInit {
           type: 'line',
           data: {
             // tslint:disable-next-line:max-line-length
-            labels: [this.dataSourceUsersmonth[4].month, this.dataSourceUsersmonth[3].month, this.dataSourceUsersmonth[2].month, this.dataSourceUsersmonth[1].month, this.dataSourceUsersmonth[0].month],
+            labels: [this.dataSourceUsersmonth.fifthm, this.dataSourceUsersmonth.fourthm, this.dataSourceUsersmonth.thirdm, this.dataSourceUsersmonth.secondm, this.dataSourceUsersmonth.firstm],
             datasets: [{
               label: ' ',
               // tslint:disable-next-line:max-line-length
-              data: [this.dataSourceUsersmonth[4].num, this.dataSourceUsersmonth[3].num, this.dataSourceUsersmonth[2].num, this.dataSourceUsersmonth[1].num, this.dataSourceUsersmonth[0].num ],
+              data: [this.dataSourceUsersmonth.fifth, this.dataSourceUsersmonth.fourth, this.dataSourceUsersmonth.third, this.dataSourceUsersmonth.second, this.dataSourceUsersmonth.first ],
               backgroundColor: [
                 '',
               ],

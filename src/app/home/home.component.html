@@ -54,39 +54,23 @@
         <span>{{ role_.roleName }}</span>
       </button>
     </mat-menu>
-    <!---------------------------------------------------------------------->
-    <mat-menu #dropDownNotifications="matMenu">
-      <div *ngIf="currentRole == 'account-coordinator';  then ac_notification; else non_ac"></div>
-      <ng-template #ac_notification>
-        <div>
-          <div>
-            <mat-list>
-              <div *ngFor="let notfi of dataSourceNotifications">
-                <mat-icon>arrow_right</mat-icon>
-                <b>{{notfi.action}}</b> : about product Id-{{notfi.productID}} product, please check your email for more
-                details.
-                <div style="margin-left: 50%; font-size: small">
-                  {{notfi.submittedtime | date}}
-                  <button mat-icon-button color="warn" (click)="readAlert(notfi)">
-                    <mat-icon>assignment_turned_in</mat-icon>
-                    read
-                  </button>
-                </div>
-                <mat-divider></mat-divider>
-              </div>
-            </mat-list>
-          </div>
-        </div>
+       <!---------------------------------------------------------------------->
+    <mat-menu #dropDownNotifications="matMenu" class="my-menu">
+      <span *ngIf=" hidd != 0;then productNameBlock else noNotification"></span>
+      <ng-template #productNameBlock>
+        <span *ngFor="let notfi of dataSourceNotifications;" >
+          <div class='myCustomHeading'>
+          <mat-icon class="pointer myIcon" >not_started</mat-icon>
+          <span class="mySpan"><b>{{notfi.description}}</b></span>
+             </div>
+            <div style="font-size: small; margin-left: 42%">
+              {{notfi.submittedTime | date}} <button mat-icon-button color="warn" (click)="readAlert(notfi)" ><mat-icon>assignment_turned_in</mat-icon>read</button>
+            </div>
+          <br/>
+          </span>
       </ng-template>
-
-
-      <ng-template #non_ac>
-        <div>
-          <button mat-menu-item style="width: 200px">
-            <mat-icon>help_center</mat-icon>
-            <span>No notifications</span>
-          </button>
-        </div>
+      <ng-template #noNotification>
+        <span><i><h3 style="margin-left: 10%; margin-top: 7%"><b>No Any Notifications</b></h3></i></span>
       </ng-template>
     </mat-menu>
     <!------------------------------------------------------------------------------------------------------>

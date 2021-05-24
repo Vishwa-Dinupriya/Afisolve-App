@@ -161,6 +161,8 @@ export class SignupComponent implements OnInit {
                         dialogRef3.afterClosed().subscribe(result3 => {
                           console.log(`Dialog result: ${result3}`);
                           this.myForm.resetForm();
+                          this.nonCustomerRoleSelected = false;
+                          this.customerRoleSelected = false;
                           if (result3 === true) {
 
                           } else {

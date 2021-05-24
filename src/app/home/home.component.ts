@@ -55,6 +55,9 @@ export class HomeComponent implements OnInit {
     private otpService: OtpService,
     private changePasswordService: ChangePasswordService
   ) {
+    this.authenticationService.refreshNeededForSessionTomeOutSubject$.subscribe(() => {
+      this.ngOnInit();
+    });
   }
 
   ngOnInit(): void {
@@ -75,6 +78,7 @@ export class HomeComponent implements OnInit {
         console.log(error);
       }
     );
+
     this.homeService.refreshNeededformsg$
       .subscribe(() => {
         this.getNotification();
@@ -104,6 +108,7 @@ export class HomeComponent implements OnInit {
 
           this.router.navigate([`../home/${response.requestedRole.toLowerCase()}`]);
           this.currentRole = response.requestedRole;
+          this.getNotification();
         },
         error => {
           console.error('Role change Error!(frontend)', error);
@@ -121,6 +126,7 @@ export class HomeComponent implements OnInit {
     this.http1.get<any>(`http://localhost:3000/home/get-reminder-notification`, {}).subscribe(
       response => {
         this.dataSourceNotifications = response.data;
+        console.log(this.dataSourceNotifications);
         this.hidd = this.dataSourceNotifications.length;
 
       }, error => {
@@ -146,8 +152,9 @@ export class HomeComponent implements OnInit {
     const dialogRef1 = this.dialog.open(ChangePasswordDialogBoxComponent, {
       data: {
         title: 'Change Password!',
-        message: 'We sent an one-time-password(OTP) to ',
-        name: ' ',
+        message: 'We need to verify it\'s you ',
+        descriptionLine1: 'Click next then we will send OTP(one-time-password) to your email',
+        descriptionLine2: 'Then you can create new password.',
         button1: 'Cancel',
         button2: 'Done',
         userEmail: localStorage.getItem('userEmail')

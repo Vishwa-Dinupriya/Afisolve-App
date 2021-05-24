@@ -27,6 +27,8 @@ export interface IComplaintDetailsAdmin {
   subComplaintID: number;
   submittedDate: string;
   wipStartDate: string;
+  feedbackSatisfaction: number;
+  feedbackDescription: string;
 }
 
 @Component({
@@ -44,6 +46,9 @@ export class ComplaintProfileComponent implements AfterViewInit, OnChanges {
   ComplaintIdAvailable;
 
   imageAttachments = [];
+
+  starCount = 5;
+  ratingArr = [];
 
   constructor(private router: Router,
               private http1: HttpClient,
@@ -67,11 +72,16 @@ export class ComplaintProfileComponent implements AfterViewInit, OnChanges {
           response => {
             this.COMPLAINT_DETAILS_DATA = response.data;
             this.imageAttachments = response.images;
+            console.log(response.data);
           },
           error => {
             console.log(error);
           }
         );
+
+      for (let index = 0; index < this.starCount; index++) {
+        this.ratingArr.push(index);
+      }
     } else {
       this.ComplaintIdAvailable = false;
     }
@@ -98,19 +108,6 @@ export class ComplaintProfileComponent implements AfterViewInit, OnChanges {
     this.devtaskService.changeSubComplaintIdParentNumberSubjectValue(null);
   }
 
-  // public backToAllComplaintsAdmin(): void {
-  //   this.complaintService.changeProfileModeBooleanSubjectValue(false);
-  //   this.complaintService.changeComplaintIdParentNumberSubjectValue(null);
-  //   this.complaintService.changeSubComplaintIdParentNumberSubjectValue(null);
-  //
-  // }
-  //
-  // public backToAllComplaintsCustomer(): void {
-  //   this.complaintCustomerService.changeIsComplaintProfileModeSubjectBooleanValue(false);
-  //   this.complaintCustomerService.changeComplaintIdParentSubjectNumberValue(null);
-  //   this.complaintCustomerService.changeSubComplaintIdParentNumberSubjectValue(null);
-  // }
-
 
   removeSelectedImage(index: number): void {
     this.imageAttachments[index] = null;
@@ -118,5 +115,13 @@ export class ComplaintProfileComponent implements AfterViewInit, OnChanges {
       this.imageAttachments[i] = this.imageAttachments[i + 1];
     }
     this.imageAttachments.pop();
+  }
+
+  showIcon(index: number, ratedValue: number): 'star' | 'star_border' {
+    if (ratedValue >= index + 1) {
+      return 'star';
+    } else {
+      return 'star_border';
+    }
   }
 }

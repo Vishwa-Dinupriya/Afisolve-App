@@ -61,7 +61,7 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
   formBuildFunction(): void {
     this.addComplaintForm = this.fb1.group({
       productID: ['', [Validators.required]],
-      description: ['', [Validators.required, Validators.minLength(3)]],
+      description: ['', [Validators.required, Validators.minLength(10)]],
     });
   }
 
