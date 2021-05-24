@@ -42,9 +42,9 @@ export class UpdateDevtaskStatusComponent implements OnInit {
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
       data: {
-        title: 'Confirm form submission!',
-        message: 'Do you want to update status ? ',
-        name: ' ',
+        title: 'Are you sure you want to update status ?',
+        message: 'Please Confirm! ',
+         name: ' ',
         button1: 'No',
         button2: 'Yes'
       }

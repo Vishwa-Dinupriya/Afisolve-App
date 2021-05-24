@@ -4,6 +4,7 @@ import {AccoorcomplaintsService} from '../../accountCoordinator/accoorcomplaints
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.component';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-dev-mail',
@@ -13,7 +14,8 @@ import {DialogBoxComponent} from '../../../shared/dialog-box/dialog-box.componen
 export class DevMailComponent implements OnInit {
   @ViewChild('myForm') myForm;
   DevCreateMailForm: FormGroup;
-
+  userEmailList;
+  userNameList;
 
   constructor(
     private fb1: FormBuilder,
@@ -24,16 +26,24 @@ export class DevMailComponent implements OnInit {
 
   ngOnInit(): void {
     this.DevCreateMailForm = this.fb1.group({
-      subject: ['', [Validators.minLength(5), Validators.required]],
-      recMail: ['', [Validators.email, Validators.required]],
-      message: ['', [Validators.minLength(5), Validators.required]],
+      subject: ['', [Validators.minLength(10), Validators.required]],
+      userEmail: ['', [Validators.email, Validators.required]],
+      message: ['', [Validators.minLength(10), Validators.required]],
     });
+    this.http1.post<any>(environment.developerApiUrl + '/get-UserList', {}).subscribe(
+      response => {
+        this.userEmailList = response.data.map(value => value.userEmail);
+        this.userNameList = response.data.map(value => value.userName);
+      }, error => {
+        console.log(error);
+      }
+    );
   }
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
       data: {
-        title: 'Confirm!',
-        message: 'Do you want to send this mail ? ',
+        title: 'Are you sure you want to send this mail ?',
+        message: 'Please Confirm!',
         name: ' ',
         button1: 'No',
         button2: 'Yes'

@@ -24,7 +24,7 @@ export class AddComplaintComponent implements OnInit {
   ngOnInit(): void {
     this.addComplaintForm = this.fb1.group({
         productID: ['', [Validators.required]],
-        description: ['', [Validators.minLength(5), Validators.required]],
+        description: ['', [Validators.minLength(10), Validators.required]],
   });
     this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-product-details', {}).subscribe(
       response => {
@@ -38,8 +38,8 @@ export class AddComplaintComponent implements OnInit {
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
       data: {
-        title: 'Confirm form submission!',
-        message: 'Do you want to add this complaint ? ',
+        title: 'Are you sure you want to add this complaint ? ',
+        message: 'Please Confirm!',
         name: ' ',
         button1: 'No',
         button2: 'Yes'

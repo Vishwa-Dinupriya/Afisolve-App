@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-title>Update Developer</mat-card-title>
+  <mat-card-title>Update Task</mat-card-title>
   <br>
   <form [formGroup]="updateDeveloperForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
 
@@ -10,6 +10,7 @@
           <mat-option *ngFor="let taskID of taskIDList; let i = index"
                       [value]="taskIDList[i]">{{taskIDList[i]}}</mat-option>
         </mat-select>
+        <mat-error>Please select task ID</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="col-auto">
@@ -25,6 +26,7 @@
       <mat-form-field class="col-auto" appearance="outline">
         <mat-label>Deadline</mat-label>
         <input type="datetime-local" matInput formControlName="deadline" placeholder="Deadline">
+        <mat-error>Please select a deadline</mat-error>
       </mat-form-field>
 
     </div>

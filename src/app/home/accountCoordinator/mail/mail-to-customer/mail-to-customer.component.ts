@@ -50,8 +50,8 @@ export class MailToCustomerComponent implements OnInit {
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
       data: {
-        title: 'Confirm!',
-        message: 'Do you want to send this mail to customer ? ',
+        title: 'Are you sure you want to send this mail to customer ? ',
+        message: 'Please Confirm!' ,
         name: ' ',
         button1: 'No',
         button2: 'Yes'
@@ -66,7 +66,7 @@ export class MailToCustomerComponent implements OnInit {
               const dialogRef2 = this.dialog.open(DialogBoxComponent, {
                 data: {
                   title: 'Success!',
-                  message: 'You have successfully sent the mail',
+                  message: 'You have successfully sent the mail to customer',
                   name: ' ',
                   button2: 'Ok'
                 }

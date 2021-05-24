@@ -50,8 +50,8 @@ export class MailToAccountCoComponent implements OnInit {
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
       data: {
-        title: 'Confirm!',
-        message: 'Do you want to send this mail to Account Coordinator ? ',
+        title: 'Are you sure you want to send this mail to Account Coordinator ?',
+        message: 'Please Confirm! ',
         name: ' ',
         button1: 'No',
         button2: 'Yes'

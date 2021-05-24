@@ -1,1 +1,26 @@
-<p>update-selected-devtask-status works!</p>
+<!--<mat-card>
+  <mat-card style="background-color: #f6f7fa">
+    <mat-card-title style="color: #002fa7">Update Task Status</mat-card-title>
+    <br>
+    <form [formGroup]="updateSelectedDevTaskStatusForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
+
+      <div class="row">
+
+        <mat-form-field appearance="outline" class="col-auto">
+          <mat-label>Status</mat-label>
+          <mat-select  formControlName="task_status" multiple="false">
+            <mat-option *ngFor="let status of taskStatusList; let i = index" [value]="status">{{status}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <button class="btn btn-primary" type="submit" [disabled]="!updateSelectedDevTaskStatusForm.valid">Update</button>
+
+      <button class="btn btn-primary" (click)="backToAllTasks()" [hidden]="!devtaskService.isTaskStatusMode">
+        <mat-icon>arrow_back_ios</mat-icon>
+        Back to Tasks
+      </button>
+    </form>
+  </mat-card>
+</mat-card>
+-->
