@@ -191,6 +191,19 @@ export class PdashboardComponent implements OnInit, AfterViewInit {
       response => {
         this.dataSourceUsers1 = response.data;
         // ..........................chart eka
+        this.allll = this.dataSourceUsers1.alll;
+        this.penn = this.dataSourceUsers1.pen;
+        this.wor = this.dataSourceUsers1.work;
+        this.finn = this.dataSourceUsers1.fin;
+        this.closs = this.dataSourceUsers1.clos;
+        const a = (this.penn / this.allll) * 100;
+        this.pe = a.toFixed(2);
+        const b = (this.closs / this.allll) * 100;
+        this.cl = b.toFixed(2);
+        const c = (this.wor / this.allll) * 100;
+        this.wr = c.toFixed(2);
+        const d = (this.finn / this.allll) * 100;
+        this.fn = d.toFixed(2);
         // tslint:disable-next-line:prefer-const
         var myChart = new Chart('myChart1', {
           type: 'doughnut',
