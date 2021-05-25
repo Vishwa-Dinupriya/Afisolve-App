@@ -95,7 +95,7 @@ allll: any;
             // tslint:disable-next-line:max-line-length
             labels: [this.dataSourceUsersmonth.fifthm, this.dataSourceUsersmonth.fourthm, this.dataSourceUsersmonth.thirdm, this.dataSourceUsersmonth.secondm, this.dataSourceUsersmonth.firstm],
             datasets: [{
-              label: ' ',
+              label: 'Complaints received per month',
               // tslint:disable-next-line:max-line-length
               data: [this.dataSourceUsersmonth.fifth, this.dataSourceUsersmonth.fourth, this.dataSourceUsersmonth.third, this.dataSourceUsersmonth.second, this.dataSourceUsersmonth.first ],
               backgroundColor: [
@@ -113,6 +113,12 @@ allll: any;
             }]
           },
           options: {
+            legend: {
+              labels: {
+                // This more specific font property overrides the global property
+                fontColor: '#ffffff'
+              }
+            },
             scales: {
               xAxes: [{
                 display: true,
@@ -151,7 +157,7 @@ allll: any;
             // tslint:disable-next-line:max-line-length
             labels: [this.dataSourceUsersmonth.fifthm, this.dataSourceUsersmonth.fourthm, this.dataSourceUsersmonth.thirdm, this.dataSourceUsersmonth.secondm, this.dataSourceUsersmonth.firstm],
             datasets: [{
-              label: ' ',
+              label: 'Variation in the total number of complaints',
               // tslint:disable-next-line:max-line-length
               data: [(this.allll - this.dataSourceUsersmonth.first - this.dataSourceUsersmonth.second - this.dataSourceUsersmonth.third - this.dataSourceUsersmonth.fourth), ( this.allll - this.dataSourceUsersmonth.first - this.dataSourceUsersmonth.second - this.dataSourceUsersmonth.third), ( this.allll - this.dataSourceUsersmonth.first - this.dataSourceUsersmonth.second), ( this.allll - this.dataSourceUsersmonth.first), this.allll],
               backgroundColor: [
@@ -169,6 +175,12 @@ allll: any;
             }]
           },
           options: {
+            legend: {
+              labels: {
+                // This more specific font property overrides the global property
+                fontColor: '#ffffff'
+              }
+            },
             scales: {
               xAxes: [{
                 display: true,

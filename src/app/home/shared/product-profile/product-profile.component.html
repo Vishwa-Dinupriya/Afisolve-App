@@ -164,16 +164,11 @@
             <span *ngIf="!PRODUCT_DETAILS_DATA.dev; else developerNameBlock"><i> Not Available</i></span>
             <ng-template #developerNameBlock>
               <div [hidden]="isHiddenDD">
-<!--                <mat-form-field appearance="fill">-->
-<!--                  <mat-select [formControl]="toppings" multiple >-->
-<!--                    <mat-option *ngFor="let topping of PRODUCT_DETAILS_DATA.dev" [value]="topping.devID" [disabled]="PRODUCT_DETAILS_DATA">{{topping.devFirst}} {{topping.devLast}}</mat-option>-->
-<!--                  </mat-select>-->
-<!--                </mat-form-field>-->
                 <button (click)="editDev()">edit</button>
               </div>
                 <div [hidden]="!isHiddenDD">
                   <mat-form-field appearance="fill">
-                    <mat-label>Toppings</mat-label>
+                    <mat-label>Update Developers</mat-label>
                     <mat-select [formControl]="toppings" [(ngModel)]="newSelected" multiple >
                       <mat-option *ngFor="let topping of ddData" [value]="topping.devID" >{{topping.devFirst}} {{topping.devLast}}</mat-option>
                     </mat-select>

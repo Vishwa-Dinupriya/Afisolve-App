@@ -40,7 +40,7 @@ export class CviewreportsComponent implements OnInit, AfterViewInit {
   constructor(private router: Router,
               private http1: HttpClient) { }
 
-  displayedColumns: string[] = ['productID', 'complaintID', 'subComplaintID', 'description', 'statusName', 'submittedDate', 'firstName', 'print'];
+  displayedColumns: string[] = ['productID', 'complaintID', 'subComplaintID', 'description', 'statusName', 'submittedDate', 'print'];
 
   dataSource: MatTableDataSource<IComplaint>;
   COMPLAINS_DATA: IComplaint[];

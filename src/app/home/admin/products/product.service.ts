@@ -12,6 +12,7 @@ export class ProductService {
 
   registerUrl = 'http://localhost:3000/admin/register-product';
   newAcUrl = 'http://localhost:3000/admin/update-Ac';
+  newDevUrl = 'http://localhost:3000/admin/update-Dev';
   newPmUrl = 'http://localhost:3000/admin/update-Pm';
 
   createProductMode: boolean;
@@ -69,6 +70,17 @@ export class ProductService {
   newPm(test, selectedValue, maill): Observable<any>  {
     return this.http1
       .post<any>(this.newPmUrl, {v: test, u: selectedValue, w: maill})
+      .pipe(
+        tap(() => {
+            this._refreshNeededForAcName$.next();
+          }
+        )
+      );
+  }
+
+  newDev(test, selectedValue): Observable<any>  {
+    return this.http1
+      .post<any>(this.newDevUrl, {c: test, d: selectedValue})
       .pipe(
         tap(() => {
             this._refreshNeededForAcName$.next();

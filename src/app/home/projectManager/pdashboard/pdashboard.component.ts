@@ -121,11 +121,11 @@ export class PdashboardComponent implements OnInit, AfterViewInit {
             // tslint:disable-next-line:max-line-length
             labels: [this.dataSourceUsersmonth.fifthm, this.dataSourceUsersmonth.fourthm, this.dataSourceUsersmonth.thirdm, this.dataSourceUsersmonth.secondm, this.dataSourceUsersmonth.firstm],
             datasets: [{
-              label: ' ',
+              label: ' Complaints received per month',
               // tslint:disable-next-line:max-line-length
               data: [this.dataSourceUsersmonth.fifth, this.dataSourceUsersmonth.fourth, this.dataSourceUsersmonth.third, this.dataSourceUsersmonth.second, this.dataSourceUsersmonth.first ],
               backgroundColor: [
-                '',
+                'rgba(255, 255, 255, 1)',
               ],
               fill: false,
               borderColor: [
@@ -139,6 +139,12 @@ export class PdashboardComponent implements OnInit, AfterViewInit {
             }]
           },
           options: {
+            legend: {
+              labels: {
+                // This more specific font property overrides the global property
+                fontColor: '#ffffff'
+              }
+            },
             scales: {
               xAxes: [{
                 display: true,

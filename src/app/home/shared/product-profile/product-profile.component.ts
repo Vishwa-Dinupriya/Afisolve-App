@@ -74,7 +74,6 @@ export class ProductProfileComponent implements OnInit, OnChanges {
             for (let i = 0; i < response.data.dev.length; i++){
               this.selected[i] = response.data.dev[i].devID;
             }
-            // this.selected = [response.data.dev[0].devID, response.data.dev[1].devID];
             this.toppings = new FormControl(this.selected);
           },
           error => {
@@ -174,5 +173,12 @@ export class ProductProfileComponent implements OnInit, OnChanges {
   submitNewDev(): void {
     this.isHiddenDD = false;
     console.log(this.newSelected);
+    this.productService.newDev(this.newSelected, this.PRODUCT_DETAILS_DATA.productID)
+      .subscribe(
+        response => {
+          console.log('Success!(frontend)', response);
+        },
+        error => console.log('Error!(frontend)', error)
+      );
   }
 }

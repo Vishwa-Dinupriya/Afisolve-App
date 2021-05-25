@@ -41,7 +41,7 @@ work: any;
   selectData: any;
   cid: string;
 
-  displayedColumns: string[] = ['productID', 'complaintID', 'subComplaintID', 'description', 'statusName', 'submittedDate', 'firstName', 'print'];
+  displayedColumns: string[] = ['productID', 'complaintID', 'subComplaintID', 'description', 'statusName', 'submittedDate', 'print'];
 
   dataSource: MatTableDataSource<IComplaint>;
   COMPLAINS_DATA: IComplaint[];
@@ -262,7 +262,7 @@ work: any;
     this.hid2 = false;
     console.log(row);
     this.selectData = row; // click krana row eka mokadd kyla thyna eka
-    console.log(this.selectData.description);
+    console.log(this.selectData.lastDateOfPending);
     this.cid = this.selectData.complaintID;
     this.pid = this.selectData.productID;
     this.scid = this.selectData.subComplaintID;
@@ -270,6 +270,7 @@ work: any;
     this.ssid = this.selectData.statusName;
     this.ststid = this.selectData.submittedDate;
     this.pendate = this.selectData.lastDateOfPending;
+    console.log(this.pendate);
     this.work = this.selectData.wipStartDate;
     this.findate = this.selectData.finishedDate;
     this.acid = this.selectData.firstName + ' ' + this.selectData.lastName;
