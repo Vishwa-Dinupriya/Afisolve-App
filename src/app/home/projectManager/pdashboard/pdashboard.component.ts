@@ -163,7 +163,7 @@ export class PdashboardComponent implements OnInit, AfterViewInit {
                 display: true,
                 scaleLabel: {
                   display: true,
-                  labelString: 'Users',
+                  labelString: 'Tasks',
                   fontColor: '#ffffff',
                   fontSize: 8
                 },
@@ -190,21 +190,6 @@ export class PdashboardComponent implements OnInit, AfterViewInit {
     this.http1.get<any>(`http://localhost:3000/projectManager/get-full-count`, {}).subscribe(
       response => {
         this.dataSourceUsers1 = response.data;
-        console.log(this.dataSourceUsers1);
-        // ganan tika
-        this.allll = this.dataSourceUsers1.alll;
-        this.penn = this.dataSourceUsers1.pen;
-        this.wor = this.dataSourceUsers1.work;
-        this.finn = this.dataSourceUsers1.fin;
-        this.closs = this.dataSourceUsers1.clos;
-        const a = (this.penn / this.allll) * 100;
-        this.pe = a.toFixed(2);
-        const b = (this.closs / this.allll) * 100;
-        this.cl = b.toFixed(2);
-        const c = (this.wor / this.allll) * 100;
-        this.wr = c.toFixed(2);
-        const d = (this.finn / this.allll) * 100;
-        this.fn = d.toFixed(2);
         // ..........................chart eka
         // tslint:disable-next-line:prefer-const
         var myChart = new Chart('myChart1', {

@@ -2,7 +2,7 @@
 
 }
 .harahta{
-  background-color: #111a34;
+  background-color: royalblue;
   text-align: start;
   -webkit-text-fill-color: #f6f7fa;
 }
@@ -14,3 +14,17 @@
 ::ng-deep .mat-checkbox .mat-checkbox-frame {
   border-color: white;
 }
+.mat-header-cell {
+  flex: 1;
+  align-items: center;
+  background-color: royalblue;
+  color: #dddddd;
+}
+.mat-cell{
+  background-color: #ebebeb;
+  color: black;
+}
+.mat-tab-header-cell {
+  color: #4B9FE1;
+}
+

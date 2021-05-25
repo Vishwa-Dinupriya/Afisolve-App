@@ -5,3 +5,17 @@ newAllert.body2 {
 .body1 {
   font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+.mat-header-cell {
+  flex: 1;
+  align-items: center;
+  background-color: royalblue;
+  color: #dddddd;
+}
+.mat-cell{
+  background-color: #ebebeb;
+  color: black;
+}
+.mat-tab-header-cell {
+  color: #4B9FE1;
+}
+

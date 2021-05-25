@@ -161,7 +161,7 @@ const routes: Routes = [
           canActivate: [AuthenticationGuard],
           children: [
             {
-              path: '',
+              path: 'accoorcomplaints',
               component: AccoorcomplaintsComponent,
               children: [
                 {
@@ -206,6 +206,10 @@ const routes: Routes = [
             },
             {
               path: 'acdashboard',
+              component: AcdashboardComponent
+            },
+            {
+              path: '',
               component: AcdashboardComponent
             },
             {
@@ -321,7 +325,7 @@ const routes: Routes = [
           canActivate: [AuthenticationGuard],
           children: [
             {
-              path: '',
+              path: 'devtasks',
               component: DevtasksComponent,
               children: [
                 {
@@ -351,7 +355,11 @@ const routes: Routes = [
               component: DevproductsComponent,
             },
             {
-              path: 'devdashboard',
+              path: '',
+              component: DevdashboardComponent
+            },
+            {
+              path: 'dashboard',
               component: DevdashboardComponent
             },
             {
