@@ -1,5 +1,5 @@
-<mat-drawer-container style="height:93%">
-  <mat-drawer mode="side" opened style="width: 200px">
+<mat-drawer-container style="height: 100%!important;">
+  <mat-drawer mode="side" opened style="width: 250px" class="h-100">
     <mat-selection-list [multiple]="false">
 
       <mat-list-option routerLink="./dashboard"
@@ -11,13 +11,17 @@
 
       <mat-list-option routerLink="./late-complaint-information" [selected]="activeRoute === 'LateComplaintInformationComponent'"
                        [class.selected]="activeRoute === 'LateComplaintInformationComponent'">
-        <mat-icon mat-list-icon>circle_notifications</mat-icon>
-        <div mat-line>Late Complaint Information</div>
+        <mat-icon mat-list-icon><span class="material-icons-outlined">
+pending_actions
+</span></mat-icon>
+        <div mat-line>Overdue Complaints</div>
       </mat-list-option>
 
       <mat-list-option routerLink="./view-complaints" [selected]="activeRoute === 'ViewReportsComponent'"
                        [class.selected]="activeRoute === 'ViewReportsComponent'">
-        <mat-icon mat-list-icon>assignment</mat-icon>
+        <mat-icon mat-list-icon><span class="material-icons-outlined">
+view_list
+</span></mat-icon>
         <div mat-line>View Complaints</div>
       </mat-list-option>
 

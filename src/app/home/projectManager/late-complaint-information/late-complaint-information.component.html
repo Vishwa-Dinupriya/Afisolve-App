@@ -1,11 +1,11 @@
 <div [hidden]="hidd">
   <div class="new" align="center">
-    <h4><b>Select the new Account Coordinator</b></h4>
+    <h4><b>Select the new Account Coordinator product ID-{{prodId}}</b></h4>
 
     <mat-form-field>
       <mat-label>New Account Coordinator</mat-label>
       <mat-select [(ngModel)]="selectedValue">
-        <mat-option *ngFor="let food of accdata" [value]="food" >
+        <mat-option *ngFor="let food of accdata" [value]="food" [disabled]="food.firstName == oldName">
           {{food.firstName}} {{food.lastName}}
         </mat-option>
       </mat-select>
@@ -16,6 +16,8 @@
     <section>
       <div class="example-button-row">
         <button mat-raised-button color="primary" (click)="giveAlertnew()">Save</button>
+
+        <button mat-raised-button color="accent" style="margin-left: 50px" (click)="cancel()">Cancel</button>
       </div>
     </section>
     <hr>
@@ -24,7 +26,7 @@
 
 <div>
     <mat-tab-group animationDuration="500ms">
-      <mat-tab label="Late complaint">
+      <mat-tab label="Overdue Complaints">
         <mat-card class="m-5 shadow" style="height: 80%">
           <div>
             <table mat-table [dataSource]="dataSource1" matSort class="mat-elevation-z8 w-100">
@@ -45,8 +47,8 @@
 
               <!-- Description Column -->
               <ng-container matColumnDef="description">
-                <th mat-header-cell *matHeaderCellDef> Description </th>
-                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                <th mat-header-cell *matHeaderCellDef style="width: 30%"> Description </th>
+                <td mat-cell *matCellDef="let element"> {{ (element.description+'').toString().substr(0, 46)+'...' }} </td>
               </ng-container>
 
 
@@ -65,7 +67,7 @@
               <!--  test Column-->
               <ng-container matColumnDef="firstName">
                 <th mat-header-cell *matHeaderCellDef> Account Coordinator Name </th>
-                <td mat-cell *matCellDef="let element">Mr. {{element.firstName}} {{element.lastName}}</td>
+                <td mat-cell *matCellDef="let element">{{element.firstName}} {{element.lastName}}</td>
               </ng-container>
 
               <!--  test Column-->

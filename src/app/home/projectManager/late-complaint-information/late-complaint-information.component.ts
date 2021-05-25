@@ -37,6 +37,7 @@ export interface IHistory {
 })
 export class LateComplaintInformationComponent implements AfterViewInit, OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private http1: HttpClient, private pastname: PastnameService){ }
+  oldName: any;
   selectedValue: string;
   accdata;
 
@@ -45,6 +46,7 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
   displayedColumns: string[] = ['productID', 'complaintID', 'description', 'submittedDate', 'lastDateOfPending', 'firstName' , 'userEmail', 'accountCoordinatorID', 'Action', 'history'];
   dataSource1: MatTableDataSource<IComplaint>;
   COMPLAINS_DATA: IComplaint[];
+  bol = true;
 
   // history table
   displayedColumnshistory: string[] = ['submittedtime', 'preAcName', 'newAcName', 'exAcName', 'doneBy', 'action'];
@@ -64,6 +66,10 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
    // apahu gnna data array eka
    test: string[] = ['productID', 'complaintID', 'description', 'submittedDate', 'lastDateOfPending', 'accountCoordinatorName' , 'Action'];
   filterValue: any;
+
+
+  // tslint:disable-next-line:typedef
+  prodId: any;
 
 
   //////////////////////////////////////////////
@@ -137,6 +143,9 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
   // tslint:disable-next-line:typedef
   getAlert(row){
     this.test = row;
+    this.oldName = row.firstName;
+    this.prodId = row.productID;
+    console.log(row.firstName);
     Swal.fire({
       title: 'Decision..?',
       text: 'What is your decision!',
@@ -152,9 +161,9 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
       }
     });
   }
-  // tslint:disable-next-line:typedef
-  newAllert(){
-    Swal.fire({
+
+  newAllert(): void{
+   Swal.fire({
       title: 'Are you sure?',
       text: 'When you change the account Coordinator of the selected product ID, All responsibilities are transfer to the New account coordinator',
       icon: 'warning',
@@ -219,8 +228,8 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
   }
 
 
-  // tslint:disable-next-line:typedef
-  giveAlertnew() {
+
+  giveAlertnew(): void {
     Swal.fire({
       title: 'Are you sure?',
       text: 'You won\'t be able to revert this!',
@@ -241,10 +250,7 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
       }
     });
   }
-
-
-  // tslint:disable-next-line:typedef
-  givenewName() {
+  givenewName(): void {
     console.log('Row clicked: ', this.test);
     console.log(this.selectedValue);
 
@@ -262,6 +268,10 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
         },
         error => console.error('Error!(frontend)', error)
       );
+  }
+
+  cancel(): void {
+    this.hidd = true;
   }
 }
 // <ng-container matColumnDef="productID">

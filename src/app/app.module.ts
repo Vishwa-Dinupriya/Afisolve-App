@@ -123,6 +123,7 @@ import { DevdashboardComponent } from './home/developer/devdashboard/devdashboar
 import {SessionTimeOutDialogBoxComponent} from './authentication/shared/session-time-out-dialog-box/session-time-out-dialog-box.component';
 import {LoginErrorDialogBoxComponent} from './authentication/login/login-error-dialog-box/login-error-dialog-box.component';
 import { ChangePasswordDialogBoxComponent } from './home/shared/change-password-dialog-box/change-password-dialog-box.component';
+import {OverlayModule} from '@angular/cdk/overlay';
 
 
 
@@ -224,27 +225,28 @@ import { ChangePasswordDialogBoxComponent } from './home/shared/change-password-
 
   ],
   entryComponents: [DialogBoxComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MaterialModule,
-    ImageCropperModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    MatGridListModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MaterialModule,
+        ImageCropperModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        MatGridListModule,
 
-    MatBadgeModule,
-    MatCheckboxModule,
+        MatBadgeModule,
+        MatCheckboxModule,
 
-    MatDialogModule,
-    NgxPrintModule
+        MatDialogModule,
+        NgxPrintModule,
+        OverlayModule
 
-  ],
+    ],
   providers: [
     PageService,
     SortService,

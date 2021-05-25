@@ -11,7 +11,6 @@ import {environment} from '../../../environments/environment';
 })
 export class PastnameService {
 
-
   constructor(private http1: HttpClient, private router: Router) {
   }
 
@@ -21,8 +20,18 @@ export class PastnameService {
   }
 
   // tslint:disable-next-line:typedef
+  get refreshNeededCeo$() {
+    return this._refreshNeededCeo$;
+  }
+
+  // tslint:disable-next-line:typedef
   get refreshNeededforacname$() {
     return this._refreshNeededforacname$;
+  }
+
+  // tslint:disable-next-line:typedef
+  get refreshNeededforacnameceo$() {
+    return this._refreshNeededforacnameceo$;
   }
 
   accnurl = environment.project_manager_api_url + '/old-name'; // old acc. name send
@@ -43,13 +52,12 @@ export class PastnameService {
   // tslint:disable-next-line:variable-name
   private _refreshNeeded$ = new Subject<void>();
   // tslint:disable-next-line:variable-name
-  private _refreshNeededformsg$ = new Subject<void>();
-
+  private _refreshNeededforacnameceo$ = new Subject<void>();
 
   // tslint:disable-next-line:variable-name
   private _refreshNeededforacname$ = new Subject<void>();
-
-
+  // tslint:disable-next-line:variable-name
+  private _refreshNeededCeo$ = new Subject<void>();
   public subject = new Subject<any>();
 
 
@@ -119,7 +127,7 @@ export class PastnameService {
       .post<any>(this.cnewaccurl, {a: test, b: selectedValue})
       .pipe(
         tap(() => {
-            this._refreshNeededforacname$.next();
+            this._refreshNeededforacnameceo$.next();
           }
         )
       );
@@ -131,7 +139,7 @@ export class PastnameService {
       .post<any>(this.creminderurl, user)
       .pipe(
         tap(() => {
-            this._refreshNeeded$.next();
+            this._refreshNeededCeo$.next();
           }
         )
       );
@@ -143,7 +151,7 @@ export class PastnameService {
       .post<any>(this.coldhistoryurl, {a: test, b: selectedValue})
       .pipe(
         tap(() => {
-            this._refreshNeededforacname$.next();
+            this._refreshNeededforacnameceo$.next();
           }
         )
       );
