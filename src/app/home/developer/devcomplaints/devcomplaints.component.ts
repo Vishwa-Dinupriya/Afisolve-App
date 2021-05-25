@@ -1,16 +1,18 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {environment} from '../../../../environments/environment';
+import {DevtaskService} from '../devtasks/devtask.service';
 
 
 export interface IAllComp {
-  complaintID: string;
-  subComplaintID: string;
+  complaintID: number;
+  subComplaintID: number;
   productID: string;
+  productName: string;
   description: string;
   statusName: string;
 }
@@ -21,8 +23,8 @@ export interface IAllComp {
   templateUrl: './devcomplaints.component.html',
   styleUrls: ['./devcomplaints.component.css']
 })
-export class DevcomplaintsComponent implements OnInit {
-  displayedComp: string[] = ['complaintID', 'subComplaintID', 'submittedDate', 'description', 'statusName'];
+export class DevcomplaintsComponent implements OnInit,  AfterViewInit {
+  displayedComp: string[] = ['complaintID', 'subComplaintID', 'productID', 'productName', 'submittedDate',  'statusName', 'details'];
   dataSource1: MatTableDataSource<IAllComp>;
   ALLCOMPLAINTS_DATA: IAllComp[];
 
@@ -30,9 +32,15 @@ export class DevcomplaintsComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private router: Router,
-              private http1: HttpClient) { }
+              private http1: HttpClient,
+              public devtaskService: DevtaskService) { }
 
   ngOnInit(): void {
+
+  }
+
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngAfterViewInit(): void {
     this.http1.post<any>(environment.developerApiUrl + `/get-devComplaints-details`, {}).subscribe(
       response => {
         this.ALLCOMPLAINTS_DATA = response.data;
@@ -47,6 +55,11 @@ export class DevcomplaintsComponent implements OnInit {
   applyFilterAll(event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource1.filter = filterValue.trim().toLowerCase();
+  }
+  public redirectToDetails(complaintID: number, subComplaintID: number): void {
+    this.devtaskService.changeComplaintIdParentNumberSubjectValue(complaintID);
+    this.devtaskService.changeSubComplaintIdParentNumberSubjectValue(subComplaintID);
+    this.devtaskService.changeProfileModeBooleanSubjectValue(true);
   }
 
 }

@@ -22,9 +22,16 @@ export interface IProductDetailsAdmin {
   projectManagerLastName: string;
   dev: any;
 }
+
 export interface IComplaintProduct {
   complaintID: string;
   submittedDate: string;
+}
+
+export interface IDeveloperProduct {
+  firstName: string;
+  lastName: string;
+  userEmail: string;
 }
 
 @Component({
@@ -37,13 +44,14 @@ export class ProductProfileComponent implements OnInit, OnChanges {
 
   PRODUCT_DETAILS_DATA: IProductDetailsAdmin; // undefined
   COMPLAINTS_PRODUCT_DATA: IComplaintProduct[] = []; // defined
+  DEVELOPERS_PRODUCT_DATA: IDeveloperProduct[] = [];
 
   productIdAvailable;
   tabIndex = 1;
   isHiddenAc: boolean;
   accData: any;
-  selectedValue: any;
-  selectedValue1: any;
+  selectedAccountCoordinator: any;
+  selectedNewProjectManager: any;
   a: number;
   isHiddenPm: boolean;
   pmData: any;
@@ -108,7 +116,6 @@ export class ProductProfileComponent implements OnInit, OnChanges {
     this.http1.get<any>(`http://localhost:3000/ceo/get-account-coordinaters-details`, {}).subscribe(
       response => {
         this.accData = response.data;
-        console.log(this.accData);
       }, error => {
         console.log(error);
       }
@@ -117,9 +124,10 @@ export class ProductProfileComponent implements OnInit, OnChanges {
 
   submitNewAc(): void {
     this.isHiddenAc = false;
-    console.log(this.selectedValue);
+    console.log(this.selectedAccountCoordinator);
     console.log(this.PRODUCT_DETAILS_DATA.productID);
-    this.productService.newAc(this.PRODUCT_DETAILS_DATA.productID, this.selectedValue, this.PRODUCT_DETAILS_DATA.accountCoordinatorEmail)
+    this.productService
+      .newAc(this.PRODUCT_DETAILS_DATA.productID, this.selectedAccountCoordinator)
       .subscribe(
         response => {
           console.log('Success!(frontend)', response);
@@ -133,18 +141,18 @@ export class ProductProfileComponent implements OnInit, OnChanges {
     this.http1.post<any>(`http://localhost:3000/admin/get-project-Manager-List`, {}).subscribe(
       response => {
         this.pmData = response.data;
-        console.log(this.accData);
       }, error => {
         console.log(error);
       }
     );
   }
 
-  submitNewPm(test, selectedValue, maill): void {
+  submitNewPm(): void {
     this.isHiddenPm = false;
-    console.log(this.selectedValue1);
+    console.log(this.selectedNewProjectManager);
     console.log(this.PRODUCT_DETAILS_DATA.productID);
-    this.productService.newPm(this.PRODUCT_DETAILS_DATA.productID, this.selectedValue1, this.PRODUCT_DETAILS_DATA.projectManagerEmail)
+    this.productService
+      .newPm(this.PRODUCT_DETAILS_DATA.productID, this.selectedNewProjectManager)
       .subscribe(
         response => {
           console.log('Success!(frontend)', response);

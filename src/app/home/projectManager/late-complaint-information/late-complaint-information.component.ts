@@ -161,8 +161,9 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
       }
     });
   }
+
   newAllert(): void{
-    Swal.fire({
+   Swal.fire({
       title: 'Are you sure?',
       text: 'When you change the account Coordinator of the selected product ID, All responsibilities are transfer to the New account coordinator',
       icon: 'warning',
@@ -225,6 +226,7 @@ export class LateComplaintInformationComponent implements AfterViewInit, OnInit 
       }
     );
   }
+
 
 
   giveAlertnew(): void {

@@ -1,0 +1,49 @@
+<mat-card class="mr-5 ml-5 mt-5 mb-4 shadow">
+
+  <mat-tab-group animationDuration="1000ms">
+
+    <mat-tab label="Generate Mail To Account Coordinator">
+      <app-mail-to-account-co></app-mail-to-account-co>
+    </mat-tab>
+
+    <mat-tab label="Create Mail">
+
+      <mat-card class="mr-5 ml-5 mt-5 mb-4 shadow" style="background-color: #f6f7fa;">
+        <mat-card-title style="text-align: center">Create a Mail</mat-card-title>
+<br>
+        <form [formGroup]="DevCreateMailForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
+
+
+          <div class="row">
+            <mat-form-field class="col-auto" appearance="outline">
+              <mat-label>To: (Reciever's Email)</mat-label>
+              <input type="text" matInput formControlName="recMail" placeholder="example@gmail.com">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="col-12" appearance="outline">
+              <mat-label>Subject</mat-label>
+              <input type="text" matInput formControlName="subject" placeholder="Enter a Subject of minimum 5 characters">
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field class="col-12" appearance="outline">
+              <mat-label>Message</mat-label>
+              <textarea matInput formControlName="message" placeholder="Enter a Message of minimum 5 characters"></textarea>
+            </mat-form-field>
+          </div>
+
+          <button class="btn btn-primary" type="submit" [disabled]="!DevCreateMailForm.valid">Send</button>
+
+        </form>
+
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>
+
+
+
+
+

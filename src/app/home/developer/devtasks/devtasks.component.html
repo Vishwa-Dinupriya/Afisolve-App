@@ -78,6 +78,70 @@
 
         </mat-tab>
 
+        <!-- Displaying Overdue tasks-->
+        <mat-tab label="Overdue">
+
+          <!--Filter-->
+          <mat-form-field class="w-75 m-3">
+            <mat-label>Filter</mat-label>
+            <input matInput placeholder="Ex.Task ID" (keyup)="applyFilterOverdue($event)">
+          </mat-form-field>
+
+
+          <table mat-table [dataSource]="dataSourceOverdue" class="w-100" >
+
+            <!-- Id Column -->
+            <ng-container matColumnDef="taskID">
+              <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef>Task Id</th>
+              <td mat-cell *matCellDef="let element"> {{element.taskID}} </td>
+            </ng-container>
+            <!-- Id Column -->
+            <ng-container matColumnDef="productName">
+              <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef>Product Name</th>
+              <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+            </ng-container>
+            <!-- SubId Column -->
+            <ng-container matColumnDef="complaintID">
+              <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Complaint ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.complaintID}} </td>
+            </ng-container>
+            <!-- ProductID Column-->
+            <ng-container matColumnDef="subComplaintID">
+              <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Sub-Complaint ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.subComplaintID}} </td>
+            </ng-container>
+
+            <!-- Description Column -->
+            <ng-container matColumnDef="assignDate">
+              <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Assigned Date</th>
+              <td mat-cell *matCellDef="let element"> {{element.assignDate}} </td>
+            </ng-container>
+
+            <!-- Status Column-->
+            <ng-container matColumnDef="deadline">
+              <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Deadline</th>
+              <td mat-cell *matCellDef="let element"> {{element.deadline}} </td>
+            </ng-container>
+
+            <!-- Details button Column -->
+            <ng-container matColumnDef="details">
+              <th mat-header-cell style="background-color: firebrick" *matHeaderCellDef> Go To</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" (click)="redirectToDetails(element.taskID)">
+                  <mat-icon class="mat-18">description</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsOverdue"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsOverdue;"></tr>
+          </table>
+
+          <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+          </mat-paginator>
+
+        </mat-tab>
+
         <!-- Displaying new tasks-->
         <mat-tab label="Pending">
 

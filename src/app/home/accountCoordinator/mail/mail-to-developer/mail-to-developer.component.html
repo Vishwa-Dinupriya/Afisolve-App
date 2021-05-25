@@ -1,0 +1,33 @@
+<mat-card class="mr-5 ml-5 mt-5 mb-4 shadow">
+  <mat-card-title style="text-align: center">Send a Mail to Developer</mat-card-title>
+  <br>
+  <form [formGroup]="sendMailToDeveloperForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Select Developer</mat-label>
+        <mat-select formControlName="developerEmail" multiple="false">
+          <mat-option *ngFor="let developerEmail of developerEmailList; let i = index"
+                      [value]="developerEmailList[i]">{{developerNameList[i]}}</mat-option>
+        </mat-select>
+        <mat-error>Please select a developer</mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Task ID</mat-label>
+        <mat-select  formControlName="taskID" multiple="false">
+          <mat-option *ngFor="let taskID of taskIDList; let i = index" [value]="taskIDList[i]">{{taskIDList[i]}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Subject</mat-label>
+        <mat-select  formControlName="devSubject" multiple="false">
+          <mat-option *ngFor="let devSubject of devSubjectList; let i = index" [value]="devSubjectList[i]">{{devSubjectList[i]}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="!sendMailToDeveloperForm.valid">Send</button>
+  </form>
+</mat-card>

@@ -1,42 +1,17 @@
-<!--div>
-  <mat-card>
-    <h1>Compose Email</h1>
-
-    <mat-form-field style="width: 100%">
-      <input matInput placeholder="Subject" [formControl]="subjectFormControl">
-      <mat-error *ngIf="subjectFormControl.hasError('minlength')">
-        Subject must be at least 4 character long
-      </mat-error>
-      <mat-error *ngIf="subjectFormControl.hasError('required')">
-        Subject is required
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field style="width: 100%">
-      <input matInput placeholder="Email" [formControl]="emailFormControl">
-      <mat-error *ngIf="subjectFormControl.hasError('email')">
-        Please enter a valid email address
-      </mat-error>
-      <mat-error *ngIf="subjectFormControl.hasError('required')">
-        Subject is required
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field style="width: 100%">
-      <input matInput placeholder="Mail Body" [formControl]="bodyFormControl">
-      <mat-error *ngIf="bodyFormControl.hasError('required')">
-        Mail body is required
-      </mat-error>
-    </mat-form-field>
-
-    <button mat-raised-button [disabled]="subjectFormControl.invalid || nameFormControl.invalid || bodyFormControl.invalid" ]
-            color="primary"
-            (click)="send()" )>{{buttonText}</button>
-  </mat-card>
-</div-->
-
 <mat-card class="mr-5 ml-5 mt-5 mb-4 shadow">
-<div class="container-fluid">
+
+  <mat-tab-group animationDuration="1000ms">
+
+    <mat-tab label="Generate Mail To Customer">
+      <app-mail-to-customer></app-mail-to-customer>
+    </mat-tab>
+    <mat-tab label="Generate Mail To Developer">
+      <app-mail-to-developer></app-mail-to-developer>
+    </mat-tab>
+    <mat-tab label="Create Mail">
+
+      <mat-card style="background-color: #f6f7fa" class="mr-5 ml-5 mt-5 mb-4 shadow">
+        <mat-card-title style="text-align: center">Create a Mail</mat-card-title>
 
   <form [formGroup]="MailForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
 
@@ -44,20 +19,20 @@
       <div class="row">
         <mat-form-field class="col-auto" appearance="outline">
           <mat-label>To: (Reciever's Email)</mat-label>
-          <input type="text" matInput formControlName="recMail" placeholder="Reciever's Email">
+          <input type="text" matInput formControlName="recMail" placeholder="example@gmail.com">
         </mat-form-field>
       </div>
       <div class="row">
       <mat-form-field class="col-12" appearance="outline">
         <mat-label>Subject</mat-label>
-        <input type="text" matInput formControlName="subject" placeholder="Subject">
+        <input type="text" matInput formControlName="subject" placeholder="Enter a Subject of minimum 5 characters">
       </mat-form-field>
     </div>
 
     <div class="row">
       <mat-form-field class="col-12" appearance="outline">
         <mat-label>Message</mat-label>
-        <textarea matInput formControlName="message" placeholder="Message"></textarea>
+        <textarea matInput formControlName="message" placeholder="Enter a Message of minimum 5 characters"></textarea>
       </mat-form-field>
     </div>
 
@@ -65,8 +40,12 @@
 
   </form>
 
-</div>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
 </mat-card>
+
+
 
 
 

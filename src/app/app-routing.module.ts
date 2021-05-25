@@ -65,9 +65,20 @@ import {AccoorcomplaintProfileCurrentComponent} from './home/accountCoordinator/
 import {AccoorproductsComponent} from './home/accountCoordinator/accoorproducts/accoorproducts.component';
 import {DevtasksProfileComponent} from './home/developer/devtasks/devtasks-profile/devtasks-profile.component';
 import {UpdateDevtaskStatusComponent} from './home/developer/devtasks/update-devtask-status/update-devtask-status.component';
+
+import {DevMailComponent} from './home/developer/dev-mail/dev-mail.component';
+import {AssignNewDeveloperComponent} from './home/accountCoordinator/tasks/assign-new-developer/assign-new-developer.component';
+
 import {AllUsersComponent} from './home/admin/users/all-users/all-users.component';
 import {UserProfileForAdminPurposeComponent} from './home/admin/users/all-users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
 import {AllProductsComponent} from './home/admin/products/all-products/all-products.component';
+import {MailToCustomerComponent} from './home/accountCoordinator/mail/mail-to-customer/mail-to-customer.component';
+import {MailToDeveloperComponent} from './home/accountCoordinator/mail/mail-to-developer/mail-to-developer.component';
+import {MailToAccountCoComponent} from './home/developer/dev-mail/mail-to-account-co/mail-to-account-co.component';
+import {UpdateSelectedDevtaskStatusComponent} from './home/developer/devtasks/update-selected-devtask-status/update-selected-devtask-status.component';
+import {AcdashboardComponent} from './home/accountCoordinator/acdashboard/acdashboard.component';
+import {DevdashboardComponent} from './home/developer/devdashboard/devdashboard.component';
+
 
 
 const routes: Routes = [
@@ -180,6 +191,10 @@ const routes: Routes = [
                   component: CreateTaskComponent
                 },
                 {
+                  path: 'assign-new-developer',
+                  component: AssignNewDeveloperComponent
+                },
+                {
                   path: 'task-profile',
                   component: TaskProfileComponent
                 }
@@ -190,8 +205,21 @@ const routes: Routes = [
               component: AllocationComponent
             },
             {
+              path: 'acdashboard',
+              component: AcdashboardComponent
+            },
+            {
               path: 'mail',
-              component: MailComponent
+              component: MailComponent,
+              children: [
+                {
+                  path: 'mail-to-customer',
+                  component: MailToCustomerComponent
+                },
+                {
+                  path: 'mail-to-developer',
+                  component: MailToDeveloperComponent
+                }]
             },
             {
               path: 'accoorproducts',
@@ -293,7 +321,7 @@ const routes: Routes = [
           canActivate: [AuthenticationGuard],
           children: [
             {
-              path: 'devtasks',
+              path: '',
               component: DevtasksComponent,
               children: [
                 {
@@ -303,8 +331,16 @@ const routes: Routes = [
                 {
                   path: 'update-devtask-status',
                   component: UpdateDevtaskStatusComponent,
+                },
+                {
+                  path: 'update-selected-devtask-status',
+                  component: UpdateSelectedDevtaskStatusComponent,
                 }
               ]
+            },
+            {
+              path: 'devtasks',
+              component: DevtasksComponent,
             },
             {
               path: 'devcomplaints',
@@ -314,6 +350,19 @@ const routes: Routes = [
               path: 'devproducts',
               component: DevproductsComponent,
             },
+            {
+              path: 'devdashboard',
+              component: DevdashboardComponent
+            },
+            {
+              path: 'devmail',
+              component: DevMailComponent,
+              children: [
+                {
+                  path: 'mail-to-account-co',
+                  component: MailToAccountCoComponent
+                }]
+            }
           ]
         },
         {

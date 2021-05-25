@@ -19,6 +19,7 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
 
   @Input() complaintIdInput: number;
   @Input() senderRole: string;
+
   currentUserID;
   textComment: string = null;
 
@@ -51,6 +52,9 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
 
   ngOnChanges(): void {
     if (this.complaintIdInput) {
+      console.log('ngOnChanges');
+      console.log(this.complaintIdInput);
+      console.log((this.senderRole));
       this.currentUserID = localStorage.getItem('userID');
       this.getComments(this.complaintIdInput);
       this.setTimer();
@@ -67,7 +71,9 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
     this.scrollToBottom();
     this.setTimer();
     this.commentSectionService.refreshNeededForMsgSubject.subscribe(() => {
-      this.ngOnChanges();
+      if (this.complaintIdInput) {
+       this.ngOnChanges();
+      }
     });
   }
 
@@ -77,6 +83,17 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
     }
   }
 
+
+  public setTimer(): void {
+    // set showLoader to true to show loading div on view
+    this.showLoader = true;
+
+    this.timer = Observable.timer(1000); // 5000 millisecond means 5 seconds
+    this.subscription = this.timer.subscribe(() => {
+      // set showLoader to false to hide loading div from view after 5 seconds
+      this.showLoader = false;
+    });
+  }
   getComments(reqComplaintID: number): void {
     const complaintID = new HttpParams().set('complaintID', String(Number(reqComplaintID))); // Create new HttpParams
     this.http1.get<any>(`http://localhost:3000/` + this.senderRole + `/get-comments`, {params: complaintID}).subscribe(
@@ -88,17 +105,6 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
         console.log(error);
       }
     );
-  }
-
-  public setTimer(): void {
-    // set showLoader to true to show loading div on view
-    this.showLoader = true;
-
-    this.timer = Observable.timer(1000); // 5000 millisecond means 5 seconds
-    this.subscription = this.timer.subscribe(() => {
-      // set showLoader to false to hide loading div from view after 5 seconds
-      this.showLoader = false;
-    });
   }
 
   clickSend(text: string): void {

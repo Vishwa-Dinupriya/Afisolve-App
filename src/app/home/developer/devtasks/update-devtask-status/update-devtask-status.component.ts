@@ -3,7 +3,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DevtaskService} from '../devtask.service';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
+import {environment} from '../../../../../environments/environment';
 import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
+
 
 @Component({
   selector: 'app-update-devtask-status',
@@ -13,6 +15,7 @@ import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.compo
 export class UpdateDevtaskStatusComponent implements OnInit {
   @ViewChild('myForm') myForm;
   taskStatusList = ['InProgress', 'Completed'];
+  taskIDList;
 
   updateDevTaskStatusForm: FormGroup;
 
@@ -28,6 +31,13 @@ export class UpdateDevtaskStatusComponent implements OnInit {
       taskID: ['', [Validators.required]],
       task_status: ['', [Validators.required]],
     });
+    this.http1.post<any>(environment.developerApiUrl + '/get-Task-All-details', {}).subscribe(
+      response => {
+        this.taskIDList = response.data.map(value => value.taskID);
+      }, error => {
+        console.log(error);
+      }
+    );
   }
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
@@ -61,7 +71,16 @@ export class UpdateDevtaskStatusComponent implements OnInit {
 
                 }});
             },
-            error => console.error('Error!(frontend)', error)
+            error => {console.error('Error!(frontend)', error);
+                      const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  title: 'Failed! Please try again.',
+                  message: 'Please make sure the details you entered are valied. ',
+                  name: ' ',
+                  button1: 'Back',
+                  button2: 'Ok'
+                }
+              }); }
           );
       }});
   }
