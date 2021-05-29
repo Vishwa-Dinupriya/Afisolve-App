@@ -44,7 +44,7 @@
 
           <!-- Description Column -->
           <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef style="width: 30%"> Description </th>
+            <th mat-header-cell *matHeaderCellDef style="width: 20%"> Description </th>
             <td mat-cell *matCellDef="let element"> {{(element.description+'').toString().substr(0, 46)+'...' }} </td>
           </ng-container>
 
@@ -64,7 +64,13 @@
           <!--  test Column-->
           <ng-container matColumnDef="firstName">
             <th mat-header-cell *matHeaderCellDef> Account Coordinator Name </th>
-            <td mat-cell *matCellDef="let element">Mr. {{element.firstName}} {{element.lastName}}</td>
+            <td mat-cell *matCellDef="let element">{{element.firstName}} {{element.lastName}}</td>
+          </ng-container>
+
+          <!--  test Column-->
+          <ng-container matColumnDef="proName">
+            <th mat-header-cell *matHeaderCellDef>Project Manager Name</th>
+            <td mat-cell *matCellDef="let element">{{element.pfirst}} {{element.plast}}</td>
           </ng-container>
 
           <!--  test Column-->

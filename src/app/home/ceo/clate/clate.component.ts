@@ -49,7 +49,7 @@ export class ClateComponent implements  AfterViewInit, OnInit {
   selectedValue: any;
   message: any;
   // late complaint
-  displayedColumns: string[] = [ 'productID', 'complaintID', 'description', 'submittedDate', 'lastDateOfPending', 'firstName' , 'userEmail', 'accountCoordinatorID', 'Action', 'history'];
+  displayedColumns: string[] = [ 'productID', 'complaintID', 'description', 'submittedDate', 'lastDateOfPending', 'firstName' , 'proName', 'userEmail', 'accountCoordinatorID', 'Action', 'history'];
   dataSource1: MatTableDataSource<IComplaint>;
   COMPLAINS_DATA: IComplaint[];
 
@@ -68,7 +68,7 @@ export class ClateComponent implements  AfterViewInit, OnInit {
   // tslint:disable-next-line:typedef
   m: string;
   bbb: any;
-  test: string[] = ['productID', 'complaintID', 'description', 'submittedDate', 'lastDateOfPending', 'firstName' , 'userEmail', 'Action'];
+  test: string[] = ['productID', 'complaintID', 'description', 'submittedDate', 'lastDateOfPending', 'firstName' , 'proName', 'userEmail', 'Action'];
   filterValue: any;
 
   hidd;
