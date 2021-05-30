@@ -16,8 +16,8 @@
         <mat-label>Task ID</mat-label>
         <mat-select  formControlName="taskID" multiple="false">
           <mat-option *ngFor="let taskID of taskIDList; let i = index" [value]="taskIDList[i]">{{taskIDList[i]}}</mat-option>
-          <mat-error>Please select task ID</mat-error>
         </mat-select>
+        <mat-error>Please select task ID</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="col-auto">

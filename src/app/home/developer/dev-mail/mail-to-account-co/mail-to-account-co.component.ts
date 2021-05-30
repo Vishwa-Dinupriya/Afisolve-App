@@ -31,9 +31,10 @@ export class MailToAccountCoComponent implements OnInit {
       accoorEmail: ['', [Validators.required]],
       taskID: ['', [Validators.required]]
     });
-    this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-Task-All-details', {}).subscribe(
+    this.http1.post<any>(environment.developerApiUrl + '/get-Task-All-details', {}).subscribe(
       response => {
         this.taskIDList = response.data.map(value => value.taskID);
+        console.log(response.data);
       }, error => {
         console.log(error);
       }

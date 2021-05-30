@@ -274,6 +274,7 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
             this.selectedRoles = response.roles.map(value => value.roleID);
             this.defaultRole.setValue(response.defaultRoleID);
             this.contactNumber.setValue(response.contactNumber);
+            this.newProfilePicture = undefined;
             this.currentProfilePicture = 'data:image/png;base64,' + response.profilePhoto;
 
             this.name = response.firstname + ' ' + response.lastname;
@@ -329,7 +330,7 @@ export class UserProfileForAdminPurposeComponent implements OnInit, OnChanges {
         dialogRef2.afterClosed().subscribe(result2 => {
           console.log(`Dialog result: ${result2}`);
           if (result2 === true) {
-
+              this.getAndSetValues();
           } else {
             this.usersService1.changeIsProfileModeSubjectBooleanValue(false);
           }
