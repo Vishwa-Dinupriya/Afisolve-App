@@ -62,6 +62,7 @@ export class ProductProfileComponent implements OnInit, OnChanges {
   ddData: any;
   isHiddenDD: boolean;
   isOpen = false;
+
   constructor(private http1: HttpClient,
               public productService: ProductService) {
   }
@@ -78,8 +79,11 @@ export class ProductProfileComponent implements OnInit, OnChanges {
             this.tabIndex = 0;
             this.PRODUCT_DETAILS_DATA = response.data; // undifined -> defined weno
             this.COMPLAINTS_PRODUCT_DATA = response.data.complaintsDetails; // defined -> undifined
+            this.DEVELOPERS_PRODUCT_DATA = response.data.developersDetails;
+
+            console.log(this.DEVELOPERS_PRODUCT_DATA);
             this.selected = [];
-            for (let i = 0; i < response.data.dev.length; i++){
+            for (let i = 0; i < response.data.dev.length; i++) {
               this.selected[i] = response.data.dev[i].devID;
             }
             this.toppings = new FormControl(this.selected);
@@ -167,7 +171,7 @@ export class ProductProfileComponent implements OnInit, OnChanges {
     this.isHiddenDD = false;
   }
 
-  editDev(): void{
+  editDev(): void {
     this.isHiddenDD = true;
     this.http1.post<any>(`http://localhost:3000/admin/get-developer-List`, {}).subscribe(
       response => {
