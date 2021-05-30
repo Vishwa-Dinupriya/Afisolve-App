@@ -18,6 +18,15 @@ export interface IAllTask {
   DevName: string;
   developerEmail: string;
 }
+export interface IOverdueTask {
+  taskID: number;
+  complaintID: number;
+  subComplaintID: number;
+  assignDate: string;
+  deadline: string;
+  DevName: string;
+  developerEmail: string;
+}
 export interface INewTask {
   taskID: number;
   complaintID: number;
@@ -55,6 +64,11 @@ export class TasksComponent implements OnInit{
   displayedColumnsAll: string[] = ['complaintID', 'subComplaintID', 'taskID',  'assignDate', 'deadline', 'task_status', 'DevName', 'developerEmail', 'details'];
   dataSourceAll: MatTableDataSource<IAllTask>;
   ALLTASK_DATA: IAllTask[];
+  // --------------------------------------------------------------------- //
+  displayedColumnsOverdue: string[] = ['taskID', 'complaintID', 'subComplaintID', 'assignDate', 'deadline', 'DevName', 'developerEmail', 'details'];
+  dataSourceOverdue: MatTableDataSource<IOverdueTask>;
+  OVERDUETASK_DATA: IOverdueTask[];
+  // --------------------------------------------------------------------- //
   // --------------------------------------------------------------------- //
   displayedColumnsNew: string[] = ['taskID', 'complaintID', 'subComplaintID', 'assignDate', 'deadline', 'DevName', 'developerEmail', 'details'];
   dataSourceNew: MatTableDataSource<INewTask>;
@@ -97,6 +111,16 @@ export class TasksComponent implements OnInit{
         console.log(error);
       }
     ),
+      this.http1.post<any>(environment.accountCoordinatorApiUrl + `//get-Task-Overdue-details`, {}).subscribe(
+        response => {
+          this.OVERDUETASK_DATA = response.data;
+          this.dataSourceOverdue = new MatTableDataSource<IOverdueTask>(this.OVERDUETASK_DATA);
+          this.dataSourceOverdue.sort = this.sort;
+          this.dataSourceOverdue.paginator = this.paginator;
+        }, error => {
+          console.log(error);
+        }
+      ),
     this.http1.post<any>(environment.accountCoordinatorApiUrl + `//get-Task-New-details`, {}).subscribe(
       response => {
         this.NEWTASK_DATA = response.data;
@@ -131,6 +155,10 @@ export class TasksComponent implements OnInit{
   applyFilterAll(event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceAll.filter = filterValue.trim().toLowerCase();
+  }
+  applyFilterOverdue(event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceOverdue.filter = filterValue.trim().toLowerCase();
   }
   applyFilterNew(event): void {
     const filterValue = (event.target as HTMLInputElement).value;

@@ -1,22 +1,28 @@
-<div class="container-fluid">
-
+<mat-card>
+  <mat-card  style="background-color: #f6f7fa">
+    <mat-card-title style="text-align: center">Update Complaint Status</mat-card-title>
+    <br>
   <form [formGroup]="updateComplaintStatusForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
 
     <div class="row">
-
-      <mat-form-field class="col-auto" appearance="outline">
-        <mat-label>Complaint ID</mat-label>
-        <input type="text" matInput formControlName="complaintID" placeholder="Complaint ID">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Select Complaint ID</mat-label>
+        <mat-select formControlName="complaintID" multiple="false">
+          <mat-option *ngFor="let complaintID of complaintIDList; let i = index"
+                      [value]="complaintIDList[i]">{{complaintIDList[i]}}</mat-option>
+        </mat-select>
+        <mat-error>Please select a developer</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="col-auto" appearance="outline">
-        <mat-label>Sub Complaint ID</mat-label>
-        <input type="text" matInput formControlName="subComplaintID" placeholder="Sub Complaint ID">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Select Sub Complaint ID</mat-label>
+        <mat-select formControlName="subComplaintID" multiple="false">
+          <mat-option *ngFor="let subComplaintID of subComplaintIDList; let i = index"
+                      [value]="subComplaintIDList[i]">{{subComplaintIDList[i]}}</mat-option>
+        </mat-select>
+        <mat-error>Please select a developer</mat-error>
       </mat-form-field>
 
-    </div>
-
-    <div class="row">
       <mat-form-field appearance="outline" class="col-auto">
         <mat-label>Status</mat-label>
         <mat-select  formControlName="complaintStatus" multiple="false">
@@ -29,7 +35,45 @@
 
   </form>
 
-</div>
+</mat-card>
+</mat-card>
+<!--<div class="container-fluid">
+  <mat-card class="m-5 shadow" style="height: 80%">
+    <mat-card-title>Update Status</mat-card-title>
+  -- form [formGroup]="updateComplaintStatusForm" (ngSubmit)="onSubmit()" #myForm="ngForm"--
+    <form [formGroup]="updateComplaintStatusForm" (ngSubmit)="saveChangesDialog()" class="mat-typography" #myForm="ngForm">
 
+   <div class="row">
+
+      <mat-form-field class="col-auto" appearance="outline">
+        <mat-label>Complaint ID</mat-label>
+        <input type="text" matInput formControlName="complaintID"  [required]="true" placeholder="Enter a valied Complaint ID">
+      </mat-form-field>
+
+      <mat-form-field class="col-auto" appearance="outline">
+        <mat-label>Sub Complaint ID</mat-label>
+        <input type="text" matInput formControlName="subComplaintID"  [required]="true" placeholder="Enter a valied Sub Complaint ID">
+      </mat-form-field>
+
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-auto">
+        <mat-label>Status</mat-label>
+        <mat-select  formControlName="complaintStatus" multiple="false">
+          <mat-option *ngFor="let status of complaintStatusList; let i = index" [value]="status">{{status}}</mat-option>
+        </mat-select>
+        <mat-error>Please select a status</mat-error>
+      </mat-form-field>
+    </div>
+
+    <button class="btn btn-primary" type="button" [hidden]="!complaintIDChild && !subComplaintIDChild" (click)="onCancelEdit()">Cancel</button>
+    <span></span>
+    <button class="btn btn-primary" type="submit" [disabled]="!updateComplaintStatusForm.valid">Update</button>
+
+  </form>
+  </mat-card>
+</div>
+-->
 
 

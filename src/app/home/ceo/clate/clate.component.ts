@@ -40,6 +40,8 @@ export interface IHistory {
   styleUrls: ['./clate.component.css']
 })
 export class ClateComponent implements  AfterViewInit, OnInit {
+   oldName: any;
+   prodId: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private http1: HttpClient, private pastname: PastnameService){ }
   raw: string;
@@ -47,7 +49,7 @@ export class ClateComponent implements  AfterViewInit, OnInit {
   selectedValue: any;
   message: any;
   // late complaint
-  displayedColumns: string[] = [ 'productID', 'complaintID', 'description', 'submittedDate', 'lastDateOfPending', 'firstName' , 'userEmail', 'accountCoordinatorID', 'Action', 'history'];
+  displayedColumns: string[] = [ 'productID', 'complaintID', 'description', 'submittedDate', 'lastDateOfPending', 'firstName' , 'proName', 'userEmail', 'accountCoordinatorID', 'Action', 'history'];
   dataSource1: MatTableDataSource<IComplaint>;
   COMPLAINS_DATA: IComplaint[];
 
@@ -66,18 +68,18 @@ export class ClateComponent implements  AfterViewInit, OnInit {
   // tslint:disable-next-line:typedef
   m: string;
   bbb: any;
-  test: string[] = ['productID', 'complaintID', 'description', 'submittedDate', 'lastDateOfPending', 'firstName' , 'userEmail', 'Action'];
+  test: string[] = ['productID', 'complaintID', 'description', 'submittedDate', 'lastDateOfPending', 'firstName' , 'proName', 'userEmail', 'Action'];
   filterValue: any;
 
   hidd;
 
   ngOnInit(): void {
     this.hidd = true;
-    this.pastname.refreshNeeded$
+    this.pastname.refreshNeededCeo$
       .subscribe(() => {
         this.ngAfterViewInit();
       });
-    this.pastname.refreshNeededforacname$
+    this.pastname.refreshNeededforacnameceo$
       .subscribe(() => {
         this.ngAfterViewInit();
       });
@@ -144,6 +146,8 @@ export class ClateComponent implements  AfterViewInit, OnInit {
   // tslint:disable-next-line:typedef
   getAlert(row){
     this.test = row; // click krana row eka mokadd kyla thyna eka
+    this.oldName = row.firstName;
+    this.prodId = row.productID;
     console.log(this.test);
     Swal.fire({
       title: 'Decision..?',
@@ -277,23 +281,11 @@ export class ClateComponent implements  AfterViewInit, OnInit {
       );
 
   }
+
+
+  cancel(): void {
+    this.hidd = true;
+  }
 }
 
 
-// css colors
-
-// .mat-row:nth-child(even){
-   // background-color: darkgray;
-// }
-
-// .mat-row:nth-child(odd){
- //  background-color: ;
-// 'submittedtime',
-//         <ng-container matColumnDef="submittedTime">
-//           <th mat-header-cell *matHeaderCellDef mat-sort-header> Submitted Time</th>
-//           <td mat-cell *matCellDef="let element">{{element.submittedTime}} </td>
-//         </ng-container> }
-
-
-// <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
-//  </mat-paginator>

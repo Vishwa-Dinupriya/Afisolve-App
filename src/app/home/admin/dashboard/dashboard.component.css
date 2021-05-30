@@ -14,22 +14,22 @@
 }
 
 .text-inside-grid {
-  
+
 }
 
 #divChart3{
   display: block;
   padding-top: 20px;
-  width: 350px;
-  height: 200px;
+  width: 400px;
+  height: 220px;
   background-color: #e36120;
 }
 
 #divChart4{
   display: block;
   padding-top: 20px;
-  width: 350px;
-  height: 200px;
+  width: 400px;
+  height: 220px;
   background-color: #358731;
 }
 

@@ -17,7 +17,14 @@ export interface IAllTask {
   deadline: string;
   status: string;
 }
-
+export interface IOverdueTask {
+  taskID: number;
+  productName: string;
+  complaintID: number;
+  subComplaintID: number;
+  assignDate: string;
+  deadline: string;
+}
 export interface IPendingTask {
   taskID: number;
   productName: string;
@@ -42,6 +49,7 @@ export interface ICompletedTask {
   assignDate: string;
   deadline: string;
 }
+
 @Component({
   selector: 'app-devtasks',
   templateUrl: './devtasks.component.html',
@@ -52,7 +60,12 @@ export class DevtasksComponent implements OnInit {
   dataSourceAll: MatTableDataSource<IAllTask>;
   ALLTASK_DATA: IAllTask[];
   // -------------------------------------------- //
-  displayedColumnsPending: string[] = ['taskID', 'productName', 'complaintID', 'productName', 'subComplaintID', 'assignDate', 'deadline',  'details'];
+  displayedColumnsOverdue: string[] = ['taskID', 'productName', 'complaintID', 'subComplaintID', 'assignDate', 'deadline',  'details'];
+  dataSourceOverdue: MatTableDataSource<IOverdueTask>;
+  OVERDUETASK_DATA: IOverdueTask[];
+  // -------------------------------------------- //
+  // -------------------------------------------- //
+  displayedColumnsPending: string[] = ['taskID', 'productName', 'complaintID', 'subComplaintID', 'assignDate', 'deadline',  'details'];
   dataSourcePending: MatTableDataSource<IPendingTask>;
   PENDINGTASK_DATA: IPendingTask[];
   // -------------------------------------------- //
@@ -89,6 +102,16 @@ export class DevtasksComponent implements OnInit {
         console.log(error);
       }
     ),
+      this.http1.post<any>(environment.developerApiUrl + `//get-Task-Overdue-details`, {}).subscribe(
+        response => {
+          this.OVERDUETASK_DATA = response.data;
+          this.dataSourceOverdue = new MatTableDataSource<IOverdueTask>(this.OVERDUETASK_DATA);
+          this.dataSourceOverdue.sort = this.sort;
+          this.dataSourceOverdue.paginator = this.paginator;
+        }, error => {
+          console.log(error);
+        }
+      ),
       this.http1.post<any>(environment.developerApiUrl + `//get-Task-Pending-details`, {}).subscribe(
         response => {
           this.PENDINGTASK_DATA = response.data;
@@ -123,6 +146,10 @@ export class DevtasksComponent implements OnInit {
   applyFilterAll(event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceAll.filter = filterValue.trim().toLowerCase();
+  }
+  applyFilterOverdue(event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceOverdue.filter = filterValue.trim().toLowerCase();
   }
   applyFilterPending(event): void {
     const filterValue = (event.target as HTMLInputElement).value;

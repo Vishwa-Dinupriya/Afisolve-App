@@ -65,12 +65,11 @@
 
                 <!-- Active status Column -->
                 <ng-container matColumnDef="activeStatus">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header style="justify-content:center;" > Active Status</th>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header style="justify-content:center;"  > Active Status</th>
                   <td mat-cell *matCellDef="let element" style="text-align: center" >
-                    <span *ngIf="element.activeStatus; else inactiveBlock" style=" height: 15px; width: 15px;background-color: #01a701 ;border-radius: 50%;display: inline-block;"> </span>
-                    <ng-template #inactiveBlock>
-                      <span  style=" height: 15px; width: 15px;background-color: crimson; border-radius: 50%;display: inline-block;"></span>
-                    </ng-template>
+                      <span *ngIf="getActiveStatus(element.activeAgo) === 1 " style=" height: 15px; width: 15px;background-color: #01a701 ;border-radius: 50%;display: inline-block;"> </span>
+                      <span *ngIf="getActiveStatus(element.activeAgo) === 0 " style=" height: 15px; width: 15px;background-color: #dbbd00 ;border-radius: 50%;display: inline-block;"> </span>
+                      <span *ngIf="getActiveStatus(element.activeAgo) === -1 " style=" height: 15px; width: 15px;background-color: crimson; border-radius: 50%;display: inline-block;"></span>
                   </td>
                 </ng-container>
 

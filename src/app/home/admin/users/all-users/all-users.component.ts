@@ -16,6 +16,7 @@ export interface IUser {
   roleIDs: number[];
   activeStatus: boolean;
   createdAt: string;
+  activeAgo: number;
 }
 
 export interface ITabUsers {
@@ -67,7 +68,7 @@ export class AllUsersComponent implements OnInit {
     this.progress = true;
     this.http1.post<any>(`http://localhost:3000/admin/get-all-users-details`, {}).subscribe(
       response => {
-        // console.log(response.data);
+        console.log(response.data);
         this.USERS_DATA = response.data;
         this.usersTabs.forEach(tab => {
           tab.dataSource = new MatTableDataSource<IUser>(this.USERS_DATA.filter(
@@ -160,6 +161,17 @@ export class AllUsersComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       }
     });
+  }
+
+  getActiveStatus(activeAgo): any {
+    // 120000 = 2 minutes
+    if (activeAgo < 120000) {
+      return 1;
+    } else if (120000 < activeAgo && activeAgo < 7200000) {
+      return 0;
+    } else {
+      return -1;
+    }
   }
 
 }

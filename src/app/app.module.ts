@@ -82,35 +82,49 @@ import {PageService, SortService, FilterService} from '@syncfusion/ej2-angular-t
 
 import {ComplaintsCustomerComponent} from './home/customer/complaints-customer/complaints-customer.component';
 import {DashboardCustomerComponent} from './home/customer/dashboard-customer/dashboard-customer.component';
-import {ProductsCustomerComponent} from './home/customer/products-customer/products-customer.component';
-import {TestCustomerComponent} from './home/customer/test-customer/test-customer.component';
-import {AddNewComplaintComponent} from './home/customer/add-new-complaint/add-new-complaint.component';
-import {PendingComplaintsComponent} from './home/customer/complaints-customer/pending-complaints/pending-complaints.component';
-import {InProgressComplaintsComponent} from './home/customer/complaints-customer/in-progress-complaints/in-progress-complaints.component';
-import {CompletedComplaintsComponent} from './home/customer/complaints-customer/completed-complaints/completed-complaints.component';
-import {ClosedComplaintsComponent} from './home/customer/complaints-customer/closed-complaints/closed-complaints.component';
-import {ReviewDialogBoxComponent} from './home/customer/complaints-customer/completed-complaints/review-dialog-box/review-dialog-box.component';
-import {LodgeSubComplaintComponent} from './home/customer/complaints-customer/completed-complaints/lodge-sub-complaint/lodge-sub-complaint.component';
-import {UserProfileForAdminPurposeComponent} from './home/admin/users/all-users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
 
-import {CropAndUploadPictureComponent} from './shared/crop-and-upload-picture/crop-and-upload-picture.component';
-import {DialogBoxSelectPictureComponent} from './shared/dialog-box-select-picture/dialog-box-select-picture.component';
-import {CommentSectionComponent} from './home/shared/comment-section/comment-section.component';
-import {OtpDialogBoxComponent} from './shared/otp-dialog-box/otp-dialog-box.component';
+import { ProductsCustomerComponent } from './home/customer/products-customer/products-customer.component';
+import { TestCustomerComponent } from './home/customer/test-customer/test-customer.component';
+import { AddNewComplaintComponent } from './home/customer/add-new-complaint/add-new-complaint.component';
+import { PendingComplaintsComponent } from './home/customer/complaints-customer/pending-complaints/pending-complaints.component';
+import { InProgressComplaintsComponent } from './home/customer/complaints-customer/in-progress-complaints/in-progress-complaints.component';
+import { CompletedComplaintsComponent } from './home/customer/complaints-customer/completed-complaints/completed-complaints.component';
+import { ClosedComplaintsComponent } from './home/customer/complaints-customer/closed-complaints/closed-complaints.component';
+import { ReviewDialogBoxComponent } from './home/customer/complaints-customer/completed-complaints/review-dialog-box/review-dialog-box.component';
+import { LodgeSubComplaintComponent } from './home/customer/complaints-customer/completed-complaints/lodge-sub-complaint/lodge-sub-complaint.component';
+import { UserProfileForAdminPurposeComponent } from './home/admin/users/all-users/user-profile-for-admin-purpose/user-profile-for-admin-purpose.component';
+
+import { CropAndUploadPictureComponent } from './shared/crop-and-upload-picture/crop-and-upload-picture.component';
+import { DialogBoxSelectPictureComponent } from './shared/dialog-box-select-picture/dialog-box-select-picture.component';
+import { CommentSectionComponent } from './home/shared/comment-section/comment-section.component';
+import { OtpDialogBoxComponent } from './shared/otp-dialog-box/otp-dialog-box.component';
 
 
-import {UpdateComplaintStatusComponent} from './home/accountCoordinator/accoorcomplaints/update-complaint-status/update-complaint-status.component';
-import {AccoorcomplaintProfileCurrentComponent} from './home/accountCoordinator/accoorcomplaints/accoorcomplaint-profile-current/accoorcomplaint-profile-current.component';
-import {AccoorproductsComponent} from './home/accountCoordinator/accoorproducts/accoorproducts.component';
-import {DevtasksProfileComponent} from './home/developer/devtasks/devtasks-profile/devtasks-profile.component';
-import {UpdateDevtaskStatusComponent} from './home/developer/devtasks/update-devtask-status/update-devtask-status.component';
-import {ForgetPasswordDialogBoxComponent} from './authentication/login/forget-password-dialog-box/forget-password-dialog-box.component';
-import {AllUsersComponent} from './home/admin/users/all-users/all-users.component';
-import {AllProductsComponent} from './home/admin/products/all-products/all-products.component';
+
+import { UpdateComplaintStatusComponent } from './home/accountCoordinator/accoorcomplaints/update-complaint-status/update-complaint-status.component';
+import { AccoorcomplaintProfileCurrentComponent } from './home/accountCoordinator/accoorcomplaints/accoorcomplaint-profile-current/accoorcomplaint-profile-current.component';
+import { AccoorproductsComponent } from './home/accountCoordinator/accoorproducts/accoorproducts.component';
+import { DevtasksProfileComponent } from './home/developer/devtasks/devtasks-profile/devtasks-profile.component';
+import { UpdateDevtaskStatusComponent } from './home/developer/devtasks/update-devtask-status/update-devtask-status.component';
+
+import { DevMailComponent } from './home/developer/dev-mail/dev-mail.component';
+import { AssignNewDeveloperComponent } from './home/accountCoordinator/tasks/assign-new-developer/assign-new-developer.component';
+
+import { ForgetPasswordDialogBoxComponent } from './authentication/login/forget-password-dialog-box/forget-password-dialog-box.component';
+import { AllUsersComponent } from './home/admin/users/all-users/all-users.component';
+import { AllProductsComponent } from './home/admin/products/all-products/all-products.component';
 import {NgxPrintModule} from 'ngx-print';
+import { MailToCustomerComponent } from './home/accountCoordinator/mail/mail-to-customer/mail-to-customer.component';
+import { MailToDeveloperComponent } from './home/accountCoordinator/mail/mail-to-developer/mail-to-developer.component';
+import { MailToAccountCoComponent } from './home/developer/dev-mail/mail-to-account-co/mail-to-account-co.component';
+import { UpdateSelectedDevtaskStatusComponent } from './home/developer/devtasks/update-selected-devtask-status/update-selected-devtask-status.component';
+import { AcdashboardComponent } from './home/accountCoordinator/acdashboard/acdashboard.component';
+import { DevdashboardComponent } from './home/developer/devdashboard/devdashboard.component';
 import {SessionTimeOutDialogBoxComponent} from './authentication/shared/session-time-out-dialog-box/session-time-out-dialog-box.component';
 import {LoginErrorDialogBoxComponent} from './authentication/login/login-error-dialog-box/login-error-dialog-box.component';
 import { ChangePasswordDialogBoxComponent } from './home/shared/change-password-dialog-box/change-password-dialog-box.component';
+import {OverlayModule} from '@angular/cdk/overlay';
+
 
 
 @NgModule({
@@ -190,37 +204,49 @@ import { ChangePasswordDialogBoxComponent } from './home/shared/change-password-
     AccoorproductsComponent,
     DevtasksProfileComponent,
     UpdateDevtaskStatusComponent,
+
+    DevMailComponent,
+    AssignNewDeveloperComponent,
+
     ForgetPasswordDialogBoxComponent,
     AllUsersComponent,
     AllProductsComponent,
+
+    MailToCustomerComponent,
+    MailToDeveloperComponent,
+    MailToAccountCoComponent,
+    UpdateSelectedDevtaskStatusComponent,
+    AcdashboardComponent,
+    DevdashboardComponent,
+
     SessionTimeOutDialogBoxComponent,
     LoginErrorDialogBoxComponent,
     ChangePasswordDialogBoxComponent,
 
-
   ],
   entryComponents: [DialogBoxComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MaterialModule,
-    ImageCropperModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    MatGridListModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MaterialModule,
+        ImageCropperModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        MatGridListModule,
 
-    MatBadgeModule,
-    MatCheckboxModule,
+        MatBadgeModule,
+        MatCheckboxModule,
 
-    MatDialogModule,
-    NgxPrintModule
+        MatDialogModule,
+        NgxPrintModule,
+        OverlayModule
 
-  ],
+    ],
   providers: [
     PageService,
     SortService,

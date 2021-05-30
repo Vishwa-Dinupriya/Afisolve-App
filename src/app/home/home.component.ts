@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event?): void {
-    this.isBigScreen = (window.innerWidth) > 800;
+    this.isBigScreen = (window.innerWidth) > 1000;
     this.homeService.ToggleDrawer(this.isBigScreen);
     this.toggleDrawerBtnValue = this.homeService.drawer;
   }
@@ -55,15 +55,20 @@ export class HomeComponent implements OnInit {
     private otpService: OtpService,
     private changePasswordService: ChangePasswordService
   ) {
+    this.authenticationService.refreshNeededForSessionTomeOutSubject$.subscribe(() => {
+      this.ngOnInit();
+    });
   }
 
   ngOnInit(): void {
     this.homeService.changeUserProfileModeBooleanSubject(false);
     this.homeService.changeUserEmailStringSubjectValue(null);
-    this.isBigScreen = (window.innerWidth) > 700; // using this line for toggle-button-> hide or not
+    this.isBigScreen = (window.innerWidth) > 1000; // using this line for toggle-button-> hide or not
     this.homeService.ToggleDrawer(this.isBigScreen);
     this.toggleDrawerBtnValue = this.homeService.drawer;
 
+    // console.log(window.innerWidth);
+    // console.log(this.isBigScreen);
     this.http1.post<any>(`http://localhost:3000/home/user-toolbar-display-details`, {}).subscribe(
       response => {
         this.currentRole = response.selectedRole;
@@ -75,6 +80,7 @@ export class HomeComponent implements OnInit {
         console.log(error);
       }
     );
+
     this.homeService.refreshNeededformsg$
       .subscribe(() => {
         this.getNotification();
@@ -148,8 +154,9 @@ export class HomeComponent implements OnInit {
     const dialogRef1 = this.dialog.open(ChangePasswordDialogBoxComponent, {
       data: {
         title: 'Change Password!',
-        message: 'We sent an one-time-password(OTP) to ',
-        name: ' ',
+        message: 'We need to verify it\'s you ',
+        descriptionLine1: 'Click next then we will send OTP(one-time-password) to your email',
+        descriptionLine2: 'Then you can create new password.',
         button1: 'Cancel',
         button2: 'Done',
         userEmail: localStorage.getItem('userEmail')

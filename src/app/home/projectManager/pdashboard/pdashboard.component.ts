@@ -121,11 +121,11 @@ export class PdashboardComponent implements OnInit, AfterViewInit {
             // tslint:disable-next-line:max-line-length
             labels: [this.dataSourceUsersmonth.fifthm, this.dataSourceUsersmonth.fourthm, this.dataSourceUsersmonth.thirdm, this.dataSourceUsersmonth.secondm, this.dataSourceUsersmonth.firstm],
             datasets: [{
-              label: ' ',
+              label: ' Complaints received per month',
               // tslint:disable-next-line:max-line-length
               data: [this.dataSourceUsersmonth.fifth, this.dataSourceUsersmonth.fourth, this.dataSourceUsersmonth.third, this.dataSourceUsersmonth.second, this.dataSourceUsersmonth.first ],
               backgroundColor: [
-                '',
+                'rgba(255, 255, 255, 1)',
               ],
               fill: false,
               borderColor: [
@@ -139,6 +139,12 @@ export class PdashboardComponent implements OnInit, AfterViewInit {
             }]
           },
           options: {
+            legend: {
+              labels: {
+                // This more specific font property overrides the global property
+                fontColor: '#ffffff'
+              }
+            },
             scales: {
               xAxes: [{
                 display: true,
@@ -157,7 +163,7 @@ export class PdashboardComponent implements OnInit, AfterViewInit {
                 display: true,
                 scaleLabel: {
                   display: true,
-                  labelString: 'Users',
+                  labelString: 'Tasks',
                   fontColor: '#ffffff',
                   fontSize: 8
                 },
@@ -184,8 +190,7 @@ export class PdashboardComponent implements OnInit, AfterViewInit {
     this.http1.get<any>(`http://localhost:3000/projectManager/get-full-count`, {}).subscribe(
       response => {
         this.dataSourceUsers1 = response.data;
-        console.log(this.dataSourceUsers1);
-        // ganan tika
+        // ..........................chart eka
         this.allll = this.dataSourceUsers1.alll;
         this.penn = this.dataSourceUsers1.pen;
         this.wor = this.dataSourceUsers1.work;
@@ -199,7 +204,6 @@ export class PdashboardComponent implements OnInit, AfterViewInit {
         this.wr = c.toFixed(2);
         const d = (this.finn / this.allll) * 100;
         this.fn = d.toFixed(2);
-        // ..........................chart eka
         // tslint:disable-next-line:prefer-const
         var myChart = new Chart('myChart1', {
           type: 'doughnut',

@@ -1,8 +1,11 @@
 <!-------------Details of the selected complaint------------------>
 
 <div [hidden]="false">
+
   <mat-tab-group animationDuration="1000ms" [selectedIndex]="tabIndex">
+    <mat-card>
     <mat-tab label="General Details">
+      <mat-card style="background-color: #f6f7fa">
       <div>
 
         <mat-list *ngIf="!!COMPLAINT_DETAILS_DATA">
@@ -15,6 +18,9 @@
                 <span> {{ COMPLAINT_DETAILS_DATA.complaintID+' - '+COMPLAINT_DETAILS_DATA.subComplaintID }} <br/></span>
               </ng-template>
             </div>
+
+
+
           </mat-list-item>
 
           <mat-list-item>
@@ -94,7 +100,21 @@
       <div [hidden]="ComplaintIdAvailable">
         <i> Requested Complaint Id is null</i>
       </div>
+      </mat-card>
     </mat-tab>
+    <mat-tab label="Image Attachments" >
+      <mat-card>
+      <p [hidden]="imageAttachments===null"><i>No any image attachment</i></p>
+      <div style="overflow: hidden;">
+        <div *ngFor="let image of imageAttachments; let i = index"
+             style="float:left; margin-right: 10px; max-width: 20%;max-height: 20%;">
+          <img class="m-1" [hidden]="!this.imageAttachments[i]" width="95%" height="95%" style="border-radius:10% "
+               [src]=" 'data:image/png;base64,' +this.imageAttachments[i]">
+        </div>
+      </div>
+      </mat-card>
+    </mat-tab>
+    </mat-card>
   </mat-tab-group>
 
   <!--Navigate back to all complaints table-->

@@ -45,6 +45,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 localStorage.setItem('userID', response.userID);
                 localStorage.setItem('userEmail', response.userEmail);
                 localStorage.setItem('token', response.token);
+                this.authenticationService.changeRefreshNeededForSessionTomeOutSubject$();
               }, error1 => {
                 console.log(error1);
               }).add(() => this.dialogRef = null);

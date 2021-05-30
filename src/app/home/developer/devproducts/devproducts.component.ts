@@ -20,7 +20,7 @@ export interface IAllProd {
   styleUrls: ['./devproducts.component.css']
 })
 export class DevproductsComponent implements OnInit {
-  displayedProd: string[] = ['productID', 'productName', 'category', 'projectManagerEmail', 'accountCoordinatorEmail'];
+  displayedProd: string[] = ['productID', 'productName', 'category', 'projectManagerName', 'projectManagerEmail', 'accountCoordinatorName', 'accountCoordinatorEmail'];
   dataSource1: MatTableDataSource<IAllProd>;
   ALLPRODUCTS_DATA: IAllProd[];
 

@@ -1,0 +1,12 @@
+.mat-header-cell {
+  flex: 1;
+  align-items: center;
+  background-color: royalblue;
+}
+.mat-cell{
+  background-color: #ebebeb;
+  color: black;
+}
+.mat-tab-header-cell {
+  color: #4B9FE1;
+}

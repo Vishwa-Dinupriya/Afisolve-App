@@ -24,31 +24,45 @@
         </div>
 
         <div class="row">
-          <mat-form-field class="col-12" appearance="outline">
-            <mat-label>Customer Email</mat-label>
-            <input type="text" matInput formControlName="customerEmail" placeholder="user@gmail.com">
-          </mat-form-field>
-        </div>
-
-        <div class="row">
-          <mat-form-field class="col-12" appearance="outline">
-            <mat-label>Account-Coordinator Email</mat-label>
-            <input type="text" matInput formControlName="accountCoordinatorEmail" placeholder="user@gmail.com">
-          </mat-form-field>
-        </div>
-
-        <div class="row">
-          <mat-form-field class="col-12" appearance="outline">
-            <mat-label>Project-Manager Email</mat-label>
-            <input type="text" matInput formControlName="projectManagerEmail" placeholder="user@gmail.com">
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-label>-Select Customer-</mat-label>
+            <mat-select formControlName="customerEmail" multiple="false" >
+              <mat-option *ngFor="let customer of customerList; let i = index" [value]="customer.userEmail">
+               {{customer.firstName+ ' ' + customer.lastName }} <span style="font-size: smaller;">{{' ( '+customer.userEmail+' )'}} </span>
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
 
         <div class="row">
           <mat-form-field appearance="outline" class="col-12">
-            <mat-label>Developer</mat-label>
-            <mat-select formControlName="developers" multiple="true" (valueChange)="toSelectedDevelopers($event)" >
-              <mat-option *ngFor="let developer of developerList; let i = index" [value]="developer.userID">{{developer.userEmail}}</mat-option>
+            <mat-label>-Select Project Manager-</mat-label>
+            <mat-select formControlName="projectManagerEmail" multiple="false" >
+              <mat-option *ngFor="let projectManager of projectManagerList; let i = index" [value]="projectManager.userEmail">
+                {{projectManager.firstName+ ' ' + projectManager.lastName }} <span style="font-size: smaller;">{{' ( '+projectManager.userEmail+' )'}} </span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-label>-Select Account Coordinator-</mat-label>
+            <mat-select formControlName="accountCoordinatorEmail" multiple="false" >
+              <mat-option *ngFor="let accountCoordinator of accountCoordinatorList; let i = index" [value]="accountCoordinator.userEmail">
+                {{accountCoordinator.firstName+ ' ' + accountCoordinator.lastName }} <span style="font-size: smaller;">{{' ( '+accountCoordinator.userEmail+' )'}} </span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-label>-Select Developers-</mat-label>
+            <mat-select formControlName="developers" multiple="true" >
+              <mat-option *ngFor="let developer of developerList; let i = index" [value]="developer.userID">
+                {{developer.firstName+ ' ' + developer.lastName }} <span style="font-size: smaller;">{{' ( '+developer.userEmail+' )'}} </span>
+              </mat-option>
             </mat-select>
           </mat-form-field>
         </div>

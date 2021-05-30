@@ -138,7 +138,7 @@ export class DashboardComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             labels: [this.dataSourceUsersmonth.fifthm, this.dataSourceUsersmonth.fourthm, this.dataSourceUsersmonth.thirdm, this.dataSourceUsersmonth.secondm, this.dataSourceUsersmonth.firstm],
             datasets: [{
-              label: ' ',
+              label: 'Variation in the total number of complaints',
               // tslint:disable-next-line:max-line-length
               data: [this.dataSourceUsersmonth.fifth, this.dataSourceUsersmonth.fourth, this.dataSourceUsersmonth.third, this.dataSourceUsersmonth.second, this.dataSourceUsersmonth.first],
               backgroundColor: [
@@ -156,6 +156,12 @@ export class DashboardComponent implements OnInit {
             }]
           },
           options: {
+            legend: {
+              labels: {
+                // This more specific font property overrides the global property
+                fontColor: '#ffffff'
+              }
+            },
             scales: {
               xAxes: [{
                 display: true,
@@ -218,7 +224,7 @@ export class DashboardComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             labels: [this.dataSourceUsersmonthusers.fifthm, this.dataSourceUsersmonthusers.fourthm, this.dataSourceUsersmonthusers.thirdm, this.dataSourceUsersmonthusers.secondm, this.dataSourceUsersmonthusers.firstm],
             datasets: [{
-              label: '',
+              label: 'Variation in the total number of users',
               // tslint:disable-next-line:max-line-length
               data: [(f - this.dataSourceUsersmonthusers.first - this.dataSourceUsersmonthusers.second - this.dataSourceUsersmonthusers.third - this.dataSourceUsersmonthusers.fourth), ( f - this.dataSourceUsersmonthusers.first - this.dataSourceUsersmonthusers.second - this.dataSourceUsersmonthusers.third), ( f - this.dataSourceUsersmonthusers.first - this.dataSourceUsersmonthusers.second), ( f - this.dataSourceUsersmonthusers.first), f ],
               backgroundColor: [
@@ -236,6 +242,12 @@ export class DashboardComponent implements OnInit {
             }]
           },
           options: {
+            legend: {
+              labels: {
+                // This more specific font property overrides the global property
+                fontColor: '#ffffff'
+              }
+            },
             scales: {
               xAxes: [{
                 display: true,

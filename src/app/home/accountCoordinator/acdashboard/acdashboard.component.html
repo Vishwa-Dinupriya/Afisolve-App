@@ -1,0 +1,100 @@
+<mat-grid-list cols="6" rows="5" rowHeight="20%" class="mat-typography">
+  <mat-grid-tile [colspan]="1" [rowspan]="1" >
+    <mat-card  style="background-color: #e36120">
+      <mat-card-title class="class1" >{{allll}}</mat-card-title>
+      <h4 class="words">Total Complaints</h4>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1" >
+    <mat-card  style="background-color: #358731">
+      <mat-card-title class="class1" >{{datpe}}</mat-card-title>
+      <h4 class="words">Pending Complaints</h4>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1" >
+    <mat-card  style="background-color: #fc0341">
+      <mat-card-title class="class1" >{{datawo}}</mat-card-title>
+      <h4 class="words">Working Progress </h4>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <mat-card  style="background-color: #20b5e3">
+      <mat-card-title class="class1" >{{datfi}}</mat-card-title>
+      <h4 class="words">Completed Complaints</h4>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <mat-card  style="background-color:#8f0b9c ">
+      <mat-card-title class="class1" >{{closs}}</mat-card-title>
+      <h4 class="words">Closed Complaints</h4>
+    </mat-card>
+  </mat-grid-tile>
+
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1" >
+    <mat-card style="background-color: #e36120">
+      <mat-card-title class="class1" >{{late}}</mat-card-title>
+      <h4 class="words">Overdue Complaints</h4>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="3">
+
+  </mat-grid-tile>
+
+<mat-grid-tile [colspan]="4" [rowspan]="3">
+  <mat-card style=" width: 90%; margin-bottom: 3%">
+
+    <mat-card-title>Statics</mat-card-title>
+    <mat-card-subtitle><b>Number of Complaints(Month wise)</b></mat-card-subtitle>
+
+    <div id="divChart3">
+      <canvas id="myChart3"></canvas>
+    </div>
+  </mat-card>
+</mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="3">
+
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="1" >
+    <mat-card  style="background-color: #e36120">
+      <mat-card-title class="class1" >{{altask}}</mat-card-title>
+      <h4 class="words">Total Tasks</h4>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1" >
+    <mat-card  style="background-color: #358731">
+      <mat-card-title class="class1" >{{pentask}}</mat-card-title>
+      <h4 class="words">Pending Tasks</h4>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1" >
+    <mat-card  style="background-color: #fc0341">
+      <mat-card-title class="class1" >{{wortask}}</mat-card-title>
+      <h4 class="words">In Progress Tasks</h4>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <mat-card  style="background-color: #20b5e3">
+      <mat-card-title class="class1" >{{fintask}}</mat-card-title>
+      <h4 class="words">Completed Tasks</h4>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+
+  </mat-grid-tile>
+
+</mat-grid-list>

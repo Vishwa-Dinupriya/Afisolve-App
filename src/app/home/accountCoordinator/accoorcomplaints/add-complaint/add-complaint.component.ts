@@ -4,6 +4,7 @@ import {AccoorcomplaintsService} from '../accoorcomplaints.service';
 import {HttpClient} from '@angular/common/http';
 import {DialogBoxComponent} from '../../../../shared/dialog-box/dialog-box.component';
 import {MatDialog} from '@angular/material/dialog';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-add-complaint',
@@ -13,6 +14,8 @@ import {MatDialog} from '@angular/material/dialog';
 export class AddComplaintComponent implements OnInit {
   @ViewChild('myForm') myForm;
   addComplaintForm: FormGroup;
+  productNameList;
+  productIDList;
   constructor(private fb1: FormBuilder,
               private accoorcomplaintsService: AccoorcomplaintsService,
               private http1: HttpClient,
@@ -21,8 +24,16 @@ export class AddComplaintComponent implements OnInit {
   ngOnInit(): void {
     this.addComplaintForm = this.fb1.group({
         productID: ['', [Validators.required]],
-        description: ['', [Validators.required]],
+        description: ['', [Validators.minLength(5), Validators.required]],
   });
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-product-details', {}).subscribe(
+      response => {
+        this.productIDList = response.data.map(value => value.productID);
+        this.productNameList = response.data.map(value => value.productName);
+      }, error => {
+        console.log(error);
+      }
+    );
   }
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
@@ -60,7 +71,16 @@ export class AddComplaintComponent implements OnInit {
                 }
               });
             },
-            error => console.error('Error!(frontend)', error)
+            error => {console.error('Error!(frontend)', error);
+                      const dialogRef2 = this.dialog.open(DialogBoxComponent, {
+                data: {
+                  title: 'Failed! Please try again.',
+                  message: 'Please make sure the details you entered are valied. ',
+                  name: ' ',
+                  button1: '',
+                  button2: 'Ok'
+                }
+              }); }
           );
       } else {
         this.accoorcomplaintsService.ChangeAddComplaintModeBooleanSubjectValue(false);

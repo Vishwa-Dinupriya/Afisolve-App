@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {Router} from '@angular/router';
 
 @Injectable({
@@ -13,6 +13,8 @@ export class AuthenticationService {
   forgetPasswordUrl = 'http://localhost:3000/authentication/forget-password';
   roleChangeUrl = 'http://localhost:3000/authentication/role-change';
   changeOwnPasswordUrl = 'http://localhost:3000/authentication/change-own-password';
+
+  public refreshNeededForSessionTomeOutSubject$ = new Subject<void>();
 
   constructor(private http1: HttpClient,
               private router: Router) {
@@ -57,4 +59,7 @@ export class AuthenticationService {
     }
   }
 
+  changeRefreshNeededForSessionTomeOutSubject$(): void {
+    this.refreshNeededForSessionTomeOutSubject$.next();
+  }
 }
