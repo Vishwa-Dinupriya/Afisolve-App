@@ -104,7 +104,7 @@
     </mat-tab>
     <mat-tab label="Image Attachments" >
       <mat-card>
-      <p [hidden]="imageAttachments===null"><i>No any image attachment</i></p>
+        <p *ngIf="imageAttachments.length === 0"><i>No any image attachment with this complaint</i></p>
       <div style="overflow: hidden;">
         <div *ngFor="let image of imageAttachments; let i = index"
              style="float:left; margin-right: 10px; max-width: 20%;max-height: 20%;">

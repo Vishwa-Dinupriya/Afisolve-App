@@ -77,7 +77,7 @@
             </div>
           </mat-list-item>
 
-          <mat-list-item>
+          <mat-list-item [hidden]="requestFrom== 'customer'">
             <div class=" w-50">Customer Email:</div>
             <div class=" text-secondary w-50">
               <span *ngIf="!COMPLAINT_DETAILS_DATA.customerEmail; else customerEmailBlock"><i> Not Available</i></span>
@@ -87,7 +87,7 @@
             </div>
           </mat-list-item>
 
-          <mat-list-item>
+          <mat-list-item [hidden]="requestFrom== 'customer'">
             <div class=" w-50">Customer Name:</div>
             <div class=" text-secondary w-50">
               <span

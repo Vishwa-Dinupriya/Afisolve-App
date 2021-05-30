@@ -81,7 +81,6 @@ export class ProductProfileComponent implements OnInit, OnChanges {
             this.COMPLAINTS_PRODUCT_DATA = response.data.complaintsDetails; // defined -> undifined
             this.DEVELOPERS_PRODUCT_DATA = response.data.developersDetails;
 
-            console.log(this.DEVELOPERS_PRODUCT_DATA);
             this.selected = [];
             for (let i = 0; i < response.data.dev.length; i++) {
               this.selected[i] = response.data.dev[i].devID;
@@ -193,4 +192,5 @@ export class ProductProfileComponent implements OnInit, OnChanges {
         error => console.log('Error!(frontend)', error)
       );
   }
+
 }

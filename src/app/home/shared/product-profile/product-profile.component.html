@@ -223,7 +223,7 @@
           <div [hidden]="!isHiddenDD">
             <mat-form-field >
               <mat-label>Select Developers</mat-label>
-              <mat-select [formControl]="toppings" [(ngModel)]="newSelected" multiple>
+              <mat-select [formControl]="toppings" [(ngModel)]="newSelected"  formControlName="developers"  multiple>
                 <mat-option *ngFor="let topping of ddData"
                             [value]="topping.devID">{{topping.devFirst}} {{topping.devLast}}</mat-option>
               </mat-select>

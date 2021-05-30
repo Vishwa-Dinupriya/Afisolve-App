@@ -30,18 +30,20 @@ export class AccoorcomplaintProfileCurrentComponent implements OnInit, AfterView
   COMPLAINT_DETAILS_DATA: IComplaintDetailsAcc;
   tabIndex;
   ComplaintIdAvailable;
-  imageAttachments;
-  //
+  imageAttachments = []; // defined
+
   constructor(private router: Router,
               private http1: HttpClient,
               public dialog: MatDialog,
-              public accoorcomplaintService: AccoorcomplaintsService) { }
-              // Get the details of the selected complaint
+              public accoorcomplaintService: AccoorcomplaintsService) {
+  }
+
+  // Get the details of the selected complaint
   ngOnChanges(): void {
     this.tabIndex = 0;
     if (this.complaintIDChild) {
       this.ComplaintIdAvailable = true;
-      this.http1.post<any>( environment.accountCoordinatorApiUrl + `/get-selected-accoorcomplaint-details-current`, {
+      this.http1.post<any>(environment.accountCoordinatorApiUrl + `/get-selected-accoorcomplaint-details-current`, {
         complaintID: this.complaintIDChild,
         subComplaintID: this.subComplaintIDChild
       })
@@ -49,7 +51,7 @@ export class AccoorcomplaintProfileCurrentComponent implements OnInit, AfterView
           response => {
             this.COMPLAINT_DETAILS_DATA = response.data;
             console.log(this.COMPLAINT_DETAILS_DATA);
-            this.imageAttachments = response.images;
+            this.imageAttachments = response.data.images; // undefined
             console.log(this.imageAttachments);
           },
           error => {
@@ -60,15 +62,19 @@ export class AccoorcomplaintProfileCurrentComponent implements OnInit, AfterView
       this.ComplaintIdAvailable = false;
     }
   }
+
   ngOnInit(): void {
+    this.imageAttachments = [];
     this.tabIndex = 1;
     if (!this.complaintIDChild) {
       this.ComplaintIdAvailable = false;
     }
   }
+
   ngAfterViewInit(): void {
 
   }
+
   public backToAllComplaints(): void {
     this.accoorcomplaintService.ChangeComplaintProfileModeBooleanSubjectValue(false);
     this.accoorcomplaintService.ChangeComplaintIDSubjectNumberValue(null);

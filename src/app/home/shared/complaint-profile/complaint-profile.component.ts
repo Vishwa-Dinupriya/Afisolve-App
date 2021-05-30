@@ -70,9 +70,10 @@ export class ComplaintProfileComponent implements AfterViewInit, OnChanges {
       })
         .subscribe(
           response => {
+            console.log(response.data);
             this.COMPLAINT_DETAILS_DATA = response.data;
             this.imageAttachments = response.images;
-            console.log(response.data);
+            // console.log(response.data);
           },
           error => {
             console.log(error);
