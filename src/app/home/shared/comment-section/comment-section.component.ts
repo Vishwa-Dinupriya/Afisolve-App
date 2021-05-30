@@ -112,7 +112,7 @@ export class CommentSectionComponent implements OnInit, AfterViewChecked, OnChan
       response => {
         this.textComment = '';
         if (this.imageAttachments.length > 0) { // clear image attachment array
-          this.imageAttachments = []; // reset the array
+          this.imageAttachments = []; // reset the image array
         }
         this.chatBoxHeight = 100;
         // console.log('Success!(frontend)', response);

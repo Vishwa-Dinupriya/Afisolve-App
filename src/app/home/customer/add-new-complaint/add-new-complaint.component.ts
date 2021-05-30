@@ -54,6 +54,7 @@ export class AddNewComplaintComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     if (this.addComplaintForm && this.reqProductID) {
       this.formBuildFunction();
+      console.log('this.productID.setValue(' + this.reqProductID);
       this.productID.setValue(this.reqProductID);
     }
   }

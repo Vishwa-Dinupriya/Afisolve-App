@@ -65,8 +65,8 @@ text-transform: none;">E-mail</label>
                        class="form-control"
                        [class.is-invalid]="loginForm.get('email').invalid && loginForm.get('email').touched">
                 <div *ngIf="email.invalid && email.touched">
-                  <small *ngIf="email.errors?.required" class="text-danger">email is required</small>
-                  <small *ngIf="email.errors?.minlength" class="text-danger">email must be at least 3 characters</small>
+                  <small *ngIf="email.errors?.required" class="text-danger">Username is required</small>
+                  <small *ngIf="email.errors?.minlength" class="text-danger">Username must be at least 3 characters</small>
                   <small *ngIf="email.errors?.forbiddenName" class="text-danger">{{email.errors?.forbiddenName.value}}
                     Email not allowed</small>
                 </div>

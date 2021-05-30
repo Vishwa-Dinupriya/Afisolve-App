@@ -25,7 +25,7 @@
           <div style="display: flex">
             <button mat-button [mat-dialog-close]="false" type="button" [hidden]="false">Logout
             </button>
-            <button mat-button type="button" [disabled]="!reActivateSessionForm.valid" (click)="reActivateSession()">ReActivate
+            <button mat-button type="button" [disabled]="!reActivateSessionForm.valid" (keydown.enter)="reActivateSession()" (click)="reActivateSession()">ReActivate
             </button>
           </div>
         </mat-dialog-actions>

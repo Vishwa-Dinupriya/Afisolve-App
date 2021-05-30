@@ -62,6 +62,70 @@
 
     </mat-tab>
 
+    <!------------------------My products---------------------------------->
+    <mat-tab label="My Products">
+
+      <!--Filter-->
+      <mat-form-field class="w-75 m-3">
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Ex.Product ID" (keyup)="applyFilterMyAll($event)">
+      </mat-form-field>
+
+      <table mat-table [dataSource]="dataSource2" class="w-100" >
+
+        <!--Product Id Column -->
+        <ng-container matColumnDef="productID">
+          <th mat-header-cell *matHeaderCellDef> Product Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+        </ng-container>
+
+        <!-- Product Name Column -->
+        <ng-container matColumnDef="productName">
+          <th mat-header-cell *matHeaderCellDef>Product Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+        </ng-container>
+
+        <!-- Category Column -->
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef> Category</th>
+          <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+        </ng-container>
+
+        <!-- Project Manager Name Column -->
+        <ng-container matColumnDef="projectManagerName">
+          <th mat-header-cell *matHeaderCellDef> Project Manager Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.projectManagerName}} </td>
+        </ng-container>
+
+        <!-- Project Manager Email Column -->
+        <ng-container matColumnDef="projectManagerEmail">
+          <th mat-header-cell *matHeaderCellDef> Project Manager Email</th>
+          <td mat-cell *matCellDef="let element"> {{element.projectManagerEmail}} </td>
+        </ng-container>
+
+        <!-- Account Coordinator Name Column -->
+        <ng-container matColumnDef="accountCoordinatorName">
+          <th mat-header-cell *matHeaderCellDef> Account Coordinator Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.accountCoordinatorName}} </td>
+        </ng-container>
+
+        <!-- Account Coordinator Email Column -->
+        <ng-container matColumnDef="accountCoordinatorEmail">
+          <th mat-header-cell *matHeaderCellDef> Account Coordinator Email</th>
+          <td mat-cell *matCellDef="let element"> {{element.accountCoordinatorEmail}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedProd"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedProd;"></tr>
+      </table>
+
+      <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+
+    </mat-tab>
+
+
+
   </mat-tab-group>
 </mat-card>
 

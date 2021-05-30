@@ -31,9 +31,10 @@ export class MailToAccountCoComponent implements OnInit {
       accoorEmail: ['', [Validators.required]],
       taskID: ['', [Validators.required]]
     });
-    this.http1.post<any>(environment.accountCoordinatorApiUrl + '/get-Task-All-details', {}).subscribe(
+    this.http1.post<any>(environment.developerApiUrl + '/get-Task-All-details', {}).subscribe(
       response => {
         this.taskIDList = response.data.map(value => value.taskID);
+        console.log(response.data);
       }, error => {
         console.log(error);
       }
@@ -50,8 +51,8 @@ export class MailToAccountCoComponent implements OnInit {
   onSubmit(): void {
     const dialogRef1 = this.dialog.open(DialogBoxComponent, {
       data: {
-        title: 'Confirm!',
-        message: 'Do you want to send this mail to Account Coordinator ? ',
+        title: 'Are you sure you want to send this mail to Account Coordinator ?',
+        message: 'Please Confirm! ',
         name: ' ',
         button1: 'No',
         button2: 'Yes'

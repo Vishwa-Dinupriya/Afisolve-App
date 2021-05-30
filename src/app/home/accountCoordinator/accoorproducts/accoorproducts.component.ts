@@ -15,6 +15,15 @@ export interface IAll {
   userEmail: string;
   contactNumber: number;
 }
+export interface IMyAll {
+  productID: number;
+  productName: string;
+  category: string;
+  CusName: string;
+  // companyName: string;
+  userEmail: string;
+  contactNumber: number;
+}
 
 @Component({
   selector: 'app-accoorproducts',
@@ -24,8 +33,11 @@ export interface IAll {
 // Displayed columns
 export class AccoorproductsComponent implements OnInit {
   displayedProd: string[] = ['productID', 'productName', 'category', 'CusName', 'userEmail', 'contactNumber'];
+  displayedMyProd: string[] = ['productID', 'productName', 'category', 'CusName', 'userEmail', 'contactNumber'];
   dataSourceProd: MatTableDataSource<IAll>;
+  dataSourceMyProd: MatTableDataSource<IMyAll>;
   ALL_DATA: IAll[];
+  MYALL_DATA: IMyAll[];
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -40,6 +52,16 @@ export class AccoorproductsComponent implements OnInit {
         this.dataSourceProd = new MatTableDataSource<IAll>(this.ALL_DATA);
         this.dataSourceProd.sort = this.sort;
         this.dataSourceProd.paginator = this.paginator;
+      }, error => {
+        console.log(error);
+      }
+    );
+    this.http1.post<any>(environment.accountCoordinatorApiUrl + `/get-myproduct-details`, {}).subscribe(
+      response =>  {
+        this.MYALL_DATA = response.data;
+        this.dataSourceMyProd = new MatTableDataSource<IMyAll>(this.MYALL_DATA);
+        this.dataSourceMyProd.sort = this.sort;
+        this.dataSourceMyProd.paginator = this.paginator;
       }, error => {
         console.log(error);
       }
