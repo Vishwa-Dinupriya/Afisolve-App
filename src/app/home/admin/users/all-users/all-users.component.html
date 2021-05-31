@@ -29,43 +29,43 @@
 
                 <!-- userEmail Column -->
                 <ng-container matColumnDef="userEmail">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> email</th>
+                  <th mat-header-cell *matHeaderCellDef > email</th>
                   <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
                 </ng-container>
 
                 <!-- password Column -->
                 <ng-container matColumnDef="password">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Password</th>
+                  <th mat-header-cell *matHeaderCellDef > Password</th>
                   <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
                 </ng-container>
 
                 <!-- firstName Column -->
                 <ng-container matColumnDef="firstName">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Firstname</th>
+                  <th mat-header-cell *matHeaderCellDef > Firstname</th>
                   <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
                 </ng-container>
 
                 <!-- lastName Column -->
                 <ng-container matColumnDef="lastName">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Lastname</th>
+                  <th mat-header-cell *matHeaderCellDef > Lastname</th>
                   <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
                 </ng-container>
 
                 <!-- contactNumber Column -->
                 <ng-container matColumnDef="contactNumber">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact-Number</th>
+                  <th mat-header-cell *matHeaderCellDef > Contact-Number</th>
                   <td mat-cell *matCellDef="let element"> {{element.contactNumber}} </td>
                 </ng-container>
 
                 <!-- registered Date Column -->
                 <ng-container matColumnDef="createdAt">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Registered At</th>
+                  <th mat-header-cell *matHeaderCellDef > Registered At</th>
                   <td mat-cell *matCellDef="let element"> {{element.createdAt}} </td>
                 </ng-container>
 
                 <!-- Active status Column -->
                 <ng-container matColumnDef="activeStatus">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header style="justify-content:center;"  > Login Status</th>
+                  <th mat-header-cell *matHeaderCellDef  style="justify-content:center;"  > Login Status</th>
                   <td mat-cell *matCellDef="let element" style="text-align: center" >
                       <span *ngIf="getActiveStatus(element.activeAgo) === 1 " style=" height: 15px; width: 15px;background-color: #01a701 ;border-radius: 50%;display: inline-block;"> </span>
                       <span *ngIf="getActiveStatus(element.activeAgo) === 0 " style=" height: 15px; width: 15px;background-color: #dbbd00 ;border-radius: 50%;display: inline-block;"> </span>
@@ -97,8 +97,8 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
-              <mat-paginator [length]="5" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
-              </mat-paginator>
+<!--              <mat-paginator [length]="5" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">-->
+<!--              </mat-paginator>-->
             </div>
 
             <div *ngIf="progress" class="d-flex my-5 justify-content-center w-100">
