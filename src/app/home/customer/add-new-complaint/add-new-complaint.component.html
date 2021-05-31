@@ -22,6 +22,8 @@
           <mat-form-field class="col-xl-12 h-auto"  appearance="outline">
             <mat-label>Issue/Description</mat-label>
             <textarea placeholder="Enter minimum 10 characters" type="text" matInput formControlName="description" [required]="true"></textarea>
+            <mat-error *ngIf="description.touched && description.errors?.required">This field is required</mat-error>
+            <mat-error *ngIf="description.touched && !description.errors?.required && description.invalid">This field needs at least 10 characters</mat-error>
           </mat-form-field>
 
         </div>
